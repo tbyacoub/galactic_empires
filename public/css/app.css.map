@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.scss"],"names":[],"mappings":"AACA,qEAAY;AAGZ,gEAAO","file":"app.css","sourcesContent":["// Fonts\n@import url(https://fonts.googleapis.com/icon?family=Material+Icons);\n\n// Material Design Lite\n@import \"node_modules/material-design-lite/material.min.css\";"]}
