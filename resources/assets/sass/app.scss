@@ -1,5 +1,9 @@
-// Fonts
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-// Material Design Lite
-@import "node_modules/material-design-lite/material.min.css";
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
