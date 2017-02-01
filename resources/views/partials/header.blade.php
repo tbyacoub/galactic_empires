@@ -63,8 +63,8 @@
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-                            <li><a href="/settings">Account Settings</a></li>
-                            <li><a href="/tutorial">Tutorial/Wiki</a></li>
+                            <li><a href="{{ url('/settings') }}">Account Settings</a></li>
+                            <li><a href="{{ url('/tutorial') }}">Tutorial/Wiki</a></li>
                         </ul>
                     </li>
                 @endif
