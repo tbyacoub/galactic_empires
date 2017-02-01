@@ -15,10 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index');
 
 
 
-Route::get('/users', 'HomeController@getAllUsers');
+// Registration Routes
+Route::get('/register', 'RegistrationController@register');
+Route::post('/register', 'RegistrationController@postRegister');
+
+
+// Login Routes
+Route::get('/login', 'LoginController@login');
+Route::post('/login', 'LoginController@postLogin');
+
+// Logout Route
+Route::post('/logout', 'LoginController@postLogout');
+
+// Admin Routes
+Route::get('/admin', 'AdminController@adminHome')->middleware('admin');
