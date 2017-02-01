@@ -1,0 +1,569 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"btn-",
+				"btn-warning \tBootstrap 3 Class"
+			],
+			[
+				"note",
+				"note"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"formgr",
+				"form-group \tBootstrap 4 Class"
+			],
+			[
+				"col-md-off",
+				"col-md-offset-3 \tBootstrap 3 Class"
+			],
+			[
+				"set",
+				"setVal"
+			],
+			[
+				"incl",
+				"includingVal"
+			],
+			[
+				"largest",
+				"largestIndependentSet"
+			],
+			[
+				"large",
+				"largestIndependentSet"
+			],
+			[
+				"larg",
+				"largestIndependentSet"
+			],
+			[
+				"TIMER1_c",
+				"TIMER1_CTL_R"
+			],
+			[
+				"right",
+				"right_sensor"
+			],
+			[
+				"righ",
+				"right_sensor"
+			],
+			[
+				"s",
+				"SYSCTL_RCGCTIMER_R"
+			],
+			[
+				"le",
+				"leftOvers"
+			],
+			[
+				"Letter",
+				"LETTERS"
+			],
+			[
+				"Let",
+				"LETTERS"
+			],
+			[
+				"let",
+				"LETTERS"
+			],
+			[
+				"Le",
+				"LETTERS"
+			],
+			[
+				"su",
+				"success"
+			],
+			[
+				"char",
+				"charAt"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "instal",
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"migrate",
+				"Laravel Artisan 5: Migrate"
+			],
+			[
+				"artis",
+				"Laravel Artisan 5: Serve"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ar",
+				"Laravel Artisan 5: Serve"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"artisan ser",
+				"Laravel Artisan 5: Serve"
+			],
+			[
+				"makemig",
+				"Laravel Artisan 5: Make:Migration"
+			],
+			[
+				"migrat",
+				"Laravel Artisan 5: Migrate"
+			],
+			[
+				"make:migration",
+				"Laravel Artisan 5: Make:Migration"
+			],
+			[
+				"mi",
+				"Laravel Artisan 5: Migrate"
+			],
+			[
+				"migra",
+				"Laravel Artisan 5: Migrate"
+			],
+			[
+				"controller",
+				"Laravel Artisan 5: Make:Controller"
+			],
+			[
+				"larav",
+				"Laravel Artisan 5: Migrate"
+			],
+			[
+				"",
+				"Material Theme: Activate theme"
+			],
+			[
+				"package control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"mater",
+				"Material Theme: Activate theme"
+			],
+			[
+				"material",
+				"Material Theme: Activate theme"
+			]
+		],
+		"width": 382.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"install package",
+			"\"Material Theme\"",
+			"\"install package\"",
+			"install package",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"install package",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/johnn_000/laravelProjects/secondTry"
+	],
+	"file_history":
+	[
+		"/C/Users/johnn_000/project/app/Console/Kernel.php",
+		"/C/Users/johnn_000/project/app/Http/Controllers/Controller.php",
+		"/C/Users/johnn_000/project/vendor/laravel/framework/src/Illuminate/Foundation/Validation/ValidatesRequests.php",
+		"/C/Users/johnn_000/project/app/Note.php",
+		"/C/Users/johnn_000/project/resources/views/cards/show.blade.php",
+		"/C/Users/johnn_000/project/app/Card.php",
+		"/C/Users/johnn_000/project/app/Http/Controllers/CardsController.php",
+		"/C/Users/johnn_000/project/app/Providers/RouteServiceProvider.php",
+		"/C/Users/johnn_000/project/resources/assets/sass/app.scss",
+		"/C/Users/johnn_000/project/resources/views/layout.blade.php",
+		"/C/Users/johnn_000/project/artisan",
+		"/C/Users/johnn_000/project/resources/views/cards/index.blade.php",
+		"/C/Users/johnn_000/project/routes/web.php",
+		"/C/Users/johnn_000/project/config/database.php",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_26_161345_create_cards_table.php",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_29_004954_create_notes_table.php",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_26_021846_create_notes_table.php",
+		"/C/Users/johnn_000/project/.env",
+		"/C/Users/johnn_000/project/database/database.sqlite",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_26_152759_create_cards_table.php",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_26_151158_create_cards_table.php",
+		"/C/Users/johnn_000/project/database/database.sql",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_26_145602_create_cards_table.php",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_26_000040_create_cards_table.php",
+		"/C/Users/johnn_000/project/node_modules/color-convert/route.js",
+		"/C/Users/johnn_000/project/.env.example",
+		"/C/Users/johnn_000/project/config/view.php",
+		"/C/Users/johnn_000/project/database/migrations/2017_01_25_232908_create_cards_table.php",
+		"/C/Users/johnn_000/project/database/migrations/2014_10_12_100000_create_password_resets_table.php",
+		"/C/Users/johnn_000/project/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/C/Users/johnn_000/Documents/Code/HTML5/Template.html",
+		"/C/php/php.ini",
+		"/C/Apache24/htdocs/info.php",
+		"/C/Users/johnn_000/workspace/311Graphs2/AmesMap.txt",
+		"/C/Users/johnn_000/Desktop/largestIndependentSetPseudo.java",
+		"/C/Users/johnn_000/Desktop/makeChange.java",
+		"/C/Users/johnn_000/Downloads/GraphAlgorithms.java",
+		"/C/Users/johnn_000/Desktop/inits.c",
+		"/C/Users/johnn_000/workspace/311Graphs2/routes2.txt",
+		"/H/DETAILS.TXT",
+		"/C/Recovery.txt",
+		"/C/Users/johnn_000/Documents/NetBeansProjects/228GUI/xboxcontroller64.dll",
+		"/C/Users/johnn_000/Downloads/XboxControllerBase/src/java/ch/aplu/xboxcontroller/ControllerState.java",
+		"/C/Users/johnn_000/workspace/311Graphs2/src/cs311/hw8/graphalgorithms/AmesMap.txt",
+		"/C/Users/johnn_000/AppData/Local/Temp/Temp1_JXInput_0.3.4.zip/JXInput_0.3.4/Readme.txt",
+		"/C/Users/johnn_000/Documents/Code/HTML5/Link.html",
+		"/C/Users/johnn_000/Documents/Code/HTML5/288Code.c",
+		"/C/Users/johnn_000/Downloads/hw3_skeleton/hw3_skeleton/src/api/Util.java",
+		"/C/Users/johnn_000/Downloads/hw3_skeleton/hw3_skeleton/src/hw3/DotsGame.java",
+		"/C/Users/johnn_000/Documents/Hololens/Map1.1/Assets/Scripts/TapToPlaceParent.cs",
+		"/C/Users/johnn_000/Downloads/AstronautManager2.txt",
+		"/C/Users/johnn_000/workspace/311Matrices/src/cs311/hw4/IMatrix.java",
+		"/C/Users/johnn_000/Documents/Hololens/HelloHolograms/App/UnityOverwrite.txt",
+		"/C/Users/johnn_000/Documents/Code/clock_intr.c",
+		"/F/Aero/ClarkY.txt",
+		"/C/Users/johnn_000/Documents/Code/HTML5/Carolyns Project",
+		"/C/Users/johnn_000/Documents/Python/TranspositionCipher.py",
+		"/C/Users/johnn_000/Documents/Python/CaesarCipher.py",
+		"/C/Users/johnn_000/Documents/Python/Test.py",
+		"/C/Users/johnn_000/Documents/HTML5/Template.html",
+		"/C/Users/johnn_000/Downloads/ac6092-100save61 (1)/Installation.txt",
+		"/C/Users/johnn_000/Documents/Python/PassGen.py",
+		"/C/Users/johnn_000/Downloads/CaesarCipher.py",
+		"/C/Users/johnn_000/Downloads/Calculator",
+		"/C/Users/johnn_000/AppData/Local/Temp/Temp1_assignment4.zip/assignment4/LZtrie.java",
+		"/C/Users/johnn_000/AppData/Local/Temp/Temp1_assignment4.zip/assignment4/LZhash.java",
+		"/F/AmusingPreciseNumberCalculator.java",
+		"/F/AmusingPreciseNumber.java",
+		"/F/AmusingLinkedList.java",
+		"/F/ListTests.java",
+		"/F/assignment3(228)/AmusingPreciseNumber.java",
+		"/C/Users/johnn_000/Desktop/src/AmusingLinkedList.java",
+		"/F/Java stuff/Sort.java",
+		"/F/assignment3(228)/AmusingLinkedList.java",
+		"/F/assignment3(228)/ListTests.java",
+		"/C/Users/johnn_000/workspace/assignment2(228)/1,500,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/decreasing-insertionsort-25,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-quicksort-100,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/500,000_ints_in_reverse_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-20,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-quicksort-20,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-quicksort-10,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-10,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-10,000_ints_in_reverse_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-10,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-10,000_ints_all_same.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/20_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/15,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/20,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/50,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-5,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/increasing-insertionsort-20_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/10,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/10,000_ints_in_reverse_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/20,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/5,000_ints_random.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/20_ints_random_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/20,000_ints_in_reverse_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/20,000_ints_all_same.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/10,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/10,000_ints_all_same.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/5,000_ints_all_same.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/5,000_ints_in_order.txt",
+		"/C/Users/johnn_000/workspace/assignment2(228)/5,000_ints_in_reverse_order.txt",
+		"/C/Users/johnn_000/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/johnn_000/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ntoes",
+			"ntoe",
+			"ntoes",
+			"notes",
+			"#define sqlite",
+			"#define SQLITE_CANTOPEN",
+			"= DB",
+			"DB",
+			"homestead",
+			"$cards",
+			"cardscontroller",
+			"env",
+			"ext-mbstring",
+			"mbstring",
+			"extension_dir",
+			"oneway",
+			"Mortensen Road",
+			"orefice",
+			"adj",
+			"wait",
+			"i",
+			"pointer",
+			"arithmetic"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 63.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 115.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "secondTry.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"kernel.p",
+				"app\\Console\\Kernel.php"
+			],
+			[
+				"validatesre",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Validation\\ValidatesRequests.php"
+			],
+			[
+				"controller.",
+				"app\\Http\\Controllers\\Controller.php"
+			],
+			[
+				"show.",
+				"resources\\views\\cards\\show.blade.php"
+			],
+			[
+				"cardscon",
+				"app\\Http\\Controllers\\CardsController.php"
+			],
+			[
+				"create_n",
+				"database\\migrations\\2017_01_29_004954_create_notes_table.php"
+			],
+			[
+				"notescon",
+				"app\\Http\\Controllers\\NotesController.php"
+			],
+			[
+				"we",
+				"routes\\web.php"
+			],
+			[
+				"artis",
+				"artisan"
+			],
+			[
+				"app.s",
+				"resources\\assets\\sass\\app.scss"
+			],
+			[
+				"layout",
+				"resources\\views\\layout.blade.php"
+			],
+			[
+				"cards/sh",
+				"resources\\views\\cards\\show.blade.php"
+			],
+			[
+				"routes",
+				"app\\Providers\\RouteServiceProvider.php"
+			],
+			[
+				"cards/i",
+				"resources\\views\\cards\\index.blade.php"
+			],
+			[
+				"show.b",
+				"resources\\views\\cards\\show.blade.php"
+			],
+			[
+				"cardscont",
+				"app\\Http\\Controllers\\CardsController.php"
+			],
+			[
+				"note.",
+				"app\\Note.php"
+			],
+			[
+				"create_notes",
+				"database\\migrations\\2017_01_29_004954_create_notes_table.php"
+			],
+			[
+				"databas",
+				"config\\database.php"
+			],
+			[
+				"card.p",
+				"app\\Card.php"
+			],
+			[
+				"data",
+				"config\\database.php"
+			],
+			[
+				"web",
+				"routes\\web.php"
+			],
+			[
+				"rout",
+				"node_modules\\color-convert\\route.js"
+			],
+			[
+				"database",
+				"config\\database.php"
+			],
+			[
+				"view",
+				"config\\view.php"
+			],
+			[
+				"cards/",
+				"resources\\views\\cards\\index.blade.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 251.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
