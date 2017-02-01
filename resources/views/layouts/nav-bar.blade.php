@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Galactic Empires</a>
+            <a class="navbar-brand" href="/home">Galactic Empires</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

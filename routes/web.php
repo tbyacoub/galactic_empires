@@ -15,21 +15,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => 'visitors'], function(){
+    // Registration Routes
+    Route::get('/register', 'RegistrationController@register');
+    Route::post('/register', 'RegistrationController@postRegister');
+
+
+    // Login Routes
+    Route::get('/login', 'LoginController@login');
+    Route::post('/login', 'LoginController@postLogin');
+});
 
 
 
-// Registration Routes
-Route::get('/register', 'RegistrationController@register');
-Route::post('/register', 'RegistrationController@postRegister');
-
-
-// Login Routes
-Route::get('/login', 'LoginController@login');
-Route::post('/login', 'LoginController@postLogin');
 
 // Logout Route
 Route::post('/logout', 'LoginController@postLogout');
 
 // Admin Routes
 Route::get('/admin', 'AdminController@adminHome')->middleware('admin');
+
+// Player Routes
+Route::get('/player', 'PlayerController@playerHome')->middleware('players');
+
+// Activation
+Route::get('/activate/{email}/{activationCode}', 'ActivationController@activate');

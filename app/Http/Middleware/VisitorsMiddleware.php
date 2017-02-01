@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Sentinel;
 
-class AdminMiddleware
+class VisitorsMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,10 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // Authenticate User
-        // Check User Role == Admin
-        if(Sentinel::check() && Sentinel::getUser()->roles()->first()->slug == 'admin'){
-
+        if(!Sentinel::check()){
             return $next($request);
-            //\Log::info('role', ['role' => Sentinel::getUser()->roles()->first()->slug]);
         }else{
-            return redirect('/');
+            return redirect('/home');
         }
     }
 }
