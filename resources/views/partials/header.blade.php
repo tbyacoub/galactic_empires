@@ -24,20 +24,23 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge">3</span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Notification 1</a></li>
-                        <li><a href="#">Notification 2</a></li>
-                        <li><a href="#">Notification 3</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages <span class="badge">1</span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Message 1</a></li>
-                    </ul>
-                </li>
+                <!-- Account notification system -->
+                @if(!Auth::guest())
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge">3</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Notification 1</a></li>
+                            <li><a href="#">Notification 2</a></li>
+                            <li><a href="#">Notification 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages <span class="badge">1</span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Message 1</a></li>
+                        </ul>
+                    </li>
+                @endif
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">Login</a></li>
