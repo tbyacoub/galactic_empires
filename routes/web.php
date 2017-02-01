@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+Route::group(['middleware' => ['admin']], function (){
+
+    Route::get('/admin/game-settings', 'GameSettingsController@index');
+
+    Route::get('/admin/player-list', 'PlayerListController@index');
+
+    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
+
+});

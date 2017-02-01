@@ -15,9 +15,9 @@
     @endif
     @if(Auth::user()->hasRole('admin'))
         <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Players List</a></li>
-            <li><a href="#">Game Settings</a></li>
-            <li><a href="#">Push News</a></li>
+            <li class="active"><a href="/admin/player-list">Players List</a></li>
+            <li><a href="/admin/game-settings">Game Settings</a></li>
+            <li><a href="/admin/push-notifications">Push Notifications</a></li>
         </ul>
     @endif
 </div>
