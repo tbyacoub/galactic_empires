@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ URL::asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/bootstrap-notifications.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
