@@ -2,13 +2,16 @@
 
 @section('content')
 
-    <div class="container-fluid">
-        <div class="row">
-            @include('partials.sidebar')
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                @yield('sub-content')
-            </div>
-        </div>
-    </div>
+    @<!--sidebar start-->
+    @include('partials.sidebar')
+    <!--sidebar end-->
+
+    <!--sub content start-->
+    @yield('sub-content')
+    <!--sub content end-->
+
+    <!--footer start-->
+    @include('partials.footer')
+    <!--footer end-->
 
 @endsection

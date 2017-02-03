@@ -10,28 +10,35 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link href="{{ URL::asset('/css/app.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/dashboard.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/bootstrap-notifications.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('css/lineicons/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
     </script>
 </head>
 <body>
 <div id="app">
+    <!--header start-->
     @include('partials.header')
+    <!--header end-->
 
+        <!--main content start-->
     @yield('content')
-
-    @include('partials.footer')
+    <!--main content end-->
 </div>
 
-<!-- Scripts -->
+<!-- js placed at the end of the document so the pages load faster -->
 <script src="{{ URL::asset('js/app.js') }}"></script>
+<script src="{{ URL::asset('js/jquery.dcjqaccordion.2.7.js') }}"></script>
+<script src="{{ URL::asset('js/jquery.scrollTo.min.js') }}"></script>
+<script src="{{ URL::asset('js/jquery.nicescroll.js') }}"></script>
+<script src="{{ URL::asset('js/common-scripts.js') }}"></script>
+
 </body>
 </html>
