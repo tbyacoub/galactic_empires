@@ -36,6 +36,11 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+
+        'admin' => [
+            'auth',
+            'role:admin'
+        ],
     ];
 
     /**
@@ -52,8 +57,14 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+<<<<<<< HEAD
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'visitors' => \App\Http\Middleware\VisitorsMiddleware::class,
         'players' => \App\Http\Middleware\PlayersMiddleware::class,
+=======
+        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
+        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+>>>>>>> master
     ];
 }

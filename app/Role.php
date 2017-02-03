@@ -2,6 +2,7 @@
 
 namespace App;
 
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -11,4 +12,11 @@ class Role extends Model
     ];
 
 
+=======
+use Zizaco\Entrust\EntrustRole;
+
+class Role extends EntrustRole
+{
+    //
+>>>>>>> master
 }
