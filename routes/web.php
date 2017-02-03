@@ -20,12 +20,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 
-Route::group(['middleware' => ['role:admin']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
 
-    Route::get('/admin/game-settings', 'GameSettingsController@index');
+    Route::get('game-settings', 'GameSettingsController@index');
 
-    Route::get('/admin/player-list', 'PlayerListController@index');
+    Route::get('players-list', 'PlayerListController@index');
 
-    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
+    Route::get('push-notification', 'PushNotificationsController@index');
 
 });
