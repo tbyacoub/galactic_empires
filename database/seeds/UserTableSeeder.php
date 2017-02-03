@@ -13,7 +13,6 @@ class UserTableSeeder extends Seeder
 
     private $admin;
 
-    private $count = 0;
     /**
      * Run the database seeds.
      *
@@ -26,19 +25,20 @@ class UserTableSeeder extends Seeder
         $this->suspendedPlayer = \App\Role::where('name', 'premium-player')->get()[0];
         $this->premiumPlayer = \App\Role::where('name', 'suspended-player')->get()[0];
 
-        factory(\App\User::class, 50)->create()->each(function ($u){
-            switch (($this->count % 3)){
-                case 1:
-                    $u->attachRole($this->player);
-                    break;
-                case 2:
-                    $u->attachRole($this->player);
-                    break;
-                case 3:
-                    $u->attachRole($this->player);
-                    break;
-            }
+        factory(\App\User::class, 5)->create()->each(function ($u){
+            $u->attachRole($this->admin);
+        });
 
+        factory(\App\User::class, 50)->create()->each(function ($u){
+            $u->attachRole($this->activatedPlayer);
+        });
+
+        factory(\App\User::class, 5)->create()->each(function ($u){
+            $u->attachRole($this->suspendedPlayer);
+        });
+
+        factory(\App\User::class, 10)->create()->each(function ($u){
+            $u->attachRole($this->premiumPlayer);
         });
 
         $adminUser = new \App\User();
@@ -47,12 +47,5 @@ class UserTableSeeder extends Seeder
         $adminUser->password = (bcrypt('password'));
         $adminUser->save();
         $adminUser->attachRole($this->admin);
-
-        $playerUser = new \App\User();
-        $playerUser->name = 'test';
-        $playerUser->email = 'test@test.com';
-        $playerUser->password = bcrypt('password');
-        $playerUser->save();
-        $playerUser->attachRole($this->player);
     }
 }

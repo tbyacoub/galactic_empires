@@ -14,6 +14,7 @@ class EntrustSeeder extends Seeder
         $admin = $this->adminRole();
         $activatedPlayer = $this->playerRole();
         $suspendedPlayer = $this->suspendedPlayerRole();
+        $premiumPlayer = $this->premiumPlayer();
         $vpl = $this->viewPlayerList();
         $vgs = $this->viewGameSettings();
         $pn = $this->pushNotifications();

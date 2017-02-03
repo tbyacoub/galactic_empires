@@ -13,7 +13,7 @@ class CreateGameDatabase extends Migration
      */
     public function up()
     {
-        Schema::create('SolarSystems', function (Blueprint $table){
+        Schema::create('solar_systems', function (Blueprint $table){
             $table->increments('id');
             $table->string('name')->unique();
             $table->tinyInteger('max_planets');
@@ -21,7 +21,7 @@ class CreateGameDatabase extends Migration
             $table->timestamps();
         });
 
-        Schema::create('PlanetTypes', function (Blueprint $table){
+        Schema::create('planet_types', function (Blueprint $table){
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('type');
@@ -29,7 +29,7 @@ class CreateGameDatabase extends Migration
             $table->timestamps();
         });
 
-        Schema::create('Planets', function (Blueprint $table) {
+        Schema::create('planets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->float('radius', 10, 2);
@@ -48,8 +48,8 @@ class CreateGameDatabase extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Planets');
-        Schema::dropIfExists('PlanetTypes');
-        Schema::dropIfExists('SolarSystems');
+        Schema::dropIfExists('planets');
+        Schema::dropIfExists('planet_types');
+        Schema::dropIfExists('solar_systems');
     }
 }
