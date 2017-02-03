@@ -5,9 +5,15 @@ use Illuminate\Database\Seeder;
 class UserTableSeeder extends Seeder
 {
 
-    private $player;
+    private $activatedPlayer;
+
+    private $suspendedPlayer;
+
+    private $premiumPlayer;
 
     private $admin;
+
+    private $count = 0;
     /**
      * Run the database seeds.
      *
@@ -16,11 +22,23 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         $this->admin = \App\Role::where('name', 'admin')->get()[0];
-        $this->player = \App\Role::where('name', 'player')->get()[0];
+        $this->activatedPlayer = \App\Role::where('name', 'player')->get()[0];
+        $this->suspendedPlayer = \App\Role::where('name', 'premium-player')->get()[0];
+        $this->premiumPlayer = \App\Role::where('name', 'suspended-player')->get()[0];
 
         factory(\App\User::class, 50)->create()->each(function ($u){
-//            $player = \App\Role::where('name', 'player')->get()[0];
-            $u->attachRole($this->player);
+            switch (($this->count % 3)){
+                case 1:
+                    $u->attachRole($this->player);
+                    break;
+                case 2:
+                    $u->attachRole($this->player);
+                    break;
+                case 3:
+                    $u->attachRole($this->player);
+                    break;
+            }
+
         });
 
         $adminUser = new \App\User();

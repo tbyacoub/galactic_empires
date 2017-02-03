@@ -12,14 +12,14 @@ class EntrustSeeder extends Seeder
     public function run()
     {
         $admin = $this->adminRole();
-        $player = $this->playerRole();
+        $activatedPlayer = $this->playerRole();
+        $suspendedPlayer = $this->suspendedPlayerRole();
         $vpl = $this->viewPlayerList();
         $vgs = $this->viewGameSettings();
         $pn = $this->pushNotifications();
         $this->attachPermission($admin, $vpl);
         $this->attachPermission($admin, $vgs);
         $this->attachPermission($admin, $pn);
-
     }
 
     private function adminRole()
@@ -38,6 +38,26 @@ class EntrustSeeder extends Seeder
         $player->name = 'player';
         $player->display_name = 'Player';
         $player->description  = 'User is allowed to manage and edit his own settings';
+        $player->save();
+        return $player;
+    }
+
+    private function premiumPlayer()
+    {
+        $player = new \App\Role();
+        $player->name = 'premium-player';
+        $player->display_name = 'Premium Player';
+        $player->description  = 'User is allowed to manage and edit his own settings, with extra perks';
+        $player->save();
+        return $player;
+    }
+
+    private function suspendedPlayerRole()
+    {
+        $player = new \App\Role();
+        $player->name = 'suspended-player';
+        $player->display_name = 'Suspended Player';
+        $player->description  = 'User is not allowed to play';
         $player->save();
         return $player;
     }
