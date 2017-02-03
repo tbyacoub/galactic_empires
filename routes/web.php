@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 
-Route::group(['middleware' => ['admin']], function (){
+Route::group(['middleware' => ['role:admin']], function (){
 
     Route::get('/admin/game-settings', 'GameSettingsController@index');
 
