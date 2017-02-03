@@ -12,9 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+Route::group(['middleware' => ['role:admin']], function (){
+
+    Route::get('/admin/game-settings', 'GameSettingsController@index');
+
+    Route::get('/admin/player-list', 'PlayerListController@index');
+
+    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
+
+});

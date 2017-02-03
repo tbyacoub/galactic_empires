@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Planet;
+use App\PlanetType;
+use App\SolarSystem;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +28,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $planets = Planet::all()->count();
+        $users = User::all()->count();
+        $solarSystems = SolarSystem::all()->count();
+        $planetTypes = PlanetType::all()->count();
+        $planetsOwened = Auth::user()->planets()->count();
+        return view('home', compact(
+            'planets',
+            'users',
+            'solarSystems',
+            'planetTypes',
+            'planetsOwened'
+        ));
     }
 }
