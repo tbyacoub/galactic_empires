@@ -70,17 +70,19 @@
                 </a>
             </li>
 
-            <li class="sub-menu">
-                <a href="javascript:" >
-                    <i class="fa fa-desktop"></i>
-                    <span>Admin</span>
-                </a>
-                <ul class="sub">
-                    <li><a  href="{{ url('/admin/players-list') }}">Players List</a></li>
-                    <li><a  href="{{ url('/admin/game-settings') }}">Game Settings</a></li>
-                    <li><a  href="{{ url('/admin/push-notification') }}">Push Notification</a></li>
-                </ul>
-            </li>
+            @if(Auth::user()->hasRole('admin'))
+                <li class="sub-menu">
+                    <a href="javascript:" >
+                        <i class="fa fa-desktop"></i>
+                        <span>Admin</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="{{ url('/admin/players-list') }}">Players List</a></li>
+                        <li><a  href="{{ url('/admin/game-settings') }}">Game Settings</a></li>
+                        <li><a  href="{{ url('/admin/push-notification') }}">Push Notification</a></li>
+                    </ul>
+                </li>
+            @endif
 
         </ul>
         <!-- sidebar menu end-->

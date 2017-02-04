@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class PlayerListController extends Controller
 {
@@ -19,7 +20,20 @@ class PlayerListController extends Controller
 
     public function index()
     {
-        return view('admin.player-list');
+        $all = User::all();
+        $users = array();
+
+        foreach($all as $user){
+            $roles = $user->cachedRoles();
+            foreach($roles as $r){
+                $role = $r->display_name;
+            }
+
+            $user->role = $role;
+            array_push($users, $user);
+        }
+
+        return view('admin.players-list', compact('users'));
     }
 
 }
