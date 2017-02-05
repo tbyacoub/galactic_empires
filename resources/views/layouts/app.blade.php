@@ -13,7 +13,6 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('css/lineicons/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
 
@@ -24,13 +23,18 @@
 </head>
 <body>
 <div id="app">
-    <!--header start-->
-    @include('partials.header')
-    <!--header end-->
+    <section id="container" >
 
-        <!--main content start-->
-    @yield('content')
-    <!--main content end-->
+        <!--header start-->
+        @include('partials.header')
+        <!--header end-->
+
+        {{-- dashboard start --}}
+        @yield('content')
+        {{-- dasboard end--}}
+
+    </section>
+
 </div>
 
 <!-- js placed at the end of the document so the pages load faster -->

@@ -2,29 +2,23 @@
 
 @section('content')
 
-    @<!--sidebar start-->
+    <!--sidebar start-->
     @include('partials.sidebar')
     <!--sidebar end-->
 
-    {{--<!--sub content start-->--}}
-    {{--@yield('sub-content')--}}
-    {{--<!--sub content end-->--}}
-
+    <!--main content start-->
     <section id="main-content">
-        <section class="wrapper">
-
-            <div class="row">
-                <div class="col-lg-9 main-chart">
+        <section class="wrapper site-min-height">
+            <div class="row mt">
+                <div class="col-lg-9">
                     @yield('sub-content')
-                </div><!-- /col-lg-9 END SECTION MIDDLE -->
-
-                {{-- Right sidebar start --}}
+                </div>
                 @include('partials.right-sidebar')
-                {{-- Right sidebar end --}}
-            </div><! --/row -->
+            </div>
 
         </section>
     </section>
+    <!--main content end-->
 
     <!--footer start-->
     @include('partials.footer')
