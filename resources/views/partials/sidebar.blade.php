@@ -79,7 +79,7 @@
                     <ul class="sub">
                         <li><a  href="{{ url('/admin/players-list') }}">Players List</a></li>
                         <li><a  href="{{ url('/admin/game-settings') }}">Game Settings</a></li>
-                        <li><a  href="{{ url('/admin/push-notification') }}">Push Notification</a></li>
+                        <li><a  href="{{ url('/admin/push-notifications') }}">Push Notification</a></li>
                     </ul>
                 </li>
             @endif
