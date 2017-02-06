@@ -19,6 +19,10 @@ body {
     font-size:13px;
 }
 
+#auth-container {
+    margin-top: 100px;
+}
+
 ul li {
     list-style: none;
 }
@@ -315,7 +319,7 @@ ul.sidebar-menu li ul.sub li.active a {
 
 ul.sidebar-menu li{
     /*line-height: 20px !important;*/
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     margin-left:10px;
     margin-right:10px;
 }
@@ -1285,11 +1289,72 @@ PANELS CONFIGURATIONS
 	border-radius: 100%;
 }
 
+/* Soptify Panel */
+#spotify {
+	background: url(../img/lorde.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 220px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#spotify .btn-clear-g {
+	top: 15%;
+	right: 10px;
+	position: absolute;
+	margin-top: 5px;
+}
+#spotify .sp-title {
+	bottom: 15%;
+	left: 25px;
+	position: absolute;
+	color: #efefef;
+}
+#spotify .sp-title h3 {
+	font-weight: 900;
+}
+#spotify .play{
+	bottom: 18%;
+	right: 25px;
+	position: absolute;
+	color: #efefef;
+	font-size: 20px
+}
 .followers {
 	margin-left: 5px;
 	margin-top: 5px;
 }
 
+/* BLOG PANEL */
+#blog-bg {
+	background: url(../img/blog-bg.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 150px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#blog-bg .badge {
+	position: absolute;
+	top: 20px;
+	left: 35px;
+}
 .badge-popular {
 	background: #3498db;
 	width: 70px;
@@ -1391,6 +1456,94 @@ PANELS CONFIGURATIONS
   border: 2px solid #96c93c;
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAHCAYAAAA1WQxeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGFJREFUeNpinHLMhgEHKADia0xQThIQs6JJ9gPxZhYQAcS6QHwDiI8hSYJAC0gBPxDLAvFcIJ6JJJkDxFNBVtgBcQ8Qa6BLghgwN4A4a9ElQYAFSj8C4mwg3o8sCQIAAQYA78QTYqnPZuEAAAAASUVORK5CYII=') no-repeat center center;
 }
+
+/* PROFILE PANELS */
+/* Profile 01*/
+#profile-01 {
+	background: url(../img/profile-01.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 150px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#profile-01 h3 {
+	color: white;
+	padding-top: 50px;
+	margin: 0px;
+	text-align: center;
+}
+#profile-01 h6 {
+	color: white;
+	text-align: center;
+	margin-bottom: 0px;
+	font-weight: 900;
+}
+.profile-01 {
+	background: #68dff0;
+	height: 50px;
+}
+.profile-01:hover {
+	background: #2f2f2f;
+  -webkit-transition: background-color 0.6s;
+  -moz-transition: background-color 0.6s;
+  -o-transition: background-color 0.6s;
+  transition: background-color 0.6s;
+  cursor: pointer;
+}
+.profile-01 p {
+	color: white;
+	padding-top: 15px;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+/* Profile 02*/
+#profile-02 {
+	background: url(../img/profile-02.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 200px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#profile-02 .user {
+	padding-top: 40px;
+	text-align: center;
+}
+#profile-02 h4 {
+	color: white;
+	margin:0px;
+	padding-top: 8px;
+}
+.pr2-social a {
+	color: #cdcdcd;
+}
+.pr2-social a:hover {
+	color: #68dff0;
+}
+.pr2-social i {
+	margin-top: 15px;
+	margin-right: 12px;
+	font-size: 20px;
+}
+
 
 /*spark line*/
 .chart {
@@ -2061,7 +2214,4 @@ label {
     min-height: 900px;
 }
 
-#auth-container {
-    margin-top: 100px;
-}
 
