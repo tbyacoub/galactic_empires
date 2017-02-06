@@ -9,13 +9,9 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <div class="row mt">
-                <div class="col-lg-9">
-                    @yield('sub-content')
-                </div>
-                @include('partials.right-sidebar')
+            <div class="col-lg-12">
+                @yield('sub-content')
             </div>
-
         </section>
     </section>
     <!--main content end-->
