@@ -60,12 +60,16 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data) //<------------------------------------------------------------------------
     {
-        return User::create([
+         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $planet = Planet::inRandomOrder()->first();      
+        $user->assignPlanet($planet);
+        return $user;
     }
 }

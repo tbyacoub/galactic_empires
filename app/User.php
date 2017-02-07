@@ -34,4 +34,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Planet');
     }
+
+    public function assignPlanet($Planet $planet) //<-------------------------------------------
+    {
+        $planet->user_id = $this.id;
+    }
+
 }
