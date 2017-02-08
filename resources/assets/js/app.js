@@ -13,6 +13,7 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('inbox', require('./components/inbox.vue'));
 
 const app = new Vue({
     el: '#app'

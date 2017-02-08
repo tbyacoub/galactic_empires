@@ -27,11 +27,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token'
     ];
 
     public function planets()
     {
         return $this->hasMany('App\Planet');
+    }
+
+    public function incomingMessages()
+    {
+        return $this->hasMany('App\PrivateMessage', 'receiver_id');
+    }
+
+    public function outgoingMessages()
+    {
+        return $this->hasMany('App\PrivateMessage', 'sender_id');
     }
 }

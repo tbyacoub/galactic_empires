@@ -17,7 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'auth'], function (){
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::get('/inbox', 'PrivateMessageController@index');
+
+});
+
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
@@ -29,3 +36,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
     Route::get('push-notification', 'PushNotificationsController@index');
 
 });
+
+Route::group(['prefix' => 'api/msg', 'middleware' => 'auth'], function (){
+
+    Route::get('get-private-message-notifications', 'privateMessageController@getUserNotifications');
+
+});
+
+
+//Route::get('get-private-messages', 'privateMessageController@getPrivateMessages');
+//Route::get('get-private-message/{user}', 'privateMessageController@getPrivateMessageById');
+//Route::get('get-private-message-sent', 'privateMessageController@getPrivateMessageSent');
+//Route::post('send-private-message', 'privateMessageController@sendPrivateMessage');

@@ -19,6 +19,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'api_token' => str_random(60),
     ];
 });
 
@@ -52,6 +53,18 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\PrivateMessage::class, function (Faker\Generator $faker) {
+
+    return [
+        'sender_id' => App\User::all()->random()->id,
+        'receiver_id' => App\User::all()->random()->id,
+        'subject' => $faker->word,
+        'message' => $faker->text($maxNbChars = 200),
+        'read' => false
+
+    ];
+});
+
 function createLocation($faker)
 {
     $json = array();
@@ -68,6 +81,5 @@ function createReso($faker)
         "silver" => $faker->randomNumber($nbDigits = 5),
         "wood" => $faker->randomNumber($nbDigits = 5)
     ];
-    echo json_encode($json);
     return $json;
 }
