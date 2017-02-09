@@ -42,8 +42,8 @@ class UserTableSeeder extends Seeder
         });
 
         $adminUser = new \App\User();
-        $adminUser->name = 'tbyacoub';
-        $adminUser->email = 'tbyacoub@gmail.com';
+        $adminUser->name = 'Jorefice';
+        $adminUser->email = 'jorefice@iastate.edu';
         $adminUser->password = (bcrypt('password'));
         $adminUser->save();
         $adminUser->attachRole($this->admin);

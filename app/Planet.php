@@ -34,4 +34,9 @@ class Planet extends Model
     {
         return $this->belongsTo('App\PlanetType');
     }
+
+    public function User()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
