@@ -38,6 +38,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Planet');
     }
 
+
     public function planetsCount(){
         return count($this->planets()->get());
     }
@@ -74,14 +75,21 @@ class User extends Authenticatable
      *
      * @return array
      */
-    public function userResourcesTotal(){
+    public function userResourcesTotal()
+    {
         $total = ['metal' => 0, 'energy' => 0, 'wood' => 0];
         $planets = $this->planets()->get();
-        foreach ($planets as $planet){
+        foreach ($planets as $planet) {
             $total['metal'] += $planet->metal();
             $total['wood'] += $planet->wood();
             $total['energy'] += $planet->energy();
         }
         return $total;
+    }
+
+    public function addPlanet(Planet $planet)
+    {
+        $planet->user_id = $this->userId;
+        return $this->planets()->save($planet);
     }
 }
