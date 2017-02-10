@@ -34,4 +34,31 @@ class Planet extends Model
     {
         return $this->belongsTo('App\PlanetType');
     }
+
+    /**
+     * Sum of all planet's metal belonging to this User.
+     *
+     * @return integer
+     */
+    public function metal(){
+        return $this->resouces['metal'];
+    }
+
+    /**
+     * Sum of all planet's wood belonging to this User.
+     *
+     * @return integer
+     */
+    public function wood(){
+        return $this->planets()->sum('wood');
+    }
+
+    /**
+     * Sum of all planet's energy belonging to this User.
+     *
+     * @return integer
+     */
+    public function energy(){
+        return $this->planets()->sum('energy');
+    }
 }

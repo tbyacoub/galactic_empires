@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 
 class PushNotificationsController extends Controller
 {
@@ -17,9 +18,30 @@ class PushNotificationsController extends Controller
         $this->middleware('permission:push-notification');
     }
 
+    /**
+     * Return the admin view for push-notifications.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        return view('admin.push-notifications');
+        // Get all the posts.
+        $posts = Post::all();
+
+        return view('admin.push-notifications', compact('posts'));
+    }
+
+    /**
+     * Submit a new post.
+     *
+     * @param Request $request
+     */
+    public function submit(Request $request){
+
+        $data = $request->all();
+
+        $post = Post::createPost($data);
+
+        dd($post);
     }
 
 }

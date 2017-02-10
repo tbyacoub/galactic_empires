@@ -45,7 +45,9 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
-        'resources' => createReso($faker),
+        'metal' => $faker->randomNumber($nbDigits = 5),
+        'wood' => $faker->randomNumber($nbDigits = 5),
+        'energy' => $faker->randomNumber($nbDigits = 5),
         'solarSystem_id' => \App\SolarSystem::all()->random()->id,
         'planetType_id' => \App\PlanetType::all()->random()->id,
         'user_id' => \App\User::all()->random()->id
@@ -61,13 +63,13 @@ function createLocation($faker)
     return $json;
 }
 
-function createReso($faker)
-{
-    $json = [
-        "gold" => $faker->randomNumber($nbDigits = 5),
-        "silver" => $faker->randomNumber($nbDigits = 5),
-        "wood" => $faker->randomNumber($nbDigits = 5)
-    ];
-    echo json_encode($json);
-    return $json;
-}
+//function createReso($faker)
+//{
+//    $json = [
+//        "gold" => $faker->randomNumber($nbDigits = 5),
+//        "silver" => $faker->randomNumber($nbDigits = 5),
+//        "wood" => $faker->randomNumber($nbDigits = 5)
+//    ];
+//    echo json_encode($json);
+//    return $json;
+//}

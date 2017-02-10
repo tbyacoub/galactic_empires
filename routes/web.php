@@ -19,13 +19,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('game-settings', 'GameSettingsController@index');
+Route::group(['middleware' => ['role:admin']], function (){
 
-Route::get('/admin/players-list', 'PlayerListController@index');
+    /*
+     * Route group for admin views.
+     */
+    Route::get('/admin/game-settings', 'GameSettingsController@index');
+    Route::get('/admin/players-list', 'PlayerListController@index');
+    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
 
-Route::get('players-list', 'PlayerListController@index');
-
-Route::get('push-notification', 'PushNotificationsController@index');
-
+    /*
+     * Route group for admin requests.
+     */
+    Route::post('admin/posts/submit', 'PushNotificationsController@submit');
 });
-
