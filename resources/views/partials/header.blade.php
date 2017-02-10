@@ -13,7 +13,7 @@
     @if(Auth::user())
         <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
-        <inbox></inbox>
+        <notification></notification>
         <!--  notification end -->
         </div>
     @endif

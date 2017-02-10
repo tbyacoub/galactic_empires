@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
          $this->call(EntrustSeeder::class);
          $this->call(UserTableSeeder::class);
          $this->call(PlanetSeeder::class);
-         $this->call(PrivateMessageSeeder::class);
+         $this->call(MailSeeder::class);
     }
 
 

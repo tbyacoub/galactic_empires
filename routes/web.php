@@ -15,6 +15,7 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function (){
@@ -25,7 +26,24 @@ Route::group(['middleware' => 'auth'], function (){
 
 });
 
+Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
 
+    Route::get('/', 'MailController@index');
+
+    Route::get('/sent', 'MailController@sentIndex');
+
+    Route::get('/create', 'MailController@create');
+
+    Route::post('/', 'MailController@store');
+
+    Route::get('/{mail}', 'MailController@show');
+
+    Route::delete('/{mail}', 'MailController@destroy');
+
+    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
+
+    Route::post('/api', 'MailController@mailApi');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
 
@@ -34,12 +52,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
     Route::get('players-list', 'PlayerListController@index');
 
     Route::get('push-notification', 'PushNotificationsController@index');
-
-});
-
-Route::group(['prefix' => 'api/msg', 'middleware' => 'auth'], function (){
-
-    Route::get('get-private-message-notifications', 'privateMessageController@getUserNotifications');
 
 });
 

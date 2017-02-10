@@ -35,13 +35,22 @@ class User extends Authenticatable
         return $this->hasMany('App\Planet');
     }
 
-    public function incomingMessages()
+    public function incomingMail()
     {
-        return $this->hasMany('App\PrivateMessage', 'receiver_id');
+        return $this->hasMany('App\Mail', 'receiver_id');
     }
 
-    public function outgoingMessages()
+    public function outgoingMail()
     {
-        return $this->hasMany('App\PrivateMessage', 'sender_id');
+        return $this->hasMany('App\Mail', 'sender_id');
+    }
+
+    public function unReadMail()
+    {
+        return $this->incomingMail()
+            ->where('read', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
     }
 }

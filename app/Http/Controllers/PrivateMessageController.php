@@ -9,6 +9,24 @@ use Illuminate\Http\Request;
 class PrivateMessageController extends Controller
 {
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'sender_id', 'receiver_id', 'subject', 'message', 'read', 'favorite'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'sender_id', 'receiver_id',
+    ];
+
     public function index(Request $request)
     {
         $messages = $request->user()->incomingMessages()

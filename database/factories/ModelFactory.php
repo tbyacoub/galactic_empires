@@ -53,15 +53,15 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\PrivateMessage::class, function (Faker\Generator $faker) {
+$factory->define(App\Mail::class, function (Faker\Generator $faker) {
 
     return [
         'sender_id' => App\User::all()->random()->id,
         'receiver_id' => App\User::all()->random()->id,
         'subject' => $faker->word,
         'message' => $faker->text($maxNbChars = 200),
-        'read' => false
-
+        'read' => false,
+        'favorite' => false
     ];
 });
 

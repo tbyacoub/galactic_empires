@@ -1,58 +1,66 @@
 <template>
-    <ul class="nav top-menu">
-        <li id="header_inbox_bar" class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                <i class="fa fa-envelope-o"></i>
-                <span class="badge bg-theme">{{ messages.length }}</span>
-            </a>
-            <ul class="dropdown-menu extended inbox">
-                <div class="notify-arrow notify-arrow-green"></div>
-                <li>
-                    <p class="green">You have {{ messages.length }} new messages</p>
-                </li>
-                <li v-for="message in messages">
-                    <a href="index.html#">
-                        <span class="photo"><img alt="avatar" src="/img/ui-zac.jpg"></span>
-                        <span class="subject">
-                                    <span class="from">{{ message.sender.name }}</span>
-                                    <span class="time">{{ message.created_at }}</span>
-                                    </span>
-                        <span class="message">
-                            {{ message.subject }}
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/inbox">See all messages</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</template>
+    <div>
 
-<style></style>
+        <div class="mail-option">
+            <div class="btn-group hidden-phone">
+                <a data-toggle="dropdown" href="#" class="btn mini blue">
+                    Edit
+                    <i class="fa fa-angle-down "></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" @click="mailApi('read')"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                    <li><a href="#" @click="mailApi('un-read')"><i class="fa fa-ban"></i> Mark as Unread</a></li>
+                    <li><a href="#" @click="mailApi('favorite')"><i class="fa fa-star"></i> Mark as Favorite</a></li>
+                    <li><a href="#" @click="mailApi('un-favorite')"><i class="fa fa-star"></i> Remove Favorite</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" @click="mailApi('delete')"><i class="fa fa-trash-o"></i> Delete</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="table-inbox-wrap ">
+            <table class="table table-inbox table-hover">
+                <tbody>
+                <tr v-for="mail in mails" :class="[mail.read ? '':'unread']">
+                    <td class="inbox-small-cells">
+                        <input type="checkbox" class="mail-checkbox" :value="mail.id" v-model="checkedMail">
+                    </td>
+                    <td class="inbox-small-cells">
+                        <i class="fa fa-star" :class="[mail.favorite ? 'inbox-started':'']"></i>
+                    </td>
+                    <td class="view-message dont-show">
+                        <a :href="'/mail/' + mail.id">{{mail.sender.name}}</a>
+                    </td>
+                    <td class="view-message"><a :href="'/mail/' + mail.id">{{mail.subject}}</a></td>
+                    <td class="view-message text-right">{{mail.created_at}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
 
 <script>
     export default{
         data(){
             return{
-                messages: [],
+                checkedMail: [],
+            }
+        },
+        props: {
+            mails: {
+                type: Array,
+                required: true
             }
         },
         methods: {
-            getInbox: function() {
-                this.$http.get('/api/msg/get-private-message-notifications').then(response => {
-                    this.messages = response.body;
+            mailApi: function(method){
+                this.$http.post('/mail/api', {'method': method, 'checked':this.checkedMail}).then(response => {
+                    console.log(response);
                 }, response => {
                     console.log(response);
                 });
-            }
-        },
-        components:{
-
-        },
-        beforeMount() {
-            this.getInbox();
+            },
         }
     }
 </script>

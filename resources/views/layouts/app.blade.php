@@ -12,13 +12,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
-    {{--<link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />--}}
 
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
     </script>
 </head>
+
 <body>
 <div id="app">
     <section id="container" >

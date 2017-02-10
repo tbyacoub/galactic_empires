@@ -27,7 +27,6 @@ require('vue-resource');
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
-    // request.headers.set('Authorization', Laravel.authorization);
 
     next();
 });
@@ -39,8 +38,9 @@ Vue.http.interceptors.push((request, next) => {
  */
 
 // import Echo from "laravel-echo"
-
+//
 // window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
+//     namespace: 'Base.Event.Namespace', //defaults to App.Event
+//     broadcaster: 'socket.io',
+//     host: 'localhost:6001'
 // });
