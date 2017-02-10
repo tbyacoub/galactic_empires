@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Post;
 
 class PushNotificationsController extends Controller
@@ -27,21 +28,52 @@ class PushNotificationsController extends Controller
         // Get all the posts.
         $posts = Post::all();
 
-        return view('admin.push-notifications', compact('posts'));
+        return view('admin/push-notifications', compact('posts'));
     }
 
     /**
      * Submit a new post.
      *
      * @param Request $request
+     *
+     * @return $this->index()
      */
     public function submit(Request $request){
 
         $data = $request->all();
 
-        $post = Post::createPost($data);
+        // Create a validator with the form data.
+        $v = ($this->postValidiator($data));
 
-        dd($post);
+        // Check that post data passes validator.
+        if($v->passes()){
+
+            Post::createPost($data);
+
+            return redirect('admin.push-notifications');
+        }else{
+            return redirect('admin/push-notifications')->withErrors($v);
+        }
     }
 
+    public function remove($post_id){
+        Post::destroy($post_id);
+        return redirect('admin/push-notifications');
+    }
+
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function postValidiator(array $data)
+    {
+        return Validator::make($data, [
+            'title' => 'required|max:255|unique:posts',
+            'post_date' => 'required|max:255',
+            'content' => 'required|min:50',
+        ]);
+    }
 }

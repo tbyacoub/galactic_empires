@@ -33,4 +33,5 @@ Route::group(['middleware' => ['role:admin']], function (){
      * Route group for admin requests.
      */
     Route::post('admin/posts/submit', 'PushNotificationsController@submit');
+    Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
 });

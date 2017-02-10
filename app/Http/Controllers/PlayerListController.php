@@ -24,11 +24,13 @@ class PlayerListController extends Controller
 
         foreach($all as $user){
             $roles = $user->cachedRoles();
+
             foreach($roles as $r){
-                $role = $r->display_name;
+                $role = $r;
             }
 
             $user->role = $role;
+
             array_push($users, $user);
         }
 

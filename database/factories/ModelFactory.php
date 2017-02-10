@@ -55,6 +55,16 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Post::class, function (Faker\Generator $faker) {
+
+    return [
+        'title' => $faker->word,
+        'content' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+        'post_date' => $faker->dateTime(),
+        'user_id' => \App\User::all()->random()->id
+    ];
+});
+
 function createLocation($faker)
 {
     $json = array();

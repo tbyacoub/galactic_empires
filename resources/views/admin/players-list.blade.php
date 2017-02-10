@@ -24,19 +24,18 @@
                         <th><i class="fa fa-ship"></i> Resource 1</th>
                         <th><i class="fa fa-ship"></i> Resource 2</th>
                         <th><i class="fa fa-ship"></i> Resource 3</th>
-                        <th><i class="fa fa-ship"></i> Modify</th>
                     </tr>
                     </thead>
                     <tbody>
 
                     @foreach($users as $user)
                         <tr>
-                            <td><a href="basic_table.html#">{{ $user->name }}</a></td>
+                            <td><a href="/admin/edit-player/{{ $user->id }}">{{ $user->name }}</a></td>
                             <td class="hidden-phone">{{ $user->email }}</td>
                             <td>
                                 <div class="btn-group" style="min-width:170px;">
                                     <button type="button" class="btn btn-theme03">
-                                        {{ $user->role }}
+                                        {{ $user->role->display_name }}
                                     </button>
                                     <button type="button" class="btn btn-theme03 dropdown-toggle"
                                             data-toggle="dropdown">
@@ -54,16 +53,10 @@
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->planets()->count() }}</td>
                             <td>###</td>
-                            <td><input class="form-control" type="text" value="{{ $user->wood() }}" style="max-width:100px;"></td>
-                            <td><input class="form-control" type="text" value="{{ $user->energy() }}" style="max-width:100px;"></td>
-                            <td><input class="form-control" type="text" value="{{ $user->metal() }}" style="max-width:100px;"></td>
-                            <td>
-                                <form action="/admin/edit-player/{{ $user->id }}" method="get">
-                                    <input type="submit" class="btn btn-theme" value="Update"
-                                           name="Submit"/>
-                                </form>
-                                {{--<button type="submit" class="" formaction="/admin/edit-player/{{ $user->id }}"><i class="fa fa-pencil"></i> Update</button>--}}
-                            </td>
+                            <td><input class="form-control" type="text" value="{{ $user->wood() }}" style="max-width:100px;" readonly></td>
+                            <td><input class="form-control" type="text" value="{{ $user->energy() }}" style="max-width:100px;" readonly></td>
+                            <td><input class="form-control" type="text" value="{{ $user->metal() }}" style="max-width:100px;" readonly></td>
+
                         </tr>
                     @endforeach
 
