@@ -38,13 +38,17 @@ class User extends Authenticatable
         return $this->hasMany('App\Planet');
     }
 
+    public function planetsCount(){
+        return count($this->planets()->get());
+    }
+
     /**
      * Sum of all planet's metal belonging to this User.
      *
      * @return integer
      */
     public function metal(){
-        return $this->planets()->sum('metal');
+        return $this->userResourcesTotal()['metal'];
     }
 
     /**
@@ -53,7 +57,7 @@ class User extends Authenticatable
      * @return integer
      */
     public function wood(){
-        return $this->planets()->sum('wood');
+        return $this->userResourcesTotal()['wood'];
     }
 
     /**
@@ -62,6 +66,22 @@ class User extends Authenticatable
      * @return integer
      */
     public function energy(){
-        return $this->planets()->sum('energy');
+        return $this->userResourcesTotal()['energy'];
+    }
+
+    /**
+     * Get the total sum of all user resources as an array.
+     *
+     * @return array
+     */
+    public function userResourcesTotal(){
+        $total = ['metal' => 0, 'energy' => 0, 'wood' => 0];
+        $planets = $this->planets()->get();
+        foreach ($planets as $planet){
+            $total['metal'] += $planet->metal();
+            $total['wood'] += $planet->wood();
+            $total['energy'] += $planet->energy();
+        }
+        return $total;
     }
 }

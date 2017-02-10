@@ -15,8 +15,6 @@
     <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/zabuto_calendar.css') }}">
-
 
     <!-- Scripts -->
     <script>

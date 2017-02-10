@@ -41,7 +41,7 @@ class Planet extends Model
      * @return integer
      */
     public function metal(){
-        return $this->resouces['metal'];
+        return $this->resources['metal'];
     }
 
     /**
@@ -50,7 +50,7 @@ class Planet extends Model
      * @return integer
      */
     public function wood(){
-        return $this->planets()->sum('wood');
+        return $this->resources['wood'];
     }
 
     /**
@@ -59,6 +59,6 @@ class Planet extends Model
      * @return integer
      */
     public function energy(){
-        return $this->planets()->sum('energy');
+        return $this->resources['energy'];
     }
 }

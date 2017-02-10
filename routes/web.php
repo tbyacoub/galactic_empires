@@ -27,6 +27,7 @@ Route::group(['middleware' => ['role:admin']], function (){
     Route::get('/admin/game-settings', 'GameSettingsController@index');
     Route::get('/admin/players-list', 'PlayerListController@index');
     Route::get('/admin/push-notifications', 'PushNotificationsController@index');
+    Route::get('/admin/edit-player/{user_id}',  array('as' => 'user_id', 'uses' => 'EditPlayerController@index'));
 
     /*
      * Route group for admin requests.

@@ -58,7 +58,11 @@
                             <td><input class="form-control" type="text" value="{{ $user->energy() }}" style="max-width:100px;"></td>
                             <td><input class="form-control" type="text" value="{{ $user->metal() }}" style="max-width:100px;"></td>
                             <td>
-                                <button type="button" class="btn btn-theme"><i class="fa fa-pencil"></i> Update</button>
+                                <form action="/admin/edit-player/{{ $user->id }}" method="get">
+                                    <input type="submit" class="btn btn-theme" value="Update"
+                                           name="Submit"/>
+                                </form>
+                                {{--<button type="submit" class="" formaction="/admin/edit-player/{{ $user->id }}"><i class="fa fa-pencil"></i> Update</button>--}}
                             </td>
                         </tr>
                     @endforeach
