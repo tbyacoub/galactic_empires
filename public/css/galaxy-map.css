@@ -1,3 +1,13 @@
-#test_p {
-	color: purple;
+#galaxy-map-content-container {
+	margin: 0;
+	padding: 0;
+	width: 99.5%;
+	height: auto;
+}
+
+#galaxy-map-image {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: auto;
 }

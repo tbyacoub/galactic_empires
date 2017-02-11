@@ -8,6 +8,27 @@
 
 @section('sub-content')
 
-    <p id='test_p'>Hallo.</p>
+	<div class="row mt">
+        <div class="col-lg-9">
+		
+		{{-- Galaxy Page specific elements start. --}}
+		
+		<div id='galaxy-map-content-container'>
+		
+			{{-- Galxy image. --}}
+			<img id='galaxy-map-image' src='{{ URL::asset("img/galaxy-1440x1440.jpg") }}'/>
+			
+			
+			
+			
+		</div>
+		
+		{{-- Galaxy Page specific elements end. --}}
+		
+		</div>
+        @include('partials.right-sidebar')
+    </div>
+
+ 
 
 @endsection

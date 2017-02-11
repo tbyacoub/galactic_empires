@@ -29,11 +29,8 @@ class GalaxyMapController extends Controller
      */
     public function index()
     {
-        //$planets = Planet::all()->count();
-        //$users = User::all()->count();
-        //$solarSystems = SolarSystem::all()->count();
-        //$planetTypes = PlanetType::all()->count();
-        //$planetsOwened = Auth::user()->planets()->count();
+        $solarSystems = SolarSystem::all();
+		
 		/*
         return view('home', compact(
             'planets',
