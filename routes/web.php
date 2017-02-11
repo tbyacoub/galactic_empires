@@ -29,3 +29,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
     Route::get('push-notification', 'PushNotificationsController@index');
 
 });
+
+Route::get('/galaxy-map', 'GalaxyMapController@index');
