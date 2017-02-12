@@ -25,10 +25,12 @@
 				     parent changes their positioning to be relative to the parent. --}}
 				<div id='galaxy-overlay-innter-container'>
 				
-					
+					{{-- Template for system icon. Dynamically added over map by JQuery. --}}
+					<!--
 					<div class='system-icon-container'>
-						<div></div>
+						<div class='system-icon-inner-container'></div>
 					</div>
+					-->
 					
 					<div id='popup-container'>
 						<div id='popup-top-bar-container'>
@@ -59,5 +61,10 @@
 	
 <script type='text/javascript' src='{{ URL::asset("js/jquery-3.1.1.js") }}'></script>
 <script type='text/javascript' src='{{ URL::asset("js/galaxy-map.js") }}'></script>
+
+<script type='text/javascript'>
+	{{-- Pass the names and locations of solar systems to javascript. --}}
+	var solarSystems = {!! json_encode($solarSystems->toArray()) !!};
+</script>
 
 @endsection

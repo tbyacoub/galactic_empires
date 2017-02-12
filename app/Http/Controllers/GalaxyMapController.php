@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GalaxyMapController extends Controller
 {
@@ -29,18 +30,14 @@ class GalaxyMapController extends Controller
      */
     public function index()
     {
-        $solarSystems = SolarSystem::all();
+        //$solarSystems = SolarSystem::all();
 		
-		/*
-        return view('home', compact(
-            'planets',
-            'users',
-            'solarSystems',
-            'planetTypes',
-            'planetsOwened'
-        ));
-		*/
+		$solarSystems = DB::table('solar_systems')->select('id', 'name', 'location')->get();
 		
-		return view('galaxy_map');
+		
+        return view('galaxy_map', compact('solarSystems'));
+		
+		
+		//return view('galaxy_map');
     }
 }
