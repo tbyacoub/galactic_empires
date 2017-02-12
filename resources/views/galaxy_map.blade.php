@@ -30,6 +30,21 @@
 						<div></div>
 					</div>
 					
+					<div id='popup-container'>
+						<div id='popup-top-bar-container'>
+							<div id='solar-system-name-container'>
+								<p id='popup-system-name'>Terrell Hoppe</p>
+							</div>
+							<div id='popup-x-button-container'>
+								<img id='popup-x-button' src='{{ URL::asset("img/popout_exit_button.png") }}'/>
+							</div>
+						</div>
+						
+						<div id='go-to-system-link-container'>
+							<a id='go-to-system-link'>View System</a>
+						</div>
+					</div>
+					
 				</div>
 				
 			</div>
