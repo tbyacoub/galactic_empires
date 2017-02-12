@@ -18,8 +18,21 @@
 			{{-- Galxy image. --}}
 			<img id='galaxy-map-image' src='{{ URL::asset("img/galaxy-1440x1440.jpg") }}'/>
 			
-			
-			
+			{{-- Outer absolute container for elements that will overlay the galaxy map, such as solar system icons and popups. --}}
+			<div id='galaxy-overlay-container'>
+				
+				{{-- Inner relative container. Solar system icons will be absolutely positioned and having a relative
+				     parent changes their positioning to be relative to the parent. --}}
+				<div id='galaxy-overlay-innter-container'>
+				
+					
+					<div class='system-icon-container'>
+						<div></div>
+					</div>
+					
+				</div>
+				
+			</div>
 			
 		</div>
 		
