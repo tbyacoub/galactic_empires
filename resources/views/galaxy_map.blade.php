@@ -1,11 +1,5 @@
 @extends('layouts.dashboard')
 
-@section('page_specific_css')
-
-	<link href="{{ URL::asset('css/galaxy-map.css') }}" rel="stylesheet">
-
-@endsection
-
 @section('sub-content')
 
 	<div class="row mt">
@@ -26,6 +20,7 @@
 				<div id='galaxy-overlay-innter-container'>
 				
 					{{-- Template for system icon. Dynamically added over map by JQuery. --}}
+					
 					<!--
 					<div class='system-icon-container'>
 						<div class='system-icon-inner-container'></div>
@@ -43,7 +38,7 @@
 						</div>
 						
 						<div id='go-to-system-link-container'>
-							<a id='go-to-system-link'>View System</a>
+							<p id='go-to-system-link'>View System</p>
 						</div>
 					</div>
 					
@@ -58,9 +53,6 @@
 		</div>
         @include('partials.right-sidebar')
     </div>
-	
-<script type='text/javascript' src='{{ URL::asset("js/jquery-3.1.1.js") }}'></script>
-<script type='text/javascript' src='{{ URL::asset("js/galaxy-map.js") }}'></script>
 
 <script type='text/javascript'>
 	{{-- Pass the names and locations of solar systems to javascript. --}}

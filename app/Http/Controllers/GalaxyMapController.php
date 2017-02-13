@@ -30,14 +30,12 @@ class GalaxyMapController extends Controller
      */
     public function index()
     {
-        //$solarSystems = SolarSystem::all();
-		
+		// Get the ids, names, and locations of all solar systems.
 		$solarSystems = DB::table('solar_systems')->select('id', 'name', 'location')->get();
 		
-		
+		// Load the galaxy map page and pass it the solar systems for rendering.
         return view('galaxy_map', compact('solarSystems'));
-		
-		
-		//return view('galaxy_map');
     }
 }
+
+?>
