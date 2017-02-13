@@ -42,6 +42,10 @@ Route::get('/facilities', function(){
     return view('facilities', compact('user'));
 });
 
+Route::get('test', function () {
+    event(new \App\Events\MyEventNameHere());
+    return "event fired";
+});
 
 Route::get('/galaxy-map', 'GalaxyMapController@index');
 

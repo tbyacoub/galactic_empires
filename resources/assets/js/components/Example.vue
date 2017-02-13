@@ -6,7 +6,7 @@
                     <div class="panel-heading">Example Component</div>
 
                     <div class="panel-body">
-                        I'm an example component!
+                        {{ power }}
                     </div>
                 </div>
             </div>
@@ -16,8 +16,17 @@
 
 <script>
     export default {
+        data() {
+            return {
+                power: 0,
+            }
+        },
         mounted() {
-            console.log('Component ready.')
+            console.log('Component mounted.');
+            window.Echo.channel('test-channel').listen('MyEventNameHere', (object) => {
+                console.log(object);
+                this.power = object.data.power;
+            });
         }
     }
 </script>
