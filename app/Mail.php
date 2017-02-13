@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Mail extends Model
 {
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'subject', 'message', 'read', 'favorite'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'receiver_id', 'sender_id'
+    ];
+
     public function getCreatedAt($value)
     {
         return Carbon::parse($value)->diffForHumans();

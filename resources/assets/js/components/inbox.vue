@@ -8,12 +8,12 @@
                     <i class="fa fa-angle-down "></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" @click="mailApi('read')"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                    <li><a href="#" @click="mailApi('un-read')"><i class="fa fa-ban"></i> Mark as Unread</a></li>
-                    <li><a href="#" @click="mailApi('favorite')"><i class="fa fa-star"></i> Mark as Favorite</a></li>
-                    <li><a href="#" @click="mailApi('un-favorite')"><i class="fa fa-star"></i> Remove Favorite</a></li>
+                    <li><a href="#" @click="mailApi('read')" id=""><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                    <li><a href="/mail" @click="mailApi('un-read')"><i class="fa fa-ban"></i> Mark as Unread</a></li>
+                    <li><a href="/mail" @click="mailApi('favorite')"><i class="fa fa-star"></i> Mark as Favorite</a></li>
+                    <li><a href="/mail" @click="mailApi('un-favorite')"><i class="fa fa-star"></i> Remove Favorite</a></li>
                     <li class="divider"></li>
-                    <li><a href="#" @click="mailApi('delete')"><i class="fa fa-trash-o"></i> Delete</a></li>
+                    <li><a href="/mail" @click="mailApi('delete')"><i class="fa fa-trash-o"></i> Delete</a></li>
                 </ul>
             </div>
         </div>
@@ -55,11 +55,7 @@
         },
         methods: {
             mailApi: function(method){
-                this.$http.post('/mail/api', {'method': method, 'checked':this.checkedMail}).then(response => {
-                    console.log(response);
-                }, response => {
-                    console.log(response);
-                });
+                this.$http.post('/mail/api', {'method': method, 'checked':this.checkedMail});
             },
         }
     }

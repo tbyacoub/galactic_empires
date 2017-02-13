@@ -2,23 +2,18 @@
 
 namespace App\Http\Requests;
 
-use App\Mail;
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
-class MailApiRequest extends FormRequest
+class MailRequest extends FormRequest
 {
-
-    protected $redirect = '/mail';
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(Mail $mail, User $user)
+    public function authorize()
     {
-        return $user->id == $mail->id;
+        return true;
     }
 
     /**
@@ -29,7 +24,9 @@ class MailApiRequest extends FormRequest
     public function rules()
     {
         return [
-            'checked' => 'required|min:1',
+            "email" => "required|exists:users,email",
+            "subject" => "required|min:10|max:100",
+            "message" => "required|min:10|max:500",
         ];
     }
 }

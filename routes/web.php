@@ -32,7 +32,9 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
 
     Route::get('/sent', 'MailController@sentIndex');
 
-    Route::get('/create', 'MailController@create');
+    Route::get('/create/{email?}', 'MailController@create');
+
+    Route::post('/create', 'MailController@forward');
 
     Route::post('/', 'MailController@store');
 

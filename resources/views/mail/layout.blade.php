@@ -9,10 +9,12 @@
                         <i class="fa fa-pencil"></i>  Compose Mail
                     </a>
                     <ul class="nav nav-pills nav-stacked mail-nav">
-                        <li class="active"><a href="{{ url('mail') }}">
+                        <li class="{{ $page == 'inbox' ? 'active':'' }}"><a href="{{ url('mail') }}">
                                 <i class="fa fa-inbox"></i>Inbox<span class="label label-theme pull-right inbox-notification">{{ Auth::user()->unReadMail()->count() }}</span></a>
                         </li>
-                        <li><a href="{{ url('mail/sent') }}"> <i class="fa fa-envelope-o"></i>Send Mail</a></li>
+                        <li class="{{ $page == 'sent' ? 'active':'' }}"><a href="{{ url('mail/sent') }}">
+                                <i class="fa fa-envelope-o"></i>Sent Mail</a>
+                        </li>
                     </ul>
                 </div>
             </section>

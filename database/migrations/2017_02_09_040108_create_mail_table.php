@@ -17,8 +17,8 @@ class CreateMailTable extends Migration
             $table->increments('id');
             $table->integer('sender_id')->unsigned();
             $table->integer('receiver_id')->unsigned();
-            $table->string('subject');
-            $table->string('message');
+            $table->string('subject', 100);
+            $table->string('message', 500);
             $table->boolean('read');
             $table->boolean('favorite');
             $table->timestamps();
