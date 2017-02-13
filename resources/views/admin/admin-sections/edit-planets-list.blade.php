@@ -26,21 +26,21 @@
                         <td>
                             <div>{{ $planet->metal() }} / MAX</div>
                             <br>
-                            <button class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 1000</button>
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-minus"></i> 1000</button>
+                            <button id="add-metal" data-planet-id="{{ $planet->id }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 1000</button>
+                            <button id="remove-metal" data-planet-id="{{ $planet->id }}" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i> 1000</button>
 
                         </td>
                         <td>
                             <div>{{ $planet->wood() }} / MAX</div>
                             <br>
-                            <button class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 1000</button>
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-minus"></i> 1000</button>
+                            <button id="add-wood" data-planet-id="{{ $planet->id }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 1000</button>
+                            <button id="remove-wood" data-planet-id="{{ $planet->id }}" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i> 1000</button>
 
                         </td>                        <td>
                             <div>{{ $planet->energy() }} / MAX</div>
                             <br>
-                            <button class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 1000</button>
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-minus"></i> 1000</button>
+                            <button id="add-energy" data-planet-id="{{ $planet->id }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 1000</button>
+                            <button id="remove-energy" data-planet-id="{{ $planet->id }}" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i> 1000</button>
 
                         </td>
                     </tr>
@@ -50,4 +50,3 @@
         </table>
     </div><!-- /content-panel -->
 </div><!-- /col-md-12 -->
-

@@ -56,7 +56,7 @@
                         <a data-toggle="tab" href="#bonuses" class="contact-map">Bonuses</a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#placeholder">PLACEHOLDER</a>
+                        <a data-toggle="tab" href="#account">Account</a>
                     </li>
                 </ul>
             </div><! --/panel-heading -->
@@ -82,13 +82,13 @@
                     </div><! --/tab-pane -->
                     {{-- BONUSES END--}}
 
-                    {{-- PLACEHOLDER START--}}
-                    <div id="placeholder" class="tab-pane">
+                    {{-- ACCOUNT START--}}
+                    <div id="account" class="tab-pane">
                         <div class="row">
 
                         </div><! --/row -->
                     </div><! --/tab-pane -->
-                    {{--PLACEHOLDER END--}}
+                    {{--ACCOUNT END--}}
 
 
                 </div><!-- /tab-content -->
@@ -98,5 +98,9 @@
     @endif
 </div><! --/container -->
 @endif
+
+<script type='text/javascript' src='{{ URL::asset("js/jquery-3.1.1.js") }}'></script>
+<script type='text/javascript' src='{{ URL::asset("js/edit-player.js") }}'></script>
+
 
 @endsection
