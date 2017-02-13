@@ -1,11 +1,5 @@
 @extends('layouts.dashboard')
 
-@section('page_specific_css')
-
-	<link href="{{ URL::asset('css/galaxy-map.css') }}" rel="stylesheet">
-
-@endsection
-
 @section('sub-content')
 
 	<div class="row mt">
@@ -59,9 +53,6 @@
 		</div>
         @include('partials.right-sidebar')
     </div>
-	
-<script type='text/javascript' src='{{ URL::asset("js/jquery-3.1.1.js") }}'></script>
-<script type='text/javascript' src='{{ URL::asset("js/galaxy-map.js") }}'></script>
 
 <script type='text/javascript'>
 	{{-- Pass the names and locations of solar systems to javascript. --}}
