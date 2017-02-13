@@ -22,7 +22,7 @@
 
             <div class="col-md-4 profile-text">
                 <h3>{{ $user->name }}</h3>
-                <h6>ROLE : PLACEHOLDER</h6>
+                <h6>{{ $user->cachedRoles()[0]->display_name }}</h6>
                 <p>USER BIO</p>
                 <br>
                 <p><button class="btn btn-theme"><i class="fa fa-envelope"></i> Send Message</button></p>
@@ -44,6 +44,7 @@
     </div>
     {{-- TOP SECTION END --}}
 
+    @if(Auth::user()->hasRole('admin'))
     <div class="col-lg-12 mt">
         <div class="row content-panel">
             <div class="panel-heading">
@@ -94,6 +95,7 @@
             </div><! --/panel-body -->
         </div><!-- /col-lg-12 -->
     </div><! --/row -->
+    @endif
 </div><! --/container -->
 @endif
 

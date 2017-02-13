@@ -26,7 +26,7 @@ class PushNotificationsController extends Controller
     public function index()
     {
         // Get all the posts.
-        $posts = Post::all();
+        $posts = Post::paginate(10);
 
         return view('admin/push-notifications', compact('posts'));
     }
@@ -50,7 +50,7 @@ class PushNotificationsController extends Controller
 
             Post::createPost($data);
 
-            return redirect('admin.push-notifications');
+            return redirect('admin/push-notifications')->withErrors($v);
         }else{
             return redirect('admin/push-notifications')->withErrors($v);
         }

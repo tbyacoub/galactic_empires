@@ -96,6 +96,8 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $posts->links() }}
+
                 </section>
             </div><!-- /content-panel -->
         </div><!-- /col-lg-12 -->

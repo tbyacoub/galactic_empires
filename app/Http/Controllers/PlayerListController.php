@@ -19,20 +19,7 @@ class PlayerListController extends Controller
 
     public function index()
     {
-        $all = User::all();
-        $users = array();
-
-        foreach($all as $user){
-            $roles = $user->cachedRoles();
-
-            foreach($roles as $r){
-                $role = $r;
-            }
-
-            $user->role = $role;
-
-            array_push($users, $user);
-        }
+        $users = User::paginate(20);
 
         return view('admin.players-list', compact('users'));
     }
