@@ -52,6 +52,18 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->city,
+        'radius' => $faker->randomNumber($nbDigits = 6),
+        'resources' => createReso($faker),
+        'solarSystem_id' => \App\SolarSystem::all()->random()->id,
+        'planetType_id' => \App\PlanetType::all()->random()->id,
+        'user_id' => -1
+    ];
+});
+
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
     return [
