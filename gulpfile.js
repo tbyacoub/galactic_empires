@@ -16,4 +16,10 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js');
+	   
+	mix.styles([
+	   'galaxy-map.css'
+	], 'public/css/galaxy-map.css');
+	
+	mix.webpack('galaxy-map.js');
 });

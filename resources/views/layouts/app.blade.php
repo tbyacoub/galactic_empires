@@ -15,10 +15,6 @@
     <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
-
-	{{-- Page specific css start --}}
-	@yield('page_specific_css')
-	{{-- Page specific css end --}}
 	
     <!-- Scripts -->
     <script>
