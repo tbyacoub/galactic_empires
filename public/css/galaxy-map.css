@@ -80,8 +80,8 @@
 	width: 202px;
 	height: 50px;
 	
-	left: 25%;
-	top: 25%;
+	left: 5px;
+	top: 5px;
 	
 	background-color: rgba(0, 0, 0, 0.5);
 	border: 1px solid rgb(100, 100, 100);
@@ -124,6 +124,7 @@
 	text-decoration: none;
 	letter-spacing: 2px;
 	line-height: 25px;
+	overflow: hidden;
 }
 
 #popup-x-button-container {

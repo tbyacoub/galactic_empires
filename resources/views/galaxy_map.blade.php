@@ -26,6 +26,7 @@
 				<div id='galaxy-overlay-innter-container'>
 				
 					{{-- Template for system icon. Dynamically added over map by JQuery. --}}
+					
 					<!--
 					<div class='system-icon-container'>
 						<div class='system-icon-inner-container'></div>
@@ -43,7 +44,7 @@
 						</div>
 						
 						<div id='go-to-system-link-container'>
-							<a id='go-to-system-link'>View System</a>
+							<p id='go-to-system-link'>View System</p>
 						</div>
 					</div>
 					
