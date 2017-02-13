@@ -16,6 +16,10 @@
     <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
 
+	{{-- Page specific css start --}}
+	@yield('page_specific_css')
+	{{-- Page specific css end --}}
+	
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
@@ -31,7 +35,7 @@
 
         {{-- dashboard start --}}
         @yield('content')
-        {{-- dasboard end--}}
+        {{-- dashboard end--}}
 
     </section>
 

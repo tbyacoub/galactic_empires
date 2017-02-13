@@ -35,3 +35,15 @@ Route::group(['middleware' => ['role:admin']], function (){
     Route::post('admin/posts/submit', 'PushNotificationsController@submit');
     Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
 });
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
+
+    Route::get('game-settings', 'GameSettingsController@index');
+
+    Route::get('players-list', 'PlayerListController@index');
+
+    Route::get('push-notification', 'PushNotificationsController@index');
+
+});
+
+Route::get('/galaxy-map', 'GalaxyMapController@index');

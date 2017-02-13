@@ -32,25 +32,7 @@
                         <tr>
                             <td><a href="/admin/edit-player/{{ $user->id }}">{{ $user->name }}</a></td>
                             <td class="hidden-phone">{{ $user->email }}</td>
-                            <td>
-                                {{ $user->cachedRoles()[0]->display_name }}
-                                {{--<div class="btn-group" style="min-width:170px;">--}}
-                                    {{--<button type="button" class="btn btn-theme03">--}}
-                                        {{--{{ $user->cachedRoles()[0]->display_name }}--}}
-                                    {{--</button>--}}
-                                    {{--<button type="button" class="btn btn-theme03 dropdown-toggle"--}}
-                                            {{--data-toggle="dropdown">--}}
-                                        {{--<span class="caret"></span>--}}
-                                        {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                                    {{--</button>--}}
-                                    {{--<ul class="dropdown-menu" role="menu">--}}
-                                        {{--<li><a>Activate</a></li>--}}
-                                        {{--<li><a>Suspend</a></li>--}}
-                                        {{--<li><a>Upgrade To Premium</a></li>--}}
-                                        {{--<li><a>Upgrade To Admin</a></li>--}}
-                                    {{--</ul>--}}
-                                {{--</div>--}}
-                            </td>
+                            <td>{{ $user->cachedRoles()[0]->display_name }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->planets()->count() }}</td>
                             <td>###</td>
