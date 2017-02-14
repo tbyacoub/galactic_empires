@@ -62,6 +62,14 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Building::class, function (Faker\Generator $faker){
+    return [
+        'current_level' => $faker->randomNumber($nbDigits = 1),
+        'building_prototype_id' => null,
+        'planet_id' => null,
+    ];
+});
+
 function createLocation($faker)
 {
     $json = array();

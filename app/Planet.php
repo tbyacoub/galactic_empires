@@ -35,6 +35,10 @@ class Planet extends Model
         return $this->belongsTo('App\PlanetType');
     }
 
+    public function Buildings(){
+        return $this->hasMany('App\Building');
+    }
+
     /**
      * Sum of all planet's metal belonging to this User.
      *

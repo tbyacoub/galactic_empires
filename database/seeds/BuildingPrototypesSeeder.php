@@ -122,7 +122,8 @@ class BuildingPrototypesSeeder extends Seeder
 
             $inserted_id = DB::table('building_prototypes')->insertGetId(
                 array('name' => $name,
-                      'img_path' => "assets/img/buildings/img_". str_replace(' ', '', $name).".jpg",
+                    'img_path' => "assets/img/buildings/img_". str_replace(' ', '', $name).".jpg",
+                    'max_level' => $max_building_level,
                 )
             );
 

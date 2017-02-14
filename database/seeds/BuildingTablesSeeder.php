@@ -16,5 +16,6 @@ class BuildingTablesSeeder extends Seeder
          * Here insert the actual buildings for each individual planet.
          */
 
+
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BuildingInfoTable extends Migration
+class BuildingPrototypesTables extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class BuildingInfoTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('img_path');
+            $table->mediumInteger('max_level');
 
             $table->timestamps();
         });
@@ -46,6 +47,18 @@ class BuildingInfoTable extends Migration
             $table->integer('building_prototype_id');
             $table->timestamps();
         });
+
+        /*
+         * This is the actual buildings table that will be on the individual planets.
+         */
+        Schema::create('buildings', function (Blueprint $table){
+            $table->increments('id');
+
+            $table->mediumInteger('current_level');
+            $table->integer('building_prototype_id');
+            $table->integer('planet_id')->index();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -55,6 +68,7 @@ class BuildingInfoTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('buildings');
         Schema::dropIfExists('resource_buildings');
         Schema::dropIfExists('building_costs');
         Schema::dropIfExists('building_prototypes');
