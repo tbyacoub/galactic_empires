@@ -37,7 +37,7 @@ Route::group(['middleware' => ['role:admin']], function (){
 });
 
 
-//Route::get('/facilities', function(){
-//    $user = Auth::user();
-//    return view('facilities', compact('user'));
-//});
+Route::get('/facilities', function(){
+    $user = Auth::user();
+    return view('facilities', compact('user'));
+});
