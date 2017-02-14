@@ -32,8 +32,8 @@
                 <div class="right-divider hidden-sm hidden-xs">
                     <h4>{{ $user->metal() }}</h4>
                     <h6>Total Metal</h6>
-                    <h4>{{ $user->wood() }}</h4>
-                    <h6>Total Wood</h6>
+                    <h4>{{ $user->crystal() }}</h4>
+                    <h6>Total Crystal</h6>
                     <h4>{{ $user->energy() }}</h4>
                     <h6>Total Energy</h6>
                 </div>
@@ -99,8 +99,6 @@
 </div><! --/container -->
 @endif
 
-<script type='text/javascript' src='{{ URL::asset("js/jquery-3.1.1.js") }}'></script>
-<script type='text/javascript' src='{{ URL::asset("js/edit-player.js") }}'></script>
 
 
 @endsection

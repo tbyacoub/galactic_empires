@@ -34,6 +34,8 @@ Route::group(['middleware' => ['role:admin']], function (){
      */
     Route::post('admin/posts/submit', 'PushNotificationsController@submit');
     Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
+
+    Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
 });
 
 
