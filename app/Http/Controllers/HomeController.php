@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GameSettings;
+use App\Events\StatusUpdated;
 use App\Planet;
 use App\PlanetType;
 use App\SolarSystem;
@@ -27,7 +29,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $planets = Planet::all()->count();
         $users = User::all()->count();

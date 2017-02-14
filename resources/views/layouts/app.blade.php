@@ -12,19 +12,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
-
-	{{-- Page specific css start --}}
-	@yield('page_specific_css')
-	{{-- Page specific css end --}}
-	
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
     </script>
+    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
 </head>
+
 <body>
 <div id="app">
     <section id="container" >

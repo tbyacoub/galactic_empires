@@ -12,8 +12,8 @@
 
     @if(Auth::user())
         <div class="nav notify-row" id="top_menu">
-            <!--  notification start -->
-        @include('components.notification')
+        <!--  notification start -->
+        <notification></notification>
         <!--  notification end -->
         </div>
     @endif

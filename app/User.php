@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token'
     ];
 
 
@@ -93,4 +93,23 @@ class User extends Authenticatable
         $planet->user_id = $this->userId;
         return $this->planets()->save($planet);
     }
+
+    public function incomingMail()
+    {
+        return $this->hasMany('App\Mail', 'receiver_id');
+    }
+
+    public function outgoingMail()
+    {
+        return $this->hasMany('App\Mail', 'sender_id');
+    }
+
+    public function unReadMail()
+    {
+        return $this->incomingMail()
+            ->where('read', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+
 }
