@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('sub-content')
-<<<<<<< HEAD
 
     <h3><i class="fa fa-angle-right"></i> Admin : Game Speed Settings</h3>
 
@@ -129,8 +128,4 @@
             </div><!-- /form-panel -->
         </div><!-- /col-lg-12 -->
     </div><!-- /row -->
-
-=======
-    <game-settings></game-settings>
->>>>>>> e8bc6c83e3965dd7efe4b55df8ee59e810dbcd02
 @endsection

@@ -52,7 +52,7 @@ class MailController extends Controller
 
     public function store(MailRequest $mailRequest)
     {
-        $receiver = User::where('email', $mailRequest->to)->first();
+        $receiver = User::where('email', $mailRequest->email)->first();
         $mail = new Mail([
             "subject" => $mailRequest->subject,
             "message" => $mailRequest->message,

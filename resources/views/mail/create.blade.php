@@ -18,7 +18,11 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="email" class="">To:</label>
-                        <input type="email" tabindex="1" id="email" name="email" class="form-control" value="{{ old('email') }}">
+                        @if($errors->has('email') || $errors->has('subject') || $errors->has('message'))
+                            <input type="email" tabindex="1" id="email" name="email" class="form-control" value="{{ old('email') }}">
+                        @else
+                            <input type="email" tabindex="1" id="email" name="email" class="form-control" value="{{ session('email') }}">
+                        @endif
                     </div>
 
                     <div class="form-group">
@@ -27,7 +31,11 @@
                     </div>
 
                     <div class="compose-editor">
-                        <textarea maxlength="500" class="wysihtml5 form-control" id="message" name="message" rows="9">{{ old('message') }}</textarea>
+                        @if($errors->has('email') || $errors->has('subject') || $errors->has('message'))
+                            <textarea maxlength="500" class="wysihtml5 form-control" id="message" name="message" rows="9">{{ old('message') }}</textarea>
+                        @else
+                            <textarea maxlength="500" class="wysihtml5 form-control" id="message" name="message" rows="9">{{ session('message') }}</textarea>
+                        @endif
                     </div>
                     <div class="compose-btn">
                         <button type="submit" class="btn btn-theme btn-sm"><i class="fa fa-check"></i>Send</button>

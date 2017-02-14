@@ -12,14 +12,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
-<<<<<<< HEAD
-    <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
-	
-=======
-
->>>>>>> e8bc6c83e3965dd7efe4b55df8ee59e810dbcd02
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};

@@ -11,6 +11,6 @@ class MailSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Mail::class, 50)->create();
+        factory(\App\Mail::class, 500)->create();
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MailRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +26,7 @@ class MailRequest extends FormRequest
     {
         return [
             "email" => "required|exists:users,email",
-            "subject" => "required|min:10|max:100",
+            "subject" => "required|min:5|max:100",
             "message" => "required|min:10|max:500",
         ];
     }

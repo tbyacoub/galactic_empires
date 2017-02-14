@@ -8,7 +8,7 @@
                     <i class="fa fa-angle-down "></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" @click="mailApi('read')" id=""><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                    <li><a href="/mail" @click="mailApi('read')" id=""><i class="fa fa-pencil"></i> Mark as Read</a></li>
                     <li><a href="/mail" @click="mailApi('un-read')"><i class="fa fa-ban"></i> Mark as Unread</a></li>
                     <li><a href="/mail" @click="mailApi('favorite')"><i class="fa fa-star"></i> Mark as Favorite</a></li>
                     <li><a href="/mail" @click="mailApi('un-favorite')"><i class="fa fa-star"></i> Remove Favorite</a></li>

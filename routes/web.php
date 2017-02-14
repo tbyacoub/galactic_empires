@@ -34,7 +34,19 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
 
     Route::get('/create/{email?}', 'MailController@create');
 
-<<<<<<< HEAD
+    Route::post('/create', 'MailController@forward');
+
+    Route::post('/', 'MailController@store');
+
+    Route::get('/{mail}', 'MailController@show');
+
+    Route::delete('/{mail}', 'MailController@destroy');
+
+    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
+
+    Route::post('/api', 'MailController@mailApi');
+});
+
 Route::group(['middleware' => ['role:admin']], function (){
 
     /*
@@ -50,19 +62,7 @@ Route::group(['middleware' => ['role:admin']], function (){
      */
     Route::post('admin/posts/submit', 'PushNotificationsController@submit');
     Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
-=======
     Route::post('/create', 'MailController@forward');
-
-    Route::post('/', 'MailController@store');
-
-    Route::get('/{mail}', 'MailController@show');
-
-    Route::delete('/{mail}', 'MailController@destroy');
-
-    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
-
-    Route::post('/api', 'MailController@mailApi');
->>>>>>> e8bc6c83e3965dd7efe4b55df8ee59e810dbcd02
 });
 
 
@@ -77,14 +77,3 @@ Route::get('test', function () {
 });
 
 Route::get('/galaxy-map', 'GalaxyMapController@index');
-
-<<<<<<< HEAD
-=======
-});
-
-
-//Route::get('get-private-messages', 'privateMessageController@getPrivateMessages');
-//Route::get('get-private-message/{user}', 'privateMessageController@getPrivateMessageById');
-//Route::get('get-private-message-sent', 'privateMessageController@getPrivateMessageSent');
-//Route::post('send-private-message', 'privateMessageController@sendPrivateMessage');
->>>>>>> e8bc6c83e3965dd7efe4b55df8ee59e810dbcd02

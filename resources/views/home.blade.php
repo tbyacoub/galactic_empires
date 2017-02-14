@@ -1,8 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('sub-content')
-
-    <example></example>
     <div class="row mt">
         <div class="col-lg-9">
             <div class="row mtbox">

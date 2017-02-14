@@ -13,6 +13,7 @@ require('./galaxy-map');
  * the application, or feel free to tweak this setup for your needs.
  */
 Vue.component('notification', require('./components/notification.vue'));
+Vue.component('example', require('./components/example.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
 
 const app = new Vue({
