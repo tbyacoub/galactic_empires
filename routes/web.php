@@ -17,7 +17,7 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 });
 
-Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
+Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
 
     Route::get('/', 'MailController@index');
 
@@ -47,34 +47,40 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
     Route::post('/api', 'MailController@mailApi');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 
     /*
      * Route group for admin views.
      */
     Route::get('/game-settings', 'GameSettingsController@index');
+
     Route::get('/players-list', 'PlayerListController@index');
+
     Route::get('/push-notifications', 'PushNotificationsController@index');
-    Route::get('/edit-player/{user}',  'EditPlayerController@index');
+
+    Route::get('/edit-player/{user}', 'EditPlayerController@index');
 
     /*
      * Route group for admin requests.
      */
-    Route::post('/posts/submit', 'PushNotificationsController@submit');
-    Route::post('/posts/remove/{post_id}', 'PushNotificationsController@remove');
+    Route::post('/posts', 'PushNotificationsController@store');
+
+    Route::put('/posts/{post}', 'PushNotificationsController@update');
+
+    Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 });
 
 
 // TESTING
 
-Route::get('/facilities', function(){
+Route::get('/facilities', function () {
     $user = Auth::user();
     return view('content.facilities', compact('user'));
 });
 
-Route::group(['prefix' => 'test'], function (){
+Route::group(['prefix' => 'test'], function () {
 
-    Route::get('send-email/{user}' , function (\App\User $user) {
+    Route::get('send-email/{user}', function (\App\User $user) {
         $sender = \App\User::find(10);
         $mail = new \App\Mail([
             "subject" => "test",

@@ -21,7 +21,7 @@
 
             <div class="form-panel">
                 <h4 class="mb"><i class="fa fa-angle-right"></i> Input Messages</h4>
-                <form class="form-horizontal tasi-form" method="POST" action="{{ url('admin/posts/submit') }}">
+                <form class="form-horizontal tasi-form" method="POST" action="{{ url('admin/posts') }}">
 
                     {{ csrf_field() }}
 
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label col-lg-2">Scheduled Date :</label>
                         <div class="col-lg-10">
-                            <input type="date" class="form-control" name="post_date" placeholder="placeholder">
+                            <input type="date" class="form-control" name="post_date" placeholder="placeholder" value="{{ old('post_date') }}">
                         </div>
                     </div>
 
@@ -80,13 +80,15 @@
                                 <td><textarea class="form-control">{{ $post->content }}</textarea></td>
                                 <td>
 
-                                    <form action="/admin/posts/edit/{{$post->id}}" method="POST">
+                                    <form action="/admin/posts/{{$post->id}}" method="POST">
                                         {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
                                         <button type="submit" class="btn btn-primary btn-md fa fa-pencil"></button>
                                     </form>
 
-                                    <form action="/admin/posts/remove/{{$post->id}}" method="POST">
+                                    <form action="/admin/posts/{{$post->id}}" method="POST">
                                         {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger btn-md fa fa-trash-o"></button>
                                     </form>
 

@@ -38,15 +38,23 @@ class PushNotificationsController extends Controller
      *
      * @return $this->index()
      */
-    public function submit(PushNotificationsRequest $request){
+    public function store(PushNotificationsRequest $request)
+    {
 
         Post::createPost($request->all());
 
         return back();
     }
 
-    public function remove($post_id){
-        Post::destroy($post_id);
-        return redirect('admin/push-notifications');
+    public function update(PushNotificationsRequest $request, Post $post)
+    {
+        //TODO
+        return back();
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return back();
     }
 }
