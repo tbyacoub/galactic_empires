@@ -31,17 +31,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $planets = Planet::all()->count();
-        $users = User::all()->count();
-        $solarSystems = SolarSystem::all()->count();
-        $planetTypes = PlanetType::all()->count();
-        $planetsOwened = Auth::user()->planets()->count();
+        $user = $request->user();
+        $planets = $user->planets()->get();
         return view('home', compact(
             'planets',
-            'users',
-            'solarSystems',
-            'planetTypes',
-            'planetsOwened'
+            'user'
         ));
     }
 }

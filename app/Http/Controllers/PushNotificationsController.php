@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PushNotificationRequest;
 use Illuminate\Http\Request;
 use Validator;
 use App\Post;
@@ -38,7 +39,7 @@ class PushNotificationsController extends Controller
      *
      * @return $this->index()
      */
-    public function submit(Request $request){
+    public function submit(PushNotificationRequest $request){
 
         $data = $request->all();
 

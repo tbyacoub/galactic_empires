@@ -13,7 +13,7 @@
     @if(Auth::user())
         <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
-        <notification></notification>
+        <notification :user_id="{{Auth::id()}}"></notification>
         <!--  notification end -->
         </div>
     @endif

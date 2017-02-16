@@ -65,15 +65,26 @@ Route::group(['middleware' => ['role:admin']], function (){
     Route::post('/create', 'MailController@forward');
 });
 
-
 Route::get('/facilities', function(){
     $user = Auth::user();
     return view('facilities', compact('user'));
 });
 
-Route::get('test', function () {
-    event(new \App\Events\MyEventNameHere());
-    return "event fired";
+Route::group(['prefix' => 'test'], function (){
+
+    Route::get('send-email/{user}' , function (\App\User $user) {
+        $sender = \App\User::find(10);
+        $mail = new \App\Mail([
+            "subject" => "test",
+            "message" => "testeadbhjasdbhjasbdhjasbd",
+            "read" => 0,
+            "favorite" => 0,
+        ]);
+        $mail->sender()->associate($sender);
+        $mail->receiver()->associate($user);
+        $mail->save();
+        event(new \App\Events\EmailSentEvent($user->id, $mail->id));
+    });
 });
 
 Route::get('/galaxy-map', 'GalaxyMapController@index');

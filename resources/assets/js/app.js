@@ -5,7 +5,6 @@
  */
 
 require('./bootstrap');
-require('./galaxy-map');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,6 +14,7 @@ require('./galaxy-map');
 Vue.component('notification', require('./components/notification.vue'));
 Vue.component('example', require('./components/example.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
+Vue.component('user-control', require('./components/user-control.vue'));
 
 const app = new Vue({
     el: '#app',
