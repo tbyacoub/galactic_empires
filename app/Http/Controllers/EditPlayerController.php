@@ -7,12 +7,7 @@ use App\User;
 
 class EditPlayerController extends Controller
 {
-    public function index($user_id){
-
-        $user = User::find($user_id);
-
-//        dd($user);
-
+    public function index(User $user){
         return view('admin/edit-player', compact('user'));
     }
 }

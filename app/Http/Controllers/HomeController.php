@@ -33,7 +33,7 @@ class HomeController extends Controller
     {
         $user = $request->user();
         $planets = $user->planets()->get();
-        return view('home', compact(
+        return view('layouts.home', compact(
             'planets',
             'user'
         ));

@@ -11,12 +11,11 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return redirect('/home');
 });
-
-
-Auth::routes();
 
 Route::group(['middleware' => 'auth'], function (){
 
@@ -24,6 +23,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('/inbox', 'PrivateMessageController@index');
 
+    Route::get('/galaxy-map', 'GalaxyMapController@index');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
@@ -47,27 +47,29 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
     Route::post('/api', 'MailController@mailApi');
 });
 
-Route::group(['middleware' => ['role:admin']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
 
     /*
      * Route group for admin views.
      */
-    Route::get('/admin/game-settings', 'GameSettingsController@index');
-    Route::get('/admin/players-list', 'PlayerListController@index');
-    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
-    Route::get('/admin/edit-player/{user_id}',  array('as' => 'user_id', 'uses' => 'EditPlayerController@index'));
+    Route::get('/game-settings', 'GameSettingsController@index');
+    Route::get('/players-list', 'PlayerListController@index');
+    Route::get('/push-notifications', 'PushNotificationsController@index');
+    Route::get('/edit-player/{user}',  'EditPlayerController@index');
 
     /*
      * Route group for admin requests.
      */
-    Route::post('admin/posts/submit', 'PushNotificationsController@submit');
-    Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
-    Route::post('/create', 'MailController@forward');
+    Route::post('/posts/submit', 'PushNotificationsController@submit');
+    Route::post('/posts/remove/{post_id}', 'PushNotificationsController@remove');
 });
+
+
+// TESTING
 
 Route::get('/facilities', function(){
     $user = Auth::user();
-    return view('facilities', compact('user'));
+    return view('content.facilities', compact('user'));
 });
 
 Route::group(['prefix' => 'test'], function (){
@@ -86,5 +88,3 @@ Route::group(['prefix' => 'test'], function (){
         event(new \App\Events\EmailSentEvent($user->id, $mail->id));
     });
 });
-
-Route::get('/galaxy-map', 'GalaxyMapController@index');

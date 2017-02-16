@@ -28,21 +28,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label col-lg-2">Post Title :</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="title" placeholder="enter title">
+                            <input type="text" class="form-control" name="title" placeholder="enter title" value="{{ old('title') }}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label col-lg-2">Scheduled Date :</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="post_date" placeholder="placeholder">
+                            <input type="date" class="form-control" name="post_date" placeholder="placeholder">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label col-lg-2">Content :</label>
                         <div class="col-lg-10">
-                            <textarea type="text" class="form-control" name="content" placeholder="enter content..."></textarea>
+                            <textarea type="text" class="form-control" name="content" placeholder="enter content...">{{ old('content') }}</textarea>
                         </div>
                     </div>
 
