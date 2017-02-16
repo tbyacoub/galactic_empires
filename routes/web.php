@@ -41,3 +41,8 @@ Route::get('/facilities', function(){
     $user = Auth::user();
     return view('facilities', compact('user'));
 });
+
+Route::get('/test', function (){
+
+   return \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first()->max_level;
+});

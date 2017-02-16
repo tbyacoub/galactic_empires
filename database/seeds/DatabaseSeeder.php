@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EntrustSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(BuildingPrototypesSeeder::class);
+        $this->call(ResourceBuildingSeeder::class);
         $this->call(PlanetSeeder::class);
         $this->call(PostsSeeder::class);
     }

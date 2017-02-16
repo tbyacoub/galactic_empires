@@ -11,11 +11,27 @@ class BuildingTablesSeeder extends Seeder
      */
     public function run()
     {
+        $this->insertResourcesBuildingSpecifics();
+        $this->insertFleetBuildingsSpecifics();
+        $this->insertDefenseBuildingsSpecifics();
+    }
 
-        /*
-         * Here insert the actual buildings for each individual planet.
-         */
 
+    private function insertResourcesBuildingSpecifics(){
+        // Below add Building Specific Information to its respective Table
+
+    }
+
+
+    private function insertFleetBuildingsSpecifics(){
+
+        // Below add Building Specific Information to its respective Table
+
+    }
+
+
+    private function insertDefenseBuildingsSpecifics(){
+        // Below add Building Specific Information to its respective Table
 
     }
 }

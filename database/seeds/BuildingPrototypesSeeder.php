@@ -14,7 +14,7 @@ class BuildingPrototypesSeeder extends Seeder
         /*
         * Include here the different types of buildings.
         */
-        $resource_building_prototypes = ['Minerals Mine', 'Crystals Mine', 'Energy Reactor'];
+        $resource_building_prototypes = ['Mineral Mine', 'Crystal Mine', 'Energy Reactor'];
         $military_building_prototypes = ['Fleet Shipyard'];
         $defense_building_prototypes = ['Missile Silo'];
 
@@ -56,51 +56,19 @@ class BuildingPrototypesSeeder extends Seeder
         /*
          * Function for adding Resource Specific Building information.
          */
-        $this->insertResourcesBuildingPrototypes($resource_building_prototypes, $resources_buildings_modifiers);
+        $this->insertPrototypeInformation($resource_building_prototypes, $resources_buildings_modifiers);
 
         /*
          * Function for adding Fleet Specific Building information.
          */
-        $this->insertFleetBuildingsPrototypes($military_building_prototypes, $military_buildings_modifiers);
+        $this->insertPrototypeInformation($military_building_prototypes, $military_buildings_modifiers);
 
         /*
         * Function for adding 'Others Type' Building information.
         */
-        $this->insertDefenseBuildingsPrototypes($defense_building_prototypes, $defense_buildings_modifiers);
+        $this->insertPrototypeInformation($defense_building_prototypes, $defense_buildings_modifiers);
     }
 
-    /**
-     * @param $names
-     * @param $modifiers
-     */
-    private function insertResourcesBuildingPrototypes($names, $modifiers){
-        $this->insertPrototypeInformation($names, $modifiers);
-
-        // Below add Building Specific Information to its respective Table
-
-    }
-
-    /**
-     * @param $names
-     * @param $modifiers
-     */
-    private function insertFleetBuildingsPrototypes($names, $modifiers){
-        $this->insertPrototypeInformation($names, $modifiers);
-
-        // Below add Building Specific Information to its respective Table
-
-    }
-
-    /**
-     * @param $names
-     * @param $modifiers
-     */
-    private function insertDefenseBuildingsPrototypes($names, $modifiers){
-        $this->insertPrototypeInformation($names, $modifiers);
-
-        // Below add Building Specific Information to its respective Table
-
-    }
 
     /**
     *  Add all the different building prototypes into the DB.

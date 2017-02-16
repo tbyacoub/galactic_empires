@@ -40,9 +40,7 @@ class BuildingPrototypesTables extends Migration
             $table->increments('id');
 
             $table->mediumInteger('level');
-            $table->integer('mineral_rate');
-            $table->integer('crystal_rate');
-            $table->integer('energy_rate');
+            $table->integer('gather_rate');
 
             $table->integer('building_prototype_id');
             $table->timestamps();
