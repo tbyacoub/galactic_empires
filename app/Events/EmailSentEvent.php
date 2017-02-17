@@ -15,17 +15,14 @@ class EmailSentEvent implements ShouldBroadcast
 
     public $user_id;
 
-    public $mail;
-
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user_id, $mail_id)
+    public function __construct($user_id)
     {
         $this->user_id = $user_id;
-        $this->mail = $mail_id;
     }
 
     /**
