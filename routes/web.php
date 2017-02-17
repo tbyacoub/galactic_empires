@@ -91,7 +91,7 @@ Route::group(['prefix' => 'test'], function () {
         $mail->sender()->associate($sender);
         $mail->receiver()->associate($user);
         $mail->save();
-        event(new \App\Events\EmailSentEvent($mail, $sender, $user));
+        event(new \App\Events\EmailSentEvent($user->id));
         return "event fired";
     });
 });

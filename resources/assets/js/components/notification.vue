@@ -55,7 +55,7 @@
         created() {
             this.getInbox();
             window.Echo.private('received.email.' + this.user_id).listen('EmailSentEvent', (object) => {
-                this.mails.push(object);
+                this.getInbox();
             });
         }
     }

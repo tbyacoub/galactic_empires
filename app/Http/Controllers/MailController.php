@@ -62,6 +62,7 @@ class MailController extends Controller
         $mail->sender()->associate($mailRequest->user());
         $mail->receiver()->associate($receiver);
         $mail->save();
+        event(new \App\Events\EmailSentEvent($receiver->id));
         return redirect('/mail');
     }
 
