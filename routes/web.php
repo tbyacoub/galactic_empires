@@ -31,3 +31,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function (){
 });
 
 Route::get('/galaxy-map', 'GalaxyMapController@index');
+
+Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
