@@ -13,19 +13,25 @@ class EmailSentEvent implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $user_id;
+    public $subject;
 
-    public $mail;
+    public $sender;
+
+    public $created_at;
+
+    private $receiver;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user_id, $mail_id)
+    public function __construct($mail, $sender, $receiver)
     {
-        $this->user_id = $user_id;
-        $this->mail = $mail_id;
+        $this->subject = $mail->subject;
+        $this->sender = $sender->name;
+        $this->created_at = $mail->getCreatedAt();
+        $this->receiver = $receiver;
     }
 
     /**
@@ -35,6 +41,6 @@ class EmailSentEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('received.email.' . $this->user_id);
+        return new PrivateChannel('received.email.' . $this->receiver->id);
     }
 }

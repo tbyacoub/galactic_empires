@@ -87,12 +87,17 @@ class MailController extends Controller
 
     public function getUserNotifications(Request $request)
     {
-        return $request->user()->incomingMail()
-            ->where('read', 0)
-            ->orderBy('created_at', 'desc')
-            ->with('sender')
-            ->take(5)
-            ->get();
+        $data = [];
+        $mails = $request->user()->unReadMail()->take(5);
+        foreach ($mails as $mail) {
+            array_push($data, [
+                "id" => $mail->id,
+                "sender" => $mail->sender()->first()->name,
+                "subject" => $mail->subject,
+                "created_at" => $mail->getCreatedAt()
+            ]);
+        }
+        return $data;
     }
 
     public function mailApi(Request $request)
