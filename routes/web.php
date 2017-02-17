@@ -94,6 +94,7 @@ Route::group(['prefix' => 'test'], function () {
         $mail->receiver()->associate($user);
         $mail->save();
         event(new \App\Events\EmailSentEvent($user->id));
+        return "event fired";
     });
 
     Route::get('welcome-queue/{user}', function(\App\User $user) {

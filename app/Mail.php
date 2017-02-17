@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Mail extends Model
@@ -25,9 +26,9 @@ class Mail extends Model
         'receiver_id', 'sender_id'
     ];
 
-    public function getCreatedAt($value)
+    public function getCreatedAt()
     {
-        return Carbon::parse($value)->diffForHumans();
+        return $this->created_at->diffForHumans();
     }
 
     public function sender()
