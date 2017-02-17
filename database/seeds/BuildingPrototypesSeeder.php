@@ -56,17 +56,17 @@ class BuildingPrototypesSeeder extends Seeder
         /*
          * Function for adding Resource Specific Building information.
          */
-        $this->insertPrototypeInformation($resource_building_prototypes, $resources_buildings_modifiers);
+        $this->insertPrototypeInformation($resource_building_prototypes, $resources_buildings_modifiers, "resources");
 
         /*
          * Function for adding Fleet Specific Building information.
          */
-        $this->insertPrototypeInformation($military_building_prototypes, $military_buildings_modifiers);
+        $this->insertPrototypeInformation($military_building_prototypes, $military_buildings_modifiers, "facilities");
 
         /*
         * Function for adding 'Others Type' Building information.
         */
-        $this->insertPrototypeInformation($defense_building_prototypes, $defense_buildings_modifiers);
+        $this->insertPrototypeInformation($defense_building_prototypes, $defense_buildings_modifiers, "other");
     }
 
 
@@ -76,7 +76,7 @@ class BuildingPrototypesSeeder extends Seeder
     * @param array of the names of the prototypes.
     * @param array of the building costs, levels, and time modifiers.
     */
-    private function insertPrototypeInformation($names_array, $modifiers){
+    private function insertPrototypeInformation($names_array, $modifiers, $type){
 
         $building_cost_modifier = $modifiers['building_cost_modifier'];
         $initial_building_res_cost = $modifiers['initial_building_res_cost'];
@@ -90,6 +90,7 @@ class BuildingPrototypesSeeder extends Seeder
 
             $inserted_id = DB::table('building_prototypes')->insertGetId(
                 array('name' => $name,
+                    'type' => $type,
                     'img_path' => "assets/img/buildings/img_". str_replace(' ', '', $name).".jpg",
                     'max_level' => $max_building_level,
                 )

@@ -35,8 +35,20 @@ class Planet extends Model
         return $this->belongsTo('App\PlanetType');
     }
 
-    public function Buildings(){
+    public function buildings(){
         return $this->hasMany('App\Building');
+    }
+
+    public function resourceBuildings(){
+        $buildings = $this->buildings()->get();
+
+        $resource_buildings = [];
+
+        foreach ($buildings as $b){
+            if($b->isResourceBuilding()) { array_push($resource_buildings, $b); }
+        }
+
+        return $resource_buildings;
     }
 
     /**

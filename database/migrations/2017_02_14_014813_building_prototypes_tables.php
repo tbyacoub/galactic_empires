@@ -15,6 +15,8 @@ class BuildingPrototypesTables extends Migration
     {
         Schema::create('building_prototypes', function (Blueprint $table){
             $table->increments('id');
+            $table->string('type');
+
             $table->string('name')->unique();
             $table->string('img_path');
             $table->mediumInteger('max_level');

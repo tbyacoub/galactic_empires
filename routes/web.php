@@ -37,9 +37,11 @@ Route::group(['middleware' => ['role:admin']], function (){
 });
 
 
-Route::get('/facilities', function(){
-    $user = Auth::user();
-    return view('facilities', compact('user'));
+Route::group(['middleware' => ['role:admin|player']], function (){
+    /*
+     * Route group for players, by default admins also, for game views.
+     */
+    Route::get('/facilities', 'FacilitiesController@index');
 });
 
 Route::get('/test', function (){
