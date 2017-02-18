@@ -46,7 +46,7 @@ class SolarSystemViewController extends Controller
 			->first();
 		
 		// Load the galaxy map page and pass it the solar systems for rendering.
-        return view('solar_system_view', compact('systemPlanets', 'solarSystem'));
+        return view('solar_system_view', compact('systemPlanets', 'solarSystem', 'system_id'));
     }
 }
 

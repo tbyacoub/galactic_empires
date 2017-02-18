@@ -16,32 +16,16 @@
 					@foreach ($systemPlanets as $planet)
 					
 						<div class='planet-view-cell'>
-							<img class='planet-view-planet-image' src='{{ URL::asset($planet->img_path) }}'/>
+							<img class='planet-view-planet-image' src='{{ URL::asset($planet->img_path) }}' onclick='RedirectToPlanetView({{ $planet->id }})'/>
 							<p class='planet-view-planet-name'>{{ $planet->name }}</p>
 						</div>
 					
 					@endforeach
 				
-					{{--
+					{{-- Planet cell template.
 					<div class='planet-view-cell'>
-						<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_1.png") }}'/>
-						<p class='planet-view-planet-name'>Aurelius Prime</p>
-					</div>
-					<div class='planet-view-cell'>
-						<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_2.png") }}'/>
-						<p class='planet-view-planet-name'>Sigma VII</p>
-					</div>
-					<div class='planet-view-cell'>
-						<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_3.png") }}'/>
-						<p class='planet-view-planet-name'>Taran'tuu</p>
-					</div>
-					<div class='planet-view-cell'>
-						<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_4.png") }}'/>
-						<p class='planet-view-planet-name'>Ciirda</p>
-					</div>
-					<div class='planet-view-cell'>
-						<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_5.png") }}'/>
-						<p class='planet-view-planet-name'>Beta III - Raz</p>
+						<img class='planet-view-planet-image' src='{{ URL::asset(<Image path>) }}' onclick='RedirectToPlanetView(<planet id>)'/>
+						<p class='planet-view-planet-name'>Planet Name</p>
 					</div>
 					--}}
 				</div>
@@ -60,5 +44,12 @@
 		</div>
         @include('partials.right-sidebar')
     </div>
+	
+	<script type='text/javascript'>
+		function RedirectToPlanetView(planet_id)
+		{
+			window.location.href = ('/galaxy-map/{{ $system_id }}/' + planet_id);
+		}
+	</script>
 
 @endsection

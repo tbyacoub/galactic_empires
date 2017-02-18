@@ -7923,6 +7923,10 @@ button.close {
   margin-top: 40px;
 }
 
+.planet-view-planet-image:hover {
+  cursor: pointer;
+}
+
 .planet-view-planet-name {
   margin: 0;
   padding: 0;
