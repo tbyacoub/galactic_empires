@@ -95,6 +95,6 @@ $(document).ready(function() {
 	 */
 	function ViewSystemWithID(id)
 	{
-		console.log("Viewing system with ID " + id);
+		window.location.href = ('/galaxy-map/' + id);
 	}
 });
