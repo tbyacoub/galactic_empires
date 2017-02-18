@@ -11,21 +11,36 @@
 		
 			<div id='planets-view-container'>
 				<div id='planets-view-inner-container'>
-					<div class='planets-view-columns' style='background-color: red;'>
-						<div class='planet-view-cell'></div>
-						<div class='planet-view-cell'></div>
-						<div class='planet-view-cell'></div>
+					<div class='planets-view-columns'>
+						<div class='planet-view-cell'>
+							<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_1.png") }}'/>
+							<p class='planet-view-planet-name'>Aurelius Prime</p>
+						</div>
+						<div class='planet-view-cell'>
+							<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_2.png") }}'/>
+							<p class='planet-view-planet-name'>Sigma VII</p>
+						</div>
+						<div class='planet-view-cell'>
+							<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_3.png") }}'/>
+							<p class='planet-view-planet-name'>Taran'tuu</p>
+						</div>
 					</div>
-					<div class='planets-view-columns' style='background-color: blue;'>
-						<div class='planet-view-cell'></div>
-						<div class='planet-view-cell'></div>
+					<div class='planets-view-columns'>
+						<div class='planet-view-cell'>
+							<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_4.png") }}'/>
+							<p class='planet-view-planet-name'>Ciirda</p>
+						</div>
+						<div class='planet-view-cell'>
+							<img class='planet-view-planet-image' src='{{ URL::asset("img/planet_test_image_5.png") }}'/>
+							<p class='planet-view-planet-name'>Beta III - Raz</p>
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			<div id='planets-info-container'>
 				<div id='planets-info-inner-container'>
-					<div style='width: 100%; height: 350px; background-color: red;'></div>
+					<p style='font-size: 20px'>Hello</p>
 				</div>
 			</div>
 		
