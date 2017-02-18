@@ -30,11 +30,23 @@ class SolarSystemViewController extends Controller
      */
     public function viewSystemFromGalaxyMap($system_id)
     {
-		// Get the ids, names, and locations of all solar systems.
-		//$solarSystems = DB::table('solar_systems')->select('id', 'name', 'location')->get();
+		// GGet the ids, names, and image paths for all planets in the 
+		// specified solar system.
+		$systemPlanets = DB::table('planets')
+			->join('planet_types', 'planets.planetType_id', '=', 'planet_types.id')
+			->select('planets.id', 'planets.name', 'planet_types.img_path')
+			->where('solarSystem_id', '=', $system_id)
+			->orderBy('id', 'asc')
+			->get();
+			
+		// Get some data about the specified solar system.
+		$solarSystem = DB::table('solar_systems')
+			->select('name', 'location')
+			->where('id', '=', $system_id)
+			->first();
 		
 		// Load the galaxy map page and pass it the solar systems for rendering.
-        return view('solar_system_view', compact('system_id'));
+        return view('solar_system_view', compact('systemPlanets', 'solarSystem'));
     }
 }
 
