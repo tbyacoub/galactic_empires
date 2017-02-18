@@ -48,20 +48,13 @@
 	background-color: red;
 }
 
-.planets-view-columns {
+.planet-view-cell {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
-	width: 50%;
-	height: 100%;
+	width: 275px;
+	height: 300px;
 	vertical-align: top;
-}
-
-.planet-view-cell {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: auto;
 }
 
 .planet-view-planet-image {
