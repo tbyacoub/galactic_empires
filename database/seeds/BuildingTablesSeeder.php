@@ -11,19 +11,20 @@ class BuildingTablesSeeder extends Seeder
      */
     public function run()
     {
-        $this->insertResourcesBuildingSpecifics();
-        $this->insertFleetBuildingsSpecifics();
+        $this->insertResourceBuildingSpecifics();
+        $this->insertShipyardBuildingsSpecifics();
         $this->insertDefenseBuildingsSpecifics();
+        $this->insertFacilityBuildingsSpecifics();
     }
 
 
-    private function insertResourcesBuildingSpecifics(){
+    private function insertResourceBuildingSpecifics(){
         // Below add Building Specific Information to its respective Table
 
     }
 
 
-    private function insertFleetBuildingsSpecifics(){
+    private function insertShipyardBuildingsSpecifics(){
 
         // Below add Building Specific Information to its respective Table
 
@@ -31,6 +32,11 @@ class BuildingTablesSeeder extends Seeder
 
 
     private function insertDefenseBuildingsSpecifics(){
+        // Below add Building Specific Information to its respective Table
+
+    }
+
+    private function insertFacilityBuildingsSpecifics(){
         // Below add Building Specific Information to its respective Table
 
     }

@@ -16,7 +16,8 @@ class BuildingPrototypesSeeder extends Seeder
         */
         $resource_building_prototypes = ['Mineral Mine', 'Crystal Mine', 'Energy Reactor'];
         $military_building_prototypes = ['Fleet Shipyard'];
-        $defense_building_prototypes = ['Missile Silo'];
+        $defense_building_prototypes = ['Anti-Air Missiles', 'Plasma Turret'];
+        $facility_building_prototypes = ['Research Station', 'Alloy Lab'];
 
 
         /*
@@ -52,21 +53,37 @@ class BuildingPrototypesSeeder extends Seeder
             'max_building_level' => 10
         );
 
+        $facility_buildings_modifiers = array(
+            'building_cost_modifier' => 2,
+            'initial_building_res_cost' => 100,
+
+            'building_time_modifier' => 3,
+            'initial_building_time_cost' => 20, // In minutes
+
+            'max_building_level' => 10
+        );
+
+
 
         /*
          * Function for adding Resource Specific Building information.
          */
-        $this->insertPrototypeInformation($resource_building_prototypes, $resources_buildings_modifiers, "resources");
+        $this->insertPrototypeInformation($resource_building_prototypes, $resources_buildings_modifiers, "resource");
 
         /*
          * Function for adding Fleet Specific Building information.
          */
-        $this->insertPrototypeInformation($military_building_prototypes, $military_buildings_modifiers, "facilities");
+        $this->insertPrototypeInformation($military_building_prototypes, $military_buildings_modifiers, "shipyard");
 
         /*
-        * Function for adding 'Others Type' Building information.
+        * Function for adding Defense Type Building information.
         */
-        $this->insertPrototypeInformation($defense_building_prototypes, $defense_buildings_modifiers, "other");
+        $this->insertPrototypeInformation($defense_building_prototypes, $defense_buildings_modifiers, "defense");
+
+        /*
+        * Function for adding Facilities/'Others Type' Building information.
+        */
+        $this->insertPrototypeInformation($facility_building_prototypes, $facility_buildings_modifiers, "facility");
     }
 
 

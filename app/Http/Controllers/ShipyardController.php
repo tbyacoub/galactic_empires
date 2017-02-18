@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 
-class FacilitiesController extends Controller
+class ShipyardController extends Controller
 {
     public function index(){
 
-        $buildings = Auth::user()->planets()->first()->buildingsOfType('facility');
+        $buildings = Auth::user()->planets()->first()->buildingsOfType('shipyard');
 
         return view('player.facilities', compact('buildings'));
     }

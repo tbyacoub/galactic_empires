@@ -12,7 +12,6 @@ class ResourceBuildingSeeder extends Seeder
      */
     public function run()
     {
-
         $mineral_prototype = \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first();
         $crystal_prototype = \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first();
         $energy_prototype = \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first();

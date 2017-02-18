@@ -39,17 +39,6 @@ class Planet extends Model
         return $this->hasMany('App\Building');
     }
 
-    public function resourceBuildings(){
-        $buildings = $this->buildings()->get();
-
-        $resource_buildings = [];
-
-        foreach ($buildings as $b){
-            if($b->isResourceBuilding()) { array_push($resource_buildings, $b); }
-        }
-
-        return $resource_buildings;
-    }
 
     /**
      * Sum of all planet's metal belonging to this User.
@@ -82,5 +71,46 @@ class Planet extends Model
     public function User()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * @param $type string type of BuildingPrototype (type in DB)
+     * @return array of type Building
+     */
+    public function buildingsOfType($type){
+        $buildings = $this->buildings()->get();
+
+        $resource_buildings = [];
+
+        switch ($type){
+            case "resource":
+                foreach ($buildings as $b){
+                    if($b->isResourceBuilding()) { array_push($resource_buildings, $b); }
+                }
+                break;
+
+            case "shipyard":
+                foreach ($buildings as $b){
+                    if($b->isShipyardBuilding()) { array_push($resource_buildings, $b); }
+                }
+                break;
+
+            case "defense":
+                foreach ($buildings as $b){
+                    if($b->isDefenseBuilding()) { array_push($resource_buildings, $b); }
+                }
+                break;
+
+            case "facility":
+                foreach ($buildings as $b){
+                    if($b->isFacilityBuilding()) { array_push($resource_buildings, $b); }
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        return $resource_buildings;
     }
 }

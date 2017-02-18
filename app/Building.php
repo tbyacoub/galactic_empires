@@ -33,9 +33,20 @@ class Building extends Model
     }
 
     public function isResourceBuilding(){
-        return $this->buildingPrototype()->first()->type() == "resources";
+        return $this->buildingPrototype()->first()->type() == "resource";
     }
 
+    public function isDefenseBuilding(){
+        return $this->buildingPrototype()->first()->type() == "defense";
+    }
+
+    public function isFacilityBuilding(){
+        return $this->buildingPrototype()->first()->type() == "facility";
+    }
+
+    public function isShipyardBuilding(){
+        return $this->buildingPrototype()->first()->type() == "shipyard";
+    }
 
 
 }

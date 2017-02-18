@@ -9,7 +9,7 @@
     <div class="row mt">
         <div class="col-md-12">
             <div class="panel-heading">
-                <h3><i class="fa fa-angle-right"></i> Facilities </h3>
+                <h3><i class="fa fa-angle-right"></i> Shipyard </h3>
 
             </div>
 
