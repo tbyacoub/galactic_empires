@@ -33,7 +33,7 @@
 			
 			<div id='planets-info-container'>
 				<div id='planets-info-inner-container'>
-					<p style='font-size: 20px'>Hello</p>
+					
 				</div>
 			</div>
 		
@@ -46,6 +46,13 @@
     </div>
 	
 	<script type='text/javascript'>
+		@if (isset($showRightPanel))
+			document.getElementById('planets-info-container').style.display = 'none';
+		
+			document.getElementById('planets-view-container').style.width = '100%';
+			document.getElementById('planets-view-container').style.borderStyle = 'none';
+		@endif
+	
 		function RedirectToPlanetView(planet_id)
 		{
 			window.location.href = ('/galaxy-map/{{ $system_id }}/' + planet_id);
