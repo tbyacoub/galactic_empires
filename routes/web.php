@@ -95,3 +95,7 @@ Route::group(['prefix' => 'test'], function () {
         return "event fired";
     });
 });
+
+
+Route::get('/resources', 'ResourcesController@index');
+
