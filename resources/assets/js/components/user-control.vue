@@ -110,6 +110,15 @@
                 type: Array,
                 required: true
             }
+        },
+        route: {
+            activate() {
+                $.trigger('navigation.hide')
+            },
+
+            deactivate() {
+                $.trigger('navigation.show')
+            }
         }
     }
 </script>

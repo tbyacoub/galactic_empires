@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,4 +96,17 @@ Route::group(['prefix' => 'test'], function () {
         event(new \App\Events\EmailSentEvent($user->id));
         return "event fired";
     });
+
+    Route::get('welcome-queue/{user}', function(\App\User $user) {
+        // run the following command to dispatch Jobs
+        // 1.redis-server
+        // 2.laravel-echo-server start
+        // 3.php artisan SoapServer
+        // 4.php artisan queue:work
+        //      4.1 php artisan queue:restart if any code was changed
+        $job = (new \App\Jobs\SendWelcomEmail($user))->delay(Carbon::now()->addMinutes(1));
+        dispatch($job);
+        return 'jobs dispatched';
+    });
+
 });
