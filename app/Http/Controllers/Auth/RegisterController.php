@@ -81,5 +81,6 @@ class RegisterController extends Controller
     {
         $planet = \App\Planet::where('user_id', -1)->inRandomOrder()->first();
         $user->addPlanet($planet);
+        $user->attachRole(\App\Role::where('name', 'player')->get()[0]);
     }
 }
