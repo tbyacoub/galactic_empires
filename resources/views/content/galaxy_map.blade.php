@@ -3,7 +3,6 @@
 @section('sub-content')
 
 	<div class="row mt">
-        <div class="col-lg-9">
 		
 		{{-- Galaxy Page specific elements start. --}}
 		
@@ -49,9 +48,6 @@
 		</div>
 		
 		{{-- Galaxy Page specific elements end. --}}
-		
-		</div>
-        @include('partials.right-sidebar')
     </div>
 
 <script type='text/javascript'>

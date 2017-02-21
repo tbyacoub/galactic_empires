@@ -9,22 +9,20 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MyEventNameHere implements ShouldBroadcast
+class EmailSentEvent implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $data;
+    public $user_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user_id)
     {
-        $this->data = array(
-            'power' => '10'
-        );
+        $this->user_id = $user_id;
     }
 
     /**
@@ -34,6 +32,6 @@ class MyEventNameHere implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('test.channel');
+        return new PrivateChannel('received.email.' . $this->user_id);
     }
 }

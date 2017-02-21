@@ -19,3 +19,15 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.User.*', function ($user, $userId) {
     return (int) $user->id === (int) $userId;
 });
+
+Broadcast::channel('test.channel', function ($user) {
+    if(true) {
+        return true;
+    }
+});
+
+Broadcast::channel('received.email.*', function ($user, $user_id) {
+   if($user->id == $user_id) {
+       return true;
+   }
+});

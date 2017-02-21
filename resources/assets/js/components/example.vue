@@ -23,7 +23,7 @@
         },
         mounted() {
             console.log('Component mounted.');
-            window.Echo.channel('test-channel').listen('MyEventNameHere', (object) => {
+            window.Echo.private('test.channel').listen('MyEventNameHere', (object) => {
                 console.log(object);
                 this.power = object.data.power;
             });

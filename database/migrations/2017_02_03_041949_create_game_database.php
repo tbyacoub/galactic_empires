@@ -34,9 +34,6 @@ class CreateGameDatabase extends Migration
             $table->string('name')->unique();
             $table->float('radius', 10, 2);
             $table->json('resources');
-//            $table->mediumInteger('metal');
-//            $table->mediumInteger('energy');
-//            $table->mediumInteger('wood');
             $table->integer('solarSystem_id')->index();
             $table->integer('planetType_id')->index();
             $table->integer('user_id')->index();

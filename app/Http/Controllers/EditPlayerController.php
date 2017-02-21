@@ -8,10 +8,8 @@ use App\Planet;
 
 class EditPlayerController extends Controller
 {
-    public function index($user_id){
 
-        $user = User::find($user_id);
-
+    public function index(User $user){
         return view('admin/edit-player', compact('user'));
     }
 

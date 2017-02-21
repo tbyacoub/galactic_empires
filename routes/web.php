@@ -11,22 +11,22 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return redirect('/home');
 });
 
-
-Auth::routes();
-
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
     Route::get('/inbox', 'PrivateMessageController@index');
 
+    Route::get('/galaxy-map', 'GalaxyMapController@index');
 });
 
-Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
+Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
 
     Route::get('/', 'MailController@index');
 
@@ -47,41 +47,53 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function (){
     Route::post('/api', 'MailController@mailApi');
 });
 
-Route::group(['middleware' => ['role:admin']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 
     /*
      * Route group for admin views.
      */
-    Route::get('/admin/game-settings', 'GameSettingsController@index');
-    Route::get('/admin/players-list', 'PlayerListController@index');
-    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
-    Route::get('/admin/edit-player/{user_id}',  array('as' => 'user_id', 'uses' => 'EditPlayerController@index'));
+    Route::get('/game-settings', 'GameSettingsController@index');
+
+    Route::get('/players-list', 'PlayerListController@index');
+
+    Route::get('/push-notifications', 'PushNotificationsController@index');
+
+    Route::get('/edit-player/{user}', 'EditPlayerController@index');
 
     /*
      * Route group for admin requests.
      */
-    Route::post('admin/posts/submit', 'PushNotificationsController@submit');
-    Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
-<<<<<<< HEAD
-=======
-    Route::post('/create', 'MailController@forward');
+    Route::post('/posts', 'PushNotificationsController@store');
+
+    Route::put('/posts/{post}', 'PushNotificationsController@update');
+
+    Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 });
 
->>>>>>> 815c5afdd0f78a9babaa4e628b373791220cd6f7
+// TESTING
 
-    Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
+Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
+
+Route::get('/facilities', function () {
+    $user = Auth::user();
+    return view('content.facilities', compact('user'));
 });
 
-Route::get('test', function () {
-    event(new \App\Events\MyEventNameHere());
-    return "event fired";
-});
+Route::group(['prefix' => 'test'], function () {
 
-<<<<<<< HEAD
-//Route::get('/facilities', function(){
-//    $user = Auth::user();
-//    return view('facilities', compact('user'));
-//});
-=======
-Route::get('/galaxy-map', 'GalaxyMapController@index');
->>>>>>> 815c5afdd0f78a9babaa4e628b373791220cd6f7
+    Route::get('send-email/{user}', function (\App\User $user) {
+        $sender = \App\User::find(10);
+        $mail = new \App\Mail([
+            "subject" => "test",
+            "message" => "testeadbhjasdbhjasbdhjasbd",
+            "read" => 0,
+            "favorite" => 0,
+        ]);
+        $mail->sender()->associate($sender);
+        $mail->receiver()->associate($user);
+        $mail->save();
+        event(new \App\Events\EmailSentEvent($user->id));
+        return "event fired";
+    });
+
+});

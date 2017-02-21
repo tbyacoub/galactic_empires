@@ -16,7 +16,7 @@
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
     </script>
-    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+    <script src="{{ URL::asset('js/Chart.js') }}"></script>
 </head>
 
 <body>
@@ -41,6 +41,8 @@
 <script src="{{ URL::asset('js/jquery.scrollTo.min.js') }}"></script>
 <script src="{{ URL::asset('js/jquery.nicescroll.js') }}"></script>
 <script src="{{ URL::asset('js/common-scripts.js') }}"></script>
+<script src="{{ URL::asset('js/jquery.sparkline.js') }}"></script>
+<script src="{{ URL::asset('js/sparkline-chart.js') }}"></script>
 
 </body>
 </html>
