@@ -1,15 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('sub-content')
+
+    <link href="css/buildings.css" rel="stylesheet">
     <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
     <!--main content start-->
     <h3><i class="fa fa-angle-right"></i> Facilities </h3>
-
-
-    <div class="row mt">
-        <div class="col-md-12">
 
             <div class="content-panel" id="player-view-container">
 
@@ -57,43 +55,5 @@
                 </div>
 
             </div><!-- /content-panel -->
-        </div><!-- /col-md-12 -->
-    </div><!-- /row -->
 
 @endsection
-
-<style rel="stylesheet/css">
-
-    #player-view-container{
-        height: 800px;
-        background-color: #ffd777;
-    }
-
-    #view-img{
-        width: 95%;
-        height: 400px;
-        margin-left: 5%;
-    }
-
-    #buildings-container{
-        height: 300px;
-        margin: 3%;
-        width: 95%;
-        /*border: 2px solid black;*/
-        overflow-x: hidden;
-    }
-
-    .building-container{
-        width: 19.5%;
-        margin-top: 5px;
-        display: inline-block;
-    }
-
-    .building-img{
-        height: 60%;
-        width: 60%;
-        border: 2px solid darkgoldenrod;
-    }
-
-</style>
-

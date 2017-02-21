@@ -1,0 +1,31 @@
+#player-view-container{
+    height: 800px;
+    /*background-color: #ffd777;*/
+    background-color: #424a5d;
+}
+
+#view-img{
+    width: 95%;
+    height: 400px;
+    margin-left: 5%;
+}
+
+#buildings-container{
+    height: 300px;
+    margin: 3%;
+    width: 95%;
+    /*border: 2px solid black;*/
+    overflow-x: hidden;
+}
+
+.building-container{
+    width: 19.5%;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.building-img{
+    height: 60%;
+    width: 60%;
+    border: 2px solid darkgoldenrod;
+}
