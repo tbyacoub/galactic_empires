@@ -5,13 +5,11 @@
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
     <!--main content start-->
+    <h3><i class="fa fa-angle-right"></i> Facilities </h3>
+
 
     <div class="row mt">
         <div class="col-md-12">
-            <div class="panel-heading">
-                <h3><i class="fa fa-angle-right"></i> Shipyard </h3>
-
-            </div>
 
             <div class="content-panel" id="player-view-container">
 
@@ -37,24 +35,24 @@
 
                 <div class="row mt" id="buildings-container">
 
-                        @foreach($buildings as $building)
-                            <div class="building-container">
-                                <div class="white-panel pn" >
-                                    <div class="white-header">
-                                        <h5>{{ $building->name() }}</h5>
+                    @foreach($buildings as $building)
+                        <div class="building-container">
+                            <div class="white-panel pn" >
+                                <div class="white-header">
+                                    <h5>{{ $building->name() }}</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-6 goleft">
+                                        <p><i class="fa fa-gavel"></i> Level : {{ $building->current_level }}</p>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-xs-6 goleft">
-                                            <p><i class="fa fa-gavel"></i> Level : {{ $building->current_level }}</p>
-                                        </div>
-                                        <div class="col-sm-6 col-xs-6"></div>
-                                    </div>
-                                    <div class="centered">
-                                        <img class="building-img" src="" alt="{{ $building->img() }}">
-                                    </div>
+                                    <div class="col-sm-6 col-xs-6"></div>
+                                </div>
+                                <div class="centered">
+                                    <img class="building-img" src="" alt="{{ $building->img() }}">
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
 
                 </div>
 
@@ -64,11 +62,10 @@
 
 @endsection
 
-
 <style rel="stylesheet/css">
 
     #player-view-container{
-        min-height: 800px;
+        height: 800px;
         background-color: #ffd777;
     }
 
@@ -99,3 +96,4 @@
     }
 
 </style>
+

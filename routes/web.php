@@ -37,12 +37,15 @@ Route::group(['middleware' => ['role:admin']], function (){
 });
 
 
-Route::group(['middleware' => ['role:admin|player']], function (){
+Route::group(['middleware' => ['role:admin|player']], function ()
+{
     /*
      * Route group for players, by default admins also, for game views.
      */
-    Route::get('/facilities', 'FacilitiesController@index');
-    Route::get('/shipyard', 'ShipyardController@index');
+    Route::get('/facilities', 'BuildingViewController@indexFacilities');
+    Route::get('/shipyard', 'BuildingViewController@indexShipyard');
+    Route::get('/resources', 'BuildingViewController@indexResources');
+    Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
 
 });
 

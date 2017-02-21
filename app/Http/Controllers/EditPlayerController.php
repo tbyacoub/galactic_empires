@@ -11,8 +11,6 @@ class EditPlayerController extends Controller
 
         $user = User::find($user_id);
 
-//        dd($user);
-
         return view('admin/edit-player', compact('user'));
     }
 }
