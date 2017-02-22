@@ -128,5 +128,4 @@
             </div><!-- /form-panel -->
         </div><!-- /col-lg-12 -->
     </div><!-- /row -->
-
 @endsection

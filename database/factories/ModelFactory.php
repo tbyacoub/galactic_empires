@@ -19,6 +19,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'api_token' => str_random(60),
     ];
 });
 
@@ -52,6 +53,18 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->city,
+        'radius' => $faker->randomNumber($nbDigits = 6),
+        'resources' => createReso($faker),
+        'solarSystem_id' => \App\SolarSystem::all()->random()->id,
+        'planetType_id' => \App\PlanetType::all()->random()->id,
+        'user_id' => -1
+    ];
+});
+
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
     return [
@@ -66,7 +79,19 @@ $factory->define(App\Building::class, function (Faker\Generator $faker){
     return [
         'current_level' => $faker->randomNumber($nbDigits = 1),
         'building_prototype_id' => null,
-        'planet_id' => null,
+        'planet_id' => null
+    ];
+});
+
+$factory->define(App\Mail::class, function (Faker\Generator $faker) {
+
+    return [
+        'sender_id' => App\User::all()->random()->id,
+        'receiver_id' => App\User::all()->random()->id,
+        'subject' => $faker->word,
+        'message' => $faker->text($maxNbChars = 200),
+        'read' => false,
+        'favorite' => false
     ];
 });
 
@@ -86,6 +111,5 @@ function createReso($faker)
         "wood" => $faker->randomNumber($nbDigits = 5),
         "energy" => $faker->randomNumber($nbDigits = 5)
     ];
-    echo json_encode($json);
     return $json;
 }

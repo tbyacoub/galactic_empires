@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,32 +13,65 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return redirect('/home');
 });
 
-Auth::routes();
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/home', 'HomeController@index');
+    Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => ['role:admin']], function (){
+    Route::get('/galaxy-map', 'GalaxyMapController@index');
+});
+
+Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
+
+    Route::get('/', 'MailController@index');
+
+    Route::get('/sent', 'MailController@sentIndex');
+
+    Route::get('/create/{email?}', 'MailController@create');
+
+    Route::post('/create', 'MailController@forward');
+
+    Route::post('/', 'MailController@store');
+
+    Route::get('/{mail}', 'MailController@show');
+
+    Route::delete('/{mail}', 'MailController@destroy');
+
+    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
+
+    Route::post('/api', 'MailController@mailApi');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 
     /*
      * Route group for admin views.
      */
-    Route::get('/admin/game-settings', 'GameSettingsController@index');
-    Route::get('/admin/players-list', 'PlayerListController@index');
-    Route::get('/admin/push-notifications', 'PushNotificationsController@index');
-    Route::get('/admin/edit-player/{user_id}',  array('as' => 'user_id', 'uses' => 'EditPlayerController@index'));
+    Route::get('/game-settings', 'GameSettingsController@index');
+
+    Route::get('/players-list', 'PlayerListController@index');
+
+    Route::get('/push-notifications', 'PushNotificationsController@index');
+
+    Route::get('/edit-player/{user}', 'EditPlayerController@index');
 
     /*
      * Route group for admin requests.
      */
-    Route::post('admin/posts/submit', 'PushNotificationsController@submit');
-    Route::post('admin/posts/remove/{post_id}', 'PushNotificationsController@remove');
+    Route::post('/posts', 'PushNotificationsController@store');
+
+    Route::put('/posts/{post}', 'PushNotificationsController@update');
+
+    Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 });
 
 
+<<<<<<< HEAD
 Route::group(['middleware' => ['role:admin|player']], function (){
     /*
      * Route group for players, by default admins also, for game views.
@@ -50,3 +85,42 @@ Route::get('/test', function (){
 
    return \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first()->max_level;
 });
+=======
+// TESTING
+
+Route::get('/facilities', function () {
+    $user = Auth::user();
+    return view('content.facilities', compact('user'));
+});
+
+Route::group(['prefix' => 'test'], function () {
+
+    Route::get('send-email/{user}', function (\App\User $user) {
+        $sender = \App\User::find(10);
+        $mail = new \App\Mail([
+            "subject" => "test",
+            "message" => "testeadbhjasdbhjasbdhjasbd",
+            "read" => 0,
+            "favorite" => 0,
+        ]);
+        $mail->sender()->associate($sender);
+        $mail->receiver()->associate($user);
+        $mail->save();
+        event(new \App\Events\EmailSentEvent($user->id));
+        return "event fired";
+    });
+
+    Route::get('welcome-queue/{user}', function(\App\User $user) {
+        // run the following command to dispatch Jobs
+        // 1.redis-server
+        // 2.laravel-echo-server start
+        // 3.php artisan SoapServer
+        // 4.php artisan queue:work
+        //      4.1 php artisan queue:restart if any code was changed
+        $job = (new \App\Jobs\SendWelcomEmail($user))->delay(Carbon::now()->addMinutes(1));
+        dispatch($job);
+        return 'jobs dispatched';
+    });
+
+});
+>>>>>>> master

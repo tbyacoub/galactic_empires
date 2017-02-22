@@ -27,5 +27,8 @@ class PlanetSeeder extends Seeder
                 ]));
             }
         });
+
+        factory(\App\Planet::class, 100)->create();
+        factory(\App\Planet::class, 'unassigned', 25)->create();
     }
 }

@@ -12,19 +12,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/style-responsive.css') }}" rel="stylesheet">
-
-	{{-- Page specific css start --}}
-	@yield('page_specific_css')
-	{{-- Page specific css end --}}
-	
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
     </script>
+    <script src="{{ URL::asset('js/Chart.js') }}"></script>
 </head>
+
 <body>
 <div id="app">
     <section id="container" >
@@ -47,6 +41,8 @@
 <script src="{{ URL::asset('js/jquery.scrollTo.min.js') }}"></script>
 <script src="{{ URL::asset('js/jquery.nicescroll.js') }}"></script>
 <script src="{{ URL::asset('js/common-scripts.js') }}"></script>
+<script src="{{ URL::asset('js/jquery.sparkline.js') }}"></script>
+<script src="{{ URL::asset('js/sparkline-chart.js') }}"></script>
 
 </body>
 </html>
