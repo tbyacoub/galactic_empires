@@ -45,6 +45,7 @@ class UserTableSeeder extends Seeder
         $adminUser->name = 'admin';
         $adminUser->email = 'admin@gmail.com';
         $adminUser->password = bcrypt('password');
+        $adminUser->planets(\App\Planet::where('user_id', -1)->inRandomOrder()->first());
         $adminUser->save();
         $adminUser->attachRole($this->admin);
     }

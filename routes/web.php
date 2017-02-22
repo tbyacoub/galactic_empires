@@ -84,11 +84,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
 
 // TESTING
 
-Route::get('/facilities', function () {
-    $user = Auth::user();
-    return view('content.facilities', compact('user'));
-});
-
 Route::group(['prefix' => 'test'], function () {
 
     Route::get('mineral', function (){

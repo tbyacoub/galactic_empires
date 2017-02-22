@@ -8,35 +8,38 @@ use Auth;
 class BuildingViewController extends Controller
 {
     public function indexFacilities(){
-
-        $buildings = Auth::user()->planets()->first()->buildingsOfType('facility');
+        $user = Auth::user();
+        $planets = $user->planets()->get();
+        $buildings = $user->planets()->first()->buildingsOfType('facility');
         $type = "Facilities";
-
-        return view('player.building-view', compact('buildings', "type"));
+        return view('content.building-view', compact('buildings', "type", "user", "planets"));
     }
 
     public function indexShipyard(){
-
-        $buildings = Auth::user()->planets()->first()->buildingsOfType('shipyard');
+        $user = Auth::user();
+        $planets = $user->planets()->get();
+        $buildings = $user->planets()->first()->buildingsOfType('shipyard');
         $type = "Shipyard";
 
-        return view('player.building-view', compact('buildings', "type"));
+        return view('content.building-view', compact('buildings', "type", "user", "planets"));
     }
 
     public function indexDefenses(){
-
-        $buildings = Auth::user()->planets()->first()->buildingsOfType('defense');
+        $user = Auth::user();
+        $planets = $user->planets()->get();
+        $buildings = $user->planets()->first()->buildingsOfType('defense');
         $type = "Planetary Defense";
 
-        return view('player.building-view', compact('buildings', "type"));
+        return view('content.building-view', compact('buildings', "type", "user", "planets"));
     }
 
     public function indexResources(){
-
-        $buildings = Auth::user()->planets()->first()->buildingsOfType('resource');
+        $user = Auth::user();
+        $planets = $user->planets()->get();
+        $buildings = $user->planets()->first()->buildingsOfType('resource');
         $type = "Resources";
 
-        return view('player.building-view', compact('buildings', "type"));
+        return view('content.building-view', compact('buildings', "type", "user", "planets"));
     }
 
 }

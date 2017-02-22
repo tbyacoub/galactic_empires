@@ -103,12 +103,14 @@ class BuildingPrototypesSeeder extends Seeder
 
         $max_building_level = $modifiers['max_building_level'];
 
+        $faker = Faker\Factory::create();
+
         foreach ($names_array as $name){
 
             $inserted_id = DB::table('building_prototypes')->insertGetId(
                 array('name' => $name,
                     'type' => $type,
-                    'img_path' => "assets/img/buildings/img_". str_replace(' ', '', $name).".jpg",
+                    'img_path' => $faker->imageUrl($width = 380, $height = 280),
                     'max_level' => $max_building_level,
                 )
             );

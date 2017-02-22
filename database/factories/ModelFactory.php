@@ -35,7 +35,7 @@ $factory->define(App\SolarSystem::class, function (Faker\Generator $faker) {
 $factory->define(App\PlanetType::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->word,
+        'name' => $faker->unique()->word,
         'type' => $faker->word,
         'img_path' => $faker->imageUrl(640, 480) //currently this is for testing, it should reference img directory
     ];
@@ -44,7 +44,7 @@ $factory->define(App\PlanetType::class, function (Faker\Generator $faker) {
 $factory->define(App\Planet::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->city,
+        'name' => $faker->unique()->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
         'solarSystem_id' => \App\SolarSystem::all()->random()->id,
