@@ -6,5 +6,14 @@
     </div>
     <div class="row mt">
         @yield('main')
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        <user-control :user="{{$user}}" :planets="{{$planets}}"></user-control>
+        
     </div>
 @endsection

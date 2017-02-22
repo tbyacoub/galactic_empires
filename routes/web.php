@@ -23,8 +23,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/inbox', 'PrivateMessageController@index');
-
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 });
 
