@@ -7,7 +7,7 @@
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
     <!--main content start-->
-    <h3><i class="fa fa-angle-right"></i> Facilities </h3>
+    <h3><i class="fa fa-angle-right"></i> {{ $type }} </h3>
 
             <div class="content-panel" id="player-view-container">
 
@@ -19,11 +19,11 @@
 
                     <div class="col-md-6">
                         <h1>View Description</h1>
-                        <h4> Anti-Air Missiles : asldjfaklsdflkasdf</h4>
+                        <h4> Buildnig 1 : asldjfaklsdflkasdf</h4>
                         <hr>
-                        <h4> Research Station : asldjfaklsdflkasdf</h4>
+                        <h4> Building 2 : asldjfaklsdflkasdf</h4>
                         <hr>
-                        <h4> Alloy Lab : asldjfaklsdflkasdf</h4>
+                        <h4> Building 3 : asldjfaklsdflkasdf</h4>
                         <hr>
                         <h4> etc..</h4>
                     </div>
