@@ -54,12 +54,12 @@ class User extends Authenticatable
     }
 
     /**
-     * Sum of all planet's wood belonging to this User.
+     * Sum of all planet's crystal belonging to this User.
      *
      * @return integer
      */
-    public function wood(){
-        return $this->userResourcesTotal()['wood'];
+    public function crystal(){
+        return $this->userResourcesTotal()['crystal'];
     }
 
     /**
@@ -78,11 +78,11 @@ class User extends Authenticatable
      */
     public function userResourcesTotal()
     {
-        $total = ['metal' => 0, 'energy' => 0, 'wood' => 0];
+        $total = ['metal' => 0, 'energy' => 0, 'crystal' => 0];
         $planets = $this->planets()->get();
         foreach ($planets as $planet) {
             $total['metal'] += $planet->metal();
-            $total['wood'] += $planet->wood();
+            $total['crystal'] += $planet->crystal();
             $total['energy'] += $planet->energy();
         }
         return $total;

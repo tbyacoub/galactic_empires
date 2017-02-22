@@ -21,9 +21,9 @@
                         <th><i class="fa fa-calendar"></i> Created At</th>
                         <th><i class="fa fa-globe"></i> Planets Count</th>
                         <th><i class="fa fa-ship"></i> Ships Count</th>
-                        <th><i class="fa fa-ship"></i> Resource 1</th>
-                        <th><i class="fa fa-ship"></i> Resource 2</th>
-                        <th><i class="fa fa-ship"></i> Resource 3</th>
+                        <th><i class="fa fa-ship"></i> Crystal</th>
+                        <th><i class="fa fa-ship"></i> Energy</th>
+                        <th><i class="fa fa-ship"></i> Metal</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,7 +36,7 @@
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->planets()->count() }}</td>
                             <td>###</td>
-                            <td><input class="form-control" type="text" value="{{ $user->wood() }}" style="max-width:100px;" readonly></td>
+                            <td><input class="form-control" type="text" value="{{ $user->crystal() }}" style="max-width:100px;" readonly></td>
                             <td><input class="form-control" type="text" value="{{ $user->energy() }}" style="max-width:100px;" readonly></td>
                             <td><input class="form-control" type="text" value="{{ $user->metal() }}" style="max-width:100px;" readonly></td>
 

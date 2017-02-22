@@ -50,12 +50,12 @@ class Planet extends Model
     }
 
     /**
-     * Sum of all planet's wood belonging to this User.
+     * Sum of all planet's crystal belonging to this User.
      *
      * @return integer
      */
-    public function wood(){
-        return $this->resources['wood'];
+    public function crystal(){
+        return $this->resources['crystal'];
     }
 
     /**
@@ -112,5 +112,15 @@ class Planet extends Model
         }
 
         return $resource_buildings;
+    }
+    
+    function createResource($resources){
+        $json = [
+            "metal" => $resources['metal'],
+            "crystal" => $resources['crystal'],
+            "energy" => $resources['energy']
+        ];
+        echo json_encode($json);
+        return $json;
     }
 }

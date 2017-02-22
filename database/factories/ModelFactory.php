@@ -108,7 +108,7 @@ function createReso($faker)
 {
     $json = [
         "metal" => $faker->randomNumber($nbDigits = 5),
-        "wood" => $faker->randomNumber($nbDigits = 5),
+        "crystal" => $faker->randomNumber($nbDigits = 5),
         "energy" => $faker->randomNumber($nbDigits = 5)
     ];
     return $json;

@@ -12179,22 +12179,12 @@ ul.top-menu > li > a:focus, ul.top-menu > li > a:hover {
   border-radius: 100%;
 }
 
-/* Soptify Panel */
 #spotify {
-	/*background: url(../img/lorde.jpg) no-repeat center top;*/
-	margin-top: -15px;
-	background-attachment: relative;
-	background-position: center center;
-	min-height: 220px;
-	width: 100%;
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  background: url(../img/lorde.jpg) no-repeat center center relative;
+  margin-top: -15px;
+  min-height: 220px;
+  width: 100%;
+  background-size: cover;
 }
 
 #spotify .btn-clear-g {
