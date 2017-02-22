@@ -11,6 +11,6 @@ class ShipyardController extends Controller
 
         $buildings = Auth::user()->planets()->first()->buildingsOfType('shipyard');
 
-        return view('player.facilities', compact('buildings'));
+        return view('player.shipyard', compact('buildings'));
     }
 }

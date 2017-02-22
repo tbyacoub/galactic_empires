@@ -19,11 +19,22 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
+/*
+ * Route group for players, by default admins also, for game views.
+ */
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
     Route::get('/galaxy-map', 'GalaxyMapController@index');
+
+    Route::get('/facilities', 'BuildingViewController@indexFacilities');
+
+    Route::get('/shipyard', 'BuildingViewController@indexShipyard');
+
+    Route::get('/resources', 'BuildingViewController@indexResources');
+
+    Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
@@ -71,21 +82,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
 });
 
 
-<<<<<<< HEAD
-Route::group(['middleware' => ['role:admin|player']], function (){
-    /*
-     * Route group for players, by default admins also, for game views.
-     */
-    Route::get('/facilities', 'FacilitiesController@index');
-    Route::get('/shipyard', 'ShipyardController@index');
-
-});
-
-Route::get('/test', function (){
-
-   return \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first()->max_level;
-});
-=======
 // TESTING
 
 Route::get('/facilities', function () {
@@ -94,6 +90,12 @@ Route::get('/facilities', function () {
 });
 
 Route::group(['prefix' => 'test'], function () {
+
+    Route::get('mineral', function (){
+
+       return \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first()->max_level;
+
+    });
 
     Route::get('send-email/{user}', function (\App\User $user) {
         $sender = \App\User::find(10);
@@ -123,4 +125,3 @@ Route::group(['prefix' => 'test'], function () {
     });
 
 });
->>>>>>> master
