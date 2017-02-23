@@ -60,6 +60,9 @@
 </template>
 
 <script>
+
+    import { EventBus } from './eventBus.js';
+
     class Planet {
 
         constructor(){
@@ -96,6 +99,7 @@
         methods: {
             changePlanet: function(){
                 this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+                EventBus.$emit('changePlanet', this.planets[event.target.id]);
             }
         },
         created() {
@@ -109,15 +113,6 @@
             planets: {
                 type: Array,
                 required: true
-            }
-        },
-        route: {
-            activate() {
-                $.trigger('navigation.hide')
-            },
-
-            deactivate() {
-                $.trigger('navigation.show')
             }
         }
     }
