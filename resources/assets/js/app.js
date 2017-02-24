@@ -12,8 +12,10 @@ require('./bootstrap');
 Vue.component('notification', require('./components/notification.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
 Vue.component('user-control', require('./components/user-control.vue'));
-Vue.component('test', require('./components/test.vue'));
+
+import { store } from './store';
 
 const app = new Vue({
+    store,
     el: '#app',
 });

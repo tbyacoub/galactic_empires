@@ -58,6 +58,11 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
     Route::post('/api', 'MailController@mailApi');
 });
 
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
+
+    Route::get('planets', 'ApiController@planets');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 
     /*
