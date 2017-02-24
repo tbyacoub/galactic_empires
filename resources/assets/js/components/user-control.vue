@@ -61,8 +61,6 @@
 
 <script>
 
-    import { EventBus } from './eventBus.js';
-
     class Planet {
 
         constructor(){

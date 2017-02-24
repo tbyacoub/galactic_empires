@@ -10,7 +10,6 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 Vue.component('notification', require('./components/notification.vue'));
-Vue.component('example', require('./components/example.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
 Vue.component('user-control', require('./components/user-control.vue'));
 Vue.component('test', require('./components/test.vue'));
