@@ -2,7 +2,7 @@
 
 @section('sub-content')
     <div class="row mt">
-        <user-control></user-control>
+        <user-control :planets="{{$planets}}"></user-control>
     </div>
     <div class="row mt">
         @yield('main')

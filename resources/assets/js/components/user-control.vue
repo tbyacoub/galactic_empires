@@ -1,14 +1,14 @@
 <template>
-    <div v-if="render" class="col-lg-12">
+    <div class="col-lg-12">
         <div class="row content-panel">
             <div class="col-md-4 profile-text mt mb">
                 <div class="btn-group">
-                    <h3>Current Planet: <strong>{{ getName }}</strong></h3>
+                    <h3>Current Planet: <strong>{{selectedPlanet.getName()}}</strong></h3>
                     <button type="button" class="btn btn-theme dropdown-toggle" data-toggle="dropdown">
                         Planets <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li v-for="(planet, index) in getPlanets"><a :id="index" @click="changePlanet" href="#">{{planet.name}}</a></li>
+                        <li v-for="(planet, index) in planets"><a :id="index" @click="changePlanet" href="#">{{planet.name}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -17,19 +17,19 @@
                 <h5>Metal</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: getMetal }">
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getMetal() }">
                     </div>
                 </div>
-                <h5>Crystal</h5>
+                <h5>Wood</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-info" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: getCrystal }">
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getWood() }">
                     </div>
                 </div>
                 <h5>Energy</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-warning" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: getEnergy }"></div>
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getEnergy() }"></div>
                 </div>
             </div>
 
@@ -60,40 +60,62 @@
 </template>
 
 <script>
+    class Planet {
+
+        constructor(){
+            this.planet = {};
+        }
+
+        setPlanet(planet){
+            this.planet = planet;
+        }
+
+        getName(){
+            return this.planet.name;
+        }
+
+        getMetal(){
+            return (100 - (this.planet.resources.metal/99999)*100) + '%';
+        }
+
+        getWood(){
+            return (100 - (this.planet.resources.wood/99999)*100) + '%';
+        }
+
+        getEnergy(){
+            return (100 - (this.planet.resources.energy/99999)*100) + '%';
+        }
+
+    }
+
+    import { EventBus } from '../eventBus.js';
 
     export default{
+        data(){
+            return{
+                selectedPlanet: new Planet(),
+            }
+        },
         methods: {
             changePlanet: function(){
-                this.$store.commit('SET_PLANET', event.target.id);
+                this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+                this.emitEvent();
             },
-            setPlanets() {
-                this.$http.get('/api/planets').then(response => {
-                    this.$store.commit('SET_PLANETS', response.body);
-                });
+            emitEvent(){
+                EventBus.$emit('planet-changed', this.selectedPlanet);
             }
         },
         created() {
-            this.setPlanets();
+            this.selectedPlanet.setPlanet(this.planets[0]);
         },
-        computed: {
-            getName() {
-                return this.$store.getters.getName
-            },
-            getPlanets() {
-                return this.$store.getters.getPlanets
-            },
-            getMetal(){
-                return this.$store.getters.getMetal
-            },
-            getCrystal(){
-                return this.$store.getters.getCrystal
-            },
-            getEnergy(){
-                return this.$store.getters.getEnergy
-            },
-            render(){
-                return this.$store.getters.render
+        mounted() {
+            this.emitEvent();
+        },
+        props: {
+            planets: {
+                type: Array,
+                required: true
             }
-        }
+        },
     }
 </script>

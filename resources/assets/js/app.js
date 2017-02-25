@@ -12,10 +12,8 @@ require('./bootstrap');
 Vue.component('notification', require('./components/notification.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
 Vue.component('user-control', require('./components/user-control.vue'));
-
-import { store } from './store';
+Vue.component('building-view', require('./components/building-view.vue'));
 
 const app = new Vue({
-    store,
     el: '#app',
 });
