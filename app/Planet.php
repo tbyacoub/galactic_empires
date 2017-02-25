@@ -36,9 +36,8 @@ class Planet extends Model
     }
 
     public function buildings(){
-        return $this->hasMany('App\Building');
+        return $this->belongsToMany('App\Building')->withPivot('current_level');
     }
-
 
     /**
      * Sum of all planet's metal belonging to this User.
@@ -71,56 +70,5 @@ class Planet extends Model
     public function User()
     {
         return $this->belongsTo('App\User');
-    }
-
-    /**
-     * @param $type string type of BuildingPrototype (type in DB)
-     * @return array of type Building
-     */
-    public function buildingsOfType($type){
-        $buildings = $this->buildings()->get();
-
-        $resource_buildings = [];
-
-        switch ($type){
-            case "resource":
-                foreach ($buildings as $b){
-                    if($b->isResourceBuilding()) { array_push($resource_buildings, $b); }
-                }
-                break;
-
-            case "shipyard":
-                foreach ($buildings as $b){
-                    if($b->isShipyardBuilding()) { array_push($resource_buildings, $b); }
-                }
-                break;
-
-            case "defense":
-                foreach ($buildings as $b){
-                    if($b->isDefenseBuilding()) { array_push($resource_buildings, $b); }
-                }
-                break;
-
-            case "facility":
-                foreach ($buildings as $b){
-                    if($b->isFacilityBuilding()) { array_push($resource_buildings, $b); }
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        return $resource_buildings;
-    }
-    
-    function createResource($resources){
-        $json = [
-            "metal" => $resources['metal'],
-            "crystal" => $resources['crystal'],
-            "energy" => $resources['energy']
-        ];
-        echo json_encode($json);
-        return $json;
     }
 }

@@ -12,8 +12,15 @@ class ApiController extends Controller
         return $request->user()->planets()->get();
     }
 
+    public function facilities(Planet $planet){
+        return $planet->buildings()->where('type', 'facility')->get();
+    }
+
     public function resources(Planet $planet){
-        $planets = $planet->buildings()->get()->groupBy('BuildingPrototype.type');
-        return $planets['resource'];
+        return $planet->buildings()->where('type', 'resource')->get();
+    }
+
+    public function planetaryDefenses(Planet $planet){
+        return $planet->buildings()->where('type', 'planetery_defense')->get();
     }
 }

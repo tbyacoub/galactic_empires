@@ -30,8 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/facilities', 'BuildingViewController@indexFacilities');
 
-    Route::get('/shipyard', 'BuildingViewController@indexShipyard');
-
     Route::get('/resources', 'BuildingViewController@indexResources');
 
     Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
@@ -62,7 +60,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
 
     Route::get('planets', 'ApiController@planets');
 
-    Route::get('planet/{planet}/Resources', 'ApiController@resources');
+    Route::get('planet/{planet}/resources', 'ApiController@resources');
+
+    Route::get('planet/{planet}/facilities', 'ApiController@facilities');
+
+    Route::get('planet/{planet}/planetary_defenses', 'ApiController@planetaryDefenses');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
