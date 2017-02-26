@@ -67,7 +67,7 @@ class Planet extends Model
         return $this->resources['energy'];
     }
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserRoleSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
 
     private $activatedPlayer;
@@ -25,29 +25,26 @@ class UserRoleSeeder extends Seeder
         $this->suspendedPlayer = \App\Role::where('name', 'premium-player')->get()[0];
         $this->premiumPlayer = \App\Role::where('name', 'suspended-player')->get()[0];
 
-        $users = \App\User::all();
-        $count = 0;
+        factory(\App\User::class, 5)->create()->each(function ($u){
+            $u->attachRole($this->admin);
+        });
 
-        foreach ($users as $u) {
-            if($count < 5) {
-                $u->attachRole($this->admin);
-                $count++;
-            } else if ($count < 6) {
-                $u->attachRole($this->premiumPlayer);
-                $count++;
-            } else if ($count < 8) {
-                $u->attachRole($this->suspendedPlayer);
-                $count++;
-            } else {
-                $u->attachRole($this->activatedPlayer);
-            }
-        }
+        factory(\App\User::class, 50)->create()->each(function ($u){
+            $u->attachRole($this->activatedPlayer);
+        });
+
+        factory(\App\User::class, 5)->create()->each(function ($u){
+            $u->attachRole($this->suspendedPlayer);
+        });
+
+        factory(\App\User::class, 10)->create()->each(function ($u){
+            $u->attachRole($this->premiumPlayer);
+        });
 
         $adminUser = new \App\User();
         $adminUser->name = 'admin';
         $adminUser->email = 'admin@gmail.com';
         $adminUser->password = bcrypt('password');
-        $adminUser->planets(\App\Planet::where('user_id', -1)->inRandomOrder()->first());
         $adminUser->save();
         $adminUser->attachRole($this->admin);
     }

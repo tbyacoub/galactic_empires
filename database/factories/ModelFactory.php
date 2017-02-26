@@ -49,7 +49,6 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
         'resources' => createReso($faker),
         'solarSystem_id' => \App\SolarSystem::all()->random()->id,
         'planetType_id' => \App\PlanetType::all()->random()->id,
-        'user_id' => \App\User::all()->random()->id
     ];
 });
 
