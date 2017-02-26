@@ -10,9 +10,6 @@
 						<div class="sp-title">
 							<h3>{{ building.display_name }}</h3>
 						</div>
-						<div class="play">
-							<i class="fa fa-play-circle"></i>
-						</div>
 					</div>
 					<p class="followers"><i class="fa fa-user"></i>LEVEL {{ building.pivot.current_level }}</p>
 				</div>

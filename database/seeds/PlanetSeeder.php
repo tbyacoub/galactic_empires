@@ -29,10 +29,13 @@ class PlanetSeeder extends Seeder
         $this->pt = \App\Building::where('name', 'plasma_turret')->first();
         $this->rs = \App\Building::where('name', 'research_station')->first();
         $this->al = \App\Building::where('name', 'alloy_lab')->first();
+
         factory(\App\SolarSystem::class, 20)->create();
+
         factory(\App\PlanetType::class, 5)->create();
 
         factory(\App\Planet::class, 100)->create()->each(function ($p){
+            $user = factory(\App\User::class)->create();
             $p->buildings()->attach($this->mm, ['current_level' => 1]);
             $p->buildings()->attach($this->cm, ['current_level' => 1]);
             $p->buildings()->attach($this->er, ['current_level' => 1]);
@@ -41,6 +44,8 @@ class PlanetSeeder extends Seeder
             $p->buildings()->attach($this->pt, ['current_level' => 1]);
             $p->buildings()->attach($this->rs, ['current_level' => 1]);
             $p->buildings()->attach($this->al, ['current_level' => 1]);
+            $user->planets()->save($p);
+            $user->save();
         });
 
 

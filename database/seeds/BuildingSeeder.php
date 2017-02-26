@@ -27,7 +27,7 @@ class BuildingSeeder extends Seeder
         $building->name = "mineral_mine";
         $building->display_name = "Mineral Mine";
         $building->type = "resource";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/quartz.svg";
         $building->save();
     }
 
@@ -36,7 +36,7 @@ class BuildingSeeder extends Seeder
         $building->name = "crystal_mine";
         $building->display_name = "Crystal Mine";
         $building->type = "resource";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/diamond-outlined-shape.svg";
         $building->save();
     }
 
@@ -45,7 +45,7 @@ class BuildingSeeder extends Seeder
         $building->name = "energy_reactor";
         $building->display_name = "Energy Reactor";
         $building->type = "resource";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/lightning-electric-energy.svg";
         $building->save();
     }
 
@@ -54,7 +54,7 @@ class BuildingSeeder extends Seeder
         $building->name = "fleet_shipyard";
         $building->display_name = "Fleet Shipyard";
         $building->type = "military";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $building->save();
     }
 
@@ -63,7 +63,7 @@ class BuildingSeeder extends Seeder
         $building->name = "anti_air_missile";
         $building->display_name = "Anti-air Missiles";
         $building->type = "planetery_defense";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/missile.svg";
         $building->save();
     }
 
@@ -72,7 +72,7 @@ class BuildingSeeder extends Seeder
         $building->name = "plasma_turret";
         $building->display_name = "Plasma Turret";
         $building->type = "planetery_defense";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/machine-gun.svg";
         $building->save();
     }
 
@@ -81,7 +81,7 @@ class BuildingSeeder extends Seeder
         $building->name = "research_station";
         $building->display_name = "Research Station";
         $building->type = "facility";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/research.svg";
         $building->save();
     }
 
@@ -90,7 +90,7 @@ class BuildingSeeder extends Seeder
         $building->name = "alloy_lab";
         $building->display_name = "Alloy Lab";
         $building->type = "facility";
-        $building->img_path = $faker->imageUrl($width = 380, $height = 280);
+        $building->img_path = "/img/building/flask-outline.svg";
         $building->save();
     }
 
