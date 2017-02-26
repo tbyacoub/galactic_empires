@@ -14,9 +14,23 @@
             </div>
 
             <div class="col-md-4 centered">
-                <h5>Metal: {{selectedPlanet.getMetal()}}</h5>
-                <h5>Wood</h5>
+                <h5>Metal</h5>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getMetal() }">
+                    </div>
+                </div>
+                <h5>Crystal</h5>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getCrystal() }">
+                    </div>
+                </div>
                 <h5>Energy</h5>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getEnergy() }"></div>
+                </div>
             </div>
 
             <div class="col-md-4 centered">
@@ -61,21 +75,18 @@
         }
 
         getMetal(){
-            return (100 - (this.planet.resources.metal/99999)*100) + '%';
+            return ((this.planet.resources.metal/99999)*100) + '%';
         }
 
-        getWood(){
-            return (100 - (this.planet.resources.wood/99999)*100) + '%';
+        getCrystal(){
+            return ((this.planet.resources.crystal/99999)*100) + '%';
         }
 
         getEnergy(){
-            return (100 - (this.planet.resources.energy/99999)*100) + '%';
+            return ((this.planet.resources.energy/99999)*100) + '%';
         }
 
     }
-
-    import { EventBus } from '../eventBus.js';
-
     export default{
         data(){
             return{
@@ -85,23 +96,20 @@
         methods: {
             changePlanet: function(){
                 this.selectedPlanet.setPlanet(this.planets[event.target.id]);
-                this.emitEvent();
-            },
-            emitEvent(){
-                EventBus.$emit('planet-changed', this.selectedPlanet);
             }
         },
         created() {
             this.selectedPlanet.setPlanet(this.planets[0]);
         },
-        mounted() {
-            this.emitEvent();
-        },
         props: {
+            user: {
+                type: Object,
+                required: true
+            },
             planets: {
                 type: Array,
                 required: true
             }
-        },
+        }
     }
 </script>
