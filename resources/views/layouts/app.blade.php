@@ -16,7 +16,6 @@
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
     </script>
-    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
     <script src="{{ URL::asset('js/Chart.js') }}"></script>
 </head>
 

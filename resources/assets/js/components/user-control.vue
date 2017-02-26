@@ -14,23 +14,9 @@
             </div>
 
             <div class="col-md-4 centered">
-                <h5>Metal</h5>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getMetal() }">
-                    </div>
-                </div>
+                <h5>Metal: {{selectedPlanet.getMetal()}}</h5>
                 <h5>Wood</h5>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-info" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getWood() }">
-                    </div>
-                </div>
                 <h5>Energy</h5>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-warning" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getEnergy() }"></div>
-                </div>
             </div>
 
             <div class="col-md-4 centered">
