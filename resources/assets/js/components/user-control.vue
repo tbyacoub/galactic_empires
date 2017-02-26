@@ -20,10 +20,10 @@
                          aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getMetal() }">
                     </div>
                 </div>
-                <h5>Wood</h5>
+                <h5>Crystal</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-info" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getWood() }">
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getcrystal() }">
                     </div>
                 </div>
                 <h5>Energy</h5>
@@ -75,15 +75,15 @@
         }
 
         getMetal(){
-            return (100 - (this.planet.resources.metal/99999)*100) + '%';
+            return ((this.planet.resources.metal/99999)*100) + '%';
         }
 
-        getWood(){
-            return (100 - (this.planet.resources.wood/99999)*100) + '%';
+        getcrystal(){
+            return ((this.planet.resources.crystal/99999)*100) + '%';
         }
 
         getEnergy(){
-            return (100 - (this.planet.resources.energy/99999)*100) + '%';
+            return ((this.planet.resources.energy/99999)*100) + '%';
         }
 
     }
