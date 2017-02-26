@@ -1,5 +1,8 @@
 /node_modules
 /public/storage
+/public/js/app.js
+/public/css/app.css
+/public/css/app.css.map
 /resources/assets/js/components/my-canvas.vue
 /vendor
 /.idea

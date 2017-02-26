@@ -23,7 +23,7 @@
                 <h5>Crystal</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-info" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getCrystal() }">
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getcrystal() }">
                     </div>
                 </div>
                 <h5>Energy</h5>
@@ -78,7 +78,7 @@
             return ((this.planet.resources.metal/99999)*100) + '%';
         }
 
-        getCrystal(){
+        getcrystal(){
             return ((this.planet.resources.crystal/99999)*100) + '%';
         }
 
@@ -87,6 +87,9 @@
         }
 
     }
+
+    import { EventBus } from '../eventBus.js';
+
     export default{
         data(){
             return{
@@ -96,20 +99,23 @@
         methods: {
             changePlanet: function(){
                 this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+                this.emitEvent();
+            },
+            emitEvent(){
+                EventBus.$emit('planet-changed', this.selectedPlanet);
             }
         },
         created() {
             this.selectedPlanet.setPlanet(this.planets[0]);
         },
+        mounted() {
+            this.emitEvent();
+        },
         props: {
-            user: {
-                type: Object,
-                required: true
-            },
             planets: {
                 type: Array,
                 required: true
             }
-        }
+        },
     }
 </script>
