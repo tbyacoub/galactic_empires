@@ -98,9 +98,9 @@ function createLocation($faker)
 function createReso($faker)
 {
     $json = [
-        "metal" => $faker->randomNumber($nbDigits = 5),
-        "crystal" => $faker->randomNumber($nbDigits = 5),
-        "energy" => $faker->randomNumber($nbDigits = 5)
+        "metal" => 1000,
+        "crystal" => 1000,
+        "energy" => 1000
     ];
     return $json;
 }
