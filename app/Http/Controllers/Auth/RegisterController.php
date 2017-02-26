@@ -80,6 +80,7 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $planet = \App\Planet::where('user_id', -1)->inRandomOrder()->first();
-        $user->addPlanet($planet);
+        $user->planets()->save($planet);
+        $user->attachRole(\App\Role::where('name', 'player')->get()[0]);
     }
 }

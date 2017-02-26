@@ -35,6 +35,10 @@ class Planet extends Model
         return $this->belongsTo('App\PlanetType');
     }
 
+    public function buildings(){
+        return $this->belongsToMany('App\Building')->withPivot('current_level');
+    }
+
     /**
      * Sum of all planet's metal belonging to this User.
      *
@@ -45,12 +49,12 @@ class Planet extends Model
     }
 
     /**
-     * Sum of all planet's wood belonging to this User.
+     * Sum of all planet's crystal belonging to this User.
      *
      * @return integer
      */
-    public function wood(){
-        return $this->resources['wood'];
+    public function crystal(){
+        return $this->resources['crystal'];
     }
 
     /**
@@ -63,7 +67,7 @@ class Planet extends Model
         return $this->resources['energy'];
     }
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }

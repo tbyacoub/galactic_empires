@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +19,20 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
+/*
+ * Route group for players, by default admins also, for game views.
+ */
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/inbox', 'PrivateMessageController@index');
-
     Route::get('/galaxy-map', 'GalaxyMapController@index');
+
+    Route::get('/facilities', 'BuildingViewController@indexFacilities');
+
+    Route::get('/resources', 'BuildingViewController@indexResources');
+
+    Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
@@ -45,6 +54,17 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
     Route::get('/api/get-notifications', 'MailController@getUserNotifications');
 
     Route::post('/api', 'MailController@mailApi');
+});
+
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
+
+    Route::get('planets', 'ApiController@planets');
+
+    Route::get('planet/{planet}/resources', 'ApiController@resources');
+
+    Route::get('planet/{planet}/facilities', 'ApiController@facilities');
+
+    Route::get('planet/{planet}/planetary_defenses', 'ApiController@planetaryDefenses');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
@@ -70,15 +90,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 });
 
-
 // TESTING
 
-Route::get('/facilities', function () {
-    $user = Auth::user();
-    return view('content.facilities', compact('user'));
-});
+Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
 
 Route::group(['prefix' => 'test'], function () {
+
+    Route::get('mineral', function (){
+
+       return \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first()->max_level;
+
+    });
 
     Route::get('send-email/{user}', function (\App\User $user) {
         $sender = \App\User::find(10);
@@ -94,4 +116,17 @@ Route::group(['prefix' => 'test'], function () {
         event(new \App\Events\EmailSentEvent($user->id));
         return "event fired";
     });
+
+    Route::get('welcome-queue/{user}', function(\App\User $user) {
+        // run the following command to dispatch Jobs
+        // 1.redis-server
+        // 2.laravel-echo-server start
+        // 3.php artisan SoapServer
+        // 4.php artisan queue:work
+        //      4.1 php artisan queue:restart if any code was changed
+        $job = (new \App\Jobs\SendWelcomEmail($user))->delay(Carbon::now()->addMinutes(1));
+        dispatch($job);
+        return 'jobs dispatched';
+    });
+
 });

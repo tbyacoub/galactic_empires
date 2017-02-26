@@ -32,7 +32,7 @@
                         <a :href="'/mail/' + mail.id">{{mail.sender.name}}</a>
                     </td>
                     <td class="view-message"><a :href="'/mail/' + mail.id">{{mail.subject}}</a></td>
-                    <td class="view-message text-right">{{mail.created_at}}</td>
+                    <td class="view-message text-right"><small>{{mail.created_at}}<small></td>
                 </tr>
                 </tbody>
             </table>

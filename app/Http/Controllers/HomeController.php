@@ -31,11 +31,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        $planets = $user->planets()->get();
-        return view('layouts.home', compact(
-            'planets',
-            'user'
-        ));
+        $planets = $request->user()->planets()->get();
+        return view('layouts.home', compact('planets'));
     }
 }

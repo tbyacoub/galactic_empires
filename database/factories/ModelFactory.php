@@ -35,7 +35,7 @@ $factory->define(App\SolarSystem::class, function (Faker\Generator $faker) {
 $factory->define(App\PlanetType::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->word,
+        'name' => $faker->unique()->word,
         'type' => $faker->word,
         'img_path' => $faker->imageUrl(640, 480) //currently this is for testing, it should reference img directory
     ];
@@ -44,12 +44,11 @@ $factory->define(App\PlanetType::class, function (Faker\Generator $faker) {
 $factory->define(App\Planet::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->city,
+        'name' => $faker->unique()->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
         'solarSystem_id' => \App\SolarSystem::all()->random()->id,
         'planetType_id' => \App\PlanetType::all()->random()->id,
-        'user_id' => \App\User::all()->random()->id
     ];
 });
 
@@ -99,9 +98,9 @@ function createLocation($faker)
 function createReso($faker)
 {
     $json = [
-        "metal" => $faker->randomNumber($nbDigits = 5),
-        "wood" => $faker->randomNumber($nbDigits = 5),
-        "energy" => $faker->randomNumber($nbDigits = 5)
+        "metal" => 1000,
+        "crystal" => 1000,
+        "energy" => 1000
     ];
     return $json;
 }

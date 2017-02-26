@@ -73,6 +73,9 @@
         }
 
     }
+
+    import { EventBus } from '../eventBus.js';
+
     export default{
         data(){
             return{
@@ -82,20 +85,23 @@
         methods: {
             changePlanet: function(){
                 this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+                this.emitEvent();
+            },
+            emitEvent(){
+                EventBus.$emit('planet-changed', this.selectedPlanet);
             }
         },
         created() {
             this.selectedPlanet.setPlanet(this.planets[0]);
         },
+        mounted() {
+            this.emitEvent();
+        },
         props: {
-            user: {
-                type: Object,
-                required: true
-            },
             planets: {
                 type: Array,
                 required: true
             }
-        }
+        },
     }
 </script>
