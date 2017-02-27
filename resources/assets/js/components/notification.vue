@@ -15,7 +15,7 @@
                         <span class="photo"><img alt="avatar" src="/img/ui-zac.jpg"></span>
                         <span class="subject">
                                     <span class="from">{{ mail.sender.name }}</span>
-                                    <span class="time"><small>{{ mail.created_at }}<small></span>
+                                    <span class="time"><small>{{ mail.created_at }}</small></span>
                                     </span>
                         <span class="message">
                             {{ mail.subject }}

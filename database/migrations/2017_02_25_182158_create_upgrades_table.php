@@ -16,10 +16,10 @@ class CreateUpgradesTable extends Migration
         Schema::create('upgrades', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumInteger('max_level');
-            $table->integer('base_mineral')->unsigned();
+            $table->integer('base_metal')->unsigned();
             $table->integer('base_crystal')->unsigned();
             $table->integer('base_energy')->unsigned();
-            $table->integer('rate_mineral')->unsigned();
+            $table->integer('rate_metal')->unsigned();
             $table->integer('rate_crystal')->unsigned();
             $table->integer('rate_energy')->unsigned();
             $table->integer('minutes')->unsigned();
