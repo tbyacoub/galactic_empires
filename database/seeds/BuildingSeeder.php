@@ -29,6 +29,7 @@ class BuildingSeeder extends Seeder
         $building->type = "resource";
         $building->img_path = "/img/building/quartz.svg";
         $building->save();
+        $mine = $this->metalMineProduct()->producible()->save($building);
     }
 
     private function crystalMine($faker){
@@ -94,5 +95,38 @@ class BuildingSeeder extends Seeder
         $building->save();
     }
 
+  public function metalMineProduct()
+    {
+        $metalMine = new App\Product();
+        $metalMine->characteristics = [
+            'metal_base_rate'=> 35.0,
+            'crystal_base_rate'=>5.0,
+            'energy_base_rate'=>10.0,
+        ];
+        return $metalMine;
+    }
 
+    public function crystalMineProduct()
+    {
+        $cyrstalMine = new App\Product();
+        $crystalMine->characteristics = [
+            'metal_base_rate'=>10.0,
+            'crystal_base_rate'=>15.0,
+            'energy_base_rate'=>8.0,
+        ];
+        return $crystalMine;
+    }
+
+    public function energyReactorProduct()
+    {
+        $energyReactor = new App\Product();
+        $energyReactor->characteristics = [
+            'metal_base_rate'=>5.0,
+            'crystal_base_rate'=>1.0,
+            'energy_base_rate'=>75.0,
+        ];
+        return $energyReactor;
+    }
 }
+
+
