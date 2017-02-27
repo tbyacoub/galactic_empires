@@ -12,7 +12,7 @@ class BuildingSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        $this->mineralMine($faker);
+        $this->metalMine($faker);
         $this->crystalMine($faker);
         $this->energyReactor($faker);
         $this->fleetShipyard($faker);
@@ -22,10 +22,10 @@ class BuildingSeeder extends Seeder
         $this->alloyLab($faker);
     }
 
-    private function mineralMine($faker){
+    private function metalMine($faker){
         $building = new \App\Building();
-        $building->name = "mineral_mine";
-        $building->display_name = "Mineral Mine";
+        $building->name = "metal_mine";
+        $building->display_name = "Metal Mine";
         $building->type = "resource";
         $building->img_path = "/img/building/quartz.svg";
         $building->save();

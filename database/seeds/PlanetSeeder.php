@@ -21,7 +21,7 @@ class PlanetSeeder extends Seeder
      */
     public function run()
     {
-        $this->mm = \App\Building::where('name', 'mineral_mine')->first();
+        $this->mm = \App\Building::where('name', 'metal_mine')->first();
         $this->cm = \App\Building::where('name', 'crystal_mine')->first();
         $this->er = \App\Building::where('name', 'energy_reactor')->first();
         $this->fs = \App\Building::where('name', 'fleet_shipyard')->first();
