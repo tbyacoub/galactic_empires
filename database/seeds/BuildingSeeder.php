@@ -39,6 +39,7 @@ class BuildingSeeder extends Seeder
         $building->type = "resource";
         $building->img_path = "/img/building/diamond-outlined-shape.svg";
         $building->save();
+        $building->products()->save($this->crystalMineProduct());
     }
 
     private function energyReactor($faker){
@@ -48,6 +49,7 @@ class BuildingSeeder extends Seeder
         $building->type = "resource";
         $building->img_path = "/img/building/lightning-electric-energy.svg";
         $building->save();
+        $building->products()->save($this->energyReactorProduct());
     }
 
     private function fleetShipyard($faker){
@@ -95,7 +97,7 @@ class BuildingSeeder extends Seeder
         $building->save();
     }
 
-  public function metalMineProduct()
+    public function metalMineProduct()
     {
         $metalMine = new App\Product();
         $metalMine->production_rate = 1.20;
@@ -104,30 +106,31 @@ class BuildingSeeder extends Seeder
             'crystal_base_rate'=>5.0,
             'energy_base_rate'=>10.0,
         ];
+        $metalMine->production_rate = 1.0;
         return $metalMine;
     }
 
     public function crystalMineProduct()
     {
-        $cyrstalMine = new App\Product();
-        $crystalMine->characteristics = [
-            'metal_base_rate'=>10.0,
-            'crystal_base_rate'=>15.0,
-            'energy_base_rate'=>8.0,
+        $metalMine = new App\Product();
+        $metalMine->characteristics = [
+            'metal_base_rate'=> 35.0,
+            'crystal_base_rate'=>5.0,
+            'energy_base_rate'=>10.0,
         ];
-        return $crystalMine;
+        $metalMine->production_rate = 1.0;
+        return $metalMine;
     }
 
     public function energyReactorProduct()
     {
-        $energyReactor = new App\Product();
-        $energyReactor->characteristics = [
-            'metal_base_rate'=>5.0,
-            'crystal_base_rate'=>1.0,
-            'energy_base_rate'=>75.0,
+        $metalMine = new App\Product();
+        $metalMine->characteristics = [
+            'metal_base_rate'=> 35.0,
+            'crystal_base_rate'=>5.0,
+            'energy_base_rate'=>10.0,
         ];
-        return $energyReactor;
+        $metalMine->production_rate = 1.0;
+        return $metalMine;
     }
 }
-
-
