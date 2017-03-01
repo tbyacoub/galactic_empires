@@ -29,7 +29,7 @@ class BuildingSeeder extends Seeder
         $building->type = "resource";
         $building->img_path = "/img/building/quartz.svg";
         $building->save();
-        $mine = $this->metalMineProduct()->producible()->save($building);
+        $building->products()->save($this->metalMineProduct());
     }
 
     private function crystalMine($faker){
@@ -98,6 +98,7 @@ class BuildingSeeder extends Seeder
   public function metalMineProduct()
     {
         $metalMine = new App\Product();
+        $metalMine->production_rate = 1.20;
         $metalMine->characteristics = [
             'metal_base_rate'=> 35.0,
             'crystal_base_rate'=>5.0,

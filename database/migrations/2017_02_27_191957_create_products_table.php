@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->json('characteristics');
-            $table->double('prodcution_rate', 1, 2);
+            $table->double('production_rate', 3, 2);
             $table->integer('producable_id')->unsigned();
             $table->string('producable_type');
             $table->timestamps();
