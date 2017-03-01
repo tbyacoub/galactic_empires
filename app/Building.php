@@ -16,10 +16,6 @@ class Building extends Model
         'name', 'type', 'img_path',
     ];
 
-    protected $casts = [
-        'characteristics' => 'array',
-    ];
-
     public function planet(){
         return $this->belongsToMany('App\Planet');
     }
