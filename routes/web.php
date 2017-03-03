@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/resources', 'BuildingViewController@indexResources');
 
     Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
+
+    Route::post('/upgrade-building/{id}', 'BuildingViewController@upgradeBuilding');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {

@@ -27,6 +27,7 @@ class CreateBuildingsTable extends Migration
             $table->integer('building_id')->unsigned();
             $table->integer('planet_id')->unsigned();
             $table->mediumInteger('current_level');
+            //$table->tinyInteger('upgrading');
 
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onUpdate('cascade')->onDelete('cascade');

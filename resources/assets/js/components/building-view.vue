@@ -5,7 +5,7 @@
 				<div class="content-panel pn">
 					<div id="spotify" :style="{ 'background': 'url(' + building.img_path + ') no-repeat center top' }">
 						<div class="col-xs-4 col-xs-offset-8">
-							<button class="btn btn-sm btn-clear-g"><a :href="'/resources/'+building.id">UPGRADE</a></button>
+							<button class="btn btn-sm btn-clear-g" :id="{building.id}" @click="upgradeBuilding()"><a>UPGRADE</a></button>
 						</div>
 						<div class="sp-title">
 							<h3>{{ building.display_name }}</h3>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 
     import { EventBus } from '../eventBus.js';
 
@@ -41,8 +40,11 @@
                     this.buildings = response.body;
                 });
             },
-            upgradeClicked() {
-                console.log('test');
+            upgradeBuilding(building_id) {
+                console.log('upgrade');
+                this.$http.post('/upgrade-building/'+ building_id).then(response => {
+                    this.buildings[building_id] = response.body;
+                });
             }
         },
         created() {

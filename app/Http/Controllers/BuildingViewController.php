@@ -23,4 +23,8 @@ class BuildingViewController extends Controller
         $planets = $request->user()->planets()->get();
         return view('content.building-view', compact('planets', 'type'));
     }
+    
+    private function upgradeBuilding(Request $request, $id){
+
+    }
 }
