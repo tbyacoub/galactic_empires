@@ -42,7 +42,7 @@
 		{{-- Empire Overview Template specific elements end. --}}
 		
 		</div>
-        @include('partials.right-sidebar')
+        {{--@include('partials.right-sidebar')--}}
     </div>
 	
 	<script type='text/javascript'>

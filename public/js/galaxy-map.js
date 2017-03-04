@@ -19,7 +19,7 @@ $(document).ready(function() {
 		// Get the solar system's id, name, and location (x, y).
 		var systemName = system['name'];
 		var systemId = system['id'];
-		var systemLocation = JSON.parse(system['location']);
+		var systemLocation = system['location'];
 		
 		// Generate the outer icon container.
 		var iconContainer = $('<div></div>', {
