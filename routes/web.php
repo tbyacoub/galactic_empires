@@ -132,3 +132,5 @@ Route::group(['prefix' => 'test'], function () {
 Route::get('/galaxy-map', 'GalaxyMapController@index');
 
 Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
+
+Route::get('/galaxy-map/{system_id}/{planet_id}', 'PlanetOverviewController@viewPlanet');

@@ -1,0 +1,30 @@
+#planet_overview_container {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#planet_name_container {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 50px;
+	
+	color: black;
+	font-size: 26px;
+	text-align: center;
+	line-height: 50px;
+	
+	background-color: #ffd777;
+}
+
+#planet_info_outer_container {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 500px;
+	margin-top: 10px;
+	
+	background-color: rgba(0, 255, 0, 0.25);
+}
