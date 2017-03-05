@@ -30,10 +30,19 @@ class PlanetOverviewController extends Controller
      */
     public function viewPlanet($system_id, $planet_id)
     {
+		$planetInfo = DB::table('planets')
+			->join('planet_types', 'planets.planetType_id', '=', 'planet_types.id')
+			->join('users', 'planets.user_id', '=', 'users.id')
+			->select('planets.radius', 'planets.name', 'planets.resources', 'planet_types.img_path', 'users.name AS user_name')
+			->where('planets.id', '=', $planet_id)
+			->first();
+			
+		$solarSystemInfo = DB::table('solar_systems')
+			->select('name', 'location')
+			->where('solar_systems.id', '=', $system_id)
+			->first();
 		
-		$planetName = DB::table('planets')->select('name')->where('id', '=', $planet_id)->first();
-		
-        return view('planet_view', compact('planetName'));
+        return view('planet_view', compact('solarSystemInfo', 'planetInfo'));
     }
 }
 
