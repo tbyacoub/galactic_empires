@@ -54,6 +54,7 @@
                         <span class="sr-only">60% Complete (success)</span>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

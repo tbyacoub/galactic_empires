@@ -5,7 +5,8 @@
 				<div class="content-panel pn">
 					<div id="spotify" :style="{ 'background': 'url(' + building.img_path + ') no-repeat center top' }">
 						<div class="col-xs-4 col-xs-offset-8">
-							<button class="btn btn-sm btn-clear-g" :id="{building.id}" @click="upgradeBuilding()"><a>UPGRADE</a></button>
+							<!--<button class="btn btn-sm btn-clear-g" :id="{building.pivot.building_id}" @click="upgradeBuilding"><a>UPGRADE</a></button>-->
+							<button class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.building_id)"><a>UPGRADE</a></button>
 						</div>
 						<div class="sp-title">
 							<h3>{{ building.display_name }}</h3>
@@ -37,14 +38,14 @@
         methods: {
             getBuildings(id) {
                 this.$http.get('/api/planet/' + id + '/' + this.buildingType).then(response => {
-                    this.buildings = response.body;
+						this.buildings = response.body;
                 });
             },
-            upgradeBuilding(building_id) {
-                console.log('upgrade');
-                this.$http.post('/upgrade-building/'+ building_id).then(response => {
-                    this.buildings[building_id] = response.body;
-                });
+            upgradeBuilding(id) {
+                console.log(id);
+//                this.$http.post('/upgrade-building/'+ building_id).then(response => {
+//                    this.buildings[building_id] = response.body;
+//                });
             }
         },
         created() {
