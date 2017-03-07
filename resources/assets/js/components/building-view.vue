@@ -6,7 +6,7 @@
 					<div id="spotify" :style="{ 'background': 'url(' + building.img_path + ') no-repeat center top' }">
 						<div class="col-xs-4 col-xs-offset-8">
 							<!--<button class="btn btn-sm btn-clear-g" :id="{building.pivot.building_id}" @click="upgradeBuilding"><a>UPGRADE</a></button>-->
-							<button class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.building_id)"><a>UPGRADE</a></button>
+							<button class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.id)"><a>UPGRADE</a></button>
 						</div>
 						<div class="sp-title">
 							<h3>{{ building.display_name }}</h3>
@@ -43,14 +43,18 @@
             },
             upgradeBuilding(id) {
                 console.log(id);
-//                this.$http.post('/upgrade-building/'+ building_id).then(response => {
-//                    this.buildings[building_id] = response.body;
-//                });
+                this.$http.post('/upgrade-building/'+ id).then(response => {
+                    var temp = response.body;
+                    console.log(temp);
+                });
             }
         },
         created() {
             EventBus.$on('planet-changed', planet => {
                 this.getBuildings(planet.planet.id);
+            });
+            window.Echo.private('building.upgraded.' + 71).listen('BuildingHasUpgradedEvent', (object) => {
+                console.log("BUILDING UPGRADED EVENT");
             });
         }
     }

@@ -28,4 +28,10 @@ class Building extends Model
         return $this->morphMany('App\Product', 'producible');
     }
 
+    private function canUpgrade(){
+        // To do : check for cost
+        // To do : check that it's not max level
+        return true;
+    }
+
 }

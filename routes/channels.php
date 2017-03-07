@@ -31,3 +31,7 @@ Broadcast::channel('received.email.*', function ($user, $user_id) {
        return true;
    }
 });
+
+Broadcast::channel('upgraded.building.*', function ($building_id) {
+    return true;
+});
