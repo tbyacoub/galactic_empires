@@ -19,12 +19,13 @@ class CreateUpgradesTable extends Migration
             $table->integer('base_metal')->unsigned();
             $table->integer('base_crystal')->unsigned();
             $table->integer('base_energy')->unsigned();
-            $table->integer('rate_metal')->unsigned();
-            $table->integer('rate_crystal')->unsigned();
-            $table->integer('rate_energy')->unsigned();
-            $table->integer('minutes')->unsigned();
-            $table->integer('upgradable_id')->unsigned();
-            $table->string('upgradable_type');
+            $table->double('rate_metal', 3, 1)->unsigned();
+            $table->double('rate_crystal', 3, 1)->unsigned();
+            $table->double('rate_energy', 3, 1)->unsigned();
+            $table->integer('base_minutes')->unsigned();
+            $table->double('rate_minutes', 3, 1)->unsigned();
+            $table->integer('upgradeable_id')->unsigned();
+            $table->string('upgradeable_type');
             $table->timestamps();
         });
     }

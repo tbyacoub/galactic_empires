@@ -24,17 +24,20 @@ class CreateBuildingsTable extends Migration
         });
 
         Schema::create('building_planet', function(Blueprint $table) {
+            $table->increments('id');
             $table->integer('building_id')->unsigned();
             $table->integer('planet_id')->unsigned();
             $table->mediumInteger('current_level');
+            $table->boolean('is_upgrading');
 
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->primary(['planet_id', 'building_id']);
+           // $table->primary(['building_id', 'planet_id']);
         });
+
     }
 
     /**

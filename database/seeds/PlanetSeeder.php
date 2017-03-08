@@ -40,26 +40,26 @@ class PlanetSeeder extends Seeder
             $user->planets()->saveMany(factory(\App\Planet::class, 2)->make());
             $planets = $user->planets()->get();
             foreach ($planets as $p) {
-                $p->buildings()->attach($this->mm, ['current_level' => 1]);
-                $p->buildings()->attach($this->cm, ['current_level' => 1]);
-                $p->buildings()->attach($this->er, ['current_level' => 1]);
-                $p->buildings()->attach($this->fs, ['current_level' => 1]);
-                $p->buildings()->attach($this->am, ['current_level' => 1]);
-                $p->buildings()->attach($this->pt, ['current_level' => 1]);
-                $p->buildings()->attach($this->rs, ['current_level' => 1]);
-                $p->buildings()->attach($this->al, ['current_level' => 1]);
+                $p->buildings()->attach($this->mm, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->cm, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->er, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->fs, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->am, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->pt, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->rs, ['current_level' => 1, 'is_upgrading' => false]);
+                $p->buildings()->attach($this->al, ['current_level' => 1, 'is_upgrading' => false]);
             }
         }
 
         factory(\App\Planet::class, 'unassigned', 25)->create()->each(function ($p){
-            $p->buildings()->attach($this->mm, ['current_level' => 1]);
-            $p->buildings()->attach($this->cm, ['current_level' => 1]);
-            $p->buildings()->attach($this->er, ['current_level' => 1]);
-            $p->buildings()->attach($this->fs, ['current_level' => 1]);
-            $p->buildings()->attach($this->am, ['current_level' => 1]);
-            $p->buildings()->attach($this->pt, ['current_level' => 1]);
-            $p->buildings()->attach($this->rs, ['current_level' => 1]);
-            $p->buildings()->attach($this->al, ['current_level' => 1]);
+            $p->buildings()->attach($this->mm, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->cm, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->er, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->fs, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->am, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->pt, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->rs, ['current_level' => 1, 'is_upgrading' => false]);
+            $p->buildings()->attach($this->al, ['current_level' => 1, 'is_upgrading' => false]);
         });
     }
 }
