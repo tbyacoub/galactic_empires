@@ -32,7 +32,6 @@ class BuildingViewController extends Controller
     }
 
     public function upgradeBuilding(Request $request, $id){
-
         if($this->canUpgrade($id)){
             // Subtract resources
 

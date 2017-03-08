@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTable extends Migration
+class CreateBuildingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
-            $table->json('characteristics');
-            $table->morphs('producible');
+            $table->integer('planet_id')->unsigned();
+            $table->mediumInteger('current_level');
+            $table->boolean('is_upgrading');
             $table->timestamps();
+
+            $table->foreign('planet_id')->references('id')->on('planets')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +32,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('buildings');
     }
 }

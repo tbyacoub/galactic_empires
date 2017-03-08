@@ -3,15 +3,15 @@
         <div class="row">
             <div v-for="building in buildings" class="col-lg-4 col-md-4 col-sm-4 mb">
 				<div class="content-panel pn">
-					<div id="spotify" :style="{ 'background': 'url(' + building.img_path + ') no-repeat center top' }">
+					<div id="spotify" :style="{ 'background': 'url(' + building.description[0].img_path + ') no-repeat center top' }">
 						<div class="col-xs-4 col-xs-offset-8">
-							<button class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.id)"><a>UPGRADE</a></button>
+							<button class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.id)"><a>UPGRADE</a></button>
 						</div>
 						<div class="sp-title">
-							<h3>{{ building.display_name }}</h3>
+							<h3>{{ building.description[0].display_name }}</h3>
 						</div>
 					</div>
-					<p class="followers"><i class="fa fa-user"></i>LEVEL {{ building.pivot.current_level }}</p>
+					<p class="followers"><i class="fa fa-user"></i>LEVEL {{ building.current_level }}</p>
 				</div>
 			</div>
         </div>

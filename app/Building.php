@@ -17,15 +17,19 @@ class Building extends Model
     ];
 
     public function planet(){
-        return $this->belongsToMany('App\Planet');
+        return $this->belongsTo('App\Planet');
     }
 
     public function upgrades(){
         return $this->morphMany('App\Upgrade', 'upgradeable');
     }
 
-    public function products() {
+    public function products(){
         return $this->morphMany('App\Product', 'producible');
+    }
+
+    public function description(){
+        return $this->morphToMany('App\Description', 'describable');
     }
 
 }

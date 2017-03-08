@@ -36,7 +36,7 @@ class Planet extends Model
     }
 
     public function buildings(){
-        return $this->belongsToMany('App\Building')->withPivot('id', 'current_level');
+        return $this->hasMany('App\Building');
     }
 
     /**
