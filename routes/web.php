@@ -90,8 +90,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 });
 
-// TESTING
-
 Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
 
 Route::group(['prefix' => 'test'], function () {
@@ -130,3 +128,9 @@ Route::group(['prefix' => 'test'], function () {
     });
 
 });
+
+Route::get('/galaxy-map', 'GalaxyMapController@index');
+
+Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
+
+Route::get('/galaxy-map/{system_id}/{planet_id}', 'PlanetOverviewController@viewPlanet');

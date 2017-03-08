@@ -20,6 +20,8 @@ elixir(mix => {
 	mix.styles([
 	   'galaxy-map.css'
 	], 'public/css/galaxy-map.css');
-
-	mix.webpack('galaxy-map.js');
+	
+	mix.styles([
+	   'solar-system-view.css'
+	], 'public/css/solar-system-view.css');
 });
