@@ -14,7 +14,7 @@ class GlobalRates extends Migration
     public function up()
     {
         Schema::create('global_rates', function (Blueprint $table) {
-            $table->decimal('mineral_rate', 2, 1);
+            $table->decimal('metal_rate', 2, 1);
             $table->decimal('crystal_rate', 2, 1);
             $table->decimal('energy_rate', 2, 1);
             $table->decimal('ship_build_rate', 2, 1);
