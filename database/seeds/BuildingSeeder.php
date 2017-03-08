@@ -106,31 +106,34 @@ class BuildingSeeder extends Seeder
             'crystal_base_rate'=>5.0,
             'energy_base_rate'=>10.0,
         ];
+        $metalMine->producible_type = 'resources';
         $metalMine->production_rate = 1.0;
         return $metalMine;
     }
 
     public function crystalMineProduct()
     {
-        $metalMine = new App\Product();
-        $metalMine->characteristics = [
+        $crystalMine = new App\Product();
+        $crystalMine->characteristics = [
             'metal_base_rate'=> 35.0,
             'crystal_base_rate'=>5.0,
             'energy_base_rate'=>10.0,
         ];
-        $metalMine->production_rate = 1.0;
-        return $metalMine;
+        $crystalMine->producible_type = 'resources';
+        $crystalMine->production_rate = 1.0;
+        return $crystalMine;
     }
 
     public function energyReactorProduct()
     {
-        $metalMine = new App\Product();
-        $metalMine->characteristics = [
+        $energyReactor = new App\Product();
+        $energyReactor->characteristics = [
             'metal_base_rate'=> 35.0,
             'crystal_base_rate'=>5.0,
             'energy_base_rate'=>10.0,
         ];
-        $metalMine->production_rate = 1.0;
-        return $metalMine;
+        $energyReactor->producible_type = 'resources';
+        $energyReactor->production_rate = 1.0;
+        return $energyReactor;
     }
 }

@@ -38,23 +38,44 @@ class UpdateResources extends Command
      */
     public function handle()
     {
-       $planets = \App\Planet::all();
-       $rate = 5;
+       $planets = \App\Planet::get();
        $global_multiplier = 1;
+       $bonus = 1;
        foreach ($planets as $planet)
        {
-           // $buildings = $planet->buildings()->products()->where('producible_type', 'resources'); //grab all of the resource buildings
-           $buildings = $planet->buildings()->where('producible_type', 'resources');
-           foreach($buildings as $resourceBuilding) //probably use building planet instead
+          // echo $planet->name;
+           $metal = $planet->metal();
+           $crystal = $planet->crystal();
+           $energy = $planet->energy();
+           $buildings = $planet->buildings();
+           foreach($buildings as $building) 
            {
-               $bonus = (1 + (0.25 * (1 - $resourceBuilding->pivot->current_level))) * $global_multiplier; // times global_multiplier 
-               // $bonus = $resourceBuilding->current_level;
-               // $bonus = 2;
-               $metal = $planet->metal() + (($resourceBuilding->characteristics->metal_base_rate) * $bonus);
-               $planet->metal()->update((($resourceBuilding->characteristics->metal_base_rate) * $bonus));
-               $planet->cyrstal()->update((($resourceBuilding->characteristics->crystal_base_rate) * $bonus));
-               $planet->energy()->update((($resourceBuilding->characteristics->energy_base_rate) * $bonus));
+              // $resources = $building->products()->where('producible_type', 'App\Building')->get();
+            if($building->producible_type == 'App\Building')
+            {
+               $metal += (($building->characteristics['metal_base_rate']) * $bonus);
+               $crystal += (($building->characteristics['crystal_base_rate']) * $bonus);
+               $energy += (($building->characteristics['energy_base_rate']) * $bonus);
+            }
+              foreach ($resources as $resourceBuilding)
+              {
+                // $bonus = (1 + (0.25 * (1 - $resourceBuilding->current_level))) * $global_multiplier;  //calculate production rate bonus as a function of current level and global miltiplier
+                $metal += (($resourceBuilding->characteristics['metal_base_rate']) * $bonus);
+                $crystal += (($resourceBuilding->characteristics['crystal_base_rate']) * $bonus);
+                $energy += (($resourceBuilding->characteristics['energy_base_rate']) * $bonus);
+              }
+              $planet->resources = [
+                    'metal' => 5,
+                    'crystal' => 5,
+                    'energy' => 5
+              ];
            }
+          //  $planet->resources = [
+          //         'metal' => $metal,
+          //         'crystal' => $crystal,
+          //         'energy' => $energy
+          //       ];
+          // $planet->save();
        }
     }
 }
