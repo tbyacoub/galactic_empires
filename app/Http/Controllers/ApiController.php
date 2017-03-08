@@ -13,14 +13,14 @@ class ApiController extends Controller
     }
 
     public function facilities(Planet $planet){
-        return $planet->buildings()->where('type', 'facility')->get();
+        return $planet->buildings()->where('type', 'facility')->with('upgrades')->get();
     }
 
     public function resources(Planet $planet){
-        return $planet->buildings()->where('type', 'resource')->get();
+        return $planet->buildings()->where('type', 'resource')->with('upgrades')->get();
     }
 
     public function planetaryDefenses(Planet $planet){
-        return $planet->buildings()->where('type', 'planetary_defense')->get();
+        return $planet->buildings()->where('type', 'planetary_defense')->with('upgrades')->get();
     }
 }

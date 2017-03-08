@@ -42,8 +42,7 @@ class BuildingViewController extends Controller
                 ->update(['is_upgrading' => true]);
 
             // Dispatch delayed upgrade Job.
-            $job = (new UpgradeBuilding($id, Auth::user()->id))
-                ->delay(Carbon::now()->addMinutes($this->calculateUpgradeTime($id)));
+            $job = (new UpgradeBuilding($id, Auth::user()->id))->delay(Carbon::now()->addMinutes($this->calculateUpgradeTime($id)));
             dispatch($job);
             return $id;
         }else{
