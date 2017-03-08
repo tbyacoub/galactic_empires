@@ -5,25 +5,23 @@ namespace App\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class BuildingHasUpgradedEvent
-{
+implements ShouldBroadcast{
     use InteractsWithSockets, SerializesModels;
 
-    public $building_id;
+    public $user_id;
 
     /**
      * Create a new event instance.
      *
-     * @param $building_id
-     *
+      * @param $user_id
      */
-    public function __construct($building_id)
+    public function __construct($id)
     {
-        $this->building_id = $building_id;
+        $this->user_id = $id;
     }
 
     /**
@@ -33,7 +31,6 @@ class BuildingHasUpgradedEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('building.upgraded.' . $this->building_id);
-//        return new PrivateChannel('channel-name');
+        return new PrivateChannel('building.upgraded.' . $this->user_id );
     }
 }

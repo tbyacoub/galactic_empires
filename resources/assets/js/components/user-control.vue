@@ -17,7 +17,7 @@
                 <h5>Metal</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getMetal() }">
+                         :style="{width: selectedPlanet.getMetal() }">
                     </div>
                 </div>
                 <h5>Crystal</h5>

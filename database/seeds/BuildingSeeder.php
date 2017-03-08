@@ -17,7 +17,7 @@ class BuildingSeeder extends Seeder
         $this->energyReactor($faker);
         $this->fleetShipyard($faker);
         $this->antiAirMisiles($faker);
-        $this->plasmaTurent($faker);
+        $this->plasmaTurret($faker);
         $this->researchStation($faker);
         $this->alloyLab($faker);
     }
@@ -30,6 +30,7 @@ class BuildingSeeder extends Seeder
         $building->img_path = "/img/building/quartz.svg";
         $building->save();
         $building->products()->save($this->metalMineProduct());
+        $building->upgrades()->save($this->metalMineUpgrade());
     }
 
     private function crystalMine($faker){
@@ -40,6 +41,7 @@ class BuildingSeeder extends Seeder
         $building->img_path = "/img/building/diamond-outlined-shape.svg";
         $building->save();
         $building->products()->save($this->crystalMineProduct());
+        $building->upgrades()->save($this->crystalMineUpgrade());
     }
 
     private function energyReactor($faker){
@@ -50,6 +52,8 @@ class BuildingSeeder extends Seeder
         $building->img_path = "/img/building/lightning-electric-energy.svg";
         $building->save();
         $building->products()->save($this->energyReactorProduct());
+        $building->upgrades()->save($this->energyReactorUpgrade());
+
     }
 
     private function fleetShipyard($faker){
@@ -59,24 +63,30 @@ class BuildingSeeder extends Seeder
         $building->type = "military";
         $building->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $building->save();
+        $building->upgrades()->save($this->fleetShipyardUpgrade($building->id));
     }
 
+    /**
+     * @param $faker
+     */
     private function antiAirMisiles($faker){
         $building = new \App\Building();
         $building->name = "anti_air_missile";
         $building->display_name = "Anti-air Missiles";
-        $building->type = "planetery_defense";
+        $building->type = "planetary_defense";
         $building->img_path = "/img/building/missile.svg";
         $building->save();
+        $building->upgrades()->save($this->antiAirMissilesUpgrade());
     }
 
-    private function plasmaTurent($faker){
+    private function plasmaTurret($faker){
         $building = new \App\Building();
         $building->name = "plasma_turret";
         $building->display_name = "Plasma Turret";
-        $building->type = "planetery_defense";
+        $building->type = "planetary_defense";
         $building->img_path = "/img/building/machine-gun.svg";
         $building->save();
+        $building->upgrades()->save($this->plasmaTurretUpgrade());
     }
 
     private function researchStation($faker){
@@ -86,6 +96,7 @@ class BuildingSeeder extends Seeder
         $building->type = "facility";
         $building->img_path = "/img/building/research.svg";
         $building->save();
+        $building->upgrades()->save($this->researchStationUpgrade());
     }
 
     private function alloyLab($faker){
@@ -95,6 +106,7 @@ class BuildingSeeder extends Seeder
         $building->type = "facility";
         $building->img_path = "/img/building/flask-outline.svg";
         $building->save();
+        $building->upgrades()->save($this->alloyLabUpgrade());
     }
 
     public function metalMineProduct()
@@ -131,5 +143,133 @@ class BuildingSeeder extends Seeder
         ];
         $metalMine->production_rate = 1.0;
         return $metalMine;
+    }
+
+    private function metalMineUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function crystalMineUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function energyReactorUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function fleetShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function antiAirMissilesUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function plasmaTurretUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function researchStationUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
+    }
+
+    private function alloyLabUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+
+        return $upgrade;
     }
 }

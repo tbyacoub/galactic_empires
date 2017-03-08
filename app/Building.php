@@ -21,17 +21,11 @@ class Building extends Model
     }
 
     public function upgrades(){
-        return $this->morphMany('App\Upgrade', 'upgradable');
+        return $this->morphMany('App\Upgrade', 'upgradeable');
     }
 
     public function products() {
         return $this->morphMany('App\Product', 'producible');
-    }
-
-    private function canUpgrade(){
-        // To do : check for cost
-        // To do : check that it's not max level
-        return true;
     }
 
 }

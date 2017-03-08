@@ -28,12 +28,14 @@ class CreateBuildingsTable extends Migration
             $table->integer('building_id')->unsigned();
             $table->integer('planet_id')->unsigned();
             $table->mediumInteger('current_level');
-            //$table->tinyInteger('upgrading');
+            $table->boolean('is_upgrading');
 
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings')
                 ->onUpdate('cascade')->onDelete('cascade');
+
+           // $table->primary(['building_id', 'planet_id']);
         });
 
     }

@@ -21,6 +21,6 @@ class ApiController extends Controller
     }
 
     public function planetaryDefenses(Planet $planet){
-        return $planet->buildings()->where('type', 'planetery_defense')->get();
+        return $planet->buildings()->where('type', 'planetary_defense')->get();
     }
 }

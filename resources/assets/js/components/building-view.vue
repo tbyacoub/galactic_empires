@@ -5,7 +5,6 @@
 				<div class="content-panel pn">
 					<div id="spotify" :style="{ 'background': 'url(' + building.img_path + ') no-repeat center top' }">
 						<div class="col-xs-4 col-xs-offset-8">
-							<!--<button class="btn btn-sm btn-clear-g" :id="{building.pivot.building_id}" @click="upgradeBuilding"><a>UPGRADE</a></button>-->
 							<button class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.id)"><a>UPGRADE</a></button>
 						</div>
 						<div class="sp-title">
@@ -26,12 +25,17 @@
     export default{
         data() {
             return{
-                buildings: []
+                buildings: [],
+				planetId: 0,
             }
         },
         props: {
             buildingType: {
                 type: String,
+                required: true
+            },
+            userId: {
+                type:String,
                 required: true
             }
         },
@@ -44,17 +48,17 @@
             upgradeBuilding(id) {
                 console.log(id);
                 this.$http.post('/upgrade-building/'+ id).then(response => {
-                    var temp = response.body;
-                    console.log(temp);
+                    console.log(response.body);
                 });
             }
         },
         created() {
             EventBus.$on('planet-changed', planet => {
                 this.getBuildings(planet.planet.id);
+                this.planetId = planet.planet.id;
             });
-            window.Echo.private('building.upgraded.' + 71).listen('BuildingHasUpgradedEvent', (object) => {
-                console.log("BUILDING UPGRADED EVENT");
+            window.Echo.private('building.upgraded.' + this.userId).listen('BuildingHasUpgradedEvent', (object) => {
+                this.getBuildings(this.planetId);
             });
         }
     }

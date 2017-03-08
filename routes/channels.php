@@ -32,6 +32,8 @@ Broadcast::channel('received.email.*', function ($user, $user_id) {
    }
 });
 
-Broadcast::channel('upgraded.building.*', function ($building_id) {
-    return true;
+Broadcast::channel('building.upgraded.*', function ($user, $user_id) {
+    if($user->id == $user_id){
+        return true;
+    }
 });
