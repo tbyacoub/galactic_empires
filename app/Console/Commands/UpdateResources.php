@@ -38,10 +38,25 @@ class UpdateResources extends Command
      */
     public function handle()
     {
-        $users = Activity::users(10)->get();
-        foreach($users as $user){
-            echo $user->user->name;
-            echo "\n";
-        }
+       $planets = \App\Planet::all();
+       $rate = 5;
+       $global_multiplier = 1;
+       foreach ($planets as $planet)
+       {
+           // $buildings = $planet->buildings()->products()->where('producible_type', 'resources'); //grab all of the resource buildings
+           $buildings = $planet->buildings()->where('producible_type', 'resources');
+           foreach($buildings as $resourceBuilding) //probably use building planet instead
+           {
+               $bonus = (1 + (0.25 * (1 - $resourceBuilding->pivot->current_level))) * $global_multiplier; // times global_multiplier 
+               // $bonus = $resourceBuilding->current_level;
+               // $bonus = 2;
+               $metal = $planet->metal() + (($resourceBuilding->characteristics->metal_base_rate) * $bonus);
+               $planet->metal()->update((($resourceBuilding->characteristics->metal_base_rate) * $bonus));
+               $planet->cyrstal()->update((($resourceBuilding->characteristics->crystal_base_rate) * $bonus));
+               $planet->energy()->update((($resourceBuilding->characteristics->energy_base_rate) * $bonus));
+           }
+       }
     }
 }
+
+
