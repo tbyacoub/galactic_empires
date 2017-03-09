@@ -36,7 +36,6 @@ class BuildingViewController extends Controller
         if(!$building->isUpgrading()){
             $building->setUpgrading(true);
             dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes($building->upgradeTime())));
-        }
     }
 
 }

@@ -38,10 +38,9 @@ class UpdateResources extends Command
      */
     public function handle()
     {
-        $users = Activity::users(10)->get();
-        foreach($users as $user){
-            echo $user->user->name;
-            echo "\n";
-        }
+      dispatch(new \App\Jobs\UpdateResources());
     }
+
 }
+
+

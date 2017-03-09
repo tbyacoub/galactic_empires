@@ -12,7 +12,7 @@
 							<h3>{{ building.description.display_name }}</h3>
 						</div>
 					</div>
-					<p class="followers"><i class="fa fa-user"></i>LEVEL {{ building.current_level }}</p>
+					<p class="followers"><i class="fa fa-user"></i> <span v-show="building.current_level == building.upgrade.max_level"> MAX -</span> LEVEL {{ building.current_level }}</p>
 				</div>
 			</div>
         </div>

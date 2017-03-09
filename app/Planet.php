@@ -39,6 +39,24 @@ class Planet extends Model
         return $this->hasMany('App\Building');
     }
 
+    public function facilitiesBuildings(){
+        return $this->buildings()->with('description')->whereHas('description', function($description){
+            $description->where('type', 'facility');
+        })->get();
+    }
+
+    public function resourcesBuildings(){
+        return $this->buildings()->with('description')->whereHas('description', function($description){
+            $description->where('type', 'resource');
+        })->get();
+    }
+
+    public function planetaryDefensesBuildings(){
+        return $this->buildings()->with('description')->whereHas('description', function($description){
+            $description->where('type', 'planetary_defense');
+        })->get();
+    }
+
     /**
      * Sum of all planet's metal belonging to this User.
      *
