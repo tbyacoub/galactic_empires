@@ -26,6 +26,8 @@ class SolarSystemViewController extends Controller
     /**
      * Show the galaxy map.
      *
+     * @param  $system_id ID of solar system to view
+     *     *
      * @return \Illuminate\Http\Response
      */
     public function viewSystemFromGalaxyMap($system_id)

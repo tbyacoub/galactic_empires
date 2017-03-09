@@ -26,6 +26,9 @@ class PlanetOverviewController extends Controller
     /**
      * Show the planet overview.
      *
+     * @param $system_id ID of he system the planet is in
+     * @param $planet_id ID of the planet to display
+     *
      * @return \Illuminate\Http\Response
      */
     public function viewPlanet($system_id, $planet_id)
