@@ -30,29 +30,21 @@ class UpdateResources implements ShouldQueue
     public function handle()
     {
        $planets = \App\Planet::get();
-       $bonus = 1;
        $global =  \App\GlobalRate::first();
        foreach ($planets as $planet)
        {
-          // echo $planet->name;
            $metal = $planet->metal();
            $crystal = $planet->crystal();
            $energy = $planet->energy();
-           $buildings = $planet->resourcesBuildings();
-           foreach($buildings as $building)
+           foreach($planet->resourcesBuildings() as $building)
            {
-                $resource = $building->product();
-                $bonus = (1 + (0.25 * (1 - $building->getLevel())));  //calculate production rate bonus as a function of current level and global miltiplier, divide by 12 to convert hourly rate to every 5 minutes
-                $metal += (($resource->characteristics['metal_base_rate']) * $bonus * $global->mineral_rate) / 12;
-                $crystal += (($resource->characteristics['crystal_base_rate']) * $bonus * $global->crystal_rate) / 12;
-                $energy += (($resource->characteristics['energy_base_rate']) * $bonus * $global->energy_rate) / 12;
-                $planet->resources = [
-                    'metal' => ceil($metal),
-                    'crystal' => ceil($crystal),
-                    'energy' => ceil($energy)
-              ];
-              $planet->save();
+                $production = $building->product()->first();
+                $bonus = $production->calculateBonus($building->getLevel());
+                $metal += $production->calculateMetal($global->metal_rate);
+                $crystal += $production->calculateCrystal($global->crystal_rate);
+                $energy += $production->calculateEnergy($global->energy_rate);
            }
+           $planet->setResources($metal, $crystal, $energy);
        }
     }
 

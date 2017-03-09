@@ -46,7 +46,7 @@ class Building extends Model
     }
 
     public function getMaxLevel(){
-        return $this->upgrade()->first()->max_level;
+        return $this->upgrade()->max_level;
     }
 
     public function setUpgrading($upgrading){

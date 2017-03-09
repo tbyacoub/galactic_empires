@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GameObjectsSeeder::class);
         $this->call(PostsSeeder::class);
         $this->call(MailSeeder::class);
+        $this->call(GlobalRatesSeeder::class);
     }
 
 }

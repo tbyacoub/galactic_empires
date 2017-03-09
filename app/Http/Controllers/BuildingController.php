@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BuildingViewController extends Controller
+class BuildingController extends Controller
 {
 
     public function indexResources(Request $request){
@@ -36,6 +36,7 @@ class BuildingViewController extends Controller
         if(!$building->isUpgrading()){
             $building->setUpgrading(true);
             dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes($building->upgradeTime())));
+        }
     }
 
 }

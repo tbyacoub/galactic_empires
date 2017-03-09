@@ -157,7 +157,7 @@ class GameObjectsSeeder extends Seeder
         $description->save();
         return $description;
     }
-
+    //
     private function metalMineUpgrade()
     {
         $upgrade = new App\Upgrade();
