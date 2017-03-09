@@ -23,12 +23,14 @@ class UpdateResources implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Updates resources on all planets every five minutes
+     * Uses base production rate for each resource building scaled by level
      *
      * @return void
      */
     public function handle()
     {
+        echo time();
        $planets = \App\Planet::get();
        $bonus = 1;
        $global =  \App\GlobalRate::first();

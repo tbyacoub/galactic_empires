@@ -11,26 +11,63 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class BuildingViewController
+ * @package App\Http\Controllers
+ */
 class BuildingViewController extends Controller
 {
 
+    /**
+     * Returns resources page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexResources(Request $request){
         return $this->index('resources', $request);
     }
 
+    /**
+     * Returns facilities page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexFacilities(Request $request){
         return $this->index('facilities', $request);
     }
 
+    /**
+     * Returns planetary defences page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexDefenses(Request $request){
         return $this->index('planetary_defenses', $request);
     }
 
+    /**
+     * Returns a the view corresponding to the given building type
+     *
+     * @param $type Building type
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     private function index($type, Request $request){
         $planets = $request->user()->planets()->get();
         return view('content.building-view', compact('planets', 'type'));
     }
 
+
+    /**
+     * Upgrades the given building
+     *
+     * @param Request $request
+     * @param $id ID of building
+     * @return int Building ID if successful, else 0
+     */
     public function upgradeBuilding(Request $request, $id){
 
         if($this->canUpgrade($id)){
@@ -50,6 +87,12 @@ class BuildingViewController extends Controller
         }
     }
 
+    /**
+     * Determines whether or not a given building can be upgraded
+     *
+     * @param $id ID of building
+     * @return bool True if the building is below the max level, else false
+     */
     private function canUpgrade($id){
         $can_upgrade = true;
 
@@ -73,6 +116,12 @@ class BuildingViewController extends Controller
         return $can_upgrade;
     }
 
+
+    /**
+     * Calculates the upgrade time for the given building
+     * @param $id Building to upgrade
+     * @return int Upgrade time
+     */
     private function calculateUpgradeTime($id){
         return 1;
     }

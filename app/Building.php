@@ -16,6 +16,7 @@ class Building extends Model
         'name', 'type', 'img_path',
     ];
 
+   
     public function planet(){
         return $this->belongsToMany('App\Planet');
     }

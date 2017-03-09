@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Activity;
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class UpdateResources extends Command
 {
@@ -32,13 +33,15 @@ class UpdateResources extends Command
     }
 
     /**
-     * Execute the console command.
+     * Execute the command to update resources for all planets
+     * Called every 5 minutes
      *
      * @return mixed
      */
     public function handle()
     {
       dispatch(new \App\Jobs\UpdateResources());
+
     }
 
 }
