@@ -4,14 +4,17 @@
             <div v-for="building in buildings" class="col-lg-4 col-md-4 col-sm-4 mb">
 				<div class="content-panel pn">
 					<div id="spotify" :style="{ 'background': 'url(' + building.img_path + ') no-repeat center top' }">
-						<div class="col-xs-4 col-xs-offset-8">
-							<button v-show="building.pivot.current_level != building.upgrades[0].max_level" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.id)"><a>UPGRADE</a></button>
+						<div v-if="building.pivot.is_upgrading == 0" class="col-xs-4 col-xs-offset-8">
+							<button v-show="building.pivot.current_level != building.upgrades.max_level" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.pivot.id)"><a>UPGRADE</a></button>
+						</div>
+						<div v-else class="col-xs-4 col-xs-offset-8">
+							<button class="btn btn-sm btn-clear-g" disabled><a>UPGRADING</a></button>
 						</div>
 						<div class="sp-title">
 							<h3>{{ building.display_name }}</h3>
 						</div>
 					</div>
-					<p class="followers"><i class="fa fa-user"></i> <span v-show="building.pivot.current_level == building.upgrades[0].max_level"> MAX -</span> LEVEL {{ building.pivot.current_level }}</p>
+					<p class="followers"><i class="fa fa-user"></i> <span v-show="building.pivot.current_level == building.upgrades.max_level"> MAX -</span> LEVEL {{ building.pivot.current_level }}</p>
 				</div>
 			</div>
         </div>
@@ -49,6 +52,7 @@
                 console.log(id);
                 this.$http.post('/upgrade-building/'+ id).then(response => {
                     console.log(response.body);
+                    this.getBuildings(this.planetId);
                 });
             }
         },
