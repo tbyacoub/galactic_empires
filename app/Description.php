@@ -9,6 +9,6 @@ class Description extends Model
 
     public function buildings()
     {
-        return $this->morphedByMany('App\Building', 'describable');
+        return $this->hasMany('App\Building');
     }
 }

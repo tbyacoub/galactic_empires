@@ -24,7 +24,6 @@ class CreateUpgradesTable extends Migration
             $table->double('rate_energy', 3, 1)->unsigned();
             $table->integer('base_minutes')->unsigned();
             $table->double('rate_minutes', 3, 1)->unsigned();
-            $table->morphs('upgradeable');
             $table->timestamps();
         });
     }

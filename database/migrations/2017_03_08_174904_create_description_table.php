@@ -22,16 +22,6 @@ class CreateDescriptionTable extends Migration
             $table->string('img_path');
             $table->timestamps();
         });
-
-        Schema::create('describables', function (Blueprint $table) {
-            $table->integer('description_id')->unsigned();
-            $table->morphs('describable');
-
-            $table->foreign('description_id')->references('id')->on('descriptions')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->index(['description_id', 'describable_id']);
-        });
     }
 
     /**
@@ -41,7 +31,6 @@ class CreateDescriptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('describables');
         Schema::dropIfExists('descriptions');
     }
 }

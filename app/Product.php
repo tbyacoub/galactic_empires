@@ -10,7 +10,7 @@ class Product extends Model
         'characteristics' => 'array',
     ];
 
-    public function producible() {
-    	return $this->morphTo();
+    public function buildings(){
+        return $this->hasMany('App\Building');
     }
 }
