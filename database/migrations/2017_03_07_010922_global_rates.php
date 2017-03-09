@@ -24,7 +24,7 @@ class GlobalRates extends Migration
         });
 
         DB::table('global_rates')->insert([
-                'mineral_rate' => 1.0,
+                'metal_rate' => 1.0,
                 'crystal_rate' => 1.0,
                 'energy_rate' => 1.0,
                 'ship_build_rate' => 1.0,

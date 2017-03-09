@@ -16,6 +16,11 @@ class Post extends Model
         'title', 'content', 'post_date',
     ];
 
+    /**
+     * Get the User Model that created the post.
+     *
+     * @return User that created the Post (Admin User)
+     */
     public function user(){
         return $this->belongsTo('App\User');
     }
@@ -24,7 +29,7 @@ class Post extends Model
      * Create a new post instance.
      *
      * @param  array  $data
-     * @return Post
+     * @return Post the created Post
      */
     protected function createPost(array $data)
     {
