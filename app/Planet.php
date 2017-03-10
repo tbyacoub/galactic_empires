@@ -25,6 +25,11 @@ class Planet extends Model
         'resources' => 'array',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function SolarSystem()
     {
         return $this->belongsTo('App\SolarSystem');
@@ -36,7 +41,34 @@ class Planet extends Model
     }
 
     public function buildings(){
-        return $this->belongsToMany('App\Building')->withPivot('id', 'current_level');
+        return $this->hasMany('App\Building');
+    }
+
+    public function facilitiesBuildings(){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
+            $description->where('type', 'facility');
+        })->get();
+    }
+
+    public function resourcesBuildings(){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
+            $description->where('type', 'resource');
+        })->get();
+    }
+
+    public function planetaryDefensesBuildings(){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
+            $description->where('type', 'planetary_defense');
+        })->get();
+    }
+
+    public function setResources($metal, $crystal, $energy){
+        $this->resources = [
+            'metal' => ceil($metal),
+            'crystal' => ceil($crystal),
+            'energy' => ceil($energy)
+        ];
+        $this->save();
     }
 
     /**
@@ -65,10 +97,5 @@ class Planet extends Model
     public function energy()
     {
         return $this->resources['energy'];
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
     }
 }

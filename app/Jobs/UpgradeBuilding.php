@@ -12,7 +12,7 @@ class UpgradeBuilding implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    private $building_id;
+    private $building;
     private $user_id;
 
     /**
@@ -20,9 +20,9 @@ class UpgradeBuilding implements ShouldQueue
      *
      * @param $id
      */
-    public function __construct($building_id, $user_id)
+    public function __construct($building, $user_id)
     {
-        $this->building_id = $building_id;
+        $this->building = $building;
         $this->user_id = $user_id;
     }
 
@@ -33,15 +33,8 @@ class UpgradeBuilding implements ShouldQueue
      */
     public function handle()
     {
-        DB::table('building_planet')
-            ->where('id', strval($this->building_id))
-            ->update(['is_upgrading' => false]);
-
-        // Increment building level on database.
-        DB::table('building_planet')
-            ->where('id', strval($this->building_id))
-            ->increment('current_level');
-
+        $this->building->setUpgrading(false);
+        $this->building->incrementLevel();
         event(new \App\Events\BuildingHasUpgradedEvent($this->user_id));
     }
 }

@@ -8,8 +8,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class BuildingHasUpgradedEvent
-implements ShouldBroadcast{
+class BuildingHasUpgradedEvent implements ShouldBroadcast{
     use InteractsWithSockets, SerializesModels;
 
     public $user_id;

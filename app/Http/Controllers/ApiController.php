@@ -19,20 +19,20 @@ class ApiController extends Controller
     * @return All facility buildings associated with a given planet
     */
     public function facilities(Planet $planet){
-        return $planet->buildings()->where('type', 'facility')->with('upgrades')->get();
+        return $planet->facilitiesBuildings();
     }
 
     /**
     * @return All resources buildings associated with a given planet
     */
     public function resources(Planet $planet){
-        return $planet->buildings()->where('type', 'resource')->with('upgrades')->get();
+        return $planet->resourcesBuildings();
     }
 
     /**
     * @return All planetary defense buildings associated with a given planet
     */
     public function planetaryDefenses(Planet $planet){
-        return $planet->buildings()->where('type', 'planetary_defense')->with('upgrades')->get();
+        return $planet->planetaryDefensesBuildings();
     }
 }
