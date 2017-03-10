@@ -9,29 +9,41 @@ class ApiController extends Controller
 {
 
     /**
-    * @return All planets associated with a given user
-    */
+     * All planets associated with a given user
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function planets(Request $request){
         return $request->user()->planets()->get();
     }
 
     /**
-    * @return All facility buildings associated with a given planet
-    */
+     * All facility buildings associated with a given planet
+     *
+     * @param planet $planet Planet Model
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function facilities(Planet $planet){
         return $planet->facilitiesBuildings();
     }
 
     /**
-    * @return All resources buildings associated with a given planet
-    */
+     * All resources buildings associated with a given planet
+     *
+     * @param planet $planet Planet Model
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function resources(Planet $planet){
         return $planet->resourcesBuildings();
     }
 
     /**
-    * @return All planetary defense buildings associated with a given planet
-    */
+     * All planetary defense buildings associated with a given planet
+     *
+     * @param planet $planet Planet Model
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function planetaryDefenses(Planet $planet){
         return $planet->planetaryDefensesBuildings();
     }
