@@ -28,7 +28,7 @@ $factory->define(App\SolarSystem::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'max_planets' => $faker->randomNumber($nbDigits = 2),
-        'location' => createLocation($faker)
+        'location' => createLocationFaker($faker)
     ];
 });
 
@@ -86,12 +86,21 @@ $factory->define(App\Mail::class, function (Faker\Generator $faker) {
     ];
 });
 
-function createLocation($faker)
+function createLocationFaker($faker)
 {
     $json = array();
     // this is assuming solar system panel is 640x640
     array_push($json, $faker->numberBetween(0, 640)); // for x location
     array_push($json, $faker->numberBetween(0, 640)); // for y location
+    return $json;
+}
+
+function createLocation($pos_x, $pos_y)
+{
+    $json = array();
+    // this is assuming solar system panel is 640x640
+    array_push($json, $pos_x); // for x location
+    array_push($json, $pos_y); // for y location
     return $json;
 }
 
