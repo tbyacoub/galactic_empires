@@ -13,28 +13,24 @@ class CreateBuildingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('buildings', function(Blueprint $table) {
+        Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('display_name')->unique();
-            $table->string('description')->nullable();
-            $table->string('type');
-            $table->string('img_path');
-            $table->timestamps();
-        });
-
-        Schema::create('building_planet', function(Blueprint $table) {
-            $table->integer('building_id')->unsigned();
             $table->integer('planet_id')->unsigned();
+            $table->integer('description_id')->unsigned();
+            $table->integer('upgrade_id')->unsigned();
+            $table->integer('product_id')->unsigned();
             $table->mediumInteger('current_level');
-            //$table->tinyInteger('upgrading');
+            $table->boolean('is_upgrading');
+            $table->timestamps();
 
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('building_id')->references('id')->on('buildings')
+            $table->foreign('description_id')->references('id')->on('descriptions')
                 ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['planet_id', 'building_id']);
+            $table->foreign('upgrade_id')->references('id')->on('upgrades')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -45,7 +41,6 @@ class CreateBuildingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('building_planet');
-        Schema::drop('buildings');
+        Schema::dropIfExists('buildings');
     }
 }

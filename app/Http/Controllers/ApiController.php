@@ -8,19 +8,43 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
 
+    /**
+     * All planets associated with a given user
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function planets(Request $request){
         return $request->user()->planets()->get();
     }
 
+    /**
+     * All facility buildings associated with a given planet
+     *
+     * @param planet $planet Planet Model
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function facilities(Planet $planet){
-        return $planet->buildings()->where('type', 'facility')->get();
+        return $planet->facilitiesBuildings();
     }
 
+    /**
+     * All resources buildings associated with a given planet
+     *
+     * @param planet $planet Planet Model
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function resources(Planet $planet){
-        return $planet->buildings()->where('type', 'resource')->get();
+        return $planet->resourcesBuildings();
     }
 
+    /**
+     * All planetary defense buildings associated with a given planet
+     *
+     * @param planet $planet Planet Model
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function planetaryDefenses(Planet $planet){
-        return $planet->buildings()->where('type', 'planetery_defense')->get();
+        return $planet->planetaryDefensesBuildings();
     }
 }

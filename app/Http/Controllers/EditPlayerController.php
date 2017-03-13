@@ -9,10 +9,21 @@ use App\Planet;
 class EditPlayerController extends Controller
 {
 
+    /**
+    * @param $user User to display information
+     *
+    * @return Admin view with current users information
+    */
     public function index(User $user){
         return view('admin/edit-player', compact('user'));
     }
 
+
+    /**
+     * Modifies the resources on a given planet
+     * @param $planet_id ID of planet to modify
+     * @param Request $request
+     */
     public function modifyResource($planet_id, Request $request){
         $r = $request->all();
 

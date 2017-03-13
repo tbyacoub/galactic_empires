@@ -2,6 +2,6 @@
 
 @section('main')
 
-    <building-view building-type="{{$type}}"></building-view>
+    <building-view user-id="{{Auth::user()->id}}" building-type="{{$type}}"></building-view>
 
 @endsection

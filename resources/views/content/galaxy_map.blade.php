@@ -54,5 +54,7 @@
 	{{-- Pass the names and locations of solar systems to javascript. --}}
 	var solarSystems = {!! json_encode($solarSystems->toArray()) !!};
 </script>
+<script type='text/javascript' src='js/jquery-3.1.1.min.js'></script>
+<script type='text/javascript' src='js/galaxy-map.js'></script>
 
 @endsection

@@ -27,6 +27,8 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)

@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -11,15 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         $this->call(EntrustSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(BuildingSeeder::class);
-        $this->call(PlanetSeeder::class);
+        $this->call(GameObjectsSeeder::class);
         $this->call(PostsSeeder::class);
         $this->call(MailSeeder::class);
+        $this->call(GlobalRatesSeeder::class);
     }
-
-
 
 }

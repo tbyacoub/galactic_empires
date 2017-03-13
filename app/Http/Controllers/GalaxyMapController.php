@@ -2,14 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Planet;
-use App\PlanetType;
 use App\SolarSystem;
-use App\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class GalaxyMapController extends Controller
 {
@@ -31,7 +24,7 @@ class GalaxyMapController extends Controller
     public function index()
     {
 		// Get the ids, names, and locations of all solar systems.
-//		$solarSystems = DB::table('solar_systems')->select('id', 'name', 'location')->get();
+        // $solarSystems = DB::table('solar_systems')->select('id', 'name', 'location')->get();
 		$solarSystems = SolarSystem::all();
 
 		// Load the galaxy map page and pass it the solar systems for rendering.

@@ -28,13 +28,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 
-    Route::get('/facilities', 'BuildingViewController@indexFacilities');
+    Route::get('/facilities', 'BuildingController@indexFacilities');
 
-    Route::get('/resources', 'BuildingViewController@indexResources');
+    Route::get('/resources', 'BuildingController@indexResources');
 
-    Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
+    Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
 
-    Route::post('/upgrade-building/{id}', 'BuildingViewController@upgradeBuilding');
+    Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
@@ -92,8 +92,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 });
 
-// TESTING
-
 Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
 
 Route::group(['prefix' => 'test'], function () {
@@ -132,3 +130,9 @@ Route::group(['prefix' => 'test'], function () {
     });
 
 });
+
+Route::get('/galaxy-map', 'GalaxyMapController@index');
+
+Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
+
+Route::get('/galaxy-map/{system_id}/{planet_id}', 'PlanetOverviewController@viewPlanet');
