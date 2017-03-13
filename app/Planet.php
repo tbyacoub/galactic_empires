@@ -52,7 +52,7 @@ class Planet extends Model
      * @return Building[] that belong to this planet.
      */
     public function buildings(){
-        return $this->belongsToMany('App\Building')->withPivot('id', 'current_level');
+        return $this->belongsToMany('App\Building')->withPivot('id', 'current_level', 'is_upgrading');
     }
 
     /**

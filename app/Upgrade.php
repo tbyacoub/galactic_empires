@@ -12,7 +12,7 @@ class Upgrade extends Model
      * @return Upgrade
      */
     public function Upgradable(){
-        return $this->morphTo();
+        return $this->morphOne();
     }
 
 }
