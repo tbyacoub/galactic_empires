@@ -37,6 +37,9 @@ class GameObjectsSeeder extends Seeder
         $pt = $this->plasmaTurret();
         $rs = $this->researchStation();
         $al = $this->alloyLab();
+        $ms = $this->metalStorage();
+        $cs = $this->crystalStorage();
+        $es = $this->energyPlant();
         $mmu = $this->metalMineUpgrade();
         $cmu = $this->crystalMineUpgrade();
         $eru = $this->energyReactorUpgrade();
@@ -44,6 +47,9 @@ class GameObjectsSeeder extends Seeder
         $amu = $this->antiAirMissilesUpgrade();
         $ptu = $this->plasmaTurretUpgrade();
         $rsu = $this->researchStationUpgrade();
+        $msu = $this->metalStorageUpgrade();
+        $csu = $this->crystalStorageUpgrade();
+        $esu = $this->energyPlantUpgrade();
         $alu = $this->alloyLabUpgrade();
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
@@ -53,6 +59,10 @@ class GameObjectsSeeder extends Seeder
         $ptp = $this->plasmaTurretProduct();
         $rsp = $this->researchStationProduct();
         $alp = $this->alloyLabProduct();
+        $msp = $this->metalStorageProduct();
+        $csp = $this->crystalStorageProduct();
+        $esp = $this->energyPlantProduct();
+
 
         foreach ($planets as $planet) {
             $this->createBuildings($planet, $mm, $mmu, $mmp);
@@ -63,8 +73,15 @@ class GameObjectsSeeder extends Seeder
             $this->createBuildings($planet, $pt, $ptu, $ptp);
             $this->createBuildings($planet, $rs, $rsu, $rsp);
             $this->createBuildings($planet, $al, $alu, $alp);
+            $this->createBuildings($planet, $ms, $msu, $msp);
+            $this->createBuildings($planet, $cs, $csu, $csp);
+            $this->createBuildings($planet, $es, $esu, $esp);
         }
     }
+
+    /**
+     * CREATE BUILDINGS START
+     */
 
     private function createBuildings($planet, $description, $upgrade, $product)
     {
@@ -157,7 +174,45 @@ class GameObjectsSeeder extends Seeder
         $description->save();
         return $description;
     }
-    //
+
+
+    private function metalStorage()
+    {
+        $description = new \App\Description();
+        $description->name = 'metal_storage';
+        $description->display_name = 'Metal Storage';
+        $description->type = 'facility';
+        $description->img_path = '/img/building/metal-storage.svg';
+        $description->save();
+        return $description;
+    }
+
+    private function crystalStorage()
+    {
+        $description = new \App\Description();
+        $description->name = 'crystal_storage';
+        $description->display_name = 'Crystal Storage';
+        $description->type = 'facility';
+        $description->img_path = '/img/building/crystal-storage.svg';
+        $description->save();
+        return $description;
+    }
+
+    private function energyPlant()
+    {
+        $description = new \App\Description();
+        $description->name = 'energy_plant';
+        $description->display_name = 'Energy Plant';
+        $description->type = 'facility';
+        $description->img_path = '/img/building/energy-plant.svg';
+        $description->save();
+        return $description;
+    }
+
+    /**
+     * UPGRADES START
+     */
+
     private function metalMineUpgrade()
     {
         $upgrade = new App\Upgrade();
@@ -286,6 +341,58 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
+    private function metalStorageUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function crystalStorageUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function energyPlantUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    /**
+     * PRODUCTS START
+     */
+
     private function metalMineProduct()
     {
         $product = new App\Product();
@@ -381,4 +488,36 @@ class GameObjectsSeeder extends Seeder
         $product->save();
         return $product;
     }
+
+    private function metalStorageProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'storage_base'=> 5000,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function crystalStorageProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'storage_base'=> 5000,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function energyPlantProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'storage_base'=> 5000,
+        ];
+        $product->save();
+        return $product;
+    }
+
+
 }
