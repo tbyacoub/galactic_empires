@@ -47,6 +47,7 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
         'name' => $faker->unique()->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
+        'storage' => createStorage(),
         'solarSystem_id' => \App\SolarSystem::all()->random()->id,
         'planetType_id' => \App\PlanetType::all()->random()->id,
     ];
@@ -58,6 +59,7 @@ $factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $f
         'name' => $faker->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
+        'storage' => createStorage(),
         'solarSystem_id' => \App\SolarSystem::all()->random()->id,
         'planetType_id' => \App\PlanetType::all()->random()->id,
         'user_id' => -1
@@ -101,6 +103,16 @@ function createReso($faker)
         "metal" => 1000,
         "crystal" => 1000,
         "energy" => 1000
+    ];
+    return $json;
+}
+
+function createStorage()
+{
+    $json = [
+        "metal_storage" => 5000,
+        "crystal_storage" => 5000,
+        "energy_storage" => 5000
     ];
     return $json;
 }

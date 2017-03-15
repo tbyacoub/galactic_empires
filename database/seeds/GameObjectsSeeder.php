@@ -493,7 +493,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'storage_base'=> 5000,
+            'storage_base_rate'=> 2,
+            'storage_base'=> 2500,
         ];
         $product->save();
         return $product;
@@ -503,7 +504,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'storage_base'=> 5000,
+            'storage_base_rate'=> 2,
+            'storage_base'=> 2500,
         ];
         $product->save();
         return $product;
@@ -513,7 +515,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'storage_base'=> 5000,
+            'storage_base_rate'=> 2,
+            'storage_base'=> 2500,
         ];
         $product->save();
         return $product;

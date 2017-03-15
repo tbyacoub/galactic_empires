@@ -13,7 +13,7 @@ class Planet extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'radius', 'resources',
+        'name', 'radius', 'resources', 'storage'
     ];
 
     /**
@@ -23,6 +23,7 @@ class Planet extends Model
      */
     protected $casts = [
         'resources' => 'array',
+        'storage' => 'array'
     ];
 
     /**
