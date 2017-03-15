@@ -13,7 +13,7 @@ class Planet extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'radius', 'resources', 'storage'
+        'name', 'radius', 'resources', 'metal_storage', 'crystal_storage', 'energy_storage'
     ];
 
     /**
@@ -23,7 +23,6 @@ class Planet extends Model
      */
     protected $casts = [
         'resources' => 'array',
-        'storage' => 'array'
     ];
 
     /**
@@ -141,4 +140,56 @@ class Planet extends Model
     {
         return $this->resources['energy'];
     }
+
+    public function metalStorageBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'metal_storage');
+        })->first();
+    }
+
+    public function crystalStorageBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'crystal_storage');
+        })->first();
+    }
+
+    public function energyStorageBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'energy_storage');
+        })->first();
+    }
+
+    public function updateMetalStorage(){
+        $metal_storage = $this->metalStorageBuilding();
+
+        $level = $metal_storage->current_level;
+        $base = $metal_storage->product->characteristics['storage_base'];
+        $rate = $metal_storage->product->characteristics['storage_base_rate'];
+
+        $this->metal_storage = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateCrystalStorage(){
+        $crystal_storage = $this->crystalStorageBuilding();
+
+        $level = $crystal_storage->current_level;
+        $base = $crystal_storage->product->characteristics['storage_base'];
+        $rate = $crystal_storage->product->characteristics['storage_base_rate'];
+
+        $this->crystal_storage = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateEnergyStorage(){
+        $energy_storage = $this->energyStorageBuilding();
+
+        $level = $energy_storage->current_level;
+        $base = $energy_storage->product->characteristics['storage_base'];
+        $rate = $energy_storage->product->characteristics['storage_base_rate'];
+
+        $this->energy_storage = ($level * $base * $rate);
+        $this->save();
+    }
+
 }

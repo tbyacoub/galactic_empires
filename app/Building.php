@@ -125,4 +125,26 @@ class Building extends Model
         $this->increment('current_level');
     }
 
+    /**
+     * Called after BuildingUpgraded event.
+     *
+     * Kick-In the Product specifics after building upgrades.
+     */
+    public function setProduct(){
+        $name = $this->description()->first()->name;
+
+        switch ($name){
+            case "metal_storage":
+                    $this->planet()->first()->updateMetalStorage();
+                break;
+            case "crystal_storage":
+                    $this->planet()->first()->updateCrystalStorage();
+                break;
+            case "energy_storage":
+                    $this->planet()->first()->updateEnergyStorage();
+                break;
+
+        }
+    }
+
 }

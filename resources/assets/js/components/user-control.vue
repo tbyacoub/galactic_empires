@@ -76,27 +76,27 @@
         }
 
         getMetalPercent(){
-            return ((this.planet.resources.metal/this.planet.storage.metal_storage)*100) + '%';
+            return ((this.planet.resources.metal/this.planet.metal_storage)*100) + '%';
         }
 
         getCrystalPercent(){
-            return ((this.planet.resources.crystal/this.planet.storage.crystal_storage)*100) + '%';
+            return ((this.planet.resources.crystal/this.planet.crystal_storage)*100) + '%';
         }
 
         getEnergyPercent(){
-            return ((this.planet.resources.energy/this.planet.storage.energy_storage)*100) + '%';
+            return ((this.planet.resources.energy/this.planet.energy_storage)*100) + '%';
         }
 
         getMetalPatio() {
-            return (' ( ' + this.planet.resources.metal + '/' + this.planet.storage.metal_storage + ' )');
+            return (' ( ' + this.planet.resources.metal + '/' + this.planet.metal_storage + ' )');
         }
 
         getCrystalPatio(){
-            return (' ( ' + this.planet.resources.crystal + '/' + this.planet.storage.crystal_storage + ' )');
+            return (' ( ' + this.planet.resources.crystal + '/' + this.planet.crystal_storage + ' )');
         }
 
         getEnergyPatio(){
-            return (' ( ' + this.planet.resources.energy + '/' + this.planet.storage.energy_storage + ' )');
+            return (' ( ' + this.planet.resources.energy + '/' + this.planet.energy_storage + ' )');
         }
 
     }

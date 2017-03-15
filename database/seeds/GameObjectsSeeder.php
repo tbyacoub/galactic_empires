@@ -39,7 +39,7 @@ class GameObjectsSeeder extends Seeder
         $al = $this->alloyLab();
         $ms = $this->metalStorage();
         $cs = $this->crystalStorage();
-        $es = $this->energyPlant();
+        $es = $this->energyStorage();
         $mmu = $this->metalMineUpgrade();
         $cmu = $this->crystalMineUpgrade();
         $eru = $this->energyReactorUpgrade();
@@ -49,7 +49,7 @@ class GameObjectsSeeder extends Seeder
         $rsu = $this->researchStationUpgrade();
         $msu = $this->metalStorageUpgrade();
         $csu = $this->crystalStorageUpgrade();
-        $esu = $this->energyPlantUpgrade();
+        $esu = $this->energyStorageUpgrade();
         $alu = $this->alloyLabUpgrade();
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
@@ -61,7 +61,7 @@ class GameObjectsSeeder extends Seeder
         $alp = $this->alloyLabProduct();
         $msp = $this->metalStorageProduct();
         $csp = $this->crystalStorageProduct();
-        $esp = $this->energyPlantProduct();
+        $esp = $this->energyStorageProduct();
 
 
         foreach ($planets as $planet) {
@@ -198,10 +198,10 @@ class GameObjectsSeeder extends Seeder
         return $description;
     }
 
-    private function energyPlant()
+    private function energyStorage()
     {
         $description = new \App\Description();
-        $description->name = 'energy_plant';
+        $description->name = 'energy_storage';
         $description->display_name = 'Energy Plant';
         $description->type = 'facility';
         $description->img_path = '/img/building/energy-plant.svg';
@@ -373,7 +373,7 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
-    private function energyPlantUpgrade()
+    private function energyStorageUpgrade()
     {
         $upgrade = new App\Upgrade();
         $upgrade->max_level = 10;
@@ -511,7 +511,7 @@ class GameObjectsSeeder extends Seeder
         return $product;
     }
 
-    private function energyPlantProduct()
+    private function energyStorageProduct()
     {
         $product = new App\Product();
         $product->characteristics = [
