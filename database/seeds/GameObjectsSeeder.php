@@ -32,43 +32,50 @@ class GameObjectsSeeder extends Seeder
         $mm = $this->metalMine();
         $cm = $this->crystalMine();
         $er = $this->energyReactor();
-        $fs = $this->fleetShipyard();
         $am = $this->antiAirMisiles();
         $pt = $this->plasmaTurret();
-        $rs = $this->researchStation();
-        $al = $this->alloyLab();
         $ms = $this->metalStorage();
         $cs = $this->crystalStorage();
         $es = $this->energyStorage();
+        $rs = $this->researchStation();
+        $al = $this->alloyLab();
+        $fsy = $this->frigateShipyard();
+        $csy = $this->corvetteShipyard();
+        $dsy = $this->destroyerShipyard();
+
         $mmu = $this->metalMineUpgrade();
         $cmu = $this->crystalMineUpgrade();
         $eru = $this->energyReactorUpgrade();
-        $fsu = $this->fleetShipyardUpgrade();
         $amu = $this->antiAirMissilesUpgrade();
         $ptu = $this->plasmaTurretUpgrade();
-        $rsu = $this->researchStationUpgrade();
         $msu = $this->metalStorageUpgrade();
         $csu = $this->crystalStorageUpgrade();
         $esu = $this->energyStorageUpgrade();
+        $rsu = $this->researchStationUpgrade();
         $alu = $this->alloyLabUpgrade();
+        $fsyu = $this->frigateShipyardUpgrade();
+        $csyu = $this->corvetteShipyardUpgrade();
+        $dsyu = $this->destroyerShipyardUpgrade();
+
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
         $erp = $this->energyReactorProduct();
-        $fsp = $this->fleetShipyardProduct();
         $amp = $this->antiAirMisilesProduct();
         $ptp = $this->plasmaTurretProduct();
-        $rsp = $this->researchStationProduct();
-        $alp = $this->alloyLabProduct();
         $msp = $this->metalStorageProduct();
         $csp = $this->crystalStorageProduct();
         $esp = $this->energyStorageProduct();
+        $rsp = $this->researchStationProduct();
+        $alp = $this->alloyLabProduct();
+        $fsyp = $this->frigateShipyardProduct();
+        $csyp = $this->corvetteShipyardProduct();
+        $dsyp = $this->destroyerShipyardProduct();
 
 
         foreach ($planets as $planet) {
             $this->createBuildings($planet, $mm, $mmu, $mmp);
             $this->createBuildings($planet, $cm, $cmu, $cmp);
             $this->createBuildings($planet, $er, $eru, $erp);
-            $this->createBuildings($planet, $fs, $fsu, $fsp);
             $this->createBuildings($planet, $am, $amu, $amp);
             $this->createBuildings($planet, $pt, $ptu, $ptp);
             $this->createBuildings($planet, $rs, $rsu, $rsp);
@@ -76,6 +83,9 @@ class GameObjectsSeeder extends Seeder
             $this->createBuildings($planet, $ms, $msu, $msp);
             $this->createBuildings($planet, $cs, $csu, $csp);
             $this->createBuildings($planet, $es, $esu, $esp);
+            $this->createBuildings($planet, $fsy, $fsyu, $fsyp);
+            $this->createBuildings($planet, $csy, $csyu, $csyp);
+            $this->createBuildings($planet, $dsy, $dsyu, $dsyp);
         }
     }
 
@@ -125,16 +135,6 @@ class GameObjectsSeeder extends Seeder
         return $description;
     }
 
-    private function fleetShipyard(){
-        $description = new \App\Description();
-        $description->name = "fleet_shipyard";
-        $description->display_name = "Fleet Shipyard";
-        $description->type = "military";
-        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
-        $description->save();
-        return $description;
-    }
-
     private function antiAirMisiles(){
         $description = new \App\Description();
         $description->name = "anti_air_missile";
@@ -154,27 +154,6 @@ class GameObjectsSeeder extends Seeder
         $description->save();
         return $description;
     }
-
-    private function researchStation(){
-        $description = new \App\Description();
-        $description->name = "research_station";
-        $description->display_name = "Research Station";
-        $description->type = "facility";
-        $description->img_path = "/img/building/research.svg";
-        $description->save();
-        return $description;
-    }
-
-    private function alloyLab(){
-        $description = new \App\Description();
-        $description->name = "alloy_lab";
-        $description->display_name = "Alloy Lab";
-        $description->type = "facility";
-        $description->img_path = "/img/building/flask-outline.svg";
-        $description->save();
-        return $description;
-    }
-
 
     private function metalStorage()
     {
@@ -205,6 +184,58 @@ class GameObjectsSeeder extends Seeder
         $description->display_name = 'Energy Plant';
         $description->type = 'facility';
         $description->img_path = '/img/building/energy-plant.svg';
+        $description->save();
+        return $description;
+    }
+
+    private function researchStation(){
+        $description = new \App\Description();
+        $description->name = "research_station";
+        $description->display_name = "Research Station";
+        $description->type = "research";
+        $description->img_path = "/img/building/research.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function alloyLab(){
+        $description = new \App\Description();
+        $description->name = "alloy_lab";
+        $description->display_name = "Alloy Lab";
+        $description->type = "research";
+        $description->img_path = "/img/building/flask-outline.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function frigateShipyard(){
+        $description = new \App\Description();
+        $description->name = "frigate_shipyard";
+        $description->display_name = "Frigates Shipyard";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function corvetteShipyard()
+    {
+        $description = new \App\Description();
+        $description->name = "corvette_shipyard";
+        $description->display_name = "Corvettes Shipyard";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function destroyerShipyard()
+    {
+        $description = new \App\Description();
+        $description->name = "destroyer_shipyard";
+        $description->display_name = "Destroyers Shipyard";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
         return $description;
     }
@@ -261,22 +292,6 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
-    private function fleetShipyardUpgrade()
-    {
-        $upgrade = new App\Upgrade();
-        $upgrade->max_level = 10;
-        $upgrade->base_metal = 100;
-        $upgrade->base_crystal = 100;
-        $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
-        $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
-        $upgrade->save();
-        return $upgrade;
-    }
-
     private function antiAirMissilesUpgrade()
     {
         $upgrade = new App\Upgrade();
@@ -294,38 +309,6 @@ class GameObjectsSeeder extends Seeder
     }
 
     private function plasmaTurretUpgrade()
-    {
-        $upgrade = new App\Upgrade();
-        $upgrade->max_level = 10;
-        $upgrade->base_metal = 100;
-        $upgrade->base_crystal = 100;
-        $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
-        $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
-        $upgrade->save();
-        return $upgrade;
-    }
-
-    private function researchStationUpgrade()
-    {
-        $upgrade = new App\Upgrade();
-        $upgrade->max_level = 10;
-        $upgrade->base_metal = 100;
-        $upgrade->base_crystal = 100;
-        $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
-        $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
-        $upgrade->save();
-        return $upgrade;
-    }
-
-    private function alloyLabUpgrade()
     {
         $upgrade = new App\Upgrade();
         $upgrade->max_level = 10;
@@ -389,6 +372,86 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
+    private function researchStationUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function alloyLabUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function frigateShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function corvetteShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function destroyerShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 1;
+        $upgrade->rate_crystal = 1;
+        $upgrade->rate_energy = 1;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 1;
+        $upgrade->save();
+        return $upgrade;
+    }
+
     /**
      * PRODUCTS START
      */
@@ -429,18 +492,6 @@ class GameObjectsSeeder extends Seeder
         return $product;
     }
 
-    private function fleetShipyardProduct()
-    {
-        $product = new App\Product();
-        $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
-        ];
-        $product->save();
-        return $product;
-    }
-
     private function antiAirMisilesProduct()
     {
         $product = new App\Product();
@@ -454,30 +505,6 @@ class GameObjectsSeeder extends Seeder
     }
 
     private function plasmaTurretProduct()
-    {
-        $product = new App\Product();
-        $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
-        ];
-        $product->save();
-        return $product;
-    }
-
-    private function researchStationProduct()
-    {
-        $product = new App\Product();
-        $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
-        ];
-        $product->save();
-        return $product;
-    }
-
-    private function alloyLabProduct()
     {
         $product = new App\Product();
         $product->characteristics = [
@@ -522,5 +549,62 @@ class GameObjectsSeeder extends Seeder
         return $product;
     }
 
+    private function researchStationProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'metal_base_rate'=> 35.0,
+            'crystal_base_rate'=>5.0,
+            'energy_base_rate'=>10.0,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function alloyLabProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'metal_base_rate'=> 35.0,
+            'crystal_base_rate'=>5.0,
+            'energy_base_rate'=>10.0,
+        ];
+        $product->save();
+        return $product;
+    }
+
+
+    private function frigateShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'attack_bonus' => 1.15,
+            'health_bonus' => 1.15,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function corvetteShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'attack_bonus' => 1.1,
+            'health_bonus' => 1.1,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function destroyerShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'attack_bonus' => 1.05,
+            'health_bonus' => 1.05,
+        ];
+        $product->save();
+        return $product;
+    }
 
 }

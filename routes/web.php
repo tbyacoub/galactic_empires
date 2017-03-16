@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
+    Route::get('/planets/{user_id}', 'HomeController@planets');
+
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 
     Route::get('/facilities', 'BuildingController@indexFacilities');
@@ -33,6 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/resources', 'BuildingController@indexResources');
 
     Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
+
+    Route::get('/research', 'BuildingController@indexResearch');
+
+    Route::get('/shipyard', 'BuildingController@indexShipyard');
 
     Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
 });
@@ -67,6 +73,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
     Route::get('planet/{planet}/facilities', 'ApiController@facilities');
 
     Route::get('planet/{planet}/planetary_defenses', 'ApiController@planetaryDefenses');
+
+    Route::get('planet/{planet}/research', 'ApiController@research');
+
+    Route::get('planet/{planet}/shipyard', 'ApiController@shipyard');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {

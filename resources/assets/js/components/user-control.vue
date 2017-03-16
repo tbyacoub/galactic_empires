@@ -116,10 +116,21 @@
             },
             emitEvent(){
                 EventBus.$emit('planet-changed', this.selectedPlanet);
+            },
+            getPlanets : function () {
+                this.$http.get('/planets/'+ this.user_id).then(response => {
+                    console.log(response.body);
+                    this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+                    this.emitEvent();
+                });
             }
         },
         created() {
             this.selectedPlanet.setPlanet(this.planets[0]);
+
+            window.Echo.private('building.upgraded.' + this.user_id).listen('BuildingHasUpgradedEvent', (object) => {
+                this.getPlanets();
+            });
         },
         mounted() {
             this.emitEvent();
@@ -127,6 +138,10 @@
         props: {
             planets: {
                 type: Array,
+                required: true
+            },
+            user_id : {
+                type: Number,
                 required: true
             }
         },

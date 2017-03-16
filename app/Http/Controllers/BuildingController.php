@@ -45,6 +45,26 @@ class BuildingController extends Controller
     }
 
     /**
+     * Returns research view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexResearch(Request $request){
+        return $this->index('research', $request);
+    }
+
+    /**
+     * Returns shipyard view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexShipyard(Request $request){
+        return $this->index('shipyard', $request);
+    }
+
+    /**
      * Returns desired view with planets, and type data.
      *
      * @param $type view type

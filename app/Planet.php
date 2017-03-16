@@ -98,6 +98,28 @@ class Planet extends Model
     }
 
     /**
+     * Returns all the research buildings buildings on this planet.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function researchBuildings(){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
+            $description->where('type', 'research');
+        })->get();
+    }
+
+    /**
+     * Returns all the shipyard buildings buildings on this planet.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shipyardBuildings(){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
+            $description->where('type', 'shipyard');
+        })->get();
+    }
+
+    /**
      * Sets the planet resources.
      *
      * @param $metal integer
