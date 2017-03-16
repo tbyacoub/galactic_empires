@@ -16,4 +16,9 @@ class Description extends Model
     {
         return $this->hasMany('App\Building');
     }
+
+    public function fleets()
+    {
+    	return $this->hasMany('\App\Fleet');
+    }
 }
