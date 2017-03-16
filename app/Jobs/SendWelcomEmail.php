@@ -24,7 +24,7 @@ class SendWelcomEmail implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Sends a welcome mail to new users.
      *
      * @return void
      */

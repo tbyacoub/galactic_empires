@@ -14,23 +14,53 @@ use Illuminate\Support\Facades\Auth;
 class BuildingController extends Controller
 {
 
+    /**
+     * Returns resources view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexResources(Request $request){
         return $this->index('resources', $request);
     }
 
+    /**
+     * Returns facilities view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexFacilities(Request $request){
         return $this->index('facilities', $request);
     }
 
+    /**
+     * Returns defense view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexDefenses(Request $request){
         return $this->index('planetary_defenses', $request);
     }
 
+    /**
+     * Returns desired view with planets, and type data.
+     *
+     * @param $type view type
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     private function index($type, Request $request){
         $planets = $request->user()->planets()->get();
         return view('content.building-view', compact('planets', 'type'));
     }
 
+    /**
+     * Upgrades givin building by calling UpgradeBuilding job.
+     *
+     * @param Building $building
+     */
     public function upgrade(Building $building)
     {
         if(!$building->isUpgrading()){

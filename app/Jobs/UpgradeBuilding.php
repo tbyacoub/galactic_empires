@@ -27,7 +27,7 @@ class UpgradeBuilding implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Upgrades building and dispatchs a BuildingHasUpgradedEvent.
      *
      * @return void
      */

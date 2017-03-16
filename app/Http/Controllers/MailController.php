@@ -11,6 +11,8 @@ class MailController extends Controller
 {
 
     /**
+     * Returns inbox view with all mail data
+     *
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -26,6 +28,8 @@ class MailController extends Controller
     }
 
     /**
+     * Returns sent mail view with sent mail data.
+     *
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -40,6 +44,8 @@ class MailController extends Controller
     }
 
     /**
+     * Returns a compose view.
+     *
      * @param Request $request
      * @param null $email
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -55,6 +61,8 @@ class MailController extends Controller
     }
 
     /**
+     * Returns a forward mail view.
+     *
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -68,6 +76,8 @@ class MailController extends Controller
     }
 
     /**
+     * Creates a new mail and sends it.
+     *
      * @param MailRequest $mailRequest
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -88,6 +98,8 @@ class MailController extends Controller
     }
 
     /**
+     * Returns a specific mail view.
+     *
      * @param Mail $mail
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
@@ -103,6 +115,8 @@ class MailController extends Controller
     }
 
     /**
+     * Deletes a mail.
+     *
      * @param Mail $mail
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -118,6 +132,8 @@ class MailController extends Controller
     }
 
     /**
+     * Gets mail notifications.
+     *
      * @param Request $request
      * @return array
      */
@@ -137,6 +153,8 @@ class MailController extends Controller
     }
 
     /**
+     * Mail api used to set read, favorite, delete.
+     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */

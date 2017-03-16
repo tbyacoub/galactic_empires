@@ -25,6 +25,11 @@ class SolarSystem extends Model
         'location' => 'array',
     ];
 
+    /**
+     * Returns all planets in this solar system.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function planets()
     {
         return $this->hasMany('App\Plant');
