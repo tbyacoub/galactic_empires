@@ -9,14 +9,12 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ResourceUpdatedEvet implements ShouldBroadcast
+class ResourceUpdatedEvent implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct()
     {

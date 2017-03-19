@@ -23,7 +23,7 @@
                 <h5>Crystal</h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-info" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getcrystal() }">
+                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getCrystal() }">
                     </div>
                 </div>
                 <h5>Energy</h5>
@@ -79,7 +79,7 @@
             return ((this.planet.resources.metal/99999)*100) + '%';
         }
 
-        getcrystal(){
+        getCrystal(){
             return ((this.planet.resources.crystal/99999)*100) + '%';
         }
 
@@ -95,11 +95,27 @@
         data(){
             return{
                 selectedPlanet: new Planet(),
+                currentPlanets: this.planets,
+                currentPlanet: 0
             }
         },
         methods: {
-            changePlanet: function(){
-                this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+            resourceUpdateListener(){
+                window.Echo.channel('resources.updated').listen('ResourceUpdatedEvent', (object) => {
+                    this.getPlanets();
+                });
+            },
+            getPlanets(){
+                this.$http.get('/api/planets').then(response => {
+                    this.currentPlanets = response.body;
+                    this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
+                }, response => {
+                    console.log(response);
+                });
+            },
+            changePlanet(){
+                this.currentPlanet = parseInt(event.target.id);
+                this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
                 this.emitEvent();
             },
             emitEvent(){
@@ -107,10 +123,11 @@
             }
         },
         created() {
-            this.selectedPlanet.setPlanet(this.planets[0]);
+            this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
         },
         mounted() {
             this.emitEvent();
+            this.resourceUpdateListener()
         },
         props: {
             planets: {

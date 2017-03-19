@@ -24,6 +24,10 @@ Route::get('/', function () {
  */
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/notifications', 'NotificationController@index');
+
+    Route::get('/api/get-notifications', 'NotificationController@getUserNotifications');
+
     Route::get('/home', 'HomeController@index');
 
     Route::get('/galaxy-map', 'GalaxyMapController@index');
@@ -53,7 +57,7 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
 
     Route::delete('/{mail}', 'MailController@destroy');
 
-    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
+    Route::get('/api/get-mail', 'MailController@getUserNotifications');
 
     Route::post('/api', 'MailController@mailApi');
 });
