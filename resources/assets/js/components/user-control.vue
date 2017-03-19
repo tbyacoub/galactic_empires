@@ -106,13 +106,18 @@
     export default{
         data(){
             return{
-                selectedPlanet: new Planet(),
+                selectedPlanet: new Planet()
             }
         },
         methods: {
             changePlanet: function(){
                 this.selectedPlanet.setPlanet(this.planets[event.target.id]);
                 this.emitEvent();
+            },
+            updatePlanet: function (id) {
+                this.$http.get('/planet/'+ id ).then(response => {
+                    this.selectedPlanet.setPlanet(response.body);
+                });
             },
             emitEvent(){
                 EventBus.$emit('planet-changed', this.selectedPlanet);
@@ -128,9 +133,10 @@
         created() {
             this.selectedPlanet.setPlanet(this.planets[0]);
 
-            window.Echo.private('building.upgraded.' + this.user_id).listen('BuildingHasUpgradedEvent', (object) => {
-                this.getPlanets();
+            EventBus.$on('update-planet', planetId => {
+                this.updatePlanet(planetId);
             });
+
         },
         mounted() {
             this.emitEvent();

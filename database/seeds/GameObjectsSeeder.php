@@ -251,11 +251,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -267,11 +267,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -283,11 +283,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -299,11 +299,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -315,11 +315,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -331,11 +331,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -347,11 +347,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -363,11 +363,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -379,11 +379,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -395,11 +395,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -411,11 +411,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -427,11 +427,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }
@@ -443,11 +443,11 @@ class GameObjectsSeeder extends Seeder
         $upgrade->base_metal = 100;
         $upgrade->base_crystal = 100;
         $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 1;
-        $upgrade->rate_crystal = 1;
-        $upgrade->rate_energy = 1;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
         $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 1;
+        $upgrade->rate_minutes = 2;
         $upgrade->save();
         return $upgrade;
     }

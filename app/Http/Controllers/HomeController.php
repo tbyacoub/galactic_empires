@@ -41,4 +41,9 @@ class HomeController extends Controller
     {
         return $user_id->planets()->get();
     }
+
+    public function planet(Planet $planet_id)
+    {
+        return $planet_id;
+    }
 }

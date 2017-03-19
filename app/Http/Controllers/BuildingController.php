@@ -83,9 +83,12 @@ class BuildingController extends Controller
      */
     public function upgrade(Building $building)
     {
-        if(!$building->isUpgrading()){
+        if($building->upgradeable()){
             $building->setUpgrading(true);
+            $building->decrementBuildingCost();
             dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes($building->upgradeTime())));
+        }else{
+            return "false";
         }
     }
 

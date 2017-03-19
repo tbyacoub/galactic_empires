@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/planets/{user_id}', 'HomeController@planets');
 
+    Route::get('/planet/{planet_id}', 'HomeController@planet');
+
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 
     Route::get('/facilities', 'BuildingController@indexFacilities');

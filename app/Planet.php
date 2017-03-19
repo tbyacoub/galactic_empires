@@ -163,24 +163,41 @@ class Planet extends Model
         return $this->resources['energy'];
     }
 
+    /**
+     * Gets the Metal Storage Building of this planet.
+     * @return \App\Building
+     */
     public function metalStorageBuilding(){
         return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
             $description->where('name', 'metal_storage');
         })->first();
     }
 
+    /**
+     * Gets the Crystal Storage Building of this planet.
+     * @return \App\Building
+     */
     public function crystalStorageBuilding(){
         return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
             $description->where('name', 'crystal_storage');
         })->first();
     }
 
+    /**
+     * Gets the Energy Storage Building of this planet.
+     * @return \App\Building
+     */
     public function energyStorageBuilding(){
         return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
             $description->where('name', 'energy_storage');
         })->first();
     }
 
+    /**
+     * Updates the new storage capacity of this planet, based on the current level this storage building.
+     *
+     * Normally called after a storage building upgrades (Building->setProduct())
+     */
     public function updateMetalStorage(){
         $metal_storage = $this->metalStorageBuilding();
 
@@ -192,6 +209,11 @@ class Planet extends Model
         $this->save();
     }
 
+    /**
+     * Updates the new storage capacity of this planet, based on the current level this storage building.
+     *
+     * Normally called after a storage building upgrades (Building->setProduct())
+     */
     public function updateCrystalStorage(){
         $crystal_storage = $this->crystalStorageBuilding();
 
@@ -203,6 +225,11 @@ class Planet extends Model
         $this->save();
     }
 
+    /**
+     * Updates the new storage capacity of this planet, based on the current level this storage building.
+     *
+     * Normally called after a storage building upgrades (Building->setProduct())
+     */
     public function updateEnergyStorage(){
         $energy_storage = $this->energyStorageBuilding();
 
@@ -213,5 +240,4 @@ class Planet extends Model
         $this->energy_storage = ($level * $base * $rate);
         $this->save();
     }
-
 }

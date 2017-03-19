@@ -6,7 +6,7 @@
 					<div id="spotify" :style="{ 'background': 'url(' + building.description.img_path + ') no-repeat center top' }">
 						<div class="col-xs-4 col-xs-offset-8" v-if="building.current_level < building.upgrade.max_level">
 							<button v-if="!building.is_upgrading" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.id)"><a>UPGRADE</a></button>
-                            <button v-else="!building.is_upgrading" class="btn btn-sm btn-clear-g" disabled=""><a>UPGRADEING</a></button>
+                            <button v-else="!building.is_upgrading" class="btn btn-sm btn-clear-g" disabled=""><a>UPGRADING</a></button>
 						</div>
 						<div class="sp-title">
 							<h3>{{ building.description.display_name }}</h3>
@@ -28,6 +28,7 @@
             return{
                 buildings: [],
 				planetId: 0,
+				active: false,
             }
         },
         props: {
@@ -46,10 +47,15 @@
 						this.buildings = response.body;
                 });
             },
+			EmitPlanetUpdateEvent() {
+                EventBus.$emit('update-planet', this.planetId);
+            },
             upgradeBuilding(id) {
                 this.$http.post('/building/'+ id + '/upgrade').then(response => {
-                    console.log(response.body);
-                    this.getBuildings(this.planetId);
+                    if(response.body != "false"){
+                        this.getBuildings(this.planetId);
+                        this.EmitPlanetUpdateEvent();
+                    }
                 });
             }
         },
@@ -58,8 +64,10 @@
                 this.getBuildings(planet.planet.id);
                 this.planetId = planet.planet.id;
             });
+
             window.Echo.private('building.upgraded.' + this.userId).listen('BuildingHasUpgradedEvent', (object) => {
                 this.getBuildings(this.planetId);
+                this.EmitPlanetUpdateEvent();
             });
         }
     }
