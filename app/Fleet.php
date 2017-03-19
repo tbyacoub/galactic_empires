@@ -24,7 +24,7 @@ class Fleet extends Model
     	$fleet->type = 'fighter';
     	$fleet->health = 100;
     	$fleet->speed = 55;
-    	$fleet->attack = 30;
+    	$fleet->attack = 35;
     	$fleet->defence = 20;
     	$fleet->multipliers = [
     		'Fighter' => 2.0,
@@ -34,8 +34,8 @@ class Fleet extends Model
     		'Destroyer' => 0.5,
     	];
     }
-//----------------------------------------------------------------------
-      public function newBomber(Planet $planet)
+
+    public function newBomber(Planet $planet)
     {
     	$fleet = new App\Fleet();
     	$fleet->planet_id = $planet->id;
@@ -53,7 +53,7 @@ class Fleet extends Model
     	];
     }
 
-      public function newCorvette(Planet $planet)
+    public function newCorvette(Planet $planet)
     {
     	$fleet = new App\Fleet();
     	$fleet->planet_id = $planet->id;
@@ -71,7 +71,7 @@ class Fleet extends Model
     	];
     }
 
-      public function newFrigate(Planet $planet)
+    public function newFrigate(Planet $planet)
     {
     	$fleet = new App\Fleet();
     	$fleet->planet_id = $planet->id;
@@ -89,7 +89,7 @@ class Fleet extends Model
     	];
     }
 
-      public function newDestroyer(Planet $planet)
+    public function newDestroyer(Planet $planet)
     {
     	$fleet = new App\Fleet();
     	$fleet->planet_id = $planet->id;
