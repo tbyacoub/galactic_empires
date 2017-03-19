@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\MailTrait;
 use App\Traits\OwnesPlanetTrait;
+use App\Traits\NotificationTrait;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,9 +13,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use MailTrait;
-    use Notifiable;
     use EntrustUserTrait;
     use OwnesPlanetTrait;
+    use NotificationTrait;
 
     /**
      * The attributes that are mass assignable.
