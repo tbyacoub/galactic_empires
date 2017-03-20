@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -16,9 +17,9 @@ class SendWelcomEmail implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $receiver
      */
-    public function __construct($receiver)
+    public function __construct(User $receiver)
     {
         $this->receiver = $receiver;
     }
@@ -30,9 +31,9 @@ class SendWelcomEmail implements ShouldQueue
      */
     public function handle()
     {
-        $sender = \App\User::find(10);
+        $sender = \App\User::where('name', '=', 'admin')->first();
         $mail = new \App\Mail([
-            "subject" => "Welcome",
+            "subject" => "Welcome ". $this->receiver->name,
             "message" => "Welcome to galactic empires!",
             "read" => 0,
             "favorite" => 1,

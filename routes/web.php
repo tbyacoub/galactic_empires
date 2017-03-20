@@ -24,6 +24,10 @@ Route::get('/', function () {
  */
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/notifications', 'NotificationController@index');
+
+    Route::get('/api/get-notifications', 'NotificationController@getUserNotifications');
+
     Route::get('/home', 'HomeController@index');
 
     Route::get('/planets/{user_id}', 'HomeController@planets');
@@ -61,7 +65,7 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
 
     Route::delete('/{mail}', 'MailController@destroy');
 
-    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
+    Route::get('/api/get-mail', 'MailController@getUserNotifications');
 
     Route::post('/api', 'MailController@mailApi');
 });
@@ -105,9 +109,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
 
-    Route::post('/edit-player/modify-resource/{planet}/add/{amount}', 'EditPlayerController@addResource');
+    Route::post('/edit-player/modify-metal/{planet}', 'EditPlayerController@modifyMetal');
+    Route::post('/edit-player/modify-crystal/{planet}', 'EditPlayerController@modifyCrystal');
+    Route::post('/edit-player/modify-energy/{planet}', 'EditPlayerController@modifyEnergy');
 
-    Route::post('/edit-player/modify-resource/{planet}/remove/{amount}', 'EditPlayerController@removeResource');
 });
 
 Route::group(['prefix' => 'test'], function () {

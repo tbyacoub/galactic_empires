@@ -14,19 +14,19 @@
             </div>
 
             <div class="col-md-4 centered">
-                <h5>Metal <i>{{selectedPlanet.getMetalPatio()}}</i></h5>
+                <h5>Metal <i>{{selectedPlanet.getMetalRatio()}}</i></h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar"
                          :style="{width: selectedPlanet.getMetalPercent() }">
                     </div>
                 </div>
-                <h5>Crystal <i>{{selectedPlanet.getCrystalPatio()}}</i></h5>
+                <h5>Crystal <i>{{selectedPlanet.getCrystalRatio()}}</i></h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-info" role="progressbar"
                          :style="{width: selectedPlanet.getCrystalPercent() }">
                     </div>
                 </div>
-                <h5>Energy <i>{{selectedPlanet.getEnergyPatio()}}</i></h5>
+                <h5>Energy <i>{{selectedPlanet.getEnergyRatio()}}</i></h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-warning" role="progressbar"
                          :style="{width: selectedPlanet.getEnergyPercent() }"></div>
@@ -87,15 +87,15 @@
             return ((this.planet.resources.energy/this.planet.energy_storage)*100) + '%';
         }
 
-        getMetalPatio() {
+        getMetalRatio() {
             return (' ( ' + this.planet.resources.metal + '/' + this.planet.metal_storage + ' )');
         }
 
-        getCrystalPatio(){
+        getCrystalRatio(){
             return (' ( ' + this.planet.resources.crystal + '/' + this.planet.crystal_storage + ' )');
         }
 
-        getEnergyPatio(){
+        getEnergyRatio(){
             return (' ( ' + this.planet.resources.energy + '/' + this.planet.energy_storage + ' )');
         }
 
@@ -105,49 +105,55 @@
 
     export default{
         data(){
-            return{
-                selectedPlanet: new Planet()
+            return {
+                selectedPlanet: new Planet(),
+                currentPlanets: this.planets,
+                currentPlanet: 0
             }
         },
         methods: {
-            changePlanet: function(){
-                this.selectedPlanet.setPlanet(this.planets[event.target.id]);
+            resourceUpdateListener(){
+                window.Echo.channel('resources.updated').listen('ResourceUpdatedEvent', (object) => {
+                    this.getPlanets();
+            });
+            },
+            getPlanets(){
+                this.$http.get('/api/planets').then(response => {
+                    this.currentPlanets = response.body;
+                this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
+            }, response => {
+                    console.log(response);
+                });
+            },
+            changePlanet(){
+                this.currentPlanet = parseInt(event.target.id);
+                this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
                 this.emitEvent();
+            },
+            emitEvent(){
+                EventBus.$emit('planet-changed', this.selectedPlanet);
             },
             updatePlanet: function (id) {
                 this.$http.get('/planet/'+ id ).then(response => {
                     this.selectedPlanet.setPlanet(response.body);
                 });
-            },
-            emitEvent(){
-                EventBus.$emit('planet-changed', this.selectedPlanet);
-            },
-            getPlanets : function () {
-                this.$http.get('/planets/'+ this.user_id).then(response => {
-                    console.log(response.body);
-                    this.selectedPlanet.setPlanet(this.planets[event.target.id]);
-                    this.emitEvent();
-                });
             }
         },
         created() {
-            this.selectedPlanet.setPlanet(this.planets[0]);
 
             EventBus.$on('update-planet', planetId => {
                 this.updatePlanet(planetId);
             });
 
+            this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
         },
         mounted() {
             this.emitEvent();
+            this.resourceUpdateListener()
         },
         props: {
             planets: {
                 type: Array,
-                required: true
-            },
-            user_id : {
-                type: Number,
                 required: true
             }
         },

@@ -44,7 +44,7 @@
         methods: {
             getBuildings(id) {
                 this.$http.get('/api/planet/' + id + '/' + this.buildingType).then(response => {
-						this.buildings = response.body;
+					this.buildings = response.body;
                 });
             },
 			EmitPlanetUpdateEvent() {
