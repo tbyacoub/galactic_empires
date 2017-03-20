@@ -2,11 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Events\BuildingHasUpgradedEvent;
+use App\Events\NotificationReceivedEvent;
+use App\Notification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\DB;
 
 class UpgradeBuilding implements ShouldQueue
 {
@@ -18,12 +20,21 @@ class UpgradeBuilding implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param $id
+     * @param $building
+     * @param $user_id
+     * @internal param $id
      */
     public function __construct($building, $user_id)
     {
         $this->building = $building;
         $this->user_id = $user_id;
+        $notification = new Notification();
+        $notification->subject = "Building upgraded";
+        $notification->content = $building->description()->first()->display_name .
+            " has successfully upgraded to level " . ($building->current_level + 1);
+        $notification->read = false;
+        $notification->user()->associate($user_id);
+        $notification->save();
     }
 
     /**
@@ -35,6 +46,7 @@ class UpgradeBuilding implements ShouldQueue
     {
         $this->building->setUpgrading(false);
         $this->building->incrementLevel();
-        event(new \App\Events\BuildingHasUpgradedEvent($this->user_id));
+        event(new BuildingHasUpgradedEvent($this->user_id));
+        event(new NotificationReceivedEvent($this->user_id));
     }
 }

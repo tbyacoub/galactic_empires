@@ -25,7 +25,6 @@ class UpdateResources extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -35,8 +34,6 @@ class UpdateResources extends Command
     /**
      * Execute the command to update resources for all planets
      * Called every 5 minutes
-     *
-     * @return mixed
      */
     public function handle()
     {

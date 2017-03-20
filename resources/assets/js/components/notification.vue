@@ -1,5 +1,6 @@
 <template>
     <ul class="nav top-menu">
+
         <li id="header_inbox_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle">
                 <i class="fa fa-envelope-o"></i>
@@ -27,6 +28,33 @@
                 </li>
             </ul>
         </li>
+
+        <li id="header_notification_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">
+                <i class="fa fa-tasks"></i>
+                <span class="badge bg-theme">{{ notifications.length }}</span>
+            </a>
+            <ul class="dropdown-menu extended inbox">
+                <div class="notify-arrow notify-arrow-green"></div>
+                <li>
+                    <p class="green">You have {{ notifications.length }} new notifications</p>
+                </li>
+                <li v-for="notification in notifications">
+                    <a href="/notifications">
+                        <span class="photo"><img alt="avatar" src="/img/ui-zac.jpg"></span>
+                        <span class="subject">
+                                    <span class="time"><small>{{ notification.created_at }}</small></span>
+                                    </span>
+                        <span class="message">
+                            {{ notification.subject }}
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notifications">See all notifications</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </template>
 
@@ -41,12 +69,20 @@
         data(){
             return{
                 mails: [],
+                notifications: []
             }
         },
         methods: {
             getInbox: function() {
-                this.$http.get('/mail/api/get-notifications').then(response => {
+                this.$http.get('/mail/api/get-mail').then(response => {
                     this.mails = response.body;
+                }, response => {
+                    console.log(response);
+                });
+            },
+            getNotifications: function() {
+                this.$http.get('/api/get-notifications').then(response => {
+                    this.notifications = response.body;
                 }, response => {
                     console.log(response);
                 });
@@ -54,8 +90,12 @@
         },
         created() {
             this.getInbox();
+            this.getNotifications();
             window.Echo.private('received.email.' + this.user_id).listen('EmailSentEvent', (object) => {
                 this.getInbox();
+            });
+            window.Echo.private('received.notification.' + this.user_id).listen('NotificationReceivedEvent', (object) => {
+                this.getNotifications();
             });
         }
     }
