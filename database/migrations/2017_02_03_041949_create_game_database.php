@@ -37,8 +37,8 @@ class CreateGameDatabase extends Migration
             $table->integer('metal_storage');
             $table->integer('crystal_storage');
             $table->integer('energy_storage');
-            $table->integer('solarSystem_id')->index();
-            $table->integer('planetType_id')->index();
+            $table->integer('solar_system_id')->index();
+            $table->integer('planet_type_id')->index();
             $table->integer('user_id')->index();
             $table->timestamps();
         });

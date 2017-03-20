@@ -4,128 +4,93 @@
 
     <h3><i class="fa fa-angle-right"></i> Admin : Game Speed Settings</h3>
 
-    <!-- INPUT MESSAGES -->
+    <!-- BASIC FORM ELELEMNTS -->
     <div class="row mt">
         <div class="col-lg-12">
             <div class="form-panel">
-                <h4 class="mb"><i class="fa fa-angle-right"></i> Speed Settings </h4>
-                <form class="form-horizontal tasi-form" method="get">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Global Game Settings</h4>
 
-                    {{-- Research--}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Research</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form class="form-horizontal style-form" method="POST" action="{{ url('admin/game-settings') }}">
+
+                    {{ csrf_field() }}
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Metal Gather Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="metal_rate" placeholder="Current: {{$globals[0]->metal_rate}}" value="">
                         </div>
                     </div>
 
-                    {{-- Infrastructure--}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Infrastructure</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Crystal Gather Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="crystal_rate" placeholder="Current: {{$globals[0]->crystal_rate}}" value="">
                         </div>
                     </div>
 
-                    {{--Ship Recruitment/Build--}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Ship Recruitment</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Energy Gather Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="energy_rate" placeholder="Current: {{$globals[0]->energy_rate}}" value="">
                         </div>
                     </div>
 
-                    {{-- Travel Speed--}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Travel Speed</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Ship Build Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ship_build_time_rate" placeholder="Current: {{$globals[0]->ship_build_time_rate}}" value="">
                         </div>
                     </div>
 
-                    {{-- Minerals --}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Minerals</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Ship Build Cost Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ship_cost_rate" placeholder="Current: {{$globals[0]->ship_cost_rate}}" value="">
                         </div>
                     </div>
 
-                    {{-- Energy --}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Energy </label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Building Build Time Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="building_build_time_rate" placeholder="Current: {{$globals[0]->building_build_time_rate}}" value="">
                         </div>
                     </div>
 
-                    {{-- Crystal --}}
-                    <div class="form-group has-error">
-                        <label class="col-sm-2 control-label col-lg-2" for="inputError">Crystal</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option>1.0</option>
-                                <option>1.2</option>
-                                <option>1.4</option>
-                                <option>1.6</option>
-                                <option>1.8</option>
-                                <option>2.0</option>
-                                <option>10.0</option>
-                            </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Building Cost Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="building_cost_rate" placeholder="Current: {{$globals[0]->building_cost_rate}}" value="">
                         </div>
                     </div>
 
-                    <input type="button" class="btn btn-theme" value="Submit Update">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Research Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="research_rate" placeholder="Current: {{$globals[0]->research_rate}}" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Travel Rate</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="travel_rate" placeholder="Current: {{$globals[0]->travel_rate}}" value="">
+                        </div>
+                    </div>
+
+                    <input class="btn btn-default btn-lg" type="submit" value="Update Settings">
                 </form>
-            </div><!-- /form-panel -->
-        </div><!-- /col-lg-12 -->
+            </div>
+        </div><!-- col-lg-12-->
     </div><!-- /row -->
+
 @endsection

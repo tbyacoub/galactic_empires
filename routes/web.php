@@ -88,6 +88,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
      */
     Route::get('/game-settings', 'GameSettingsController@index');
 
+    Route::post('/game-settings', 'GameSettingsController@store');
+
     Route::get('/players-list', 'PlayerListController@index');
 
     Route::get('/push-notifications', 'PushNotificationsController@index');
@@ -102,9 +104,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::put('/posts/{post}', 'PushNotificationsController@update');
 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
-});
 
-Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
+    Route::post('/edit-player/modify-resource/{planet}/add/{amount}', 'EditPlayerController@addResource');
+
+    Route::post('/edit-player/modify-resource/{planet}/remove/{amount}', 'EditPlayerController@removeResource');
+});
 
 Route::group(['prefix' => 'test'], function () {
 

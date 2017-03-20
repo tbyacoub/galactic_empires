@@ -15,8 +15,6 @@
                     <h6>Planets</h6>
                     <h4>###</h4>
                     <h6>Ships</h6>
-                    <h4>###</h4>
-                    <h6>PLACEHOLDER</h6>
                 </div>
             </div><! --/col-md-4 -->
 
@@ -25,7 +23,7 @@
                 <h6>{{ $user->cachedRoles()[0]->display_name }}</h6>
                 <p>USER BIO</p>
                 <br>
-                <p><button class="btn btn-theme"><i class="fa fa-envelope"></i> Send Message</button></p>
+                <p><a class="btn btn-theme" type="button" href="/mail/create/{{ $user->email }}"><i class="fa fa-envelope"></i> Send Message</a></p>
             </div><! --/col-md-4 -->
 
             <div class="col-md-4 centered">
