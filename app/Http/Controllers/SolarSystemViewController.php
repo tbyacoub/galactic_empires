@@ -35,9 +35,9 @@ class SolarSystemViewController extends Controller
 		// GGet the ids, names, and image paths for all planets in the 
 		// specified solar system.
 		$systemPlanets = DB::table('planets')
-			->join('planet_types', 'planets.planetType_id', '=', 'planet_types.id')
+			->join('planet_types', 'planets.planet_type_id', '=', 'planet_types.id')
 			->select('planets.id', 'planets.name', 'planet_types.img_path')
-			->where('solarSystem_id', '=', $system_id)
+			->where('solar_system_id', '=', $system_id)
 			->orderBy('id', 'asc')
 			->get();
 			

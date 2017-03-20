@@ -46,6 +46,7 @@ class UpgradeBuilding implements ShouldQueue
     {
         $this->building->setUpgrading(false);
         $this->building->incrementLevel();
+        $this->building->setProduct();
         event(new BuildingHasUpgradedEvent($this->user_id));
         event(new NotificationReceivedEvent($this->user_id));
     }

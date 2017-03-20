@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\GlobalRate;
+use App\Http\Requests\GameSettingsUpdateRequest;
 use Illuminate\Http\Request;
 
 class GameSettingsController extends Controller
@@ -24,7 +26,24 @@ class GameSettingsController extends Controller
      */
     public function index()
     {
-        return view('admin.game-settings');
+        $globals = \App\GlobalRate::first()->get();
+
+        return view('admin.game-settings', compact('globals'));
+    }
+
+    /**
+     * Submit a new post.
+     *
+     * @param Request $request
+     *
+     * @return $this->index()
+     */
+    public function store(GameSettingsUpdateRequest $request)
+    {
+
+        GlobalRate::updateGlobals($request->all());
+
+        return redirect('admin/game-settings');
     }
 
 }
