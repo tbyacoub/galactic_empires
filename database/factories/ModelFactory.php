@@ -98,7 +98,6 @@ function createLocationFaker($faker)
 function createLocation($pos_x, $pos_y)
 {
     $json = array();
-    // this is assuming solar system panel is 640x640
     array_push($json, $pos_x); // for x location
     array_push($json, $pos_y); // for y location
     return $json;

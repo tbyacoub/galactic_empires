@@ -21,15 +21,15 @@ class GameObjectsSeeder extends Seeder
 		mt_srand(10);
 		
 		$armSeparationDistance = 2 * M_PI / $num_arms;
-		$armOffsetMax = 0.5;
+		$armOffsetMax = 1.0;
 		$rotationFactor = $num_arms;
-		$randomOffsetXY = 0.02;
+		$randomOffsetXY = 0.05;
 		
 		$coords = array();
 		
 		for ($i = 0; $i < $num_systems; $i++)
 		{
-			$distance = mt_rand(1, 480);
+			$distance = mt_rand(1, 400) + 20;
 			
 			$angle = ((float)mt_rand() / (float)mt_getrandmax()) * 2.0 * M_PI;
 			$armOffset = ((float)mt_rand() / (float)mt_getrandmax()) * $armOffsetMax;
@@ -69,13 +69,16 @@ class GameObjectsSeeder extends Seeder
 
     public function planetSeeder()
     {
+		$num_systems = 500;
 		
+		$system_coordinates = $this->genGalaxyLocations($num_systems, 4);
 		
-        factory(\App\SolarSystem::class, 20)->create()->each(function($s)
+		for ($i = 0; $i < $num_systems; $i++)
 		{
-			
-		});
-		
+			factory(\App\SolarSystem::class)->create([
+				'location' => $system_coordinates[$i]
+			]);
+		}
 		
         factory(\App\PlanetType::class, 5)->create();
         $users = \App\User::all();
