@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Jobs\SendWelcomEmail;
+use App\Planet;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -75,12 +77,12 @@ class RegisterController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $user
-     * @return mixed
      */
     protected function registered(Request $request, $user)
     {
-        $planet = \App\Planet::where('user_id', -1)->inRandomOrder()->first();
+        $planet = Planet::where('user_id', -1)->inRandomOrder()->first();
         $user->planets()->save($planet);
         $user->attachRole(\App\Role::where('name', 'player')->get()[0]);
+        dispatch(new SendWelcomEmail($user));
     }
 }

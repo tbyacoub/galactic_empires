@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\ResourceUpdatedEvent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -30,7 +31,6 @@ class UpdateResources implements ShouldQueue
      */
     public function handle()
     {
-        echo time();
        $planets = \App\Planet::get();
        $global =  \App\GlobalRate::first();
        foreach ($planets as $planet)
@@ -41,13 +41,14 @@ class UpdateResources implements ShouldQueue
            foreach($planet->resourcesBuildings() as $building)
            {
                 $production = $building->product()->first();
-                $bonus = $production->calculateBonus($building->getLevel());
+                $production->calculateBonus($building->getLevel());
                 $metal += $production->calculateMetal($global->metal_rate);
                 $crystal += $production->calculateCrystal($global->crystal_rate);
                 $energy += $production->calculateEnergy($global->energy_rate);
            }
            $planet->setResources($metal, $crystal, $energy);
        }
+       event(new ResourceUpdatedEvent());
     }
 
 }

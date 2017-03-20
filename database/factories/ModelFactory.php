@@ -47,8 +47,11 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
         'name' => $faker->unique()->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
-        'solarSystem_id' => \App\SolarSystem::all()->random()->id,
-        'planetType_id' => \App\PlanetType::all()->random()->id,
+        'metal_storage' => 5000,
+        'crystal_storage' => 5000,
+        'energy_storage' => 5000,
+        'solar_system_id' => \App\SolarSystem::all()->random()->id,
+        'planet_type_id' => \App\PlanetType::all()->random()->id,
     ];
 });
 
@@ -58,8 +61,11 @@ $factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $f
         'name' => $faker->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
-        'solarSystem_id' => \App\SolarSystem::all()->random()->id,
-        'planetType_id' => \App\PlanetType::all()->random()->id,
+        'metal_storage' => 5000,
+        'crystal_storage' => 5000,
+        'energy_storage' => 5000,
+        'solar_system_id' => \App\SolarSystem::all()->random()->id,
+        'planet_type_id' => \App\PlanetType::all()->random()->id,
         'user_id' => -1
     ];
 });

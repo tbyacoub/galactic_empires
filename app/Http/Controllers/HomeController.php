@@ -36,4 +36,14 @@ class HomeController extends Controller
         $planets = $request->user()->planets()->get();
         return view('layouts.home', compact('planets'));
     }
+
+    public function planets(User $user_id)
+    {
+        return $user_id->planets()->get();
+    }
+
+    public function planet(Planet $planet_id)
+    {
+        return $planet_id;
+    }
 }

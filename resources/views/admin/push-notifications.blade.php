@@ -105,23 +105,5 @@
         </div><!-- /col-lg-12 -->
     </div><!-- /row -->
 
-    <!-- Hidden : Post Removal Modal -->
-    {{--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">--}}
-        {{--<div class="modal-dialog">--}}
-            {{--<div class="modal-content">--}}
-                {{--<div class="modal-header">--}}
-                    {{--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--}}
-                    {{--<h4 class="modal-title" id="myModalLabel">Remove Post</h4>--}}
-                {{--</div>--}}
-                {{--<div class="modal-body">--}}
-                    {{--Are you sure you want to remove this Post? The removal is permanent.--}}
-                {{--</div>--}}
-                {{--<div class="modal-footer">--}}
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>--}}
-                    {{--<button type="button" class="btn btn-danger">Remove </button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
 
 @endsection

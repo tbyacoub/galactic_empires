@@ -17,8 +17,6 @@ class Product extends Model
         return $this->hasMany('App\Building');
     }
 
-
-
     /**
      * Calculate production rate bonus as a function of buildingLevel and global multiplier,
      * divide by 12 to convert hourly rate to every 5 minutes.
