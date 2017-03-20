@@ -48,7 +48,6 @@ class SolarSystemViewController extends Controller
 			->first();
 		
 		$showRightPanel = false;
-		
 		// Load the galaxy map page and pass it the solar systems for rendering.
         return view('solar_system_view', compact('systemPlanets', 'solarSystem', 'system_id', 'showRightPanel'));
     }
