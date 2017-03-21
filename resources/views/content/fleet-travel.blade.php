@@ -1,8 +1,10 @@
 
 <! -- ANIMATED PROGRESS BARS -->
 <div class="showback">
-    <table class="table table-striped table-advance table-hover">
     <h4><i class="fa fa-angle-right"></i> Outgoing Attacks</h4>
+
+    @if(count($from_travels) > 0)
+    <table class="table table-striped table-advance table-hover">
         <thead>
             <tr>
                 <th>Fleet</th>
@@ -31,12 +33,17 @@
             </tr>
         @endforeach
         </tbody>
+        @else
+            <h5>There are currently no Outgoing Attacks. Use your fleets to attack another planet and steal their resources!</h5>
+        @endif
     </table>
 </div>
 
 <div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Incoming Attacks</h4>
+
+    @if(count($from_travels) > 0)
     <table class="table table-striped table-advance table-hover">
-        <h4><i class="fa fa-angle-right"></i> Incoming Attacks</h4>
         <thead>
         <tr>
             <th>Image</th>
@@ -64,4 +71,7 @@
         @endforeach
         </tbody>
     </table>
+    @else
+        <h5>There are currently no Incoming Attacks. It's a good day.</h5>
+    @endif
 </div>
