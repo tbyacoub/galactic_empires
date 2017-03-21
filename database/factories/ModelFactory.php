@@ -15,7 +15,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->unique()->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
@@ -28,7 +28,7 @@ $factory->define(App\SolarSystem::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'max_planets' => $faker->randomNumber($nbDigits = 2),
-        'location' => createLocation($faker)
+        'location' => createLocationFaker($faker)
     ];
 });
 
@@ -47,8 +47,11 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
         'name' => $faker->unique()->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
-        'solarSystem_id' => \App\SolarSystem::all()->random()->id,
-        'planetType_id' => \App\PlanetType::all()->random()->id,
+        'metal_storage' => 5000,
+        'crystal_storage' => 5000,
+        'energy_storage' => 5000,
+        'solar_system_id' => \App\SolarSystem::all()->random()->id,
+        'planet_type_id' => \App\PlanetType::all()->random()->id,
     ];
 });
 
@@ -58,8 +61,11 @@ $factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $f
         'name' => $faker->city,
         'radius' => $faker->randomNumber($nbDigits = 6),
         'resources' => createReso($faker),
-        'solarSystem_id' => \App\SolarSystem::all()->random()->id,
-        'planetType_id' => \App\PlanetType::all()->random()->id,
+        'metal_storage' => 5000,
+        'crystal_storage' => 5000,
+        'energy_storage' => 5000,
+        'solar_system_id' => \App\SolarSystem::all()->random()->id,
+        'planet_type_id' => \App\PlanetType::all()->random()->id,
         'user_id' => -1
     ];
 });
@@ -86,12 +92,20 @@ $factory->define(App\Mail::class, function (Faker\Generator $faker) {
     ];
 });
 
-function createLocation($faker)
+function createLocationFaker($faker)
 {
     $json = array();
     // this is assuming solar system panel is 640x640
     array_push($json, $faker->numberBetween(0, 640)); // for x location
     array_push($json, $faker->numberBetween(0, 640)); // for y location
+    return $json;
+}
+
+function createLocation($pos_x, $pos_y)
+{
+    $json = array();
+    array_push($json, $pos_x); // for x location
+    array_push($json, $pos_y); // for y location
     return $json;
 }
 

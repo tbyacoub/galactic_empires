@@ -21,6 +21,7 @@ class PushNotificationsController extends Controller
 
     /**
      * Return the admin view for push-notifications.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -40,18 +41,31 @@ class PushNotificationsController extends Controller
      */
     public function store(PushNotificationsRequest $request)
     {
-
         Post::createPost($request->all());
 
         return back();
     }
 
+
+    /**
+     * Updates the selected post
+     *
+     * @param PushNotificationsRequest $request
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(PushNotificationsRequest $request, Post $post)
     {
         //TODO
         return back();
     }
 
+    /**
+     * Destroys the selected post
+     *
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Post $post)
     {
         $post->delete();

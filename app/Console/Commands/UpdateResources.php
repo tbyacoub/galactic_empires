@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Activity;
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class UpdateResources extends Command
 {
@@ -24,7 +25,6 @@ class UpdateResources extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -32,16 +32,15 @@ class UpdateResources extends Command
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
+     * Execute the command to update resources for all planets
+     * Called every 5 minutes
      */
     public function handle()
     {
-        $users = Activity::users(10)->get();
-        foreach($users as $user){
-            echo $user->user->name;
-            echo "\n";
-        }
+      dispatch(new \App\Jobs\UpdateResources());
+
     }
+
 }
+
+

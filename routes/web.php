@@ -24,18 +24,29 @@ Route::get('/', function () {
  */
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/notifications', 'NotificationController@index');
+
+    Route::get('/api/get-notifications', 'NotificationController@getUserNotifications');
+
     Route::get('/home', 'HomeController@index');
+
+    Route::get('/planets/{user_id}', 'HomeController@planets');
+
+    Route::get('/planet/{planet_id}', 'HomeController@planet');
 
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 
-    Route::get('/facilities', 'BuildingViewController@indexFacilities');
+    Route::get('/facilities', 'BuildingController@indexFacilities');
 
-    Route::get('/resources', 'BuildingViewController@indexResources');
+    Route::get('/resources', 'BuildingController@indexResources');
 
-    Route::get('/planetary-defenses', 'BuildingViewController@indexDefenses');
+    Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
 
-    Route::post('/upgrade-building/{id}', 'BuildingViewController@upgradeBuilding');
-//    Route::get('/upgrade-building/{building}', 'BuildingViewController@upgrade');
+    Route::get('/research', 'BuildingController@indexResearch');
+
+    Route::get('/shipyard', 'BuildingController@indexShipyard');
+
+    Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
@@ -54,7 +65,7 @@ Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
 
     Route::delete('/{mail}', 'MailController@destroy');
 
-    Route::get('/api/get-notifications', 'MailController@getUserNotifications');
+    Route::get('/api/get-mail', 'MailController@getUserNotifications');
 
     Route::post('/api', 'MailController@mailApi');
 });
@@ -68,6 +79,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
     Route::get('planet/{planet}/facilities', 'ApiController@facilities');
 
     Route::get('planet/{planet}/planetary_defenses', 'ApiController@planetaryDefenses');
+
+    Route::get('planet/{planet}/research', 'ApiController@research');
+
+    Route::get('planet/{planet}/shipyard', 'ApiController@shipyard');
+
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
@@ -76,6 +92,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
      * Route group for admin views.
      */
     Route::get('/game-settings', 'GameSettingsController@index');
+
+    Route::post('/game-settings', 'GameSettingsController@store');
 
     Route::get('/players-list', 'PlayerListController@index');
 
@@ -91,9 +109,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::put('/posts/{post}', 'PushNotificationsController@update');
 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
-});
 
-Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
+    Route::post('/edit-player/modify-metal/{planet}', 'EditPlayerController@modifyMetal');
+    Route::post('/edit-player/modify-crystal/{planet}', 'EditPlayerController@modifyCrystal');
+    Route::post('/edit-player/modify-energy/{planet}', 'EditPlayerController@modifyEnergy');
+
+});
 
 Route::group(['prefix' => 'test'], function () {
 

@@ -18,7 +18,7 @@ class EmailSentEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $user_id
      */
     public function __construct($user_id)
     {

@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 class MailController extends Controller
 {
 
+    /**
+     * Returns inbox view with all mail data
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $page = "inbox";
@@ -21,6 +27,12 @@ class MailController extends Controller
         return view('mail.inbox', compact('mails', 'items', 'page'));
     }
 
+    /**
+     * Returns sent mail view with sent mail data.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function sentIndex(Request $request)
     {
         $page = "sent";
@@ -31,6 +43,13 @@ class MailController extends Controller
         return view('mail.sent', compact('mails', 'page'));
     }
 
+    /**
+     * Returns a compose view.
+     *
+     * @param Request $request
+     * @param null $email
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(Request $request, $email = null)
     {
         $page = "create";
@@ -41,6 +60,12 @@ class MailController extends Controller
         return view('mail.create', compact('page'));
     }
 
+    /**
+     * Returns a forward mail view.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function forward(Request $request)
     {
         $page = "forward";
@@ -50,6 +75,12 @@ class MailController extends Controller
         return view('mail.create', compact('page'));
     }
 
+    /**
+     * Creates a new mail and sends it.
+     *
+     * @param MailRequest $mailRequest
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(MailRequest $mailRequest)
     {
         $receiver = User::where('email', $mailRequest->email)->first();
@@ -66,6 +97,13 @@ class MailController extends Controller
         return redirect('/mail');
     }
 
+    /**
+     * Returns a specific mail view.
+     *
+     * @param Mail $mail
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function show(Mail $mail, Request $request)
     {
         $page = "show";
@@ -76,6 +114,13 @@ class MailController extends Controller
         return view('mail.show', compact('mail', 'page'));
     }
 
+    /**
+     * Deletes a mail.
+     *
+     * @param Mail $mail
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function destroy(Mail $mail, Request $request)
     {
         if($mail->receiver_id != $request->user()->id)
@@ -86,6 +131,12 @@ class MailController extends Controller
         return redirect('/mail');
     }
 
+    /**
+     * Gets mail notifications.
+     *
+     * @param Request $request
+     * @return array
+     */
     public function getUserNotifications(Request $request)
     {
         $data = [];
@@ -101,6 +152,12 @@ class MailController extends Controller
         return $data;
     }
 
+    /**
+     * Mail api used to set read, favorite, delete.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function mailApi(Request $request)
     {
         $mails = Mail::find($request->checked);

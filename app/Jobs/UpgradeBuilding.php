@@ -2,46 +2,52 @@
 
 namespace App\Jobs;
 
+use App\Events\BuildingHasUpgradedEvent;
+use App\Events\NotificationReceivedEvent;
+use App\Notification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\DB;
 
 class UpgradeBuilding implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    private $building_id;
+    private $building;
     private $user_id;
 
     /**
      * Create a new job instance.
      *
-     * @param $id
+     * @param $building
+     * @param $user_id
+     * @internal param $id
      */
-    public function __construct($building_id, $user_id)
+    public function __construct($building, $user_id)
     {
-        $this->building_id = $building_id;
+        $this->building = $building;
         $this->user_id = $user_id;
+        $notification = new Notification();
+        $notification->subject = "Building upgraded";
+        $notification->content = $building->description()->first()->display_name .
+            " has successfully upgraded to level " . ($building->current_level + 1);
+        $notification->read = false;
+        $notification->user()->associate($user_id);
+        $notification->save();
     }
 
     /**
-     * Execute the job.
+     * Upgrades building and dispatchs a BuildingHasUpgradedEvent.
      *
      * @return void
      */
     public function handle()
     {
-        DB::table('building_planet')
-            ->where('id', strval($this->building_id))
-            ->update(['is_upgrading' => false]);
-
-        // Increment building level on database.
-        DB::table('building_planet')
-            ->where('id', strval($this->building_id))
-            ->increment('current_level');
-
-        event(new \App\Events\BuildingHasUpgradedEvent($this->user_id));
+        $this->building->setUpgrading(false);
+        $this->building->incrementLevel();
+        $this->building->setProduct();
+        event(new BuildingHasUpgradedEvent($this->user_id));
+        event(new NotificationReceivedEvent($this->user_id));
     }
 }

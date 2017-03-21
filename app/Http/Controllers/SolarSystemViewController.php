@@ -26,6 +26,8 @@ class SolarSystemViewController extends Controller
     /**
      * Show the galaxy map.
      *
+     * @param  $system_id ID of solar system to view
+     *     *
      * @return \Illuminate\Http\Response
      */
     public function viewSystemFromGalaxyMap($system_id)
@@ -33,9 +35,9 @@ class SolarSystemViewController extends Controller
 		// GGet the ids, names, and image paths for all planets in the 
 		// specified solar system.
 		$systemPlanets = DB::table('planets')
-			->join('planet_types', 'planets.planetType_id', '=', 'planet_types.id')
+			->join('planet_types', 'planets.planet_type_id', '=', 'planet_types.id')
 			->select('planets.id', 'planets.name', 'planet_types.img_path')
-			->where('solarSystem_id', '=', $system_id)
+			->where('solar_system_id', '=', $system_id)
 			->orderBy('id', 'asc')
 			->get();
 			
@@ -46,7 +48,6 @@ class SolarSystemViewController extends Controller
 			->first();
 		
 		$showRightPanel = false;
-		
 		// Load the galaxy map page and pass it the solar systems for rendering.
         return view('solar_system_view', compact('systemPlanets', 'solarSystem', 'system_id', 'showRightPanel'));
     }

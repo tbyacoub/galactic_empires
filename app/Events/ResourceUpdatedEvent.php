@@ -9,22 +9,16 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MyEventNameHere implements ShouldBroadcast
+class ResourceUpdatedEvent implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $data;
-
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct()
     {
-        $this->data = array(
-            'power' => '10'
-        );
+        //
     }
 
     /**
@@ -34,6 +28,6 @@ class MyEventNameHere implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('test.channel');
+        return new Channel('resources.updated');
     }
 }

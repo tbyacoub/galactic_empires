@@ -37,9 +37,8 @@ $(document).ready(function() {
 		iconContainer.append(iconInner);
 		
 		// Set the x/y-coordinate of the icon relative to the galaxy map.
-		// I assume the max x and y coordinates are 1000.
-		var xPercent = systemLocation[0] / galaxyMapWidth * 100;
-		var yPercent = systemLocation[1] / galaxyMapHeight * 100;
+		var xPercent = (systemLocation[0] + (galaxyMapWidth / 2)) / galaxyMapWidth * 100;
+		var yPercent = (systemLocation[1] + (galaxyMapHeight / 2)) / galaxyMapHeight * 100;
 		
 		// Set the icon's position as percents. The icon is 16px wide so subtract 8px from the percent
 		// to center the icon at its position.

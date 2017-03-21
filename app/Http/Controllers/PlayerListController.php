@@ -17,6 +17,11 @@ class PlayerListController extends Controller
         $this->middleware('permission:view-players-list');
     }
 
+    /**
+     * Returns admin view of player liar
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $users = User::paginate(20);
