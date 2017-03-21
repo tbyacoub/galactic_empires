@@ -14,10 +14,72 @@ class GameObjectsSeeder extends Seeder
         $this->planetSeeder();
         $this->buildingSeeder();
     }
+	
+	private function genGalaxyLocations($num_systems, $num_arms)
+	{
+		// Random seed.
+		mt_srand(10);
+		
+		$armSeparationDistance = 2 * M_PI / $num_arms;
+		$armOffsetMax = 1.0;
+		$rotationFactor = $num_arms;
+		$randomOffsetXY = 0.05;
+		
+		$coords = array();
+		
+		for ($i = 0; $i < $num_systems; $i++)
+		{
+			$distance = mt_rand(1, 400) + 20;
+			
+			$angle = ((float)mt_rand() / (float)mt_getrandmax()) * 2.0 * M_PI;
+			$armOffset = ((float)mt_rand() / (float)mt_getrandmax()) * $armOffsetMax;
+			$armOffset = $armOffset - $armOffsetMax / 2;
+			$armOffset = $armOffset * (1.0 / (float)$distance);
+			
+			$squaredArmOffset = pow($armOffset, 2);
+			if ($armOffset < 0)
+			{
+				$squaredArmOffset = $squaredArmOffset * -1.0;
+			}
+			$armOffset = $squaredArmOffset;
+			
+			$rotation = (float)$distance * (float)$rotationFactor;
+			
+			$angle = (int)($angle / $armSeparationDistance) * $armSeparationDistance + $armOffset + $rotation;
+			
+			// Convert polar to cartesion coordinates.
+			$systemX = cos($angle) * $distance;
+			$systemY = sin($angle) * $distance;
+			
+			$randomOffsetX = ((float)mt_rand() / (float)mt_getrandmax()) * $randomOffsetXY;
+			$randomOffsetY = ((float)mt_rand() / (float)mt_getrandmax()) * $randomOffsetXY;
+			
+			$systemX += $randomOffsetX;
+			$systemY += $randomOffsetY;
+			
+			$system_coord = array();
+			array_push($system_coord, $systemX);
+			array_push($system_coord, $systemY);
+			
+			array_push($coords, $system_coord);
+		}
+		
+		return $coords;
+	}
 
     public function planetSeeder()
     {
-        factory(\App\SolarSystem::class, 20)->create();
+		$num_systems = 500;
+		
+		$system_coordinates = $this->genGalaxyLocations($num_systems, 4);
+		
+		for ($i = 0; $i < $num_systems; $i++)
+		{
+			factory(\App\SolarSystem::class)->create([
+				'location' => $system_coordinates[$i]
+			]);
+		}
+		
         factory(\App\PlanetType::class, 5)->create();
         $users = \App\User::all();
         foreach($users as $user){
