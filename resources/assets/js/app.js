@@ -14,7 +14,6 @@ Vue.component('notification', require('./components/notification.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
 Vue.component('user-control', require('./components/user-control.vue'));
 Vue.component('building-view', require('./components/building-view.vue'));
-Vue.component('fleet-travel-view', require('./components/fleet-travel-view.vue'));
 
 const app = new Vue({
     el: '#app',
