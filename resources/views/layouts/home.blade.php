@@ -7,4 +7,11 @@
     <div class="row mt">
         @yield('main')
     </div>
+
+    @if( Request::path() ==  'home' )
+    <div class="row mt">
+        @include('content.fleet-travel')
+    </div>
+    @endif
+
 @endsection

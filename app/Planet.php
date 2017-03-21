@@ -64,6 +64,14 @@ class Planet extends Model
         return $this->hasMany('App\Building');
     }
 
+    public function fromTravels(){
+        return $this->hasMany('App\Travel', 'from_planet_id', 'id');
+    }
+
+    public function toTravels(){
+        return $this->hasMany('App\Travel', 'to_planet_id', 'id');
+    }
+
     /**
      * Returns all the facilities buildings on this planet.
      *
@@ -240,4 +248,5 @@ class Planet extends Model
         $this->energy_storage = ($level * $base * $rate);
         $this->save();
     }
+
 }

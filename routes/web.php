@@ -83,6 +83,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
     Route::get('planet/{planet}/research', 'ApiController@research');
 
     Route::get('planet/{planet}/shipyard', 'ApiController@shipyard');
+
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {

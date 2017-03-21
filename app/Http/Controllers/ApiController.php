@@ -67,4 +67,8 @@ class ApiController extends Controller
     public function shipyard(Planet $planet){
         return $planet->shipyardBuildings();
     }
+
+    public function traveling(User $user){
+
+    }
 }
