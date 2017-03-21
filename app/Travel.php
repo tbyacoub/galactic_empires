@@ -47,8 +47,8 @@ class Travel extends Model
     }
 
     public function getTravelPercent(){
-        $current = Carbon::now()->timestamp - $this->arrival->timestamp;
-        $difference = $this->departure->timestamp - $this->arrival->timestamp;
+        $current = Carbon::now()->timestamp - $this->departure->timestamp;
+        $difference = $this->arrival->timestamp - $this->departure->timestamp;
 
         return 100 * ($current/$difference);
     }
