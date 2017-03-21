@@ -70,7 +70,7 @@ class AttackPlanet implements ShouldQueue
     {
         foreach($attack as $ship)
         {
-            $type = $defend->fleets()->get()->first();
+            $type = $defend->first()->type;
             $mult = $ship->multipliers[$type];
             foreach($defend as $defShip)
             {
@@ -81,7 +81,7 @@ class AttackPlanet implements ShouldQueue
                 }
             }
             $def = $defend->fleets()->get()->where('type', $type);
-            $damage = $def->defence - ($ship->attack * $mult);
+            $damage = $def->defence - ($ship->attack * $mult); //switch this so it's positive
             $def->health = $def->health - $damage;
             if($def->health <= 0)
             {
@@ -95,11 +95,11 @@ class AttackPlanet implements ShouldQueue
     {
         returnShips();
         $pdefender = $defender->planet();
-        $dattacker = $attacker->planet();
+        $pattacker = $attacker->planet();
         $metal = $pdefender->metal() * 0.9;
         $crystal = $pdefender->crystal() * 0.9;
-        $energy = $pdefender->energy() * 0.9;                   //fix logic
-        $pdefender->setResources($metal, $crystal, $energy);
+        $energy = $pdefender->energy() * 0.9;
+        $pdefender->setResources(($metal / 9), ($crystal / 9), ($energy / 9));
         $metal += $pattacker->metal();
         $crystal += $pattacker->crystal();
         $energy += $patacker->energy();
