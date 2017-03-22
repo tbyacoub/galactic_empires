@@ -80,7 +80,14 @@ class GameObjectsSeeder extends Seeder
 			]);
 		}
 		
-        factory(\App\PlanetType::class, 5)->create();
+		$num_planet_types = 5;
+		for ($i = 1; $i <= $num_planet_types; $i++)
+		{
+			factory(\App\PlanetType::class)->create([
+				'img_path' => 'img/planet_images/planet_test_image_' . $i . '.png'
+			]);
+		}
+		
         $users = \App\User::all();
         foreach($users as $user){
             $user->planets()->saveMany(factory(\App\Planet::class, 2)->make());
