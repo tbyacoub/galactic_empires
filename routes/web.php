@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
 
+    Route::get('/fleets', 'FleetsController@index');
+
     Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
 });
 

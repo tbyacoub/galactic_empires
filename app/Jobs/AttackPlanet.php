@@ -81,7 +81,7 @@ class AttackPlanet implements ShouldQueue
                 }
             }
             $def = $defend->fleets()->get()->where('type', $type);
-            $damage = $def->defence - ($ship->attack * $mult); //switch this so it's positive
+            $damage = ($ship->attack * $mult) - $def->defence; 
             $def->health = $def->health - $damage;
             if($def->health <= 0)
             {
