@@ -669,4 +669,178 @@ class GameObjectsSeeder extends Seeder
         return $product;
     }
 
+
+    private function fleetSeeder()
+    {
+        $planets = \App\Planet::all();
+        $fighter = $this->fighter();
+        $bomber = $this->bomber();
+        $corvette = $this->corvette();
+        $frigate = $this->frigate();
+        $destroyer = $this->destroyer();
+
+        foreach($planets as $planet)
+        {
+            $this->createFleets($fighter);
+            $this->createFleets($bomber);
+            $this->createFleets($corvette);
+            $this->createFleets($frigate);
+            $this->createFleets($destroyer);
+        }
+    }
+
+    private function fighter(Planet $planet)
+    {
+        $fighter = new App\Fleet();
+        $fighter->planet_id = $planet->id;
+        $fighter->type = 'fighter';
+        $fighter->health = 100;
+        $fighter->speed = 55;
+        $fighter->attack = 35;
+        $fighter->defence = 20;
+        $fighter->multipliers = [
+            'Fighter' => 2.0,
+            'Bomber' => 2.0,
+            'Corvette' => 0.5,
+            'Frigate' => 0.5,
+            'Destroyer' => 0.5,
+        ];
+        $fighter->decription()->associate($this->fighterDescription());
+        $fighter->save();
+    }
+
+    private function bomber(Planet $planet)
+    {
+        $bomber = new App\Fleet();
+        $bomber->planet_id = $planet->id;
+        $bomber->type = 'bomber';
+        $bomber->health = 200;
+        $bomber->speed = 35;
+        $bomber->attack = 55;
+        $bomber->defence = 70;
+        $bomber->multipliers = [
+            'Fighter' => 0.5,
+            'Bomber' => 1.0,
+            'Corvette' => 0.5,
+            'Frigate' => 2.0,
+            'Destroyer' => 2.0,
+        ];
+        $bomber->decription()->associate($this->bomberDescription());
+        $bomber->save();
+    }
+
+    private function corvette(Planet $planet)
+    {
+        $corvette = new App\Fleet();
+        $corvette->planet_id = $planet->id;
+        $corvette->type = 'corvette';
+        $corvette->health = 80;
+        $corvette->speed = 100;
+        $corvette->attack = 40;
+        $corvette->defence = 20;
+        $corvette->multipliers = [
+            'Fighter' => 2.0,
+            'Bomber' => 1.0,
+            'Corvette' => 1.0,
+            'Frigate' => 0.5,
+            'Destroyer' => 2.0,
+        ];
+        $corvette->decription()->associate($this->corvetteDescription());
+        $corvette->save();
+    }
+
+    private function frigate(Planet $planet)
+    {
+        $frigate = new App\Fleet();
+        $frigate->planet_id = $planet->id;
+        $frigate->type = 'frigate';
+        $frigate->health = 325;
+        $frigate->speed = 40;
+        $frigate->attack = 70;
+        $frigate->defence = 70;
+        $frigate->multipliers = [
+            'Fighter' => 2.0,
+            'Bomber' => 0.5,
+            'Corvette' => 1.0,
+            'Frigate' => 1.0,
+            'Destroyer' => 0.5,
+        ];
+        $frigate->decription()->associate($this->frigateDescription());
+        $frigate->save();
+    }
+
+    private function destroyer(Planet $planet)
+    {
+        $destroyer = new App\Fleet();
+        $destroyer->planet_id = $planet->id;
+        $destroyer->type = 'destroyer';
+        $destroyer->health = 400;
+        $destroyer->speed = 35;
+        $destroyer->attack = 100;
+        $destroyer->defence = 90;
+        $destroyer->multipliers = [
+            'Fighter' => 0.5,
+            'Bomber' => 2.0,
+            'Corvette' => 0.5,
+            'Frigate' => 2.0,
+            'Destroyer' => 2.0,
+        ];
+        $destroyer->decription()->associate($this->destroyerDescription());
+        $destroyer->save();
+    }
+
+    private function fighterDescription()
+    {
+        $description = new \App\Description();
+        $description->name = "fighter";
+        $description->display_name = "Fighter";
+        $description->type = "fleet";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function bomberDescription()
+    {
+        $description = new \App\Description();
+        $description->name = "bomber";
+        $description->display_name = "Bomber";
+        $description->type = "fleet";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function corvetteDescription()
+    {
+        $description = new \App\Description();
+        $description->name = "corvette";
+        $description->display_name = "Corvette";
+        $description->type = "fleet";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function frigateDescription()
+    {
+        $description = new \App\Description();
+        $description->name = "frigate";
+        $description->display_name = "Frigate";
+        $description->type = "fleet";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function destroyerDescription()
+    {
+        $description = new \App\Description();
+        $description->name = "destroyer";
+        $description->display_name = "Destroyer";
+        $description->type = "fleet";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
 }
