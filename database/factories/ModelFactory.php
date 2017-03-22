@@ -52,6 +52,11 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
         'energy_storage' => 5000,
         'solar_system_id' => \App\SolarSystem::all()->random()->id,
         'planet_type_id' => \App\PlanetType::all()->random()->id,
+        'numFighters' => 1,
+        'numBombers' => 1,
+        'numCorvettes' => 1,
+        'numFrigates' => 1,
+        'numDestroyers' => 1,
     ];
 });
 
@@ -66,7 +71,12 @@ $factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $f
         'energy_storage' => 5000,
         'solar_system_id' => \App\SolarSystem::all()->random()->id,
         'planet_type_id' => \App\PlanetType::all()->random()->id,
-        'user_id' => -1
+        'user_id' => -1,
+        'numFighters' => 0,
+        'numBombers' => 0,
+        'numCorvettes' => 0,
+        'numFrigates' => 0,
+        'numDestroyers' => 0,
     ];
 });
 
