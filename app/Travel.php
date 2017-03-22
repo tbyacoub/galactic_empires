@@ -63,11 +63,13 @@ class Travel extends Model
      */
     public function modifyTravelFleet($type, $amount){
 
+        /* Un-Comment for testing with tinker
         $this->type = "attacking";
         $this->from_planet_id = 142;
         $this->to_planet_id = 141;
         $this->departure = Carbon::now();
         $this->arrival = Carbon::now()->addHour(1);
+        */
 
         /*
          * This loop is just to increment/decrement the amount if the ship type
