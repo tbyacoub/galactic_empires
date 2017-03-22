@@ -26,9 +26,9 @@
 					@if (isset($planetInfo->resources))
 						<div class='info_line_breaker'></div>
 						<div id='planet_resources_header'>Planetary Resources:</div>
-						<div id='planet_metal'>Metal: {{ json_decode($planetInfo->resources)->gold }}</div>
-						<div id='planet_crystal'>Crystal: {{ json_decode($planetInfo->resources)->wood }}</div>
-						<div id='planet_energy'>Energy: {{ json_decode($planetInfo->resources)->silver }}</div>
+						<div id='planet_metal'>Metal: {{ json_decode($planetInfo->resources)->metal }}</div>
+						<div id='planet_crystal'>Crystal: {{ json_decode($planetInfo->resources)->crystal }}</div>
+						<div id='planet_energy'>Energy: {{ json_decode($planetInfo->resources)->energy }}</div>
 					@endif
 				</div>
 			</div>

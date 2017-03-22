@@ -34,7 +34,7 @@ class PlanetOverviewController extends Controller
     public function viewPlanet($system_id, $planet_id)
     {
 		$planetInfo = DB::table('planets')
-			->join('planet_types', 'planets.planetType_id', '=', 'planet_types.id')
+			->join('planet_types', 'planets.planet_type_id', '=', 'planet_types.id')
 			->join('users', 'planets.user_id', '=', 'users.id')
 			->select('planets.radius', 'planets.name', 'planets.resources', 'planet_types.img_path', 'users.name AS user_name')
 			->where('planets.id', '=', $planet_id)
