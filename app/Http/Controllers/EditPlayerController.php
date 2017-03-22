@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotificationReceivedEvent;
 use Illuminate\Http\Request;
 use App\User;
 use App\Planet;
+use App\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class EditPlayerController extends Controller
 {
@@ -24,38 +27,55 @@ class EditPlayerController extends Controller
      * @param $planet_id ID of planet to modify
      * @param Request $request
      */
-    public function modifyResource($planet_id, Request $request){
-        $r = $request->all();
+    public function modifyMetal(Planet $planet, Request $request){
+        $amount = $request->all()['amount'];
 
-        // Get the data from the ajax request
-        $toAdd = $r['add'];
-        $quantity = $r['quantity'];
-        $type = $r['type'];
-        $q1 = 0; $q2 = 0; $q3 = 0;
+        $value = $planet->metal() + $amount;
+        $value = ($planet->metal() + $amount < 0) ? 0 : min($value, $planet->metal_storage) ;
 
-        // Check if we are subtracting and negate the quantity.
-        if($toAdd == 'false'){
-            $quantity = $quantity * -1;
-        }
+        $planet->setResources($value, $planet->crystal(), $planet->energy());
 
-        // Check which type
-        if($type == 0) $q1 = $quantity; // metal
-        if($type == 1) $q2 = $quantity; // crystal
-        if($type == 2) $q3 = $quantity; // energy
+        $notification = new Notification();
+        $notification->sendResourceModifiedNotification(Auth::user()->name, $planet->user()->first()->id, $planet->name, $amount);
 
-        $planet = Planet::find($planet_id);
-
-        $res_array = [
-            'metal' => $planet->metal() + $q1,
-            'crystal' => $planet->crystal() + $q2,
-            'energy' => $planet->energy() + $q3,
-        ];
-
-        $resource = $planet->createResource($res_array);
-
-        $val = $planet->update(['resources' => $resource]);
-
+        return back();
     }
 
+    /**
+     * Modifies the resources on a given planet
+     * @param $planet_id ID of planet to modify
+     * @param Request $request
+     */
+    public function modifyCrystal(Planet $planet, Request $request){
+        $amount = $request->all()['amount'];
 
+        $value = $planet->crystal() + $amount;
+        $value = ($planet->crystal() + $amount < 0) ? 0 : min($value, $planet->crystal_storage) ;
+
+        $planet->setResources($planet->metal(), $value, $planet->energy());
+
+        $notification = new Notification();
+        $notification->sendResourceModifiedNotification(Auth::user()->name, $planet->user()->first()->id, $planet->name, $amount);
+
+        return back();
+    }
+
+    /**
+     * Modifies the resources on a given planet
+     * @param $planet_id ID of planet to modify
+     * @param Request $request
+     */
+    public function modifyEnergy(Planet $planet, Request $request){
+        $amount = $request->all()['amount'];
+
+        $value = $planet->energy() + $amount;
+        $value = ($planet->energy() + $amount < 0) ? 0 : min($value, $planet->energy_storage) ;
+
+        $planet->setResources($planet->metal(), $planet->crystal(), $value);
+
+        $notification = new Notification();
+        $notification->sendResourceModifiedNotification(Auth::user()->name, $planet->user()->first()->id, $planet->name, $amount);
+
+        return back();
+    }
 }

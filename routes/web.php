@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', 'HomeController@index');
 
+    Route::get('/planets/{user_id}', 'HomeController@planets');
+
+    Route::get('/planet/{planet_id}', 'HomeController@planet');
+
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 
     Route::get('/facilities', 'BuildingController@indexFacilities');
@@ -38,7 +42,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
 
+<<<<<<< HEAD
     Route::get('/fleets', 'FleetsController@index');
+=======
+    Route::get('/research', 'BuildingController@indexResearch');
+
+    Route::get('/shipyard', 'BuildingController@indexShipyard');
+>>>>>>> 0ac1ef63582e5470a7dc778853482ae30c86d3a8
 
     Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
 });
@@ -73,6 +83,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
     Route::get('planet/{planet}/facilities', 'ApiController@facilities');
 
     Route::get('planet/{planet}/planetary_defenses', 'ApiController@planetaryDefenses');
+
+    Route::get('planet/{planet}/research', 'ApiController@research');
+
+    Route::get('planet/{planet}/shipyard', 'ApiController@shipyard');
+
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
@@ -81,6 +96,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
      * Route group for admin views.
      */
     Route::get('/game-settings', 'GameSettingsController@index');
+
+    Route::post('/game-settings', 'GameSettingsController@store');
 
     Route::get('/players-list', 'PlayerListController@index');
 
@@ -96,9 +113,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::put('/posts/{post}', 'PushNotificationsController@update');
 
     Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
-});
 
-Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
+    Route::post('/edit-player/modify-metal/{planet}', 'EditPlayerController@modifyMetal');
+    Route::post('/edit-player/modify-crystal/{planet}', 'EditPlayerController@modifyCrystal');
+    Route::post('/edit-player/modify-energy/{planet}', 'EditPlayerController@modifyEnergy');
+
+});
 
 Route::group(['prefix' => 'test'], function () {
 

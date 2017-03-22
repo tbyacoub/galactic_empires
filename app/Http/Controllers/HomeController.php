@@ -34,6 +34,26 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $planets = $request->user()->planets()->get();
-        return view('layouts.home', compact('planets'));
+        $from_travels = Auth::user()->fromTravelsAllPlanets();
+        $to_travels = Auth::user()->toTravelsAllPlanets();
+        return view('layouts.home', compact('planets', 'from_travels', 'to_travels'));
     }
+
+    public function planets(User $user_id)
+    {
+        return $user_id->planets()->get();
+    }
+
+    public function planet(Planet $planet_id)
+    {
+        return $planet_id;
+    }
+
+//    public function travels(){
+//        $from_travels = Auth::user()->fromTravelsAllPlanets();
+//        $to_travels = Auth::user()->toTravelsAllPlanets();
+////        dd($from_travels, $to_travels);
+//        return view('content.fleet-travel', compact('from_travels', 'to_travels'));
+//    }
+
 }

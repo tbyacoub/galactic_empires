@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\NotificationReceivedEvent;
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
@@ -50,6 +51,16 @@ class Notification extends Model
     {
         $this->read = $read;
         $this->save();
+    }
+
+    public function sendResourceModifiedNotification($from_name, $to_id, $planet_name, $amount){
+        $this->subject = "Resources Modified";
+        $this->content = $from_name . " has modified Planet: " . $planet_name ."'s".
+            " metal by amount : " . $amount;
+        $this->read = false;
+        $this->user()->associate($to_id);
+        $this->save();
+        event(new NotificationReceivedEvent($to_id));
     }
 
 }

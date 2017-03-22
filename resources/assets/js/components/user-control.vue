@@ -5,7 +5,7 @@
                 <div class="btn-group">
                     <h3>Current Planet: <strong>{{selectedPlanet.getName()}}</strong></h3>
                     <button type="button" class="btn btn-theme dropdown-toggle" data-toggle="dropdown">
-                        Planets <span class="caret"></span>
+                        Select Planet <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li v-for="(planet, index) in planets"><a :id="index" @click="changePlanet" href="#">{{planet.name}}</a></li>
@@ -14,22 +14,22 @@
             </div>
 
             <div class="col-md-4 centered">
-                <h5>Metal</h5>
+                <h5>Metal <i>{{selectedPlanet.getMetalRatio()}}</i></h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar"
-                         :style="{width: selectedPlanet.getMetal() }">
+                         :style="{width: selectedPlanet.getMetalPercent() }">
                     </div>
                 </div>
-                <h5>Crystal</h5>
+                <h5>Crystal <i>{{selectedPlanet.getCrystalRatio()}}</i></h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-info" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getCrystal() }">
+                         :style="{width: selectedPlanet.getCrystalPercent() }">
                     </div>
                 </div>
-                <h5>Energy</h5>
+                <h5>Energy <i>{{selectedPlanet.getEnergyRatio()}}</i></h5>
                 <div class="progress">
                     <div class="progress-bar progress-bar-warning" role="progressbar"
-                         aria-valuemin="0" aria-valuemax="99999" :style="{width: selectedPlanet.getEnergy() }"></div>
+                         :style="{width: selectedPlanet.getEnergyPercent() }"></div>
                 </div>
             </div>
 
@@ -75,16 +75,28 @@
             return this.planet.name;
         }
 
-        getMetal(){
-            return ((this.planet.resources.metal/99999)*100) + '%';
+        getMetalPercent(){
+            return ((this.planet.resources.metal/this.planet.metal_storage)*100) + '%';
         }
 
-        getCrystal(){
-            return ((this.planet.resources.crystal/99999)*100) + '%';
+        getCrystalPercent(){
+            return ((this.planet.resources.crystal/this.planet.crystal_storage)*100) + '%';
         }
 
-        getEnergy(){
-            return ((this.planet.resources.energy/99999)*100) + '%';
+        getEnergyPercent(){
+            return ((this.planet.resources.energy/this.planet.energy_storage)*100) + '%';
+        }
+
+        getMetalRatio() {
+            return (' ( ' + this.planet.resources.metal + '/' + this.planet.metal_storage + ' )');
+        }
+
+        getCrystalRatio(){
+            return (' ( ' + this.planet.resources.crystal + '/' + this.planet.crystal_storage + ' )');
+        }
+
+        getEnergyRatio(){
+            return (' ( ' + this.planet.resources.energy + '/' + this.planet.energy_storage + ' )');
         }
 
     }
@@ -93,7 +105,7 @@
 
     export default{
         data(){
-            return{
+            return {
                 selectedPlanet: new Planet(),
                 currentPlanets: this.planets,
                 currentPlanet: 0
@@ -103,13 +115,13 @@
             resourceUpdateListener(){
                 window.Echo.channel('resources.updated').listen('ResourceUpdatedEvent', (object) => {
                     this.getPlanets();
-                });
+            });
             },
             getPlanets(){
                 this.$http.get('/api/planets').then(response => {
                     this.currentPlanets = response.body;
-                    this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
-                }, response => {
+                this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
+            }, response => {
                     console.log(response);
                 });
             },
@@ -120,9 +132,19 @@
             },
             emitEvent(){
                 EventBus.$emit('planet-changed', this.selectedPlanet);
+            },
+            updatePlanet: function (id) {
+                this.$http.get('/planet/'+ id ).then(response => {
+                    this.selectedPlanet.setPlanet(response.body);
+                });
             }
         },
         created() {
+
+            EventBus.$on('update-planet', planetId => {
+                this.updatePlanet(planetId);
+            });
+
             this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
         },
         mounted() {
