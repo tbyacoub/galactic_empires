@@ -15,49 +15,49 @@
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'planet-overview' ? 'active' : ''  }}" href="{{ url('/planet-overview') }}">
+                <a class="{{ Request::path() ==  'planet-overview' ? 'active' : ''  }}" href="{{ url('#}') }}">
                     <i class="fa fa-globe"></i>
                     <span>Planet Overview</span>
                 </a>
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'resources' ? 'active' : ''  }}" href="{{ url('/resources') }}">
+                <a class="{{ Request::path() ==  'resources' ? 'active' : ''  }}" href="{{ url('/building/resource') }}">
                     <i class="fa fa-btc"></i>
                     <span>Resources</span>
                 </a>
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'facilities' ? 'active' : ''  }}" href="{{ url('/facilities') }}">
+                <a class="{{ Request::path() ==  'facilities' ? 'active' : ''  }}" href="{{ url('/building/facility') }}">
                     <i class="fa fa-building"></i>
                     <span>Facilities</span>
                 </a>
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'planetary-defenses' ? 'active' : ''  }}" href="{{ url('/planetary-defenses') }}">
+                <a class="{{ Request::path() ==  'planetary-defenses' ? 'active' : ''  }}" href="{{ url('/building/planetary_defense') }}">
                     <i class="fa fa-shield"></i>
                     <span>Planetary Defenses</span>
                 </a>
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'research' ? 'active' : ''  }}" href="{{ url('/research') }}">
+                <a class="{{ Request::path() ==  'research' ? 'active' : ''  }}" href="{{ url('/building/research') }}">
                     <i class="fa fa-university"></i>
                     <span>Research</span>
                 </a>
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'shipyard' ? 'active' : ''  }}" href="{{ url('/shipyard') }}">
+                <a class="{{ Request::path() ==  'shipyard' ? 'active' : ''  }}" href="{{ url('/building/shipyard') }}">
                     <i class="fa fa-space-shuttle"></i>
                     <span>Shipyard</span>
                 </a>
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'fleets' ? 'active' : ''  }}" href="{{ url('/fleets') }}">
+                <a class="{{ Request::path() ==  'fleets' ? 'active' : ''  }}" href="{{ url('#') }}">
                     <i class="fa fa-truck"></i>
                     <span>Fleets</span>
                 </a>

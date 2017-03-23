@@ -42,12 +42,12 @@
         },
         methods: {
             getBuildings(id) {
-                this.$http.get('/api/planet/' + id + '/' + this.buildingType).then(response => {
+                this.$http.get('/planets/' + id + '/buildings/' + this.buildingType).then(response => {
 					this.buildings = response.body;
                 });
             },
             upgradeBuilding(id) {
-                this.$http.post('/building/'+ id + '/upgrade').then(response => {
+                this.$http.put('/building/' + id + '/upgrade').then(response => {
                     this.getBuildings(this.planetId);
                 });
             }

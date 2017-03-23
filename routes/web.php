@@ -19,124 +19,51 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-/*
- * Route group for players, by default admins also, for game views.
- */
 Route::group(['middleware' => 'auth'], function () {
+
+    /**
+     * GET routes
+     */
+    Route::get('/home', function () {
+        return view('layouts.home');
+    });
+
+    Route::get('/users/{user}/mails', 'UserController@mails');
 
     Route::get('/notifications', 'NotificationController@index');
 
-    Route::get('/api/get-notifications', 'NotificationController@getUserNotifications');
+    Route::get('/users/{user}/planets', 'UserController@planets');
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/users/{user}/notifications', 'UserController@notifications');
 
-    Route::get('/galaxy-map', 'GalaxyMapController@index');
+    Route::get('/planets/{planet}/buildings/{type}', 'PlanetController@buildings');
 
-    Route::get('/facilities', 'BuildingController@indexFacilities');
-
-    Route::get('/resources', 'BuildingController@indexResources');
-
-    Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
-
-    Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
-});
-
-Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
-
-    Route::get('/', 'MailController@index');
-
-    Route::get('/sent', 'MailController@sentIndex');
-
-    Route::get('/create/{email?}', 'MailController@create');
-
-    Route::post('/create', 'MailController@forward');
-
-    Route::post('/', 'MailController@store');
-
-    Route::get('/{mail}', 'MailController@show');
-
-    Route::delete('/{mail}', 'MailController@destroy');
-
-    Route::get('/api/get-mail', 'MailController@getUserNotifications');
-
-    Route::post('/api', 'MailController@mailApi');
-});
-
-Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
-
-    Route::get('planets', 'ApiController@planets');
-
-    Route::get('planet/{planet}/resources', 'ApiController@resources');
-
-    Route::get('planet/{planet}/facilities', 'ApiController@facilities');
-
-    Route::get('planet/{planet}/planetary_defenses', 'ApiController@planetaryDefenses');
-});
-
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
-
-    /*
-     * Route group for admin views.
+    /**
+     * Resource route replacements/extensions
      */
-    Route::get('/game-settings', 'GameSettingsController@index');
+    Route::get('/mail/{box}', 'MailController@index');
 
-    Route::get('/players-list', 'PlayerListController@index');
+    Route::put('/mails', 'MailController@collection');
 
-    Route::get('/push-notifications', 'PushNotificationsController@index');
+    Route::get('/building/{type}', 'buildingController@index');
 
-    Route::get('/edit-player/{user}', 'EditPlayerController@index');
+    Route::post('/mails/create', 'MailController@createWParam');
 
-    /*
-     * Route group for admin requests.
+    Route::put('/building/{building}/upgrade', 'BuildingController@upgrade');
+
+    /**
+     * Resource routes
      */
-    Route::post('/posts', 'PushNotificationsController@store');
+    Route::resource('mails', 'MailController', ['except' => [
+        'index',
+    ]]);
 
-    Route::put('/posts/{post}', 'PushNotificationsController@update');
+    Route::resource('users', 'UserController');
 
-    Route::delete('/posts/{post}', 'PushNotificationsController@destroy');
-});
+    Route::resource('planets', 'PlanetController');
 
-Route::post('admin/edit-player/modify-resource/{planet_id}', 'EditPlayerController@modifyResource');
-
-Route::group(['prefix' => 'test'], function () {
-
-    Route::get('mineral', function (){
-
-       return \App\BuildingPrototype::where('name', '=', 'Mineral Mine')->first()->max_level;
-
-    });
-
-    Route::get('send-email/{user}', function (\App\User $user) {
-        $sender = \App\User::find(10);
-        $mail = new \App\Mail([
-            "subject" => "test",
-            "message" => "testeadbhjasdbhjasbdhjasbd",
-            "read" => 0,
-            "favorite" => 0,
-        ]);
-        $mail->sender()->associate($sender);
-        $mail->receiver()->associate($user);
-        $mail->save();
-        event(new \App\Events\EmailSentEvent($user->id));
-        return "event fired";
-    });
-
-    Route::get('welcome-queue/{user}', function(\App\User $user) {
-        // run the following command to dispatch Jobs
-        // 1.redis-server
-        // 2.laravel-echo-server start
-        // 3.php artisan SoapServer
-        // 4.php artisan queue:work
-        //      4.1 php artisan queue:restart if any code was changed
-        $job = (new \App\Jobs\SendWelcomEmail($user))->delay(Carbon::now()->addMinutes(1));
-        dispatch($job);
-        return 'jobs dispatched';
-    });
+    Route::resource('buildings', 'BuildingController', ['except' => [
+        'index',
+    ]]);
 
 });
-
-Route::get('/galaxy-map', 'GalaxyMapController@index');
-
-Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
-
-Route::get('/galaxy-map/{system_id}/{planet_id}', 'PlanetOverviewController@viewPlanet');

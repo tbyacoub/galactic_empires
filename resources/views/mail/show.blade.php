@@ -28,21 +28,31 @@
                 <div class="view-mail">
                     {{ $mail->message }}
                 </div>
-                <div class="compose-btn pull-left">
+                @can('delete', $mail)
+                    <div class="compose-btn pull-left">
 
-                    <a href="{{ url('mail/create/'.$mail->sender()->first()->email) }}" class="btn btn-sm btn-theme" ><i class="fa fa-reply"></i>Reply</a>
-                    <form action="{{ url('mail/create') }}" method="post" style="display: inline">
-                        <input type="hidden" name="mailId" value="{{$mail->id}}">
-                        {{ csrf_field() }}
-                        <button class="btn btn-sm btn-theme"  type="submit"><i class="fa fa-arrow-right"></i>Forward</button>
-                    </form>
-                    <form action="{{ url('mail/'.$mail->id) }}" method="post" style="display: inline">
-                        <input type="hidden" name="_method" value="DELETE">
-                        {{ csrf_field() }}
-                        <button class="btn btn-sm tooltips"  type="submit"><i class="fa fa-trash-o"></i></button>
-                    </form>
+                        <form action="{{ url('mails/create') }}" method="post" style="display: inline">
+                            <input type="hidden" name="mailId" value="{{$mail->id}}">
+                            <input type="hidden" name="_CMETHOD" value="REPLY">
+                            {{ csrf_field() }}
+                            <button class="btn btn-sm btn-theme"  type="submit"><i class="fa fa-reply"></i>Reply</button>
+                        </form>
 
-                </div>
+                        <form action="{{ url('mails/create') }}" method="post" style="display: inline">
+                            <input type="hidden" name="mailId" value="{{$mail->id}}">
+                            <input type="hidden" name="_CMETHOD" value="FORWARD">
+                            {{ csrf_field() }}
+                            <button class="btn btn-sm btn-theme"  type="submit"><i class="fa fa-arrow-right"></i>Forward</button>
+                        </form>
+
+                        <form action="{{ url('mails/'.$mail->id) }}" method="post" style="display: inline">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button class="btn btn-sm tooltips"  type="submit"><i class="fa fa-trash-o"></i></button>
+                        </form>
+
+                    </div>
+                @endcan
             </div>
         </section>
 @endsection

@@ -2,24 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MailRequest;
 use App\Mail;
 use App\User;
 use Illuminate\Http\Request;
+use App\Events\EmailSentEvent;
+use App\Http\Requests\MailRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MailController extends Controller
 {
-
     /**
-     * Returns inbox view with all mail data
+     * Display a listing of the received mail.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param $box
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($box)
     {
-        $page = "inbox";
-        $mails = $request->user()->incomingMail()
+        if($box == "inbox") {
+            return $this->inbox($box);
+        } else {
+            return $this->sent($box);
+        }
+    }
+
+    private function inbox($page)
+    {
+        $mails = Auth::user()->incomingMail()
             ->orderBy('created_at', 'desc')
             ->with('sender')
             ->paginate(15);
@@ -27,16 +36,9 @@ class MailController extends Controller
         return view('mail.inbox', compact('mails', 'items', 'page'));
     }
 
-    /**
-     * Returns sent mail view with sent mail data.
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sentIndex(Request $request)
+    private function sent($page)
     {
-        $page = "sent";
-        $mails = $request->user()->outgoingMail()
+        $mails = Auth::user()->outgoingMail()
             ->orderBy('created_at', 'desc')
             ->with('receiver')
             ->paginate(15);
@@ -44,42 +46,20 @@ class MailController extends Controller
     }
 
     /**
-     * Returns a compose view.
+     * Show the form for creating a new resource.
      *
-     * @param Request $request
-     * @param null $email
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $email = null)
+    public function create()
     {
-        $page = "create";
-        if($email != null)
-        {
-            $request->session()->flash('email', $email);
-        }
         return view('mail.create', compact('page'));
     }
 
     /**
-     * Returns a forward mail view.
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function forward(Request $request)
-    {
-        $page = "forward";
-        $mail = Mail::find($request->mailId);
-        $forwardMessage = 'sent by' . $mail->sender()->first()->email . "\n\n\"" . $mail->message . "\"";
-        $request->session()->flash('message', $forwardMessage);
-        return view('mail.create', compact('page'));
-    }
-
-    /**
-     * Creates a new mail and sends it.
+     * Store a newly created resource in storage.
      *
      * @param MailRequest $mailRequest
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
     public function store(MailRequest $mailRequest)
     {
@@ -93,63 +73,61 @@ class MailController extends Controller
         $mail->sender()->associate($mailRequest->user());
         $mail->receiver()->associate($receiver);
         $mail->save();
-        event(new \App\Events\EmailSentEvent($receiver->id));
-        return redirect('/mail');
+        event(new EmailSentEvent($receiver->id));
+        return redirect('/mail/sent');
     }
 
     /**
-     * Returns a specific mail view.
+     * Display the specified resource.
      *
-     * @param Mail $mail
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param  \App\Mail  $mail
+     * @return \Illuminate\Http\Response
      */
-    public function show(Mail $mail, Request $request)
+    public function show(Mail $mail)
     {
-        $page = "show";
-        if($mail->receiver_id != $request->user()->id){
+        if(Auth::user()->cant('view', $mail)) {
             return back();
         }
+        $page = "show";
         $mail->setRead(true);
         return view('mail.show', compact('mail', 'page'));
     }
 
     /**
-     * Deletes a mail.
+     * Show the form for editing the specified resource.
      *
-     * @param Mail $mail
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param  \App\Mail  $mail
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Mail $mail, Request $request)
+    public function edit(Mail $mail)
     {
-        if($mail->receiver_id != $request->user()->id)
-        {
-            return back();
-        }
-        $mail->delete();
-        return redirect('/mail');
+        //
     }
 
     /**
-     * Gets mail notifications.
+     * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @return array
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Mail  $mail
+     * @return \Illuminate\Http\Response
      */
-    public function getUserNotifications(Request $request)
+    public function update(Request $request, Mail $mail)
     {
-        $data = [];
-        $mails = $request->user()->unReadMail()->take(5);
-        foreach ($mails as $mail) {
-            array_push($data, [
-                "id" => $mail->id,
-                "sender" => $mail->sender()->first()->name,
-                "subject" => $mail->subject,
-                "created_at" => $mail->getCreatedAt()
-            ]);
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Mail  $mail
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Mail $mail)
+    {
+        if(Auth::user()->can('delete', $mail)) {
+            $mail->delete();
         }
-        return $data;
+        return redirect('/mails');
     }
 
     /**
@@ -158,7 +136,7 @@ class MailController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function mailApi(Request $request)
+    public function collection(Request $request)
     {
         $mails = Mail::find($request->checked);
         foreach($mails as $mail)
@@ -175,14 +153,31 @@ class MailController extends Controller
                     $mail->setFavorite(true);
                     break;
                 case 'un-favorite':
-                    $mail->setFavorite(true);
+                    $mail->setFavorite(false);
                     break;
                 case 'delete':
                     $mail->delete();
                     break;
-
             }
         }
-        return back();
+    }
+
+    /**
+     * Returns a forward/reply mail view depending of _CMETHOD input field.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createWParam(Request $request)
+    {
+        $mail = Mail::find($request->mailId);
+
+        if($request->_CMETHOD == "FORWARD"){
+            $forwardMessage = 'sent by' . $mail->sender()->first()->email . "\n\n\"" . $mail->message . "\"";
+            $request->session()->flash('message', $forwardMessage);
+        } else {
+            $request->session()->flash('email', $mail->sender()->first()->email);
+        }
+        return $this->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Mail;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MailRequest extends FormRequest

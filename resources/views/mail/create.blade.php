@@ -14,7 +14,7 @@
         </header>
         <div class="panel-body">
             <div class="compose-mail">
-                <form role="form-horizontal" method="POST" action="{{ url('/mail') }}">
+                <form role="form-horizontal" method="POST" action="{{ url('/mails') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="email" class="">To:</label>

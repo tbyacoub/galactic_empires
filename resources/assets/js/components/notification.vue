@@ -12,7 +12,7 @@
                     <p class="green">You have {{ mails.length }} new mails</p>
                 </li>
                 <li v-for="mail in mails">
-                    <a :href="'/mail/' + mail.id">
+                    <a :href="'/mails/' + mail.id">
                         <span class="photo"><img alt="avatar" src="/img/ui-zac.jpg"></span>
                         <span class="subject">
                                     <span class="from">{{ mail.sender.name }}</span>
@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/mail">See all mails</a>
+                    <a href="/mail/inbox">See all mails</a>
                 </li>
             </ul>
         </li>
@@ -74,14 +74,14 @@
         },
         methods: {
             getInbox: function() {
-                this.$http.get('/mail/api/get-mail').then(response => {
+                this.$http.get('/users/' + this.user_id + '/mails').then(response => {
                     this.mails = response.body;
                 }, response => {
                     console.log(response);
                 });
             },
             getNotifications: function() {
-                this.$http.get('/api/get-notifications').then(response => {
+                this.$http.get('/users/' + this.user_id + '/notifications').then(response => {
                     this.notifications = response.body;
                 }, response => {
                     console.log(response);

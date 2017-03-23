@@ -38,7 +38,7 @@ class UpdateResources implements ShouldQueue
            $metal = $planet->metal();
            $crystal = $planet->crystal();
            $energy = $planet->energy();
-           foreach($planet->resourcesBuildings() as $building)
+           foreach($planet->buildingsOfType('resource')->get() as $building)
            {
                 $production = $building->product()->first();
                 $production->calculateBonus($building->getLevel());

@@ -3,70 +3,102 @@
 namespace App\Http\Controllers;
 
 use App\Building;
-use App\Events\BuildingHasUpgradedEvent;
-use App\Events\EmailSentEvent;
-use Carbon\Carbon;
 use App\Jobs\UpgradeBuilding;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 class BuildingController extends Controller
 {
-
     /**
-     * Returns resources view.
+     * Display a listing of the buildings.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param $type type of building
+     * @return \Illuminate\Http\Response
      */
-    public function indexResources(Request $request){
-        return $this->index('resources', $request);
-    }
-
-    /**
-     * Returns facilities view.
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function indexFacilities(Request $request){
-        return $this->index('facilities', $request);
-    }
-
-    /**
-     * Returns defense view.
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function indexDefenses(Request $request){
-        return $this->index('planetary_defenses', $request);
-    }
-
-    /**
-     * Returns desired view with planets, and type data.
-     *
-     * @param $type view type
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    private function index($type, Request $request){
-        $planets = $request->user()->planets()->get();
+    public function index($type)
+    {
+        $planets = Auth::user()->planets()->get();
         return view('content.building-view', compact('planets', 'type'));
     }
 
     /**
-     * Upgrades givin building by calling UpgradeBuilding job.
+     * Show the form for creating a new building.
      *
-     * @param Building $building
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created building in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified building.
+     *
+     * @param  \App\Building  $building
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Building $building)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified building.
+     *
+     * @param  \App\Building  $building
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Building $building)
+    {
+        //
+    }
+
+    /**
+     * Update the specified building in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Building  $building
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Building $building)
+    {
+        //
+    }
+
+    /**
+     * upgrade the specified building in storage.
+     *
+     * @param  \App\Building  $building
      */
     public function upgrade(Building $building)
     {
-        if(!$building->isUpgrading()){
+        if($building->upgradeable()){
             $building->setUpgrading(true);
             dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes($building->upgradeTime())));
         }
     }
 
+    /**
+     * Remove the specified building from storage.
+     *
+     * @param  \App\Building  $building
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Building $building)
+    {
+        //
+    }
 }

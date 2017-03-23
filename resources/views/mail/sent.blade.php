@@ -23,7 +23,7 @@
                             <td class="view-message dont-show">
                                 <a href="#">{{$mail->receiver->name}}</a>
                             </td>
-                            <td class="view-message"><a href="#">{{$mail->subject}}</a></td>
+                            <td class="view-message"><a href="{{ url('/mails/'.$mail->id) }}">{{$mail->subject}}</a></td>
                             <td class="view-message text-right">{{$mail->created_at}}</td>
                         </tr>
                     @endforeach

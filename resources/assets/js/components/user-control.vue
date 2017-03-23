@@ -106,7 +106,7 @@
                 });
             },
             getPlanets(){
-                this.$http.get('/api/planets').then(response => {
+                this.$http.get('/users/' + this.userId + '/planets').then(response => {
                     this.currentPlanets = response.body;
                     this.selectedPlanet.setPlanet(this.currentPlanets[this.currentPlanet]);
                 }, response => {
@@ -132,6 +132,10 @@
         props: {
             planets: {
                 type: Array,
+                required: true
+            },
+            userId: {
+                type:String,
                 required: true
             }
         },

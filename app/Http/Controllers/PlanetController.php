@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Planet;
+use Illuminate\Http\Request;
+
+class PlanetController extends Controller
+{
+    /**
+     * Display a listing of the planets.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        
+    }
+
+    /**
+     * Returns a collection of buildings of type $type, that are associated with $planet.
+     *
+     * @param Planet $planet
+     * @param $type
+     * @return \Illuminate\Http\Response
+     */
+    public function buildings(Planet $planet, $type)
+    {
+        return $planet->buildingsOfType($type)->get();
+    }
+
+    /**
+     * Show the form for creating a new planet.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created planet in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified planet.
+     *
+     * @param  \App\Planet  $planet
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Planet $planet)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified planet.
+     *
+     * @param  \App\Planet  $planet
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Planet $planet)
+    {
+        //
+    }
+
+    /**
+     * Update the specified planet in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Planet  $planet
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Planet $planet)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified planet from storage.
+     *
+     * @param  \App\Planet  $planet
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Planet $planet)
+    {
+        $planet->delete();
+    }
+}

@@ -53,12 +53,21 @@ class Building extends Model
     }
 
     /**
-     * Returns the description of the=is building.
+     * Returns the description of this building.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function description(){
         return $this->belongsTo('App\Description');
+    }
+
+    /**
+     * Returns the type of this building
+     *
+     * @return string
+     */
+    public function getType() {
+        return $this->description()->first()->type;
     }
 
     /**
@@ -76,7 +85,7 @@ class Building extends Model
      * @return integer
      */
     public function getMaxLevel(){
-        return $this->upgrade()->max_level;
+        return $this->upgrade()->first()->max_level;
     }
 
     /**
@@ -95,7 +104,7 @@ class Building extends Model
      * @return bool
      */
     public function upgradeable(){
-        return $this->getLevel() < $this->maxLevel();
+        return $this->getLevel() < $this->getMaxLevel();
     }
 
     /**

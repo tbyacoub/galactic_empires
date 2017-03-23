@@ -65,36 +65,15 @@ class Planet extends Model
     }
 
     /**
-     * Returns all the facilities buildings on this planet.
+     * Returns all building in this planet that have type $type.
      *
+     * @param $type building type
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function facilitiesBuildings(){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
-            $description->where('type', 'facility');
-        })->get();
-    }
-
-    /**
-     * Returns all the resources buildings on this planet.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function resourcesBuildings(){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
-            $description->where('type', 'resource');
-        })->get();
-    }
-
-    /**
-     * Returns all the planetary buildings buildings on this planet.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function planetaryDefensesBuildings(){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
-            $description->where('type', 'planetary_defense');
-        })->get();
+    public function buildingsOfType($type){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description) use ($type){
+            $description->where('type', $type);
+        });
     }
 
     /**
