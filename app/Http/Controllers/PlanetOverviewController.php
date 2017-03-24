@@ -31,21 +31,27 @@ class PlanetOverviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function viewPlanet($system_id, $planet_id)
+//    {
+//		$planetInfo = DB::table('planets')
+//			->join('planet_types', 'planets.planet_type_id', '=', 'planet_types.id')
+//			->join('users', 'planets.user_id', '=', 'users.id')
+//			->select('planets.radius', 'planets.name', 'planets.resources', 'planet_types.img_path', 'users.name AS user_name')
+//			->where('planets.id', '=', $planet_id)
+//			->first();
+//
+//		$solarSystemInfo = DB::table('solar_systems')
+//			->select('name', 'location')
+//			->where('solar_systems.id', '=', $system_id)
+//			->first();
+//
+//        return view('planet_view', compact('solarSystemInfo', 'planetInfo'));
+//    }
+
     public function viewPlanet($system_id, $planet_id)
     {
-		$planetInfo = DB::table('planets')
-			->join('planet_types', 'planets.planet_type_id', '=', 'planet_types.id')
-			->join('users', 'planets.user_id', '=', 'users.id')
-			->select('planets.radius', 'planets.name', 'planets.resources', 'planet_types.img_path', 'users.name AS user_name')
-			->where('planets.id', '=', $planet_id)
-			->first();
-			
-		$solarSystemInfo = DB::table('solar_systems')
-			->select('name', 'location')
-			->where('solar_systems.id', '=', $system_id)
-			->first();
-		
-        return view('planet_view', compact('solarSystemInfo', 'planetInfo'));
+        $planets = Auth::user()->planets()->get();
+        return view('planet_view', compact('planets'));
     }
 }
 
