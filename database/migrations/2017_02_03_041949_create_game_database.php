@@ -40,6 +40,11 @@ class CreateGameDatabase extends Migration
             $table->integer('solar_system_id')->index();
             $table->integer('planet_type_id')->index();
             $table->integer('user_id')->index();
+            $table->integer('numFighters');
+            $table->integer('numBombers');
+            $table->integer('numCorvettes');
+            $table->integer('numFrigates');
+            $table->integer('numDestroyers');
             $table->timestamps();
         });
     }

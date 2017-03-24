@@ -63,4 +63,21 @@ class Notification extends Model
         event(new NotificationReceivedEvent($to_id));
     }
 
+    public function sendAttackNotificationToDefender(Travel $travel){
+        $this->subject = "You're are under attack.";
+        $this->content = "to do";
+        $this->read = false;
+        $this->user()->associate($travel->toPlanet()->first()->user()->first()->id);
+        $this->save();
+
+    }
+
+    public function sendFleetHasReturnedNotification(Travel $travel){
+        $this->subject = "You're fleet has returned.";
+        $this->content = "to do";
+        $this->read = false;
+        $this->user()->associate($travel->fromPlanet()->first()->user()->first()->id);
+        $this->save();
+    }
+
 }

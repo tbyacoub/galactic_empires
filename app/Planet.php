@@ -150,6 +150,21 @@ class Planet extends Model
     {
         return $this->resources['energy'];
     }
+    public function fleets()
+    {
+        return $this->hasMany('\App\Fleet');
+    }
+
+    /**
+     * Calculates distance from this Planet to other Planet
+     *
+     * @param Planet $other
+     * @return int distance in MINUTES
+     */
+    public function calculateDistanceToOtherPlanet(Planet $other){
+        return Travel::calculateTravelTime($this,$other);;
+    }
+
     /**
      * Gets the Metal Storage Building of this planet.
      * @return \App\Building
@@ -190,6 +205,7 @@ class Planet extends Model
         $this->metal_storage = ($level * $base * $rate);
         $this->save();
     }
+
     /**
      * Updates the new storage capacity of this planet, based on the current level this storage building.
      *
