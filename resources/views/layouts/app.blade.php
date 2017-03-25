@@ -42,6 +42,7 @@
 <script src="{{ URL::asset('js/common-scripts.js') }}"></script>
 <script src="{{ URL::asset('js/jquery.sparkline.js') }}"></script>
 <script src="{{ URL::asset('js/sparkline-chart.js') }}"></script>
+<script src="{{ URL::asset('js/fleet-travel.js') }}"></script>
 
 </body>
 </html>
