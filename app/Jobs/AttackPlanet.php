@@ -21,7 +21,7 @@ class AttackPlanet implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Planet $attack, Planet $defence)
+    public function __construct(Planet $attack, Planet $defence) //attckers will come in with travel->fleet, make a new travel back with the returning ships
     {
         $attacker = $attack->fleets()->get();
         $defender = $defence->fleets()->get();

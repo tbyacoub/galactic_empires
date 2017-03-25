@@ -13,6 +13,7 @@ class GameObjectsSeeder extends Seeder
     {
         $this->planetSeeder();
         $this->buildingSeeder();
+        // $this->fleetSeeder();
     }
 	
 	private function genGalaxyLocations($num_systems, $num_arms)
