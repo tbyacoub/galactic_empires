@@ -47,6 +47,12 @@ class PlanetOverviewController extends Controller
 		
         return view('planet_view', compact('solarSystemInfo', 'planetInfo'));
     }
+	
+	public function viewPlanetOverview()
+	{
+		$planets = Auth::user()->planets()->get();
+        return view('planet_overview_view', compact('planets'));
+	}
 }
 
 ?>
