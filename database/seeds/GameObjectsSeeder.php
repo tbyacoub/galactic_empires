@@ -13,7 +13,7 @@ class GameObjectsSeeder extends Seeder
     {
         $this->planetSeeder();
         $this->buildingSeeder();
-        // $this->fleetSeeder();
+        $this->fleetSeeder();
     }
 	
 	private function genGalaxyLocations($num_systems, $num_arms)
@@ -690,10 +690,10 @@ class GameObjectsSeeder extends Seeder
         }
     }
 
-    private function fighter(Planet $planet)
+    private function fighter()
     {
         $fighter = new App\Fleet();
-        $fighter->planet_id = $planet->id;
+        // $fighter->planet_id = $planet->id;
         $fighter->type = 'fighter';
         $fighter->health = 100;
         $fighter->speed = 55;
@@ -710,10 +710,10 @@ class GameObjectsSeeder extends Seeder
         $fighter->save();
     }
 
-    private function bomber(Planet $planet)
+    private function bomber()
     {
         $bomber = new App\Fleet();
-        $bomber->planet_id = $planet->id;
+        // $bomber->planet_id = $planet->id;
         $bomber->type = 'bomber';
         $bomber->health = 200;
         $bomber->speed = 35;
@@ -730,10 +730,10 @@ class GameObjectsSeeder extends Seeder
         $bomber->save();
     }
 
-    private function corvette(Planet $planet)
+    private function corvette()
     {
         $corvette = new App\Fleet();
-        $corvette->planet_id = $planet->id;
+        // $corvette->planet_id = $planet->id;
         $corvette->type = 'corvette';
         $corvette->health = 80;
         $corvette->speed = 100;
@@ -750,10 +750,10 @@ class GameObjectsSeeder extends Seeder
         $corvette->save();
     }
 
-    private function frigate(Planet $planet)
+    private function frigate()
     {
         $frigate = new App\Fleet();
-        $frigate->planet_id = $planet->id;
+        // $frigate->planet_id = $planet->id;
         $frigate->type = 'frigate';
         $frigate->health = 325;
         $frigate->speed = 40;
@@ -770,10 +770,10 @@ class GameObjectsSeeder extends Seeder
         $frigate->save();
     }
 
-    private function destroyer(Planet $planet)
+    private function destroyer()
     {
         $destroyer = new App\Fleet();
-        $destroyer->planet_id = $planet->id;
+        // $destroyer->planet_id = $planet->id;
         $destroyer->type = 'destroyer';
         $destroyer->health = 400;
         $destroyer->speed = 35;
