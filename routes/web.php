@@ -50,6 +50,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/shipyard', 'BuildingController@indexShipyard');
 
     Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
+	
+    //Route::get('/planet-overview/{planet}', 'HomeController@indexPlanetOverview');
+    Route::get('/launch-attack/{from_planet}/{to_planet}', 'HomeController@indexLaunchAttack');
+    Route::post('/launch-attack/{from_planet}/{to_planet}', 'HomeController@attack');
+	
+	Route::get('/planet-overview', 'PlanetOverviewController@viewPlanetOverview');
+	
+    Route::get('/galaxy-map', 'GalaxyMapController@index');
+
+    Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
+
+    Route::get('/galaxy-map/{system_id}/{planet_id}', 'PlanetOverviewController@viewPlanet');
 });
 
 Route::group(['prefix' => 'mail', 'middleware' => 'auth'], function () {
@@ -156,10 +168,6 @@ Route::group(['prefix' => 'test'], function () {
 
 });
 
-Route::get('/galaxy-map', 'GalaxyMapController@index');
-
-Route::get('/galaxy-map/{system_id}', 'SolarSystemViewController@viewSystemFromGalaxyMap');
-
-Route::get('/galaxy-map/{system_id}/{planet_id}', 'PlanetOverviewController@viewPlanet');
-
 Route::get('/index', 'IndexController@index');
+
+

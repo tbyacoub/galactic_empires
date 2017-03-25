@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Events\GameSettings;
 use App\Events\StatusUpdated;
 use App\Planet;
-use App\PlanetType;
-use App\SolarSystem;
+use App\Travel;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -49,11 +48,30 @@ class HomeController extends Controller
         return $planet_id;
     }
 
-//    public function travels(){
-//        $from_travels = Auth::user()->fromTravelsAllPlanets();
-//        $to_travels = Auth::user()->toTravelsAllPlanets();
-////        dd($from_travels, $to_travels);
-//        return view('content.fleet-travel', compact('from_travels', 'to_travels'));
-//    }
+    public function attack(Planet $from_planet, Planet $to_planet, Request $request){
 
+        $validator = Validator::make($request->all(), [
+            'fighters' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
+            'bombers' => 'min:0|max:'.$from_planet->numBombers.'|integer',
+            'corvettes' => 'min:0|max:'.$from_planet->numCorvettes.'|integer',
+            'frigates' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
+            'destroyers' => 'min:0|max:'.$from_planet->numDestroyers.'|integer',
+        ])->validate();
+
+
+        $travel = new Travel();
+        $travel->startTravel($from_planet, $to_planet, $request->all(), 'attacking');
+
+        return redirect('/home');
+    }
+
+    public function indexPlanetOverview(Planet $planet){
+
+        return view('content.planet-overview', compact('planet'));
+    }
+
+    public function indexLaunchAttack(Planet $from_planet, Planet $to_planet){
+
+        return view('content.launch-attack', compact('from_planet', 'to_planet'));
+    }
 }
