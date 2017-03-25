@@ -673,21 +673,17 @@ class GameObjectsSeeder extends Seeder
 
     private function fleetSeeder()
     {
-        $planets = \App\Planet::all();
-        $fighter = $this->fighter();
-        $bomber = $this->bomber();
-        $corvette = $this->corvette();
-        $frigate = $this->frigate();
-        $destroyer = $this->destroyer();
+       // $fighterDescription = $this->fighterDescription();
+       // $bomberDescription = $this->bomberDescription();
+       // $corvetteDescription = $this->corvetteDescription();
+       // $frigate = $this->frigateDescription();
+       // $destroyer = $this->destroyerDescription();
 
-        foreach($planets as $planet)
-        {
-            $this->createFleets($fighter);
-            $this->createFleets($bomber);
-            $this->createFleets($corvette);
-            $this->createFleets($frigate);
-            $this->createFleets($destroyer);
-        }
+       $this->fighter();
+       $this->bomber();
+       $this->corvette();
+       $this->frigate();
+       $this->destroyer();
     }
 
     private function fighter()
@@ -700,13 +696,13 @@ class GameObjectsSeeder extends Seeder
         $fighter->attack = 35;
         $fighter->defence = 20;
         $fighter->multipliers = [
-            'Fighter' => 2.0,
-            'Bomber' => 2.0,
-            'Corvette' => 0.5,
-            'Frigate' => 0.5,
-            'Destroyer' => 0.5,
+            'fighter' => 2.0,
+            'bomber' => 2.0,
+            'corvette' => 0.5,
+            'frigate' => 0.5,
+            'destroyer' => 0.5
         ];
-        $fighter->decription()->associate($this->fighterDescription());
+        $fighter->description()->associate($this->fighterDescription());
         $fighter->save();
     }
 
@@ -720,13 +716,13 @@ class GameObjectsSeeder extends Seeder
         $bomber->attack = 55;
         $bomber->defence = 70;
         $bomber->multipliers = [
-            'Fighter' => 0.5,
-            'Bomber' => 1.0,
-            'Corvette' => 0.5,
-            'Frigate' => 2.0,
-            'Destroyer' => 2.0,
+            'fighter' => 0.5,
+            'bomber' => 1.0,
+            'corvette' => 0.5,
+            'frigate' => 2.0,
+            'destroyer' => 2.0
         ];
-        $bomber->decription()->associate($this->bomberDescription());
+        $bomber->description()->associate($this->bomberDescription());
         $bomber->save();
     }
 
@@ -740,13 +736,13 @@ class GameObjectsSeeder extends Seeder
         $corvette->attack = 40;
         $corvette->defence = 20;
         $corvette->multipliers = [
-            'Fighter' => 2.0,
-            'Bomber' => 1.0,
-            'Corvette' => 1.0,
-            'Frigate' => 0.5,
-            'Destroyer' => 2.0,
+            'fighter' => 2.0,
+            'bomber' => 1.0,
+            'corvette' => 1.0,
+            'frigate' => 0.5,
+            'destroyer' => 2.0
         ];
-        $corvette->decription()->associate($this->corvetteDescription());
+        $corvette->description()->associate($this->corvetteDescription());
         $corvette->save();
     }
 
@@ -760,13 +756,13 @@ class GameObjectsSeeder extends Seeder
         $frigate->attack = 70;
         $frigate->defence = 70;
         $frigate->multipliers = [
-            'Fighter' => 2.0,
-            'Bomber' => 0.5,
-            'Corvette' => 1.0,
-            'Frigate' => 1.0,
-            'Destroyer' => 0.5,
+            'fighter' => 2.0,
+            'bomber' => 0.5,
+            'corvette' => 1.0,
+            'frigate' => 1.0,
+            'destroyer' => 0.5
         ];
-        $frigate->decription()->associate($this->frigateDescription());
+        $frigate->description()->associate($this->frigateDescription());
         $frigate->save();
     }
 
@@ -780,13 +776,14 @@ class GameObjectsSeeder extends Seeder
         $destroyer->attack = 100;
         $destroyer->defence = 90;
         $destroyer->multipliers = [
-            'Fighter' => 0.5,
-            'Bomber' => 2.0,
-            'Corvette' => 0.5,
-            'Frigate' => 2.0,
-            'Destroyer' => 2.0,
+            'fighter' => 0.5,
+            'bomber' => 2.0,
+            'corvette' => 0.5,
+            'frigate' => 2.0,
+            'destroyer' => 2.0
         ];
-        $destroyer->decription()->associate($this->destroyerDescription());
+
+        $destroyer->description()->associate($this->destroyerDescription());
         $destroyer->save();
     }
 

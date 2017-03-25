@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fleet extends Model
 {
+	protected $fillable = [
+        'multipliers'
+    ];
+
+	protected $casts = [
+        'multipliers' => 'array',
+    ];
     
     public function planet()
     {
