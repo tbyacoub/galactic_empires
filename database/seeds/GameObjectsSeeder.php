@@ -104,6 +104,8 @@ class GameObjectsSeeder extends Seeder
         $fsy = $this->frigateShipyard();
         $csy = $this->corvetteShipyard();
         $dsy = $this->destroyerShipyard();
+        $fisy = $this->fighterShipyard();
+        $bsy = $this->bomberShipyard();
 
         $mmu = $this->metalMineUpgrade();
         $cmu = $this->crystalMineUpgrade();
@@ -118,6 +120,8 @@ class GameObjectsSeeder extends Seeder
         $fsyu = $this->frigateShipyardUpgrade();
         $csyu = $this->corvetteShipyardUpgrade();
         $dsyu = $this->destroyerShipyardUpgrade();
+        $fisyu = $this->fighterShipyardUpgrade();
+        $bsyu = $this->bomberShipyardUpgrade();
 
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
@@ -132,6 +136,8 @@ class GameObjectsSeeder extends Seeder
         $fsyp = $this->frigateShipyardProduct();
         $csyp = $this->corvetteShipyardProduct();
         $dsyp = $this->destroyerShipyardProduct();
+        $fisyp = $this->fighterShipyardProduct();
+        $bsyp = $this->bomberShipyardProduct();
 
 
         foreach ($planets as $planet) {
@@ -148,6 +154,9 @@ class GameObjectsSeeder extends Seeder
             $this->createBuildings($planet, $fsy, $fsyu, $fsyp);
             $this->createBuildings($planet, $csy, $csyu, $csyp);
             $this->createBuildings($planet, $dsy, $dsyu, $dsyp);
+
+            $this->createBuildings($planet, $fisy, $fisyu, $fisyp);
+            $this->createBuildings($planet, $bsy, $bsyu, $bsyp);
         }
     }
 
@@ -296,6 +305,28 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "destroyer_shipyard";
         $description->display_name = "Destroyers Shipyard";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function fighterShipyard()
+    {
+        $description = new \App\Description();
+        $description->name = "fighter_shipyard";
+        $description->display_name = "Fighters Shipyard";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function bomberShipyard()
+    {
+        $description = new \App\Description();
+        $description->name = "bomber_shipyard";
+        $description->display_name = "Bombers Shipyard";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -514,6 +545,38 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
+    private function fighterShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 2;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function bomberShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 2;
+        $upgrade->save();
+        return $upgrade;
+    }
+
     /**
      * PRODUCTS START
      */
@@ -640,8 +703,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'attack_bonus' => 1.15,
-            'health_bonus' => 1.15,
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
         ];
         $product->save();
         return $product;
@@ -651,8 +714,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'attack_bonus' => 1.1,
-            'health_bonus' => 1.1,
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
         ];
         $product->save();
         return $product;
@@ -662,13 +725,34 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'attack_bonus' => 1.05,
-            'health_bonus' => 1.05,
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
         ];
         $product->save();
         return $product;
     }
 
+    private function fighterShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function bomberShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
+        ];
+        $product->save();
+        return $product;
+    }
 
     private function fleetSeeder()
     {

@@ -62,11 +62,10 @@
                     <td>
                         @if($travel->type == "attacking") Enemy is Attacking
                         @else Returning Fleet Carrying: <br>
-                              {{ $travel->metal }} Metal <br>
-                              {{ $travel->energy }} Crystal <br>
-                              {{ $travel->crystal }} Energy <br>
+                        {{ $travel->metal }} Metal <br>
+                        {{ $travel->energy }} Crystal <br>
+                        {{ $travel->crystal }} Energy <br>
                         @endif
-
                     </td>
                     <td>{{ $travel->toPlanet()->first()->name}}</td>
                     <td width="40%">

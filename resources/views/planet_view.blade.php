@@ -16,7 +16,13 @@
 				</div>
 				
 				<div id='planet_info_container'>
-					<div id='planet_owner_name'>Owner: {{ $planetInfo->user_name }}</div>
+					@if ($ownedByUser)
+						<div id='planet_owner_name'>Owner: Planet is owned by you</div>
+					@elseif (isset($planetInfo->user_name))
+						<div id='planet_owner_name'>Owner: {{ $planetInfo->user_name }}</div>
+					@else
+						<div id='planet_owner_name'>Owner: No one</div>
+					@endif
 					<div id='solar_system_name'>Solar System: {{ $solarSystemInfo->name }}</div>
 					<div id='solar_system_location'>System Location: {{ $solarSystemInfo->location }}</div>
 					<div class='info_line_breaker'></div>
@@ -26,9 +32,23 @@
 					@if (isset($planetInfo->resources))
 						<div class='info_line_breaker'></div>
 						<div id='planet_resources_header'>Planetary Resources:</div>
-						<div id='planet_metal'>Metal: {{ json_decode($planetInfo->resources)->gold }}</div>
-						<div id='planet_crystal'>Crystal: {{ json_decode($planetInfo->resources)->wood }}</div>
-						<div id='planet_energy'>Energy: {{ json_decode($planetInfo->resources)->silver }}</div>
+						<div id='planet_metal'>Metal: {{ json_decode($planetInfo->resources)->metal }}</div>
+						<div id='planet_crystal'>Crystal: {{ json_decode($planetInfo->resources)->crystal }}</div>
+						<div id='planet_energy'>Energy: {{ json_decode($planetInfo->resources)->energy }}</div>
+					@endif
+					
+					@if (!$ownedByUser)
+						@if (isset($planetInfo->user_name))
+							<div class='info_line_breaker'></div>
+							<div id='attack_button_container'>
+								<a id='attack_link' href='/launch-attack/{{ Auth::user()->planets()->first()->id }}/{{$planet_id}}'>Attack</a>
+							</div>
+						@else
+							<div class='info_line_breaker'></div>
+							<div id='colonize_button_container'>
+								<a id='colonize_link' href='#'>Colonize</a>
+							</div>
+						@endif
 					@endif
 				</div>
 			</div>

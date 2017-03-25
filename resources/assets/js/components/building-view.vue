@@ -8,8 +8,9 @@
                             <button v-if="!building.is_upgrading" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.id)"><a>UPGRADE</a></button>
                             <button v-else="!building.is_upgrading" class="btn btn-sm btn-clear-g" disabled=""><a>UPGRADING</a></button>
                         </div>
-                        <div class="sp-title">
-                            <h3>{{ building.description.display_name }}</h3>
+                        <div>
+                            <h3 data-toggle="tooltip" title="{ building.description.description }" style="position:absolute">
+                                    {{ building.description.display_name }}</h3>
                         </div>
                     </div>
                     <p class="followers"><i class="fa fa-user"></i> <span v-show="building.current_level == building.upgrade.max_level"> MAX -</span> LEVEL {{ building.current_level }}</p>
@@ -19,6 +20,10 @@
     </div>
 </template>
 <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
     import { EventBus } from '../eventBus.js';
     export default{
         data() {

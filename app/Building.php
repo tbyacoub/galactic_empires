@@ -179,6 +179,21 @@ class Building extends Model
             case "energy_storage":
                 $this->planet()->first()->updateEnergyStorage();
                 break;
+            case "frigate_shipyard":
+                $this->planet()->first()->updateFrigateCapacity();
+                break;
+            case "corvette_shipyard":
+                $this->planet()->first()->updateCorvetteCapacity();
+                break;
+            case "destroyer_shipyard":
+                $this->planet()->first()->updateDestroyerCapacity();
+                break;
+            case "fighter_shipyard":
+                $this->planet()->first()->updateFighterCapacity();
+                break;
+            case "bomber_shipyard":
+                $this->planet()->first()->updateBomberCapacity();
+                break;
         }
     }
 }

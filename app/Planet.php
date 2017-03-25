@@ -150,6 +150,7 @@ class Planet extends Model
     {
         return $this->resources['energy'];
     }
+
     public function fleets()
     {
         return $this->hasMany('\App\Fleet');
@@ -192,6 +193,37 @@ class Planet extends Model
             $description->where('name', 'energy_storage');
         })->first();
     }
+
+    public function frigateShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'frigate_shipyard');
+        })->first();
+    }
+
+    public function corvetteShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'corvette_shipyard');
+        })->first();
+    }
+
+    public function destroyerShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'destroyer_shipyard');
+        })->first();
+    }
+
+    public function fighterShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'fighter_shipyard');
+        })->first();
+    }
+
+    public function bomberShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'bomber_shipyard');
+        })->first();
+    }
+
     /**
      * Updates the new storage capacity of this planet, based on the current level this storage building.
      *
@@ -230,6 +262,51 @@ class Planet extends Model
         $base = $energy_storage->product->characteristics['storage_base'];
         $rate = $energy_storage->product->characteristics['storage_base_rate'];
         $this->energy_storage = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateFrigateCapacity(){
+        $frigate_shipyard = $this->frigateShipyardBuilding();
+        $level = $frigate_shipyard->current_level;
+        $base = $frigate_shipyard->product->characteristics['capacity_base'];
+        $rate = $frigate_shipyard->product->characteristics['capacity_rate'];
+        $this->frigate_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateCorvetteCapacity(){
+        $corvette_shipyard = $this->frigateShipyardBuilding();
+        $level = $corvette_shipyard->current_level;
+        $base = $corvette_shipyard->product->characteristics['capacity_base'];
+        $rate = $corvette_shipyard->product->characteristics['capacity_rate'];
+        $this->corvette_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateDestroyerCapacity(){
+        $destroyer_shipyard = $this->frigateShipyardBuilding();
+        $level = $destroyer_shipyard->current_level;
+        $base = $destroyer_shipyard->product->characteristics['capacity_base'];
+        $rate = $destroyer_shipyard->product->characteristics['capacity_rate'];
+        $this->destroyer_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateFighterCapacity(){
+        $fighter_shipyard = $this->frigateShipyardBuilding();
+        $level = $fighter_shipyard->current_level;
+        $base = $fighter_shipyard->product->characteristics['capacity_base'];
+        $rate = $fighter_shipyard->product->characteristics['capacity_rate'];
+        $this->fighter_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+
+    public function updateBomberCapacity(){
+        $bomber_shipyard = $this->bomberShipyardBuilding();
+        $level = $bomber_shipyard->current_level;
+        $base = $bomber_shipyard->product->characteristics['capacity_base'];
+        $rate = $bomber_shipyard->product->characteristics['capacity_rate'];
+        $this->bomber_capacity = ($level * $base * $rate);
         $this->save();
     }
 }

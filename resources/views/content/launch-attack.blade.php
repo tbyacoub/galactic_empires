@@ -1,9 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('sub-content')
-    {{--<user-control :user_id="{{Auth::id()}}" :planets="{{$planets}}"></user-control>--}}
-
-    {{--<launch-attack-control :target="{{ $target }}" :planets="{{ Auth::user()->planets()->get() }}"></launch-attack-control>--}}
 
     <div class="col-lg-12">
         <div class="row content-panel">
