@@ -78,3 +78,38 @@
 	line-height: 20px;
 	text-align: left;
 }
+
+#attack_button_container, #colonize_button_container {
+	margin: 0;
+	padding: 0;
+	width: 80px;
+	height: 30px;
+	background-color: rgb(231, 76, 60);
+	opacity: 0.8;
+	border-radius: 5px;
+}
+
+#attack_button_container:hover, #colonize_button_container:hover {
+	opacity: 1;
+}
+
+#attack_link, #colonize_link {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	
+	color: white;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+}
+
+#attack_link:hover, #colonize_link:hover {
+	cursor: pointer;
+}
+
+#colonize_button_container {
+	background-color: rgb(52, 152, 219);
+}
