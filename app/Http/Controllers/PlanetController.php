@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notification;
 use App\Planet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PlanetController extends Controller
 {
@@ -82,6 +84,25 @@ class PlanetController extends Controller
     public function update(Request $request, Planet $planet)
     {
         //
+    }
+
+    public function updateResource(Planet $planet, Request $request, $resource)
+    {
+        $amount = $request->amount;
+        switch ($resource){
+            case "metal":
+                $planet->modifyMetal($amount);
+                break;
+            case "crystal":
+                $planet->modifyCrystal($amount);
+                break;
+            case "energy":
+                $planet->modifyEnergy($amount);
+                break;
+        }
+        $notification = new Notification();
+        $notification->sendResourceModifiedNotification(Auth::user()->name, $planet->user()->first()->id, $planet->name, $amount);
+        return back();
     }
 
     /**

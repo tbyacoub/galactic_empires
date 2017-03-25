@@ -21,7 +21,7 @@
 
             <div class="form-panel">
                 <h4 class="mb"><i class="fa fa-angle-right"></i> Input Messages</h4>
-                <form class="form-horizontal tasi-form" method="POST" action="{{ url('admin/posts') }}">
+                <form class="form-horizontal tasi-form" method="POST" action="{{ url('/posts') }}">
 
                     {{ csrf_field() }}
 
@@ -42,7 +42,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label col-lg-2">Content :</label>
                         <div class="col-lg-10">
-                            <textarea type="text" class="form-control" name="content" placeholder="enter content...">{{ old('content') }}</textarea>
+                            <textarea class="form-control" name="content" placeholder="enter content...">{{ old('content') }}</textarea>
                         </div>
                     </div>
 
@@ -75,24 +75,22 @@
                             <tr>
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->user_id }}</td>
-                                <td><input class="form-control" value="{{ $post->title }}"></td>
+                                <td><input class="form-control" name="{{ 'title_'. $post->id }}" id="{{ 'title_'. $post->id }}" value="{{ $post->title }}"></td>
                                 <td>{{ $post->post_date }}</td>
-                                <td><textarea class="form-control">{{ $post->content }}</textarea></td>
+                                <td><textarea class="form-control" name="{{ 'content_'. $post->id }}" id="{{ 'content_'. $post->id }}">{{ $post->content }}</textarea></td>
                                 <td>
 
-                                    <form action="/admin/posts/{{$post->id}}" method="POST">
+                                    <form action="{{ url('/posts/' . $post->id) }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PUT') }}
                                         <button type="submit" class="btn btn-primary btn-md fa fa-pencil"></button>
                                     </form>
 
-                                    <form action="/admin/posts/{{$post->id}}" method="POST">
+                                    <form action="{{ url('/posts/'. $post->id) }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger btn-md fa fa-trash-o"></button>
                                     </form>
-
-                                    {{--<button class="btn btn-danger btn-md fa fa-trash-o" data-toggle="modal" data-target="#myModal"></button>--}}
                                 </td>
                             </tr>
                         @endforeach

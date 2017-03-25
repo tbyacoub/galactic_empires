@@ -41,7 +41,7 @@ import Echo from "laravel-echo"
 
 window.Echo = new Echo({
     broadcaster: "pusher",
-    key: 'c73bc3a033d91567babf',
+    key: 'eee2849dcc0cf30eb46c',
 });
 
 // Alan : c73bc3a033d91567babf

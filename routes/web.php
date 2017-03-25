@@ -24,11 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
     /**
      * GET routes
      */
-    Route::get('/home', function () {
-        return view('layouts.home');
-    });
+    Route::get('/home', 'HomeController@index');
+
+    Route::get('/galaxy-map', 'GalaxyMapController@index');
 
     Route::get('/users/{user}/mails', 'UserController@mails');
+
+    Route::get('/global-rates', 'AdminController@globalRates');
 
     Route::get('/notifications', 'NotificationController@index');
 
@@ -37,6 +39,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users/{user}/notifications', 'UserController@notifications');
 
     Route::get('/planets/{planet}/buildings/{type}', 'PlanetController@buildings');
+
+    /**
+     * POST routes
+     */
+    Route::post('/global-rates', 'AdminController@updateGlobalRates');
 
     /**
      * Resource route replacements/extensions
@@ -51,16 +58,20 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::put('/building/{building}/upgrade', 'BuildingController@upgrade');
 
+    Route::put('planets/{planet}/edit/resources/{resource}', 'PlanetController@updateResource');
+
     /**
      * Resource routes
      */
+    Route::resource('users', 'UserController');
+
+    Route::resource('posts', 'PostController');
+
+    Route::resource('planets', 'PlanetController');
+
     Route::resource('mails', 'MailController', ['except' => [
         'index',
     ]]);
-
-    Route::resource('users', 'UserController');
-
-    Route::resource('planets', 'PlanetController');
 
     Route::resource('buildings', 'BuildingController', ['except' => [
         'index',

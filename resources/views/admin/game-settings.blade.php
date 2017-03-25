@@ -20,7 +20,7 @@
                     </div>
                 @endif
 
-                <form class="form-horizontal style-form" method="POST" action="{{ url('admin/game-settings') }}">
+                <form class="form-horizontal style-form" method="POST" action="{{ url('/global-rates') }}">
 
                     {{ csrf_field() }}
 

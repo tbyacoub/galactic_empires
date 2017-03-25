@@ -24,23 +24,4 @@ class Post extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
-
-    /**
-     * Create a new post instance.
-     *
-     * @param  array  $data
-     * @return Post
-     */
-    protected function createPost(array $data)
-    {
-
-        $post = new Post;
-        $post->title = $data['title'];
-        $post->post_date = $data['post_date'];
-        $post->content = $data['content'];
-        $post->user_id = Auth::id();
-        $post->save();
-
-        return redirect('admin/push-notifications');
-    }
 }

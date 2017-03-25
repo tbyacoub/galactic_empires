@@ -5,10 +5,11 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PushNotificationsRequest extends FormRequest
+class PostRequest extends FormRequest
 {
 
-    protected $redirect = "/admin/push-notifications";
+    protected $redirect = "/posts";
+
     /**
      * Determine if the user is authorized to make this request.
      *

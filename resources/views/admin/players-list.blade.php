@@ -30,7 +30,7 @@
 
                     @foreach($users as $user)
                         <tr>
-                            <td><a href="/admin/edit-player/{{ $user->id }}">{{ $user->name }}</a></td>
+                            <td><a href="{{ url('/users/' . $user->id . '/edit') }}">{{ $user->name }}</a></td>
                             <td class="hidden-phone">{{ $user->email }}</td>
                             <td>{{ $user->cachedRoles()[0]->display_name }}</td>
                             <td>{{ $user->created_at }}</td>

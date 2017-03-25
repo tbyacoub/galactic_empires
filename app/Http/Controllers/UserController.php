@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::user()->hasRole('admin')) {
+            $users = User::paginate(20);
+            return view('admin.players-list', compact('users'));
+        }
+        return back();
     }
 
     /**
@@ -96,7 +101,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        if(Auth::user()->hasRole('admin')) {
+            return view('admin.edit-player', compact('user'));
+        }
+        return back();
     }
 
     /**

@@ -85,28 +85,6 @@ class Planet extends Model
     }
 
     /**
-     * Returns all the research buildings buildings on this planet.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function researchBuildings(){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
-            $description->where('type', 'research');
-        })->get();
-    }
-
-    /**
-     * Returns all the shipyard buildings buildings on this planet.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function shipyardBuildings(){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description){
-            $description->where('type', 'shipyard');
-        })->get();
-    }
-
-    /**
      * Sets the planet resources.
      *
      * @param $metal integer
@@ -154,7 +132,6 @@ class Planet extends Model
     {
         return $this->hasMany('\App\Fleet');
     }
-// }
 
     /**
      * Gets the Metal Storage Building of this planet.
@@ -232,6 +209,39 @@ class Planet extends Model
 
         $this->energy_storage = ($level * $base * $rate);
         $this->save();
+    }
+
+    /**
+     * Modifies the resources on a given planet
+     *
+     * @param $amount
+     */
+    public function modifyMetal($amount){
+        $value = $this->metal() + $amount;
+        $value = ($this->metal() + $amount < 0) ? 0 : min($value, $this->metal_storage) ;
+        $this->setResources($value, $this->crystal(), $this->energy());
+    }
+
+    /**
+     * Modifies the resources on a given planet
+     * 
+     * @param $amount
+     */
+    public function modifyCrystal($amount){
+        $value = $this->crystal() + $amount;
+        $value = ($this->crystal() + $amount < 0) ? 0 : min($value, $this->crystal_storage) ;
+        $this->setResources($this->metal(), $value, $this->energy());
+    }
+
+    /**
+     * Modifies the resources on a given planet
+     *
+     * @param $amount
+     */
+    public function modifyEnergy($amount){
+        $value = $this->energy() + $amount;
+        $value = ($this->energy() + $amount < 0) ? 0 : min($value, $this->energy_storage) ;
+        $this->setResources($this->metal(), $this->crystal(), $value);
     }
 
 }

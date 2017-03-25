@@ -24,10 +24,10 @@
                 <td>
                     <div>{{ $planet->metal() }} / {{$planet->metal_storage}}</div>
 
-                    <form class="form-horizontal style-form" method="POST" action="{{ url('admin/edit-player/modify-metal/'.$planet->id) }}">
-
+                    <form class="form-horizontal style-form" method="POST" action="{{ url('/planets/' . $planet->id. '/edit/resources/metal') }}">
+                        {{ method_field('PUT') }}
                         {{ csrf_field() }}
-                        <div><input class="form-control btn btn-sm" type="number" name="amount" placeholder="enter +/-"></div>
+                        <div><input class="form-control btn btn-sm" type="number" name="amount" placeholder="enter +/-" max="{{ $planet->metal_storage }}"></div>
                         <button type="submit" class="btn btn-success btn-sm"> <i class="fa fa-plus"></i> Update</button>
                     </form>
 
@@ -35,20 +35,21 @@
                 <td>
                     <div>{{ $planet->crystal() }} / {{$planet->crystal_storage}}</div>
 
-                    <form class="form-horizontal style-form" method="POST" action="{{ url('admin/edit-player/modify-crystal/'.$planet->id) }}">
-
+                    <form class="form-horizontal style-form" method="POST" action="{{ url('/planets/' . $planet->id. '/edit/resources/crystal') }}">
+                        {{ method_field('PUT') }}
                         {{ csrf_field() }}
-                        <div><input class="form-control btn btn-sm" type="number" name="amount" placeholder="enter +/-"></div>
+                        <div><input class="form-control btn btn-sm" type="number" name="amount" placeholder="enter +/-" max="{{ $planet->crystal_storage }}"></div>
                         <button type="submit" class="btn btn-success btn-sm"> <i class="fa fa-plus"></i> Update</button>
                     </form>
 
-                </td>                        <td>
+                </td>
+                <td>
                     <div>{{ $planet->energy() }} / {{$planet->energy_storage}}</div>
 
-                    <form class="form-horizontal style-form" method="POST" action="{{ url('admin/edit-player/modify-energy/'.$planet->id) }}">
-
+                    <form class="form-horizontal style-form" method="POST" action="{{ url('/planets/' . $planet->id. '/edit/resources/energy') }}">
+                        {{ method_field('PUT') }}
                         {{ csrf_field() }}
-                        <div><input class="form-control btn btn-sm" type="number" name="amount" placeholder="enter +/-"></div>
+                        <div><input class="form-control btn btn-sm" type="number" name="amount" placeholder="enter +/-" max="{{ $planet->energy_storage }}"></div>
                         <button type="submit" class="btn btn-success btn-sm"> <i class="fa fa-plus"></i> Update</button>
                     </form>
 
