@@ -150,6 +150,12 @@ class Planet extends Model
     {
         return $this->resources['energy'];
     }
+
+    public function fleets()
+    {
+        return $this->hasMany('\App\Fleet');
+    }
+
     /**
      * Gets the Metal Storage Building of this planet.
      * @return \App\Building

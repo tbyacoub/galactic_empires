@@ -7,8 +7,13 @@
     <table class="table table-striped table-advance table-hover">
         <thead>
             <tr>
+<<<<<<< HEAD
                 <th>Fleet</th>
                 <th>Status</th>
+=======
+                <th>Your Fleet</th>
+                <th>Image</th>
+>>>>>>> 6197c0728917c95acb21b4ca9a5dd2202eab8ee5
                 <th>Our Planet</th>
                 <th>Duration</th>
                 <th>Enemy Planet</th>
@@ -18,6 +23,7 @@
         <tbody>
         @foreach($from_travels as $travel)
             <tr>
+<<<<<<< HEAD
                 <td>{{ $travel->fleet[0]['type'] }} : {{ $travel->fleet[0]['amount'] }}</td>
                 <td>{{ $travel->type}}</td>
                 <td>
@@ -26,18 +32,28 @@
                     </div>
                     <img src="{{ $travel->fromPlanet()->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;">
                 </td>
+=======
+                <td></td>
+                <td><img src="{{ $travel->fromPlanet()->first()->PlanetType->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;"></td>
+                <td>{{ $travel->fromPlanet()->first()->name}}</td>
+>>>>>>> 6197c0728917c95acb21b4ca9a5dd2202eab8ee5
                 <td width="40%">
                     <p>Arrives on {{ $travel->arrival }}</p>
                     <div class="progress progress-striped active">
-                        <div class="progress-bar"  role="progressbar" style="width: {{$travel->getTravelPercent()}}%"> </div>
+                        <div data-rate="{{ $travel->getPercentRatePerSecond() }}" data-width=" {{$travel->getTravelPercent()}}" class="progress-bar from-travel-pb"  role="progressbar" style="width: {{$travel->getTravelPercent()}}%"> </div>
                     </div>
                 </td>
+<<<<<<< HEAD
                 <td>
                     <div>
                         {{ $travel->toPlanet()->first()->name}}
                     </div>
                     <img src="{{ $travel->toPlanet()->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;">
                 </td>
+=======
+                <td>{{ $travel->toPlanet()->first()->name}}</td>
+                <td><img src="{{ $travel->toPlanet()->first()->PlanetType->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;"></td>
+>>>>>>> 6197c0728917c95acb21b4ca9a5dd2202eab8ee5
             </tr>
         @endforeach
         </tbody>
@@ -65,6 +81,7 @@
         <tbody>
         @foreach($to_travels as $travel)
             <tr>
+<<<<<<< HEAD
                 <td>{{ $travel->fleet[0]['type'] }} : {{ $travel->fleet[0]['amount'] }}</td>
                 <td>{{ $travel->type}}</td>
                 <td>
@@ -88,9 +105,22 @@
                 <td>
                     <div>
                         {{ $travel->fromPlanet()->first()->name}}
+=======
+                <td><img src="{{ $travel->toPlanet()->first()->PlanetType->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;"></td>
+                <td>{{ $travel->toPlanet()->first()->name}}</td>
+                <td width="40%">
+                    <p>Arrives on {{ $travel->arrival }}</p>
+                    <div class="progress progress-striped active" style="transform: scaleX(-1)">
+                        <div data-rate="{{ $travel->getPercentRatePerSecond() }}" data-width=" {{$travel->getTravelPercent()}}" class="progress-bar progress-bar-danger from-travel-pb"  role="progressbar" style="width: {{$travel->getTravelPercent()}}%"> </div>
+>>>>>>> 6197c0728917c95acb21b4ca9a5dd2202eab8ee5
                     </div>
                     <img src="{{ $travel->fromPlanet()->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;">
                 </td>
+<<<<<<< HEAD
+=======
+                <td>{{ $travel->fromPlanet()->first()->name}}</td>
+                <td><img src="{{ $travel->fromPlanet()->first()->PlanetType->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;"></td>
+>>>>>>> 6197c0728917c95acb21b4ca9a5dd2202eab8ee5
             </tr>
         @endforeach
         </tbody>
