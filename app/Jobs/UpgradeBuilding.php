@@ -17,6 +17,7 @@ class UpgradeBuilding implements ShouldQueue
     private $building;
     private $user_id;
 
+
     /**
      * Create a new job instance.
      *
@@ -28,13 +29,6 @@ class UpgradeBuilding implements ShouldQueue
     {
         $this->building = $building;
         $this->user_id = $user_id;
-        $notification = new Notification();
-        $notification->subject = "Building upgraded";
-        $notification->content = $building->description()->first()->display_name .
-            " has successfully upgraded to level " . ($building->current_level + 1);
-        $notification->read = false;
-        $notification->user()->associate($user_id);
-        $notification->save();
     }
 
     /**
@@ -48,6 +42,17 @@ class UpgradeBuilding implements ShouldQueue
         $this->building->incrementLevel();
         $this->building->setProduct();
         event(new BuildingHasUpgradedEvent($this->user_id));
+        $this->createNotification();
         event(new NotificationReceivedEvent($this->user_id));
+    }
+
+    private function createNotification(){
+        $notification = new Notification();
+        $notification->subject = "Building upgraded";
+        $notification->content = $this->building->description()->first()->display_name .
+            " has successfully upgraded to level " . ($this->building->current_level + 1);
+        $notification->read = false;
+        $notification->user()->associate($this->user_id);
+        $notification->save();
     }
 }

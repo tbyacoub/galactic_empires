@@ -57,7 +57,7 @@
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'fleets' ? 'active' : ''  }}" href="{{ url('#') }}">
+                <a class="{{ Request::path() ==  'fleets' ? 'active' : ''  }}" href="{{ url('/fleets') }}">
                     <i class="fa fa-truck"></i>
                     <span>Fleets</span>
                 </a>

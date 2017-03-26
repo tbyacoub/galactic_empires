@@ -15,15 +15,19 @@ class CreateFleetsTable extends Migration
     {
         Schema::create('fleets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('planet_id')->unsigned();
+            $table->integer('count')->unsigned();
+            $table->integer('capacity')->unsigned();
             $table->integer('description_id')->unsigned();
-            $table->string('type'); //Fighter, Bomber, Corvette, Frigate, Destroyer
-            $table->json('multipliers');
-            $table->integer('speed');
-            $table->integer('health');
-            $table->integer('attack');
-            $table->integer('defence');
+            $table->integer('product_id')->unsigned();
+            $table->integer('planet_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('planet_id')->references('id')->on('planets')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('description_id')->references('id')->on('descriptions')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

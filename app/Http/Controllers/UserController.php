@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function planets(User $user)
     {
-        return $user->planets()->get();
+        return $user->planets()->with('fleets')->get();
     }
 
     public function mails(User $user)

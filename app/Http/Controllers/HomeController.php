@@ -24,10 +24,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $planets = $request->user()->planets()->get();
         $outgoing = Auth::user()->fromTravelsAllPlanets();
         $incoming = Auth::user()->toTravelsAllPlanets();
-        return view('layouts.home', compact('planets', 'outgoing', 'incoming'));
+        return view('layouts.home', compact('outgoing', 'incoming'));
     }
 
     public function solarSystem(SolarSystem $solarSystem){

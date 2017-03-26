@@ -11,6 +11,7 @@ class Building extends Model
     protected $fillable = [
         'name', 'type', 'img_path',
     ];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -19,6 +20,7 @@ class Building extends Model
     protected $casts = [
         'is_upgrading' => 'boolean',
     ];
+
     /**
      * Returns the planet that owns this building.
      *
@@ -27,6 +29,7 @@ class Building extends Model
     public function planet(){
         return $this->belongsTo('App\Planet');
     }
+
     /**
      * Returns the production characteristics of the this building.
      *
@@ -35,6 +38,7 @@ class Building extends Model
     public function product(){
         return $this->belongsTo('App\Product');
     }
+
     /**
      * Returns upgrade information of this building.
      *
@@ -43,6 +47,7 @@ class Building extends Model
     public function upgrade(){
         return $this->belongsTo('App\Upgrade');
     }
+
     /**
      * Returns the description of the=is building.
      *

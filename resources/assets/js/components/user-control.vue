@@ -34,25 +34,22 @@
             </div>
 
             <div class="col-md-4 centered">
-                <h5>Dashboard Update (40%)</h5>
+                <h5>Babylon 5 <i>{{selectedPlanet.getFleetRatio(0)}}</i></h5>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                        <span class="sr-only">40% Complete (success)</span>
-                    </div>
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                         :style="{width: selectedPlanet.getFleetPercent(0) }"></div>
                 </div>
 
-                <h5>Unanswered Messages (80%)</h5>
+                <h5>Battlestar Galactica <i>{{selectedPlanet.getFleetRatio(1)}}</i></h5>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                        <span class="sr-only">80% Complete (success)</span>
-                    </div>
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                         :style="{width: selectedPlanet.getFleetPercent(1) }"></div>
                 </div>
 
-                <h5>Product Review (60%)</h5>
+                <h5>Stargatess <i>{{selectedPlanet.getFleetRatio(2)}}</i></h5>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                        <span class="sr-only">60% Complete (success)</span>
-                    </div>
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                         :style="{width: selectedPlanet.getFleetPercent(2) }"></div>
                 </div>
 
             </div>
@@ -99,6 +96,13 @@
             return (' ( ' + this.planet.resources.energy + '/' + this.planet.energy_storage + ' )');
         }
 
+        getFleetRatio(id){
+            return (' ( ' + this.planet.fleets[id].count + '/' + this.planet.fleets[id].capacity + ' )');
+        }
+
+        getFleetPercent(id){
+            return ((this.planet.fleets[id].count/this.planet.fleets[id].capacity)*100) + '%';
+        }
     }
 
     import { EventBus } from '../eventBus.js';

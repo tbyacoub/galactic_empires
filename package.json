@@ -18,6 +18,7 @@
   "dependencies": {
     "laravel-echo": "^1.2.2",
     "pusher-js": "^4.0.0",
+    "vue-slider-component": "^2.2.2",
     "vuex": "^2.1.2"
   }
 }

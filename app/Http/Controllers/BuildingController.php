@@ -19,8 +19,7 @@ class BuildingController extends Controller
      */
     public function index($type)
     {
-        $planets = Auth::user()->planets()->get();
-        return view('content.building-view', compact('planets', 'type'));
+        return view('content.building-view', compact('type'));
     }
 
     /**

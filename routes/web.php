@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/users/{user}/planets', 'UserController@planets');
 
+    Route::get('/planets/{planet}/fleets', 'PlanetController@fleets');
+
     Route::get('/solarSystem/{solarSystem}', 'HomeController@solarSystem');
 
     Route::get('/users/{user}/notifications', 'UserController@notifications');
@@ -58,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/mails/create', 'MailController@createWParam');
 
-    Route::put('/building/{building}/upgrade', 'BuildingController@upgrade');
+    Route::put('/buildings/{building}/upgrade', 'BuildingController@upgrade');
 
     Route::put('planets/{planet}/edit/resources/{resource}', 'PlanetController@updateResource');
 
@@ -80,6 +82,10 @@ Route::group(['middleware' => 'auth'], function () {
     ]]);
 
 });
+
+Route::get('/fleets', 'FleetController@index');
+
+Route::put('/fleets/{fleet}', 'FleetController@update');
 
 Route::get('/launch-attack/{from_planet}/{to_planet}', 'HomeController@indexLaunchAttack');
 

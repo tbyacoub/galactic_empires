@@ -33,6 +33,17 @@ class PlanetController extends Controller
     }
 
     /**
+     * Returns a collection of fleets, that are associated with $planet.
+     *
+     * @param Planet $planet
+     * @return \Illuminate\Http\Response
+     */
+    public function fleets(Planet $planet)
+    {
+        return $planet->fleets()->with('description', 'product')->get();
+    }
+
+    /**
      * Show the form for creating a new planet.
      *
      * @return \Illuminate\Http\Response

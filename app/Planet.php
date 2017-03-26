@@ -11,6 +11,7 @@ class Planet extends Model
     protected $fillable = [
         'name', 'radius', 'resources', 'metal_storage', 'crystal_storage', 'energy_storage'
     ];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -19,6 +20,7 @@ class Planet extends Model
     protected $casts = [
         'resources' => 'array',
     ];
+
     /**
      * Returns the user that owns this planet.
      *
@@ -54,12 +56,15 @@ class Planet extends Model
     public function buildings(){
         return $this->hasMany('App\Building');
     }
+
     public function fromTravels(){
         return $this->hasMany('App\Travel', 'from_planet_id', 'id');
     }
+
     public function toTravels(){
         return $this->hasMany('App\Travel', 'to_planet_id', 'id');
     }
+
     /**
      * Returns all building in this planet that have type $type.
      *
@@ -87,6 +92,7 @@ class Planet extends Model
         ];
         $this->save();
     }
+
     /**
      * Sum of all planet's metal belonging to this User.
      *
@@ -95,6 +101,7 @@ class Planet extends Model
     public function metal(){
         return $this->resources['metal'];
     }
+
     /**
      * Sum of all planet's crystal belonging to this User.
      *
@@ -103,6 +110,7 @@ class Planet extends Model
     public function crystal(){
         return $this->resources['crystal'];
     }
+
     /**
      * Sum of all planet's energy belonging to this User.
      *
@@ -277,7 +285,7 @@ class Planet extends Model
         $this->save();
     }
     public function updateDestroyerCapacity(){
-        $destroyer_shipyard = $this->frigateShipyardBuilding();
+        $destroyer_shipyard = $this->destroyerShipyardBuilding();
         $level = $destroyer_shipyard->current_level;
         $base = $destroyer_shipyard->product->characteristics['capacity_base'];
         $rate = $destroyer_shipyard->product->characteristics['capacity_rate'];
@@ -285,7 +293,7 @@ class Planet extends Model
         $this->save();
     }
     public function updateFighterCapacity(){
-        $fighter_shipyard = $this->frigateShipyardBuilding();
+        $fighter_shipyard = $this->fighterShipyardBuilding();
         $level = $fighter_shipyard->current_level;
         $base = $fighter_shipyard->product->characteristics['capacity_base'];
         $rate = $fighter_shipyard->product->characteristics['capacity_rate'];

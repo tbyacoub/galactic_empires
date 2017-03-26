@@ -13,6 +13,7 @@ class GameObjectsSeeder extends Seeder
     {
         $this->planetSeeder();
         $this->buildingSeeder();
+        $this->fleetSeeder();
     }
 
     private function genGalaxyLocations($num_systems, $num_arms)
@@ -101,11 +102,9 @@ class GameObjectsSeeder extends Seeder
         $es = $this->energyStorage();
         $rs = $this->researchStation();
         $al = $this->alloyLab();
-        $fsy = $this->frigateShipyard();
-        $csy = $this->corvetteShipyard();
-        $dsy = $this->destroyerShipyard();
-        $fisy = $this->fighterShipyard();
-        $bsy = $this->bomberShipyard();
+        $b5sy = $this->babylon5Shipyard();
+        $bsgsy = $this->battlestarGalacticaShipyard();
+        $sgsy = $this->stargateShipyard();
 
         $mmu = $this->metalMineUpgrade();
         $cmu = $this->crystalMineUpgrade();
@@ -117,11 +116,9 @@ class GameObjectsSeeder extends Seeder
         $esu = $this->energyStorageUpgrade();
         $rsu = $this->researchStationUpgrade();
         $alu = $this->alloyLabUpgrade();
-        $fsyu = $this->frigateShipyardUpgrade();
-        $csyu = $this->corvetteShipyardUpgrade();
-        $dsyu = $this->destroyerShipyardUpgrade();
-        $fisyu = $this->fighterShipyardUpgrade();
-        $bsyu = $this->bomberShipyardUpgrade();
+        $b5syu = $this->babylon5ShipyardUpgrade();
+        $bsgsyu = $this->battlestarGalacticaShipyardUpgrade();
+        $sgsyu = $this->stargateShipyardUpgrade();
 
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
@@ -133,11 +130,9 @@ class GameObjectsSeeder extends Seeder
         $esp = $this->energyStorageProduct();
         $rsp = $this->researchStationProduct();
         $alp = $this->alloyLabProduct();
-        $fsyp = $this->frigateShipyardProduct();
-        $csyp = $this->corvetteShipyardProduct();
-        $dsyp = $this->destroyerShipyardProduct();
-        $fisyp = $this->fighterShipyardProduct();
-        $bsyp = $this->bomberShipyardProduct();
+        $b5syp = $this->babylon5ShipyardProduct();
+        $bsgsyp = $this->battlestarGalacticaShipyardProduct();
+        $sgsyp = $this->stargateShipyardProduct();
 
 
         foreach ($planets as $planet) {
@@ -151,11 +146,9 @@ class GameObjectsSeeder extends Seeder
             $this->createBuildings($planet, $ms, $msu, $msp);
             $this->createBuildings($planet, $cs, $csu, $csp);
             $this->createBuildings($planet, $es, $esu, $esp);
-            $this->createBuildings($planet, $fsy, $fsyu, $fsyp);
-            $this->createBuildings($planet, $csy, $csyu, $csyp);
-            $this->createBuildings($planet, $dsy, $dsyu, $dsyp);
-            $this->createBuildings($planet, $fisy, $fisyu, $fisyp);
-            $this->createBuildings($planet, $bsy, $bsyu, $bsyp);
+            $this->createBuildings($planet, $b5sy, $b5syu, $b5syp);
+            $this->createBuildings($planet, $bsgsy, $bsgsyu, $bsgsyp);
+            $this->createBuildings($planet, $sgsy, $sgsyu, $sgsyp);
         }
     }
 
@@ -288,59 +281,35 @@ class GameObjectsSeeder extends Seeder
         return $description;
     }
 
-    private function frigateShipyard(){
+    private function babylon5Shipyard(){
         $description = new \App\Description();
-        $description->name = "frigate_shipyard";
-        $description->display_name = "Frigates Shipyard";
-        $description->description = "Increases Frigate's capacity for this Planet";
+        $description->name = "babylon5_shipyard";
+        $description->display_name = "Babylon 5 Shipyard";
+        $description->description = "Increases babylon's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
         return $description;
     }
 
-    private function corvetteShipyard()
+    private function battlestarGalacticaShipyard()
     {
         $description = new \App\Description();
-        $description->name = "corvette_shipyard";
-        $description->display_name = "Corvettes Shipyard";
-        $description->description = "Increases Corvette's capacity for this Planet";
+        $description->name = "battlestarGalactica_shipyard";
+        $description->display_name = "Battlestar Galactica Shipyard";
+        $description->description = "Increases Battlestar Galactica's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
         return $description;
     }
 
-    private function destroyerShipyard()
+    private function stargateShipyard()
     {
         $description = new \App\Description();
-        $description->name = "destroyer_shipyard";
-        $description->display_name = "Destroyers Shipyard";
-        $description->description = "Increases Destroyer's capacity for this Planet";
-        $description->type = "shipyard";
-        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
-        $description->save();
-        return $description;
-    }
-
-    private function fighterShipyard()
-    {
-        $description = new \App\Description();
-        $description->name = "fighter_shipyard";
-        $description->display_name = "Fighters Shipyard";
-        $description->description = "Increases Fighter's capacity for this Planet";
-        $description->type = "shipyard";
-        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
-        $description->save();
-        return $description;
-    }
-
-    private function bomberShipyard()
-    {
-        $description = new \App\Description();
-        $description->name = "bomber_shipyard";
-        $description->display_name = "Bombers Shipyard";
-        $description->description = "Increases Bomber's capacity for this Planet";
+        $description->name = "stargate_shipyard";
+        $description->display_name = "Stargates Shipyard";
+        $description->description = "Increases Stargate's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -511,7 +480,7 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
-    private function frigateShipyardUpgrade()
+    private function babylon5ShipyardUpgrade()
     {
         $upgrade = new App\Upgrade();
         $upgrade->max_level = 10;
@@ -527,7 +496,7 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
-    private function corvetteShipyardUpgrade()
+    private function battlestarGalacticaShipyardUpgrade()
     {
         $upgrade = new App\Upgrade();
         $upgrade->max_level = 10;
@@ -543,39 +512,7 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
-    private function destroyerShipyardUpgrade()
-    {
-        $upgrade = new App\Upgrade();
-        $upgrade->max_level = 10;
-        $upgrade->base_metal = 100;
-        $upgrade->base_crystal = 100;
-        $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 2;
-        $upgrade->rate_crystal = 2;
-        $upgrade->rate_energy = 2;
-        $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 2;
-        $upgrade->save();
-        return $upgrade;
-    }
-
-    private function fighterShipyardUpgrade()
-    {
-        $upgrade = new App\Upgrade();
-        $upgrade->max_level = 10;
-        $upgrade->base_metal = 100;
-        $upgrade->base_crystal = 100;
-        $upgrade->base_energy = 100;
-        $upgrade->rate_metal = 2;
-        $upgrade->rate_crystal = 2;
-        $upgrade->rate_energy = 2;
-        $upgrade->base_minutes = 1;
-        $upgrade->rate_minutes = 2;
-        $upgrade->save();
-        return $upgrade;
-    }
-
-    private function bomberShipyardUpgrade()
+    private function stargateShipyardUpgrade()
     {
         $upgrade = new App\Upgrade();
         $upgrade->max_level = 10;
@@ -713,7 +650,7 @@ class GameObjectsSeeder extends Seeder
     }
 
 
-    private function frigateShipyardProduct()
+    private function babylon5ShipyardProduct()
     {
         $product = new App\Product();
         $product->characteristics = [
@@ -724,7 +661,7 @@ class GameObjectsSeeder extends Seeder
         return $product;
     }
 
-    private function corvetteShipyardProduct()
+    private function battlestarGalacticaShipyardProduct()
     {
         $product = new App\Product();
         $product->characteristics = [
@@ -735,29 +672,7 @@ class GameObjectsSeeder extends Seeder
         return $product;
     }
 
-    private function destroyerShipyardProduct()
-    {
-        $product = new App\Product();
-        $product->characteristics = [
-            'capacity_base' => 10,
-            'capacity_rate' => 1.5,
-        ];
-        $product->save();
-        return $product;
-    }
-
-    private function fighterShipyardProduct()
-    {
-        $product = new App\Product();
-        $product->characteristics = [
-            'capacity_base' => 10,
-            'capacity_rate' => 1.5,
-        ];
-        $product->save();
-        return $product;
-    }
-
-    private function bomberShipyardProduct()
+    private function stargateShipyardProduct()
     {
         $product = new App\Product();
         $product->characteristics = [
@@ -771,174 +686,114 @@ class GameObjectsSeeder extends Seeder
     private function fleetSeeder()
     {
         $planets = \App\Planet::all();
-        $fighter = $this->fighter();
-        $bomber = $this->bomber();
-        $corvette = $this->corvette();
-        $frigate = $this->frigate();
-        $destroyer = $this->destroyer();
+        $b5p = $this->babylon5Product();
+        $bsgp = $this->battlestarGalacticaProduct();
+        $sp = $this->stargateProduct();
+
+        $b5d = $this->babylon5Description();
+        $bsgd = $this->battlestarGalacticaDescription();
+        $spd = $this->stargateDescription();
 
         foreach($planets as $planet)
         {
-            $this->createFleets($fighter);
-            $this->createFleets($bomber);
-            $this->createFleets($corvette);
-            $this->createFleets($frigate);
-            $this->createFleets($destroyer);
+            $this->createFleets($planet, $b5d, $b5p);
+            $this->createFleets($planet, $bsgd, $bsgp);
+            $this->createFleets($planet, $spd, $sp);
         }
     }
 
-    private function fighter(Planet $planet)
-    {
-        $fighter = new App\Fleet();
-        $fighter->planet_id = $planet->id;
-        $fighter->type = 'fighter';
-        $fighter->health = 100;
-        $fighter->speed = 55;
-        $fighter->attack = 35;
-        $fighter->defence = 20;
-        $fighter->multipliers = [
-            'Fighter' => 2.0,
-            'Bomber' => 2.0,
-            'Corvette' => 0.5,
-            'Frigate' => 0.5,
-            'Destroyer' => 0.5,
+    private function babylon5Product(){
+        $product = new App\Product();
+        $product->characteristics = [
+            'multipliers'=> [
+                'babylon5' => 2.0,
+                'battlestar_galactica' => 2.0,
+                'stargate' => 0.5,
+            ],
+            'health'=>100,
+            'speed'=>55,
+            'attack'=>35,
+            'defense'=>20
         ];
-        $fighter->decription()->associate($this->fighterDescription());
-        $fighter->save();
+        $product->save();
+        return $product;
     }
 
-    private function bomber(Planet $planet)
-    {
-        $bomber = new App\Fleet();
-        $bomber->planet_id = $planet->id;
-        $bomber->type = 'bomber';
-        $bomber->health = 200;
-        $bomber->speed = 35;
-        $bomber->attack = 55;
-        $bomber->defence = 70;
-        $bomber->multipliers = [
-            'Fighter' => 0.5,
-            'Bomber' => 1.0,
-            'Corvette' => 0.5,
-            'Frigate' => 2.0,
-            'Destroyer' => 2.0,
+    private function battlestarGalacticaProduct(){
+        $product = new App\Product();
+        $product->characteristics = [
+            'multipliers'=> [
+                'babylon5' => 0.5,
+                'battlestar_galactica' => 1.0,
+                'stargate' => 0.5,
+            ],
+            'health'=>200,
+            'speed'=>35,
+            'attack'=>55,
+            'defense'=>70
         ];
-        $bomber->decription()->associate($this->bomberDescription());
-        $bomber->save();
+        $product->save();
+        return $product;
     }
 
-    private function corvette(Planet $planet)
-    {
-        $corvette = new App\Fleet();
-        $corvette->planet_id = $planet->id;
-        $corvette->type = 'corvette';
-        $corvette->health = 80;
-        $corvette->speed = 100;
-        $corvette->attack = 40;
-        $corvette->defence = 20;
-        $corvette->multipliers = [
-            'Fighter' => 2.0,
-            'Bomber' => 1.0,
-            'Corvette' => 1.0,
-            'Frigate' => 0.5,
-            'Destroyer' => 2.0,
+    private function stargateProduct(){
+        $product = new App\Product();
+        $product->characteristics = [
+            'multipliers'=> [
+                'babylon5' => 2.0,
+                'battlestar_galactica' => 1.0,
+                'stargate' => 1.0,
+            ],
+            'health'=>80,
+            'speed'=>100,
+            'attack'=>40,
+            'defense'=>20
         ];
-        $corvette->decription()->associate($this->corvetteDescription());
-        $corvette->save();
+        $product->save();
+        return $product;
     }
 
-    private function frigate(Planet $planet)
-    {
-        $frigate = new App\Fleet();
-        $frigate->planet_id = $planet->id;
-        $frigate->type = 'frigate';
-        $frigate->health = 325;
-        $frigate->speed = 40;
-        $frigate->attack = 70;
-        $frigate->defence = 70;
-        $frigate->multipliers = [
-            'Fighter' => 2.0,
-            'Bomber' => 0.5,
-            'Corvette' => 1.0,
-            'Frigate' => 1.0,
-            'Destroyer' => 0.5,
-        ];
-        $frigate->decription()->associate($this->frigateDescription());
-        $frigate->save();
-    }
-
-    private function destroyer(Planet $planet)
-    {
-        $destroyer = new App\Fleet();
-        $destroyer->planet_id = $planet->id;
-        $destroyer->type = 'destroyer';
-        $destroyer->health = 400;
-        $destroyer->speed = 35;
-        $destroyer->attack = 100;
-        $destroyer->defence = 90;
-        $destroyer->multipliers = [
-            'Fighter' => 0.5,
-            'Bomber' => 2.0,
-            'Corvette' => 0.5,
-            'Frigate' => 2.0,
-            'Destroyer' => 2.0,
-        ];
-        $destroyer->decription()->associate($this->destroyerDescription());
-        $destroyer->save();
-    }
-
-    private function fighterDescription()
+    private function babylon5Description()
     {
         $description = new \App\Description();
-        $description->name = "fighter";
-        $description->display_name = "Fighter";
+        $description->name = "babylon5";
+        $description->display_name = "Babylon 5";
         $description->type = "fleet";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
         return $description;
     }
 
-    private function bomberDescription()
+    private function battlestarGalacticaDescription()
     {
         $description = new \App\Description();
-        $description->name = "bomber";
-        $description->display_name = "Bomber";
+        $description->name = "battlestar_galactica";
+        $description->display_name = "Battlestar Galactica";
         $description->type = "fleet";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
         return $description;
     }
 
-    private function corvetteDescription()
+    private function stargateDescription()
     {
         $description = new \App\Description();
-        $description->name = "corvette";
-        $description->display_name = "Corvette";
+        $description->name = "stargate";
+        $description->display_name = "Stargate";
         $description->type = "fleet";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
         return $description;
     }
 
-    private function frigateDescription()
-    {
-        $description = new \App\Description();
-        $description->name = "frigate";
-        $description->display_name = "Frigate";
-        $description->type = "fleet";
-        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
-        $description->save();
-        return $description;
+    private function createFleets(\App\Planet $planet, \App\Description $description, \App\Product $product){
+        $fleet = new App\Fleet();
+        $fleet->count = 1;
+        $fleet->capacity = 10;
+        $fleet->planet()->associate($planet);
+        $fleet->description()->associate($description);
+        $fleet->product()->associate($product);
+        $fleet->save();
     }
 
-    private function destroyerDescription()
-    {
-        $description = new \App\Description();
-        $description->name = "destroyer";
-        $description->display_name = "Destroyer";
-        $description->type = "fleet";
-        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
-        $description->save();
-        return $description;
-    }
 }

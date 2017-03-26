@@ -10,10 +10,12 @@ require('./bootstrap');
  * the body of the page. From here, you may begin adding components to
  * the application, or feel free to tweak this setup for your needs.
  */
-Vue.component('notification', require('./components/notification.vue'));
 Vue.component('inbox', require('./components/inbox.vue'));
+Vue.component('fleets-view', require('./components/fleets-view.vue'));
+Vue.component('notification', require('./components/notification.vue'));
 Vue.component('user-control', require('./components/user-control.vue'));
 Vue.component('building-view', require('./components/building-view.vue'));
+Vue.component('fleets-overview', require('./components/fleets-view.vue'));
 Vue.component('planet-overview', require('./components/planet-overview.vue'));
 
 const app = new Vue({

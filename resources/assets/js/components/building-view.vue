@@ -36,9 +36,7 @@
             return{
                 buildings: [],
 				planetId: 0,
-				costs: [],
-                planetId: 0,
-                costs: []
+                costs: [],
             }
         },
         props: {
@@ -70,7 +68,7 @@
                 EventBus.$emit('update-planet', this.planetId);
             },
             upgradeBuilding(id) {
-                this.$http.put('/building/' + id + '/upgrade').then(response => {
+                this.$http.put('/buildings/' + id + '/upgrade').then(response => {
                     this.getBuildings(this.planetId);
                     this.EmitPlanetUpdateEvent();
                 });
