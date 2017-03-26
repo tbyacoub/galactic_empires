@@ -4,12 +4,6 @@ $(document).ready(function() {
 	// The ID of the selected solar system. Default to -1, which no system should have.
 	var selectedSystemID = -1;
 	
-	// The pixel width and height of the galaxy map image.
-	var galaxyMapWidth  = $('#galaxy-map-content-container').width();
-	var galaxyMapHeight = $('#galaxy-map-content-container').height();
-	// The x and y position of the galaxy map image. Currently not used.
-	var galaxyXYPos = $('#galaxy-map-content-container').offset();
-	
 	// The container for the solar system icons.
 	var iconsContainer = $('#galaxy-overlay-innter-container');
 	
@@ -31,7 +25,7 @@ $(document).ready(function() {
 			class: 'system-icon-inner-container'
 		});
 		// Add a click event to the outer icon container, which will populate the popup with the system's name and id.
-		iconContainer.click(function() {OnSystemIconClick(systemId, systemName, $(this).offset().left, $(this).offset().top);});
+		iconContainer.click(function() {OnSystemIconClick(systemId, systemName, $(this).position().left, $(this).position().top);});
 		
 		// Add the inner container to the outer container.
 		iconContainer.append(iconInner);
@@ -69,26 +63,22 @@ $(document).ready(function() {
 		
 		// Show the popup, otherwise the outerWidth()/Height() will return 0.
 		$('#popup-container').show();
-		
-		/*
-		// This is code for dynamically positioning the popup near the selected system.
-		// It currently does not work, so it is commented out.
-		
+	
 		// Round the x and y of the clicked system icon, otherwise we get values like 113.111244652 pixels.
-		var iconX = Math.round(x);
+		var iconX = Math.round(x) + 4;
 		var iconY = Math.round(y);
+		
+		var galaxyMapW = $('#galaxy-map-content-container').width();
+		var galaxyMapH = $('#galaxy-map-content-container').height();
 		
 		// Get the width of the popup
 		var popupWidth = $('#popup-container').outerWidth();
 		var popupHeight = $('#popup-container').outerHeight();
 		
-		var newPopupXPercent = iconX;
-		var newPopupYPercent = iconY;
+		var newPopupXPercent = (iconX - popupWidth / 2) / galaxyMapW * 100;
+		var newPopupYPercent = (iconY - popupHeight - 5) / galaxyMapH * 100;
 		
-		$('#popup-container').css({'left' : 0, 'top': 0});
-		
-		console.log((newPopupXPercent / 1000 * 100) + ": " + (newPopupYPercent / 1000 * 100));
-		*/
+		$('#popup-container').css({'left' : newPopupXPercent + '%', 'top': newPopupYPercent + '%'});
 	}
 	
 	/**
