@@ -57,6 +57,12 @@ class Travel extends Model
         return $this->hasOne('App\Planet', 'id', 'to_planet_id');
     }
 
+    public function setResources($metal, $crystal, $energy){
+        $this->metal = $metal;
+        $this->crystal = $crystal;
+        $this->energy = $energy;
+    }
+
     /**
      * @return double percent to reach destination (0 - 100)
      */

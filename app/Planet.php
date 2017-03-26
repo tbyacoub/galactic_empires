@@ -163,7 +163,23 @@ class Planet extends Model
      * @return int distance in MINUTES
      */
     public function calculateDistanceToOtherPlanet(Planet $other){
-        return Travel::calculateTravelTime($this,$other);;
+        return Travel::calculateTravelTime($this,$other);
+    }
+
+    public function formattedTimeDistance(Planet $other){
+        $minutes = Travel::calculateTravelTime($this,$other);
+        if($minutes > 60){
+           $hours = floor($minutes / 60);
+        }else{
+           return $minutes . "Minutes";
+        }
+        if($hours > 24){
+            $days = floor($hours / 24);
+        }else{
+            return $hours . ' Hours, ' . ((int) $minutes % 60) . "Minutes";
+        }
+
+        return $days . 'Days, ' . $hours . ' Hours, ' .  $minutes % 60 . "Minutes";
     }
 
     /**
