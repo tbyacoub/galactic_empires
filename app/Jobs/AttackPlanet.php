@@ -113,7 +113,6 @@ class AttackPlanet implements ShouldQueue
             $metal *= 0.9;
             $crystal *= 0.9;
             $energy *= 0.9;
-            //Job with $metal, $crystal, $energy, attackingPlanetID, and attackers
         }
     
         //update defending planets fleets
@@ -127,7 +126,7 @@ class AttackPlanet implements ShouldQueue
 
     }
 
-    public function defeated()
+    private function defeated()
     {
         for($i = 0; $i < 5; $i++)
         {
@@ -137,6 +136,23 @@ class AttackPlanet implements ShouldQueue
             }
         }
         return true;
+    }
+
+    private function findEnemy($ship)
+    {
+        $mults = $ship->multipliers;
+        $i = 0;
+        $index = 0;
+        $max = 0.5;
+        foreach($mults as $mult)
+        {
+            if($mult > $max && $defender[$i] > 0)
+            {
+                $max = $mult;
+                $index = $i;
+            }
+        }
+        return $index;
     }
 
 }
