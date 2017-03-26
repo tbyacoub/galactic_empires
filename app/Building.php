@@ -113,6 +113,7 @@ class Building extends Model
     public function incrementLevel(){
         $this->increment('current_level');
     }
+
     /**
      * Check if this planet can afford to upgrade this building.
      * @return bool, true if it can afford the upgrade, false otherwise.
@@ -123,6 +124,7 @@ class Building extends Model
             && ($planet->crystal() >= $this->getCrystalCostToUpgrade())
             && ($planet->energy() >= $this->getCrystalCostToUpgrade());
     }
+
     /**
      * Decrement the resources cost of upgrading this building.
      */
@@ -133,6 +135,13 @@ class Building extends Model
         $energy_remainder = $planet->energy() - $this->getEnergyCostToUpgrade();
         $this->planet()->first()->setResources($metal_remainder, $crystal_remainder, $energy_remainder);
     }
+
+    public function getFormattedBuildingCost(){
+        return 'Metal: ' . $this->getMetalCostToUpgrade() . ', ' .
+                'Energy: ' . $this->getEnergyCostToUpgrade() . ', ' .
+                'Crystal: ' . $this->getCrystalCostToUpgrade();
+    }
+
     /**
      * Get the Metal cost of upgrading this building.
      * @return float|int

@@ -178,7 +178,6 @@ class Planet extends Model
         }else{
             return $hours . ' Hours, ' . ((int) $minutes % 60) . "Minutes";
         }
-
         return $days . 'Days, ' . $hours . ' Hours, ' .  $minutes % 60 . "Minutes";
     }
 

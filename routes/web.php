@@ -47,7 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/shipyard', 'BuildingController@indexShipyard');
 
     Route::post('/building/{building}/upgrade', 'BuildingController@upgrade');
-	
+
+    Route::get('/building/{building}/cost', 'BuildingController@cost');
+
     //Route::get('/planet-overview/{planet}', 'HomeController@indexPlanetOverview');
     Route::get('/launch-attack/{from_planet}/{to_planet}', 'HomeController@indexLaunchAttack');
     Route::post('/launch-attack/{from_planet}/{to_planet}', 'HomeController@attack');
