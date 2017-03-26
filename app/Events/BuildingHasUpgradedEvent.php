@@ -16,7 +16,7 @@ class BuildingHasUpgradedEvent implements ShouldBroadcast{
     /**
      * Create a new event instance.
      *
-      * @param $user_id
+     * @param $id
      */
     public function __construct($id)
     {

@@ -27,7 +27,7 @@ class Travel extends Model
      * @var array
      */
     protected $dates = [
-       'departure', 'arrival'
+        'departure', 'arrival'
     ] ;
 
     /**
@@ -39,12 +39,28 @@ class Travel extends Model
         'fleet' => 'array',
     ];
 
+    /**
+     * Get the origin planet of this Travel.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function fromPlanet(){
         return $this->hasOne('App\Planet', 'id', 'from_planet_id');
     }
 
+    /**
+     * Get the destination planet of this Travel.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function toPlanet(){
         return $this->hasOne('App\Planet', 'id', 'to_planet_id');
+    }
+
+    public function setResources($metal, $crystal, $energy){
+        $this->metal = $metal;
+        $this->crystal = $crystal;
+        $this->energy = $energy;
     }
 
     /**
@@ -53,10 +69,14 @@ class Travel extends Model
     public function getTravelPercent(){
         $current = Carbon::now()->timestamp - $this->departure->timestamp;
         $difference = $this->arrival->timestamp - $this->departure->timestamp;
-
         return 100 * ($current / $difference);
     }
 
+    /**
+     * Get the percent rate per second that this fleet is Traveling at.
+     *
+     * @return float|int
+     */
     public function getPercentRatePerSecond(){
         $difference = $this->arrival->timestamp - $this->departure->timestamp;
         return 100 / $difference;
@@ -73,10 +93,11 @@ class Travel extends Model
         $this->to_planet_id = $to_planet->id;
         $this->modifyTravelFleet($fleet);
         $this->departure = Carbon::now();
-        $this->arrival = Carbon::now()->addMinutes($this->calculateTravelTime($from_planet, $to_planet));
+        $this->arrival = Carbon::now()->addMinutes($from_planet->calculateDistanceToOtherPlanet($to_planet));
         $this->save();
 
-        dispatch((new TravelCompleted($this))->delay(Carbon::now()->addMinutes($this->calculateTravelTime($from_planet, $to_planet))));
+        dispatch((new TravelCompleted($this))->delay(Carbon::now()->addMinutes($from_planet->calculateDistanceToOtherPlanet($to_planet))));
+        $from_planet->removeShipsFromPlanetFleet($this->fleet);
     }
 
     /**
@@ -84,11 +105,16 @@ class Travel extends Model
      */
     public function travelIsComplete(){
         if($this->type == 'attacking'){
-            // Dispatch attack job.
+            // TODO: Dispatch attack job.
 
         }else if($this->type == 'returning') {
+            // Return fleet to Planet
+            $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
 
-            // Return fleet to planet, add resources if fleet has any.
+            // Add resources won from battle.
+            $this->toPlanet()->first()->setResources($this->metal, $this->crystal, $this->energy);
+
+            // Notify that fleet has returned.
             $notification = new Notification();
             $notification->sendFleetHasReturnedNotification($this);
         }
@@ -99,7 +125,7 @@ class Travel extends Model
      * @param Planet $to_planet
      * @return int
      */
-    public function calculateTravelTime(Planet $from_planet, Planet $to_planet){
+    public static function calculateTravelTime(Planet $from_planet, Planet $to_planet){
         $loc1 = $from_planet->SolarSystem()->first()->location;
         $loc2 = $to_planet->SolarSystem()->first()->location;
         $x1 = $loc1[0];
@@ -116,7 +142,7 @@ class Travel extends Model
 
         $time_distance = ceil((sqrt($dx + $dy) * $rate));
 
-        return intval($time_distance);
+        return intval($time_distance / GlobalRate::getGlobalTravelSpeed());
     }
 
     /**
@@ -128,32 +154,11 @@ class Travel extends Model
      * @param array $fleet
      */
     public function modifyTravelFleet($fleet){
-
         $temp_fleet = [];
         array_push($temp_fleet, $fleet['fighters'], $fleet['bombers'], $fleet['corvettes'], $fleet['frigates'], $fleet['destroyers']);
 
         $this->fleet = $temp_fleet;
         return;
-
-        /*
-         * This loop is just to increment/decrement the amount if the ship type
-         * is already in this travel fleet. Otherwise it will add the new one at the end.
-         */
-//        $copy_fleet = $this->fleet;
-//        for($i = 0; $i < $copy_fleet; $i++){
-//            if($copy_fleet[$i]['type'] == $type){
-//                $copy_fleet[$i]['amount'] = $amount;
-//                $this->fleet = $copy_fleet;
-//                return;
-//            }else if($i == count($copy_fleet) -1){
-//                array_push($copy_fleet, ["type" => $type, 'amount'=>$amount]);
-//                $this->fleet = $copy_fleet;
-//                return;
-//            }
-//        }
-//
-//        // If the currently fleet is empty, it will default to this.
-//        $this->fleet = [["type" => $type, 'amount'=>$amount]];
     }
 
 

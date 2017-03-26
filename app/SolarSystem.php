@@ -32,7 +32,7 @@ class SolarSystem extends Model
      */
     public function planets()
     {
-        return $this->hasMany('App\Plant');
+        return $this->hasMany('App\Planet');
     }
 
 }

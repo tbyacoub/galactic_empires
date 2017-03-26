@@ -16,7 +16,8 @@ class PlanetController extends Controller
      */
     public function index()
     {
-        
+        $planets = Auth::user()->planets()->get();
+        return view('planet_overview_view', compact('planets'));
     }
 
     /**
@@ -60,7 +61,7 @@ class PlanetController extends Controller
      */
     public function show(Planet $planet)
     {
-        //
+        return view('planet_view', compact('planet'));
     }
 
     /**

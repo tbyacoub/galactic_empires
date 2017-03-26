@@ -139,7 +139,6 @@ class Building extends Model
             && ($planet->crystal() >= $this->getCrystalCostToUpgrade())
             && ($planet->energy() >= $this->getCrystalCostToUpgrade());
     }
-
     /**
      * Decrement the resources cost of upgrading this building.
      */
@@ -150,40 +149,38 @@ class Building extends Model
         $energy_remainder = $planet->energy() - $this->getEnergyCostToUpgrade();
         $this->planet()->first()->setResources($metal_remainder, $crystal_remainder, $energy_remainder);
     }
-
+    public function getFormattedBuildingCost(){
+        return 'Metal: ' . $this->getMetalCostToUpgrade() . ', ' .
+            'Energy: ' . $this->getEnergyCostToUpgrade() . ', ' .
+            'Crystal: ' . $this->getCrystalCostToUpgrade();
+    }
     /**
      * Get the Metal cost of upgrading this building.
      * @return float|int
      */
     public function getMetalCostToUpgrade(){
-        $gr = \App\GlobalRate::first();
         $base_metal = $this->upgrade()->first()->base_metal;
         $rate_metal = $this->upgrade()->first()->rate_metal;
-        return $this->getLevel() * $base_metal * $rate_metal / $gr->building_cost_rate;
+        return $this->getLevel() * $base_metal * $rate_metal / GlobalRate::getGlobalBuildCostRate();
     }
-
     /**
      * Get the Energy cost of upgrading this building.
      * @return float|int
      */
     public function getEnergyCostToUpgrade(){
-        $gr = \App\GlobalRate::first();
         $base_energy = $this->upgrade()->first()->base_energy;
         $rate_energy = $this->upgrade()->first()->rate_energy;
-        return $this->getLevel() * $base_energy * $rate_energy / $gr->building_cost_rate;
+        return $this->getLevel() * $base_energy * $rate_energy / GlobalRate::getGlobalBuildCostRate();
     }
-
     /**
      * Get the Crystal cost of upgrading this building.
      * @return float|int
      */
     public function getCrystalCostToUpgrade(){
-        $gr = \App\GlobalRate::first();
         $base_crystal = $this->upgrade()->first()->base_crystal;
         $rate_crystal = $this->upgrade()->first()->rate_crystal;
-        return $this->getLevel() * $base_crystal * $rate_crystal / $gr->building_cost_rate;
+        return $this->getLevel() * $base_crystal * $rate_crystal / GlobalRate::getGlobalBuildCostRate();
     }
-
     /**
      * Called after BuildingUpgraded event.
      *
@@ -191,7 +188,6 @@ class Building extends Model
      */
     public function setProduct(){
         $name = $this->description()->first()->name;
-
         switch ($name){
             case "metal_storage":
                 $this->planet()->first()->updateMetalStorage();
@@ -202,7 +198,21 @@ class Building extends Model
             case "energy_storage":
                 $this->planet()->first()->updateEnergyStorage();
                 break;
-
+            case "frigate_shipyard":
+                $this->planet()->first()->updateFrigateCapacity();
+                break;
+            case "corvette_shipyard":
+                $this->planet()->first()->updateCorvetteCapacity();
+                break;
+            case "destroyer_shipyard":
+                $this->planet()->first()->updateDestroyerCapacity();
+                break;
+            case "fighter_shipyard":
+                $this->planet()->first()->updateFighterCapacity();
+                break;
+            case "bomber_shipyard":
+                $this->planet()->first()->updateBomberCapacity();
+                break;
         }
     }
 

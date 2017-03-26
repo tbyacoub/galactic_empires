@@ -170,15 +170,12 @@ class Planet extends Model
      */
     public function updateMetalStorage(){
         $metal_storage = $this->metalStorageBuilding();
-
         $level = $metal_storage->current_level;
         $base = $metal_storage->product->characteristics['storage_base'];
         $rate = $metal_storage->product->characteristics['storage_base_rate'];
-
         $this->metal_storage = ($level * $base * $rate);
         $this->save();
     }
-
     /**
      * Updates the new storage capacity of this planet, based on the current level this storage building.
      *
@@ -186,15 +183,12 @@ class Planet extends Model
      */
     public function updateCrystalStorage(){
         $crystal_storage = $this->crystalStorageBuilding();
-
         $level = $crystal_storage->current_level;
         $base = $crystal_storage->product->characteristics['storage_base'];
         $rate = $crystal_storage->product->characteristics['storage_base_rate'];
-
         $this->crystal_storage = ($level * $base * $rate);
         $this->save();
     }
-
     /**
      * Updates the new storage capacity of this planet, based on the current level this storage building.
      *
@@ -202,12 +196,50 @@ class Planet extends Model
      */
     public function updateEnergyStorage(){
         $energy_storage = $this->energyStorageBuilding();
-
         $level = $energy_storage->current_level;
         $base = $energy_storage->product->characteristics['storage_base'];
         $rate = $energy_storage->product->characteristics['storage_base_rate'];
-
         $this->energy_storage = ($level * $base * $rate);
+        $this->save();
+    }
+    public function updateFrigateCapacity(){
+        $frigate_shipyard = $this->frigateShipyardBuilding();
+        $level = $frigate_shipyard->current_level;
+        $base = $frigate_shipyard->product->characteristics['capacity_base'];
+        $rate = $frigate_shipyard->product->characteristics['capacity_rate'];
+        $this->frigate_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+    public function updateCorvetteCapacity(){
+        $corvette_shipyard = $this->frigateShipyardBuilding();
+        $level = $corvette_shipyard->current_level;
+        $base = $corvette_shipyard->product->characteristics['capacity_base'];
+        $rate = $corvette_shipyard->product->characteristics['capacity_rate'];
+        $this->corvette_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+    public function updateDestroyerCapacity(){
+        $destroyer_shipyard = $this->frigateShipyardBuilding();
+        $level = $destroyer_shipyard->current_level;
+        $base = $destroyer_shipyard->product->characteristics['capacity_base'];
+        $rate = $destroyer_shipyard->product->characteristics['capacity_rate'];
+        $this->destroyer_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+    public function updateFighterCapacity(){
+        $fighter_shipyard = $this->frigateShipyardBuilding();
+        $level = $fighter_shipyard->current_level;
+        $base = $fighter_shipyard->product->characteristics['capacity_base'];
+        $rate = $fighter_shipyard->product->characteristics['capacity_rate'];
+        $this->fighter_capacity = ($level * $base * $rate);
+        $this->save();
+    }
+    public function updateBomberCapacity(){
+        $bomber_shipyard = $this->bomberShipyardBuilding();
+        $level = $bomber_shipyard->current_level;
+        $base = $bomber_shipyard->product->characteristics['capacity_base'];
+        $rate = $bomber_shipyard->product->characteristics['capacity_rate'];
+        $this->bomber_capacity = ($level * $base * $rate);
         $this->save();
     }
 
@@ -242,6 +274,25 @@ class Planet extends Model
         $value = $this->energy() + $amount;
         $value = ($this->energy() + $amount < 0) ? 0 : min($value, $this->energy_storage) ;
         $this->setResources($this->metal(), $this->crystal(), $value);
+    }
+
+    public function removeShipsFromPlanetFleet($fleet){
+        $this->numFighters = $this->numFighters - $fleet[0];
+        $this->numBombers = $this->numBombers - $fleet[1];
+        $this->numCorvettes = $this->numCorvettes - $fleet[2];
+        $this->numFrigates = $this->numFrigates - $fleet[3];
+        $this->numDestroyers = $this->numDestroyers - $fleet[4];
+        $this->save();
+
+    }
+
+    public function addShipsToPlanetFleet($fleet){
+        $this->numFighters = $this->numFighters + $fleet[0];
+        $this->numBombers = $this->numBombers + $fleet[1];
+        $this->numCorvettes = $this->numCorvettes + $fleet[2];
+        $this->numFrigates = $this->numFrigates + $fleet[3];
+        $this->numDestroyers = $this->numDestroyers + $fleet[4];
+        $this->save();
     }
 
 }

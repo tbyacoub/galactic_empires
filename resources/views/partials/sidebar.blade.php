@@ -15,7 +15,7 @@
             </li>
 
             <li class="mt">
-                <a class="{{ Request::path() ==  'planet-overview' ? 'active' : ''  }}" href="{{ url('planet-overview') }}">
+                <a class="{{ Request::path() ==  'planets' ? 'active' : ''  }}" href="{{ url('/planets') }}">
                     <i class="fa fa-globe"></i>
                     <span>Planet Overview</span>
                 </a>

@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Events\ResourceUpdatedEvent;
+use App\GlobalRate;
+use App\Planet;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -16,7 +18,6 @@ class UpdateResources implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -31,8 +32,8 @@ class UpdateResources implements ShouldQueue
      */
     public function handle()
     {
-       $planets = \App\Planet::get();
-       $global =  \App\GlobalRate::first();
+       $planets = Planet::get();
+       $global =  GlobalRate::first();
        foreach ($planets as $planet)
        {
            $metal = $planet->metal();

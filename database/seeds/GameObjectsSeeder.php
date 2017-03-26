@@ -14,72 +14,72 @@ class GameObjectsSeeder extends Seeder
         $this->planetSeeder();
         $this->buildingSeeder();
     }
-	
-	private function genGalaxyLocations($num_systems, $num_arms)
-	{
-		// Random seed.
-		mt_srand(10);
-		
-		$armSeparationDistance = 2 * M_PI / $num_arms;
-		$armOffsetMax = 1.0;
-		$rotationFactor = $num_arms;
-		$randomOffsetXY = 0.05;
-		
-		$coords = array();
-		
-		for ($i = 0; $i < $num_systems; $i++)
-		{
-			$distance = mt_rand(1, 400) + 20;
-			
-			$angle = ((float)mt_rand() / (float)mt_getrandmax()) * 2.0 * M_PI;
-			$armOffset = ((float)mt_rand() / (float)mt_getrandmax()) * $armOffsetMax;
-			$armOffset = $armOffset - $armOffsetMax / 2;
-			$armOffset = $armOffset * (1.0 / (float)$distance);
-			
-			$squaredArmOffset = pow($armOffset, 2);
-			if ($armOffset < 0)
-			{
-				$squaredArmOffset = $squaredArmOffset * -1.0;
-			}
-			$armOffset = $squaredArmOffset;
-			
-			$rotation = (float)$distance * (float)$rotationFactor;
-			
-			$angle = (int)($angle / $armSeparationDistance) * $armSeparationDistance + $armOffset + $rotation;
-			
-			// Convert polar to cartesion coordinates.
-			$systemX = cos($angle) * $distance;
-			$systemY = sin($angle) * $distance;
-			
-			$randomOffsetX = ((float)mt_rand() / (float)mt_getrandmax()) * $randomOffsetXY;
-			$randomOffsetY = ((float)mt_rand() / (float)mt_getrandmax()) * $randomOffsetXY;
-			
-			$systemX += $randomOffsetX;
-			$systemY += $randomOffsetY;
-			
-			$system_coord = array();
-			array_push($system_coord, $systemX);
-			array_push($system_coord, $systemY);
-			
-			array_push($coords, $system_coord);
-		}
-		
-		return $coords;
-	}
+
+    private function genGalaxyLocations($num_systems, $num_arms)
+    {
+        // Random seed.
+        mt_srand(10);
+
+        $armSeparationDistance = 2 * M_PI / $num_arms;
+        $armOffsetMax = 1.0;
+        $rotationFactor = $num_arms;
+        $randomOffsetXY = 0.05;
+
+        $coords = array();
+
+        for ($i = 0; $i < $num_systems; $i++)
+        {
+            $distance = mt_rand(1, 400) + 20;
+
+            $angle = ((float)mt_rand() / (float)mt_getrandmax()) * 2.0 * M_PI;
+            $armOffset = ((float)mt_rand() / (float)mt_getrandmax()) * $armOffsetMax;
+            $armOffset = $armOffset - $armOffsetMax / 2;
+            $armOffset = $armOffset * (1.0 / (float)$distance);
+
+            $squaredArmOffset = pow($armOffset, 2);
+            if ($armOffset < 0)
+            {
+                $squaredArmOffset = $squaredArmOffset * -1.0;
+            }
+            $armOffset = $squaredArmOffset;
+
+            $rotation = (float)$distance * (float)$rotationFactor;
+
+            $angle = (int)($angle / $armSeparationDistance) * $armSeparationDistance + $armOffset + $rotation;
+
+            // Convert polar to cartesion coordinates.
+            $systemX = cos($angle) * $distance;
+            $systemY = sin($angle) * $distance;
+
+            $randomOffsetX = ((float)mt_rand() / (float)mt_getrandmax()) * $randomOffsetXY;
+            $randomOffsetY = ((float)mt_rand() / (float)mt_getrandmax()) * $randomOffsetXY;
+
+            $systemX += $randomOffsetX;
+            $systemY += $randomOffsetY;
+
+            $system_coord = array();
+            array_push($system_coord, $systemX);
+            array_push($system_coord, $systemY);
+
+            array_push($coords, $system_coord);
+        }
+
+        return $coords;
+    }
 
     public function planetSeeder()
     {
-		$num_systems = 500;
-		
-		$system_coordinates = $this->genGalaxyLocations($num_systems, 4);
-		
-		for ($i = 0; $i < $num_systems; $i++)
-		{
-			factory(\App\SolarSystem::class)->create([
-				'location' => $system_coordinates[$i]
-			]);
-		}
-		
+        $num_systems = 500;
+
+        $system_coordinates = $this->genGalaxyLocations($num_systems, 4);
+
+        for ($i = 0; $i < $num_systems; $i++)
+        {
+            factory(\App\SolarSystem::class)->create([
+                'location' => $system_coordinates[$i]
+            ]);
+        }
+
         factory(\App\PlanetType::class, 5)->create();
         $users = \App\User::all();
         foreach($users as $user){
@@ -104,6 +104,8 @@ class GameObjectsSeeder extends Seeder
         $fsy = $this->frigateShipyard();
         $csy = $this->corvetteShipyard();
         $dsy = $this->destroyerShipyard();
+        $fisy = $this->fighterShipyard();
+        $bsy = $this->bomberShipyard();
 
         $mmu = $this->metalMineUpgrade();
         $cmu = $this->crystalMineUpgrade();
@@ -118,6 +120,8 @@ class GameObjectsSeeder extends Seeder
         $fsyu = $this->frigateShipyardUpgrade();
         $csyu = $this->corvetteShipyardUpgrade();
         $dsyu = $this->destroyerShipyardUpgrade();
+        $fisyu = $this->fighterShipyardUpgrade();
+        $bsyu = $this->bomberShipyardUpgrade();
 
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
@@ -132,6 +136,8 @@ class GameObjectsSeeder extends Seeder
         $fsyp = $this->frigateShipyardProduct();
         $csyp = $this->corvetteShipyardProduct();
         $dsyp = $this->destroyerShipyardProduct();
+        $fisyp = $this->fighterShipyardProduct();
+        $bsyp = $this->bomberShipyardProduct();
 
 
         foreach ($planets as $planet) {
@@ -148,6 +154,8 @@ class GameObjectsSeeder extends Seeder
             $this->createBuildings($planet, $fsy, $fsyu, $fsyp);
             $this->createBuildings($planet, $csy, $csyu, $csyp);
             $this->createBuildings($planet, $dsy, $dsyu, $dsyp);
+            $this->createBuildings($planet, $fisy, $fisyu, $fisyp);
+            $this->createBuildings($planet, $bsy, $bsyu, $bsyp);
         }
     }
 
@@ -171,6 +179,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "metal_mine";
         $description->display_name = "Metal Mine";
+        $description->description = "Produces metal over time";
         $description->type = "resource";
         $description->img_path = "/img/building/quartz.svg";
         $description->save();
@@ -181,6 +190,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "crystal_mine";
         $description->display_name = "Crystal Mine";
+        $description->description = "Produces crystal over time";
         $description->type = "resource";
         $description->img_path = "/img/building/diamond-outlined-shape.svg";
         $description->save();
@@ -191,6 +201,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "energy_reactor";
         $description->display_name = "Energy Reactor";
+        $description->description = "Produces energy over time";
         $description->type = "resource";
         $description->img_path = "/img/building/lightning-electric-energy.svg";
         $description->save();
@@ -201,6 +212,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "anti_air_missile";
         $description->display_name = "Anti-air Missiles";
+        $description->description = "Defends Planet against enemy attacks";
         $description->type = "planetary_defense";
         $description->img_path = "/img/building/missile.svg";
         $description->save();
@@ -211,6 +223,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "plasma_turret";
         $description->display_name = "Plasma Turret";
+        $description->description = "Defends Planet against enemy attacks";
         $description->type = "planetary_defense";
         $description->img_path = "/img/building/machine-gun.svg";
         $description->save();
@@ -222,6 +235,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = 'metal_storage';
         $description->display_name = 'Metal Storage';
+        $description->description = "Increases Storage capacity for metal";
         $description->type = 'facility';
         $description->img_path = '/img/building/metal-storage.svg';
         $description->save();
@@ -233,6 +247,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = 'crystal_storage';
         $description->display_name = 'Crystal Storage';
+        $description->description = "Increases Storage capacity for crystal";
         $description->type = 'facility';
         $description->img_path = '/img/building/crystal-storage.svg';
         $description->save();
@@ -244,6 +259,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = 'energy_storage';
         $description->display_name = 'Energy Plant';
+        $description->description = "Increases Storage capacity for energy";
         $description->type = 'facility';
         $description->img_path = '/img/building/energy-plant.svg';
         $description->save();
@@ -254,6 +270,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "research_station";
         $description->display_name = "Research Station";
+        $description->description = "Provides bonuses for Fleets";
         $description->type = "research";
         $description->img_path = "/img/building/research.svg";
         $description->save();
@@ -264,6 +281,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "alloy_lab";
         $description->display_name = "Alloy Lab";
+        $description->description = "Provides bonuses for Resources";
         $description->type = "research";
         $description->img_path = "/img/building/flask-outline.svg";
         $description->save();
@@ -274,6 +292,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "frigate_shipyard";
         $description->display_name = "Frigates Shipyard";
+        $description->description = "Increases Frigate's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -285,6 +304,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "corvette_shipyard";
         $description->display_name = "Corvettes Shipyard";
+        $description->description = "Increases Corvette's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -296,6 +316,31 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "destroyer_shipyard";
         $description->display_name = "Destroyers Shipyard";
+        $description->description = "Increases Destroyer's capacity for this Planet";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function fighterShipyard()
+    {
+        $description = new \App\Description();
+        $description->name = "fighter_shipyard";
+        $description->display_name = "Fighters Shipyard";
+        $description->description = "Increases Fighter's capacity for this Planet";
+        $description->type = "shipyard";
+        $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
+        $description->save();
+        return $description;
+    }
+
+    private function bomberShipyard()
+    {
+        $description = new \App\Description();
+        $description->name = "bomber_shipyard";
+        $description->display_name = "Bombers Shipyard";
+        $description->description = "Increases Bomber's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -514,6 +559,38 @@ class GameObjectsSeeder extends Seeder
         return $upgrade;
     }
 
+    private function fighterShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 2;
+        $upgrade->save();
+        return $upgrade;
+    }
+
+    private function bomberShipyardUpgrade()
+    {
+        $upgrade = new App\Upgrade();
+        $upgrade->max_level = 10;
+        $upgrade->base_metal = 100;
+        $upgrade->base_crystal = 100;
+        $upgrade->base_energy = 100;
+        $upgrade->rate_metal = 2;
+        $upgrade->rate_crystal = 2;
+        $upgrade->rate_energy = 2;
+        $upgrade->base_minutes = 1;
+        $upgrade->rate_minutes = 2;
+        $upgrade->save();
+        return $upgrade;
+    }
+
     /**
      * PRODUCTS START
      */
@@ -640,8 +717,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'attack_bonus' => 1.15,
-            'health_bonus' => 1.15,
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
         ];
         $product->save();
         return $product;
@@ -651,8 +728,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'attack_bonus' => 1.1,
-            'health_bonus' => 1.1,
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
         ];
         $product->save();
         return $product;
@@ -662,13 +739,34 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'attack_bonus' => 1.05,
-            'health_bonus' => 1.05,
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
         ];
         $product->save();
         return $product;
     }
 
+    private function fighterShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
+        ];
+        $product->save();
+        return $product;
+    }
+
+    private function bomberShipyardProduct()
+    {
+        $product = new App\Product();
+        $product->characteristics = [
+            'capacity_base' => 10,
+            'capacity_rate' => 1.5,
+        ];
+        $product->save();
+        return $product;
+    }
 
     private function fleetSeeder()
     {

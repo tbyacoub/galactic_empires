@@ -5,29 +5,18 @@
 	<div class="row mt">
         <div class="col-lg-9">
 		
-		{{-- Empire Overview Template specific elements start. --}}
-		
 		<div id='solar-system-view-container'>
 		
 			<div id='planets-view-container'>
 				<div id='planets-view-inner-container'>
-				
-				
-					@foreach ($systemPlanets as $planet)
-					
+					@foreach ($solarSystem->planets()->get() as $planet)
+
 						<div class='planet-view-cell'>
-							<img class='planet-view-planet-image' src='{{ URL::asset($planet->img_path) }}' onclick='RedirectToPlanetView({{ $planet->id }})'/>
+							<img class='planet-view-planet-image' src='{{ URL::asset($planet->planetType()->first()->img_path) }}' onclick='RedirectToPlanetView({{ $planet->id }})'/>
 							<p class='planet-view-planet-name'>{{ $planet->name }}</p>
 						</div>
-					
+
 					@endforeach
-				
-					{{-- Planet cell template.
-					<div class='planet-view-cell'>
-						<img class='planet-view-planet-image' src='{{ URL::asset(<Image path>) }}' onclick='RedirectToPlanetView(<planet id>)'/>
-						<p class='planet-view-planet-name'>Planet Name</p>
-					</div>
-					--}}
 				</div>
 			</div>
 			
@@ -39,10 +28,7 @@
 		
 		</div>
 		
-		{{-- Empire Overview Template specific elements end. --}}
-		
 		</div>
-        {{--@include('partials.right-sidebar')--}}
     </div>
 	
 	<script type='text/javascript'>
@@ -55,7 +41,7 @@
 	
 		function RedirectToPlanetView(planet_id)
 		{
-			window.location.href = ('/galaxy-map/{{ $system_id }}/' + planet_id);
+			window.location.href = ('/planets/' + planet_id);
 		}
 	</script>
 

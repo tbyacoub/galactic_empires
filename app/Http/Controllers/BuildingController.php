@@ -87,7 +87,8 @@ class BuildingController extends Controller
     {
         if($building->upgradeable()){
             $building->setUpgrading(true);
-            dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes(1)));
+            $building->decrementBuildingCost();
+            dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes($building->upgradeTime())));
         }
     }
 
@@ -100,5 +101,10 @@ class BuildingController extends Controller
     public function destroy(Building $building)
     {
         //
+    }
+
+    public function cost(Building $building)
+    {
+        return $building->getFormattedBuildingCost();
     }
 }

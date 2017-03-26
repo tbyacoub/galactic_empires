@@ -1,10 +1,10 @@
 <template>
     <div class="col-lg-12">
         <div class="row">
-            <div v-for="building in buildings" class="col-lg-4 col-md-4 col-sm-4 mb">
+			<div v-for="(building, index) in buildings" class="col-lg-4 col-md-4 col-sm-4 mb">
 				<div class="content-panel pn">
 					<div id="spotify" :style="{ 'background': 'url(' + building.description.img_path + ') no-repeat center top' }">
-						<div class="col-xs-4 col-xs-offset-8" v-if="building.current_level < building.upgrade.max_level">
+						<div v-bind:title="costs[index]" class="col-xs-4 col-xs-offset-8" v-if="building.current_level < building.upgrade.max_level">
 							<button v-if="!building.is_upgrading" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.id)"><a>UPGRADE</a></button>
                             <button v-else="!building.is_upgrading" class="btn btn-sm btn-clear-g" disabled=""><a>UPGRADING</a></button>
 						</div>
@@ -23,12 +23,16 @@
 
     import { EventBus } from '../eventBus.js';
 
+	$(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
     export default{
         data() {
             return{
                 buildings: [],
 				planetId: 0,
-				active: false,
+				costs: [],
             }
         },
         props: {
@@ -45,7 +49,16 @@
             getBuildings(id) {
                 this.$http.get('/planets/' + id + '/buildings/' + this.buildingType).then(response => {
 					this.buildings = response.body;
+					this.getBuildingCosts();
                 });
+            },
+            getBuildingCosts(){
+                for(var i = 0; i < this.buildings.length; i++){
+                    this.$http.get('/building/'+ this.buildings[i].id + '/cost').then(response => {
+                        //this.buildings[i].formatted_cost =  response.body;
+                        this.costs.push(response.body);
+                    });
+                }
             },
 			EmitPlanetUpdateEvent() {
                 EventBus.$emit('update-planet', this.planetId);
