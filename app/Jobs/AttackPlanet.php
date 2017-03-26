@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class AttackPlanet implements ShouldQueue
 {
 
-    private $attacker, $defender, $healthAtt = [], $healthDef = [];
+    private $attackingPlanetID, $defendingPlanetID, $attacker = [], $defender = [], $healthAtt = [], $healthDef = [];
 
 
 
@@ -21,20 +21,35 @@ class AttackPlanet implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Planet $attack, Planet $defence)
+    public function __construct($attackers, $attackID, $deffendID) //attckers will come in with travel->fleet, make a new travel back with the returning ships
     {
-        $attacker = $attack->fleets()->get();
-        $defender = $defence->fleets()->get();
-        $i = 0;
-        foreach($attacker as $ship)
+        $this->$attackingPlanetID = $attackID;
+        $this->$defendingPlanetID = $deffendID;
+        $this->$attacker = $attackers; //form of [1,2,3,4,5] = 1 fighter, 2 bombers, etc
+        $planet = \App\Planet::where('id', $defendingPlanetID);
+        $defender[0] = $planet->numfighters;
+        $defender[1] = $planet->numBombers;
+        $defender[2] = $planet->numCorvettes;
+        $defender[3] = $planet->numFrigates;
+        $defender[4] = $planet->numDestroyers;
+        for($i = 0; $i < 5; $i++)
         {
-            healthAtt[$i++] = $ship->health;
+            $healthAtt[$i] = App\Fleet::where('id', $i)->first()->health;
+            $healthDef[$i] = $healthAtt[$i];
         }
-        $i = 0;
-        foreach($defender as $ship)
-        {
-            healthDef[$i++] = $ship->health;
-        }
+
+        // $attacker = $attack->fleets()->get();
+        // $defender = $defence->fleets()->get();
+        // $i = 0;
+        // foreach($attacker as $ship)
+        // {
+        //     healthAtt[$i++] = $ship->health;
+        // }
+        // $i = 0;
+        // foreach($defender as $ship)
+        // {
+        //     healthDef[$i++] = $ship->health;
+        // }
     }
 
     /**
@@ -47,90 +62,97 @@ class AttackPlanet implements ShouldQueue
         //three rounds to fight
         for($i = 0; $i < 3; $i++)
         {
-            if (sizeof($defender) == 0)
+            if(defeated())
             {
-               break;
+                break;
             }
-            attack($this->$attacker, $this->$defender);
-            attack($this->$defender, $this->$attacker);
-        }
-        if (sizeof($defender) == 0)
-        {
-           success();
-        }
-        else
-        {
-            failure();
-        }
-
-    }
-
-
-    public function attack($attack, $defend)
-    {
-        foreach($attack as $ship)
-        {
-            $type = $defend->first()->type;
-            $mult = $ship->multipliers[$type];
-            foreach($defend as $defShip)
+            //each ship type attacks
+            for($j = 0; $j < 5; $j++)
             {
-                if($mult < $ship->multipliers[$type])
+                for($k = 0; $k < attacker[$j]; $k++) //each ship in the fleet attacks
                 {
-                    $mult = $ship->multipliers[$type];
-                    $type = $ship->type;
+                    $ship = \App\Fleet::where('id', $j)->first();
+                    $id = findEnemy($ship);
+                    $enemy = \App\Fleet::where('id', $id);
+                    $damage = ($ship->attack * $ship->multipliers[$enemy->name]) - $enemy->defence;
+                    $healthDef[$id] = $healthDef[$id] - $damage; //defenders health is the prexisting health - damage done
+                    if($healthDef[$id] <= 0) //if health is <= 0 destroy the ship
+                    {
+                        $defender[$id] -= 1; 
+                        if($defender[$id] > 0) //if there are still ships of that type left in the fleet reset health
+                        {
+                            $healthDef[$id] = App\Fleet::where('id', $id)->first()->health;
+                        }
+                    }
+                    if($defender[$id] > 0) //if the defender still has ships of this type remaining, attack back
+                    {
+                        $damage = ($enemy->attack * $enemy->multipliers[$ship->name]) - $ship->defence;
+                        $healthAtt[$j] -= $damage;
+                        if($healthAtt[$j] <= 0)
+                        {
+                            $attacker[$j] -= 1;
+                        }
+                    }
                 }
-            }
-            $def = $defend->fleets()->get()->where('type', $type);
-            $damage = $def->defence - ($ship->attack * $mult); //switch this so it's positive
-            $def->health = $def->health - $damage;
-            if($def->health <= 0)
-            {
-                destroyShip($def);
+
             }
         }
-    }
-    //Attacker gets 90% of defenders resources
-    //Attackers ships go back to their planet
-    public function success()
-    {
-        returnShips();
-        $pdefender = $defender->planet();
-        $pattacker = $attacker->planet();
-        $metal = $pdefender->metal() * 0.9;
-        $crystal = $pdefender->crystal() * 0.9;
-        $energy = $pdefender->energy() * 0.9;
-        $pdefender->setResources(($metal / 9), ($crystal / 9), ($energy / 9));
-        $metal += $pattacker->metal();
-        $crystal += $pattacker->crystal();
-        $energy += $patacker->energy();
-        $pattacker->setResources($metal, $crystal, $energy);   
+
+        $travel = new Travel();
+        $metal = 0;
+        $crystal = 0;
+        $energy = 0;
+        if(defeated())
+        {
+            $pAttack = \App\Planet::where('id', 'attackingPlanetID');
+            $pDeffend = \App\Planet::where('id','defendingPlanetID');
+            $metal = $pDeffend->metal;
+            $crystal = $pDeffend->crystal;
+            $energy = $pDeffend->energy;
+            $pDeffend->setResources(($metal * 0.1), ($crystal * 0.1), ($energy * 0.1));
+            $metal *= 0.9;
+            $crystal *= 0.9;
+            $energy *= 0.9;
+        }
+    
+        //update defending planets fleets
+        $pDeffend->numfighters = $defender[0];
+        $pDeffend->numBombers = $defender[1];
+        $pDeffend->numCorvettes = $defender[2];
+        $pDeffend->numFrigates = $defender[3];
+        $pDeffend->numDestroyers = $defender[4];
+        //return attacking ships 
+        $travel->startTravel($pDeffend, $pAttack, $attacker, 'returning');
+
     }
 
-    //Defender gets 10% of attacker's resources
-    //Attackers ships go back to their planet
-    public function failure()
+    private function defeated()
     {
-        returnShips();
-        $pdefender = $defender->planet();
-        $dattacker = $attacker->planet();
-        $metal = $pattacker->metal() * 0.9;
-        $crystal = $pattacker->crystal() * 0.9;
-        $energy = $pattacker->energy() * 0.9;
-        $pattacker->setResources($metal, $crystal, $energy);
-        $metal = ($metal/9) + $pdefender->metal();
-        $crystal += ($crystal/9) + $pdefender->crystal();
-        $energy += ($energy / 9) + $pdefender->energy();
-        $pdefender->setResources($metal, $crystal, $energy);  
+        for($i = 0; $i < 5; $i++)
+        {
+            if($defender[$i] != 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public function returnShips()
+    private function findEnemy($ship)
     {
-        //TODO
-    }
-
-    public function destroyShip($ship)
-    {
-        //TODO
+        $mults = $ship->multipliers;
+        $i = 0;
+        $index = 0;
+        $max = 0.5;
+        foreach($mults as $mult)
+        {
+            if($mult > $max && $defender[$i] > 0)
+            {
+                $max = $mult;
+                $index = $i;
+            }
+        }
+        return $index;
     }
 
 }
