@@ -92,4 +92,9 @@ class BuildingController extends Controller
         }
     }
 
+    public function cost(Building $building)
+    {
+        return $building->getFormattedBuildingCost();
+    }
+
 }

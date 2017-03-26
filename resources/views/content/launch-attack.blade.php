@@ -22,7 +22,7 @@
         <div class="row content-panel">
             <div class="col-md-6 profile-text mt mb">
 
-                @if (count($errors) > 0)
+                @if (count($errors) > 0 )
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -37,35 +37,35 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Fighters <span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span></label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span> Fighters</label>
                         <div class="col-sm-4">
                             <input type="text" name="fighters" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Bombers <span class="badge bg-inverse">{{ $from_planet->numBombers }}</span></label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numBombers }}</span> Bombers</label>
                         <div class="col-sm-4">
                             <input type="text" name="bombers" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Corvettes <span class="badge bg-inverse">{{ $from_planet->numCorvettes }}</span></label>
+                        <label class="col-sm-3 col-sm-3 control-label"> <span class="badge bg-inverse">{{ $from_planet->numCorvettes }}</span> Corvettes</label>
                         <div class="col-sm-4">
                             <input type="text" name="corvettes" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Frigates <span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span></label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span> Frigates</label>
                         <div class="col-sm-4">
                             <input type="text" name="frigates" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Destroyers <span class="badge bg-inverse">{{ $from_planet->numDestroyers }}</span></label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numDestroyers }}</span> Destroyers</label>
                         <div class="col-sm-4">
                             <input type="text" name="destroyers" class="form-control">
                         </div>
@@ -82,10 +82,14 @@
 
                 <h4 class="mb"><i class="fa fa-angle-right"></i> Enemy Planet</h4>
                 <div>
-                    <h2>{{$to_planet->name}}</h2>
+                    <h1>{{$to_planet->name}}</h1>
+                </div>
+
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Time Distance</h4>
+                <div>
+                    <h2>{{ $from_planet->formattedTimeDistance($to_planet) }}</h2>
                 </div>
             </div>
-
 
         </div>
 

@@ -96,6 +96,7 @@ class Building extends Model
     public function isUpgrading(){
         return $this->is_upgrading;
     }
+
     /**
      * Returnss the upgrade duration of this building.
      *
@@ -104,7 +105,7 @@ class Building extends Model
     public function upgradeTime(){
         $time = $this->upgrade()->first()->base_minutes;
         $time_rate = $this->upgrade()->first()->rate_minutes;
-        return ($this->getLevel() * $time_rate) + $time;
+        return (($this->getLevel() * $time_rate) + $time) / GlobalRate::getGlobalBuildTimeRate();
     }
     /**
      * Increment the level of this building by one.
@@ -112,6 +113,7 @@ class Building extends Model
     public function incrementLevel(){
         $this->increment('current_level');
     }
+
     /**
      * Check if this planet can afford to upgrade this building.
      * @return bool, true if it can afford the upgrade, false otherwise.
@@ -122,6 +124,7 @@ class Building extends Model
             && ($planet->crystal() >= $this->getCrystalCostToUpgrade())
             && ($planet->energy() >= $this->getCrystalCostToUpgrade());
     }
+
     /**
      * Decrement the resources cost of upgrading this building.
      */
@@ -132,36 +135,41 @@ class Building extends Model
         $energy_remainder = $planet->energy() - $this->getEnergyCostToUpgrade();
         $this->planet()->first()->setResources($metal_remainder, $crystal_remainder, $energy_remainder);
     }
+
+    public function getFormattedBuildingCost(){
+        return 'Metal: ' . $this->getMetalCostToUpgrade() . ', ' .
+                'Energy: ' . $this->getEnergyCostToUpgrade() . ', ' .
+                'Crystal: ' . $this->getCrystalCostToUpgrade();
+    }
+
     /**
      * Get the Metal cost of upgrading this building.
      * @return float|int
      */
     public function getMetalCostToUpgrade(){
-        $gr = \App\GlobalRate::first();
         $base_metal = $this->upgrade()->first()->base_metal;
         $rate_metal = $this->upgrade()->first()->rate_metal;
-        return $this->getLevel() * $base_metal * $rate_metal / $gr->building_cost_rate;
+        return $this->getLevel() * $base_metal * $rate_metal / GlobalRate::getGlobalBuildCostRate();
     }
     /**
      * Get the Energy cost of upgrading this building.
      * @return float|int
      */
     public function getEnergyCostToUpgrade(){
-        $gr = \App\GlobalRate::first();
         $base_energy = $this->upgrade()->first()->base_energy;
         $rate_energy = $this->upgrade()->first()->rate_energy;
-        return $this->getLevel() * $base_energy * $rate_energy / $gr->building_cost_rate;
+        return $this->getLevel() * $base_energy * $rate_energy / GlobalRate::getGlobalBuildCostRate();
     }
     /**
      * Get the Crystal cost of upgrading this building.
      * @return float|int
      */
     public function getCrystalCostToUpgrade(){
-        $gr = \App\GlobalRate::first();
         $base_crystal = $this->upgrade()->first()->base_crystal;
         $rate_crystal = $this->upgrade()->first()->rate_crystal;
-        return $this->getLevel() * $base_crystal * $rate_crystal / $gr->building_cost_rate;
+        return $this->getLevel() * $base_crystal * $rate_crystal / GlobalRate::getGlobalBuildCostRate();
     }
+
     /**
      * Called after BuildingUpgraded event.
      *

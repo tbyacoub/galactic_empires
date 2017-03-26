@@ -155,7 +155,6 @@ class GameObjectsSeeder extends Seeder
             $this->createBuildings($planet, $fsy, $fsyu, $fsyp);
             $this->createBuildings($planet, $csy, $csyu, $csyp);
             $this->createBuildings($planet, $dsy, $dsyu, $dsyp);
-
             $this->createBuildings($planet, $fisy, $fisyu, $fisyp);
             $this->createBuildings($planet, $bsy, $bsyu, $bsyp);
         }
@@ -181,6 +180,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "metal_mine";
         $description->display_name = "Metal Mine";
+        $description->description = "Produces metal over time";
         $description->type = "resource";
         $description->img_path = "/img/building/quartz.svg";
         $description->save();
@@ -191,6 +191,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "crystal_mine";
         $description->display_name = "Crystal Mine";
+        $description->description = "Produces crystal over time";
         $description->type = "resource";
         $description->img_path = "/img/building/diamond-outlined-shape.svg";
         $description->save();
@@ -201,6 +202,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "energy_reactor";
         $description->display_name = "Energy Reactor";
+        $description->description = "Produces energy over time";
         $description->type = "resource";
         $description->img_path = "/img/building/lightning-electric-energy.svg";
         $description->save();
@@ -211,6 +213,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "anti_air_missile";
         $description->display_name = "Anti-air Missiles";
+        $description->description = "Defends Planet against enemy attacks";
         $description->type = "planetary_defense";
         $description->img_path = "/img/building/missile.svg";
         $description->save();
@@ -221,6 +224,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "plasma_turret";
         $description->display_name = "Plasma Turret";
+        $description->description = "Defends Planet against enemy attacks";
         $description->type = "planetary_defense";
         $description->img_path = "/img/building/machine-gun.svg";
         $description->save();
@@ -232,6 +236,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = 'metal_storage';
         $description->display_name = 'Metal Storage';
+        $description->description = "Increases Storage capacity for metal";
         $description->type = 'facility';
         $description->img_path = '/img/building/metal-storage.svg';
         $description->save();
@@ -243,6 +248,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = 'crystal_storage';
         $description->display_name = 'Crystal Storage';
+        $description->description = "Increases Storage capacity for crystal";
         $description->type = 'facility';
         $description->img_path = '/img/building/crystal-storage.svg';
         $description->save();
@@ -254,6 +260,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = 'energy_storage';
         $description->display_name = 'Energy Plant';
+        $description->description = "Increases Storage capacity for energy";
         $description->type = 'facility';
         $description->img_path = '/img/building/energy-plant.svg';
         $description->save();
@@ -264,6 +271,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "research_station";
         $description->display_name = "Research Station";
+        $description->description = "Provides bonuses for Fleets";
         $description->type = "research";
         $description->img_path = "/img/building/research.svg";
         $description->save();
@@ -274,6 +282,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "alloy_lab";
         $description->display_name = "Alloy Lab";
+        $description->description = "Provides bonuses for Resources";
         $description->type = "research";
         $description->img_path = "/img/building/flask-outline.svg";
         $description->save();
@@ -284,6 +293,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "frigate_shipyard";
         $description->display_name = "Frigates Shipyard";
+        $description->description = "Increases Frigate's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -295,6 +305,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "corvette_shipyard";
         $description->display_name = "Corvettes Shipyard";
+        $description->description = "Increases Corvette's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -306,6 +317,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "destroyer_shipyard";
         $description->display_name = "Destroyers Shipyard";
+        $description->description = "Increases Destroyer's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -317,6 +329,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "fighter_shipyard";
         $description->display_name = "Fighters Shipyard";
+        $description->description = "Increases Fighter's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
@@ -328,6 +341,7 @@ class GameObjectsSeeder extends Seeder
         $description = new \App\Description();
         $description->name = "bomber_shipyard";
         $description->display_name = "Bombers Shipyard";
+        $description->description = "Increases Bomber's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
         $description->save();
