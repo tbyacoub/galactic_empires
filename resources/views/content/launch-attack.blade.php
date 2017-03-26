@@ -22,7 +22,7 @@
         <div class="row content-panel">
             <div class="col-md-6 profile-text mt mb">
 
-                @if (count($errors) > 0)
+                @if (count($errors) > 0 )
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)

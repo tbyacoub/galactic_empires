@@ -50,6 +50,12 @@ class HomeController extends Controller
 
     public function attack(Planet $from_planet, Planet $to_planet, Request $request){
 
+        /* UNCOMMENT THIS FOR DEMO OR PRODUCTION
+        if($from_planet->user()->first()->id == $to_planet->user()->first()->id){
+            return back()->withErrors(["You can't attack your own Planet."]);
+        }
+        */
+
         $validator = Validator::make($request->all(), [
             'fighters' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
             'bombers' => 'min:0|max:'.$from_planet->numBombers.'|integer',

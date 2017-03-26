@@ -156,6 +156,24 @@ class Planet extends Model
         return $this->hasMany('\App\Fleet');
     }
 
+    public function removeShipsFromPlanetFleet($fleet){
+        $this->numFighters = $this->numFighters - $fleet[0];
+        $this->numBombers = $this->numBombers - $fleet[1];
+        $this->numCorvettes = $this->numCorvettes - $fleet[2];
+        $this->numFrigates = $this->numFrigates - $fleet[3];
+        $this->numDestroyers = $this->numDestroyers - $fleet[4];
+        $this->save();
+    }
+
+    public function addShipsToPlanetFleet($fleet){
+        $this->numFighters = $this->numFighters + $fleet[0];
+        $this->numBombers = $this->numBombers + $fleet[1];
+        $this->numCorvettes = $this->numCorvettes + $fleet[2];
+        $this->numFrigates = $this->numFrigates + $fleet[3];
+        $this->numDestroyers = $this->numDestroyers + $fleet[4];
+        $this->save();
+    }
+
     /**
      * Calculates distance from this Planet to other Planet
      *
@@ -190,6 +208,7 @@ class Planet extends Model
             $description->where('name', 'metal_storage');
         })->first();
     }
+
     /**
      * Gets the Crystal Storage Building of this planet.
      * @return \App\Building
@@ -199,6 +218,7 @@ class Planet extends Model
             $description->where('name', 'crystal_storage');
         })->first();
     }
+
     /**
      * Gets the Energy Storage Building of this planet.
      * @return \App\Building

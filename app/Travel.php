@@ -97,6 +97,7 @@ class Travel extends Model
         $this->save();
 
         dispatch((new TravelCompleted($this))->delay(Carbon::now()->addMinutes($from_planet->calculateDistanceToOtherPlanet($to_planet))));
+        $from_planet->removeShipsFromPlanetFleet($this->fleet);
     }
 
     /**
@@ -105,9 +106,15 @@ class Travel extends Model
     public function travelIsComplete(){
         if($this->type == 'attacking'){
             // TODO: Dispatch attack job.
+
         }else if($this->type == 'returning') {
-            // TODO: Return fleet to Planet
-            // TODO: Add victory resources to Planet (if any)
+            // Return fleet to Planet
+            $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
+
+            // Add resources won from battle.
+            $this->toPlanet()->first()->setResources($this->metal, $this->crystal, $this->energy);
+
+            // Notify that fleet has returned.
             $notification = new Notification();
             $notification->sendFleetHasReturnedNotification($this);
         }
