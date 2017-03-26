@@ -2,8 +2,8 @@ $(document).ready(function () {
     var from_travels = $('.from-travel-pb');
     var to_travels = $('.to-travel-pb');
 
-    var from_interval = window.setInterval(updateTravelBars(from_travels), 1000);
-    var to_interval = window.setInterval(updateTravelBars(to_travels), 1000);
+    var from_interval = window.setInterval(function(){ updateTravelBars(from_travels);}, 1000);
+    var to_interval = window.setInterval(function(){ updateTravelBars(to_travels);}, 1000);
 
     function updateTravelBars(travels) {
        $.each(travels, function (index, value) {
@@ -12,7 +12,6 @@ $(document).ready(function () {
             var width = parseFloat($(value).data('width'));
 
             var update = (width_ratio * travel_rate) + width;
-            console.log(width);
 
             $(value).data('width', update);
             $(value).css('width', update +"%");

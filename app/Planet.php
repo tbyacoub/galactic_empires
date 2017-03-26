@@ -1,12 +1,8 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Planet extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -15,7 +11,6 @@ class Planet extends Model
     protected $fillable = [
         'name', 'radius', 'resources', 'metal_storage', 'crystal_storage', 'energy_storage'
     ];
-
     /**
      * The attributes that should be casted to native types.
      *
@@ -24,7 +19,6 @@ class Planet extends Model
     protected $casts = [
         'resources' => 'array',
     ];
-
     /**
      * Returns the user that owns this planet.
      *
@@ -34,7 +28,6 @@ class Planet extends Model
     {
         return $this->belongsTo('App\User');
     }
-
     /**
      * Returns the solar system where this planet resides.
      *
@@ -44,7 +37,6 @@ class Planet extends Model
     {
         return $this->belongsTo('App\SolarSystem');
     }
-
     /**
      * Return the type of this planet.
      *
@@ -54,7 +46,6 @@ class Planet extends Model
     {
         return $this->belongsTo('App\PlanetType');
     }
-
     /**
      * Returns all the buildings on this planet.
      *
@@ -63,15 +54,12 @@ class Planet extends Model
     public function buildings(){
         return $this->hasMany('App\Building');
     }
-
     public function fromTravels(){
         return $this->hasMany('App\Travel', 'from_planet_id', 'id');
     }
-
     public function toTravels(){
         return $this->hasMany('App\Travel', 'to_planet_id', 'id');
     }
-
     /**
      * Returns all building in this planet that have type $type.
      *
@@ -99,7 +87,6 @@ class Planet extends Model
         ];
         $this->save();
     }
-
     /**
      * Sum of all planet's metal belonging to this User.
      *
@@ -108,7 +95,6 @@ class Planet extends Model
     public function metal(){
         return $this->resources['metal'];
     }
-
     /**
      * Sum of all planet's crystal belonging to this User.
      *
@@ -117,7 +103,6 @@ class Planet extends Model
     public function crystal(){
         return $this->resources['crystal'];
     }
-
     /**
      * Sum of all planet's energy belonging to this User.
      *
@@ -131,6 +116,49 @@ class Planet extends Model
     public function fleets()
     {
         return $this->hasMany('\App\Fleet');
+    }
+
+    public function removeShipsFromPlanetFleet($fleet){
+        $this->numFighters = $this->numFighters - $fleet[0];
+        $this->numBombers = $this->numBombers - $fleet[1];
+        $this->numCorvettes = $this->numCorvettes - $fleet[2];
+        $this->numFrigates = $this->numFrigates - $fleet[3];
+        $this->numDestroyers = $this->numDestroyers - $fleet[4];
+        $this->save();
+    }
+
+    public function addShipsToPlanetFleet($fleet){
+        $this->numFighters = $this->numFighters + $fleet[0];
+        $this->numBombers = $this->numBombers + $fleet[1];
+        $this->numCorvettes = $this->numCorvettes + $fleet[2];
+        $this->numFrigates = $this->numFrigates + $fleet[3];
+        $this->numDestroyers = $this->numDestroyers + $fleet[4];
+        $this->save();
+    }
+
+    /**
+     * Calculates distance from this Planet to other Planet
+     *
+     * @param Planet $other
+     * @return int distance in MINUTES
+     */
+    public function calculateDistanceToOtherPlanet(Planet $other){
+        return Travel::calculateTravelTime($this,$other);
+    }
+
+    public function formattedTimeDistance(Planet $other){
+        $minutes = Travel::calculateTravelTime($this,$other);
+        if($minutes > 60){
+           $hours = floor($minutes / 60);
+        }else{
+           return $minutes . "Minutes";
+        }
+        if($hours > 24){
+            $days = floor($hours / 24);
+        }else{
+            return $hours . ' Hours, ' . ((int) $minutes % 60) . "Minutes";
+        }
+        return $days . 'Days, ' . $hours . ' Hours, ' .  $minutes % 60 . "Minutes";
     }
 
     /**
@@ -160,6 +188,36 @@ class Planet extends Model
     public function energyStorageBuilding(){
         return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
             $description->where('name', 'energy_storage');
+        })->first();
+    }
+
+    public function frigateShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'frigate_shipyard');
+        })->first();
+    }
+
+    public function corvetteShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'corvette_shipyard');
+        })->first();
+    }
+
+    public function destroyerShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'destroyer_shipyard');
+        })->first();
+    }
+
+    public function fighterShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'fighter_shipyard');
+        })->first();
+    }
+
+    public function bomberShipyardBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'bomber_shipyard');
         })->first();
     }
 
@@ -275,24 +333,4 @@ class Planet extends Model
         $value = ($this->energy() + $amount < 0) ? 0 : min($value, $this->energy_storage) ;
         $this->setResources($this->metal(), $this->crystal(), $value);
     }
-
-    public function removeShipsFromPlanetFleet($fleet){
-        $this->numFighters = $this->numFighters - $fleet[0];
-        $this->numBombers = $this->numBombers - $fleet[1];
-        $this->numCorvettes = $this->numCorvettes - $fleet[2];
-        $this->numFrigates = $this->numFrigates - $fleet[3];
-        $this->numDestroyers = $this->numDestroyers - $fleet[4];
-        $this->save();
-
-    }
-
-    public function addShipsToPlanetFleet($fleet){
-        $this->numFighters = $this->numFighters + $fleet[0];
-        $this->numBombers = $this->numBombers + $fleet[1];
-        $this->numCorvettes = $this->numCorvettes + $fleet[2];
-        $this->numFrigates = $this->numFrigates + $fleet[3];
-        $this->numDestroyers = $this->numDestroyers + $fleet[4];
-        $this->save();
-    }
-
 }

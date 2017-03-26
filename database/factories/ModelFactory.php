@@ -57,6 +57,11 @@ $factory->define(App\Planet::class, function (Faker\Generator $faker) {
         'numCorvettes' => 1,
         'numFrigates' => 1,
         'numDestroyers' => 1,
+        'fighter_capacity' => 10,
+        'bomber_capacity' => 10,
+        'corvette_capacity' => 10,
+        'frigate_capacity' => 10,
+        'destroyer_capacity' => 10,
     ];
 });
 
@@ -77,6 +82,11 @@ $factory->defineAs(App\Planet::class, 'unassigned', function (Faker\Generator $f
         'numCorvettes' => 0,
         'numFrigates' => 0,
         'numDestroyers' => 0,
+        'fighter_capacity' => 10,
+        'bomber_capacity' => 10,
+        'corvette_capacity' => 10,
+        'frigate_capacity' => 10,
+        'destroyer_capacity' => 10,
     ];
 });
 

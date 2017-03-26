@@ -1,12 +1,8 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Building extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -15,7 +11,6 @@ class Building extends Model
     protected $fillable = [
         'name', 'type', 'img_path',
     ];
-
     /**
      * The attributes that should be casted to native types.
      *
@@ -24,7 +19,6 @@ class Building extends Model
     protected $casts = [
         'is_upgrading' => 'boolean',
     ];
-
     /**
      * Returns the planet that owns this building.
      *
@@ -33,7 +27,6 @@ class Building extends Model
     public function planet(){
         return $this->belongsTo('App\Planet');
     }
-
     /**
      * Returns the production characteristics of the this building.
      *
@@ -42,7 +35,6 @@ class Building extends Model
     public function product(){
         return $this->belongsTo('App\Product');
     }
-
     /**
      * Returns upgrade information of this building.
      *
@@ -51,7 +43,6 @@ class Building extends Model
     public function upgrade(){
         return $this->belongsTo('App\Upgrade');
     }
-
     /**
      * Returns the description of the=is building.
      *
@@ -60,7 +51,6 @@ class Building extends Model
     public function description(){
         return $this->belongsTo('App\Description');
     }
-
     /**
      * Returns the current level of this building.
      *
@@ -69,7 +59,6 @@ class Building extends Model
     public function getLevel(){
         return $this->current_level;
     }
-
     /**
      * Returns the max level that can be reached by this building.
      *
@@ -78,7 +67,6 @@ class Building extends Model
     public function getMaxLevel(){
         return $this->upgrade()->first()->max_level;
     }
-
     /**
      * Sets the upgrading status of this building to upgrading
      *
@@ -88,7 +76,6 @@ class Building extends Model
         $this->is_upgrading = $upgrading;
         $this->save();
     }
-
     /**
      * Returns whether this building is upgradable
      *
@@ -101,7 +88,6 @@ class Building extends Model
     public function upgradeable(){
         return !$this->isUpgrading() && $this->canUpgrade() && ($this->getLevel() < $this->getMaxLevel());
     }
-
     /**
      * Returns the upgrading status of this building
      *
@@ -119,9 +105,8 @@ class Building extends Model
     public function upgradeTime(){
         $time = $this->upgrade()->first()->base_minutes;
         $time_rate = $this->upgrade()->first()->rate_minutes;
-        return ($this->getLevel() * $time_rate) + $time;
+        return (($this->getLevel() * $time_rate) + $time) / GlobalRate::getGlobalBuildTimeRate();
     }
-
     /**
      * Increment the level of this building by one.
      */
@@ -149,11 +134,13 @@ class Building extends Model
         $energy_remainder = $planet->energy() - $this->getEnergyCostToUpgrade();
         $this->planet()->first()->setResources($metal_remainder, $crystal_remainder, $energy_remainder);
     }
+
     public function getFormattedBuildingCost(){
         return 'Metal: ' . $this->getMetalCostToUpgrade() . ', ' .
             'Energy: ' . $this->getEnergyCostToUpgrade() . ', ' .
             'Crystal: ' . $this->getCrystalCostToUpgrade();
     }
+
     /**
      * Get the Metal cost of upgrading this building.
      * @return float|int

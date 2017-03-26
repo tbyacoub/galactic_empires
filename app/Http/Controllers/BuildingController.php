@@ -107,4 +107,5 @@ class BuildingController extends Controller
     {
         return $building->getFormattedBuildingCost();
     }
+
 }
