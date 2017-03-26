@@ -19,6 +19,9 @@ class Travels extends Migration
             $table->integer('from_planet_id');
             $table->integer('to_planet_id');
             $table->json('fleet');
+            $table->integer('metal')->default(0);
+            $table->integer('energy')->default(0);
+            $table->integer('crystal')->default(0);
             $table->dateTime('departure');
             $table->dateTime('arrival');
         });

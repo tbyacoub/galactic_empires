@@ -45,6 +45,11 @@ class CreateGameDatabase extends Migration
             $table->integer('numCorvettes');
             $table->integer('numFrigates');
             $table->integer('numDestroyers');
+            $table->integer('fighter_capacity');
+            $table->integer('bomber_capacity');
+            $table->integer('corvette_capacity');
+            $table->integer('frigate_capacity');
+            $table->integer('destroyer_capacity');
             $table->timestamps();
         });
     }
