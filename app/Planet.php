@@ -162,6 +162,8 @@ class Planet extends Model
         $this->numCorvettes = $this->numCorvettes - $fleet[2];
         $this->numFrigates = $this->numFrigates - $fleet[3];
         $this->numDestroyers = $this->numDestroyers - $fleet[4];
+//        dd($fleet);
+
         $this->save();
     }
 

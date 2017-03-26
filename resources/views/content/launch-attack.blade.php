@@ -37,7 +37,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span> Fighters</label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numFighters }}</span> Fighters</label>
                         <div class="col-sm-4">
                             <input type="text" name="fighters" class="form-control">
                         </div>

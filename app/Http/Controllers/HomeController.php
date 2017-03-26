@@ -57,7 +57,7 @@ class HomeController extends Controller
         */
 
         $validator = Validator::make($request->all(), [
-            'fighters' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
+            'fighters' => 'min:0|max:'.$from_planet->numFighters.'|integer',
             'bombers' => 'min:0|max:'.$from_planet->numBombers.'|integer',
             'corvettes' => 'min:0|max:'.$from_planet->numCorvettes.'|integer',
             'frigates' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
