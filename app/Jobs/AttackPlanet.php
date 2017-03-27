@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Carbon\Carbon;
 
 class AttackPlanet implements ShouldQueue
 {
@@ -118,7 +119,6 @@ class AttackPlanet implements ShouldQueue
         }
         // echo "finished attack logic and starting travel\n";
         // echo "_______________________________________________________________\n";
-        // $travel = new \App\Travel();
         // echo "Travel Made\n";
         $metal = 0;
         $crystal = 0;
@@ -151,7 +151,7 @@ class AttackPlanet implements ShouldQueue
         $pDeffend->save();
         //return attacking ships 
         echo "sending travel\n";
-        $travel->startTravel($pDeffend, $pAttack, $this->attacker, 'returning');
+        $this->returnShips($pDeffend, $pAttack, $metal, $crystal, $energy);
 
         echo "finished travel\n";
     }
@@ -189,4 +189,27 @@ class AttackPlanet implements ShouldQueue
         return $index;
     }
 
+    private function returnShips($fromPlanet, $toPlanet, $metal, $crystal, $energy)
+    {
+        echo "starting returnShips\n";
+        $travel = new \App\Travel();
+        $travel->type = 'return';
+        echo "set return\n";
+        $travel->from_planet_id = $this->defendingPlanetID;
+        echo "set from id\n";
+        $travel->to_planet_id = $this->attackingPlanetID;
+        echo "set to id\n";
+        $travel->fleet = $this->attacker;
+        echo "set fleet\n";
+        $travel->metal = $metal;
+        echo "set metal\n";
+        $travel->energy = $energy;
+        echo "set energy\n";
+        $travel->crystal = $crystal;
+        echo "set crystal\n";
+        $travel->departure = Carbon::now();
+        echo "set departure\n";
+        $travel->arrival = Carbon::now()->addMinutes($fromPlanet->calculateDistanceToOtherPlanet($toPlanet));
+        echo "set arrival\n";
+    }
 }
