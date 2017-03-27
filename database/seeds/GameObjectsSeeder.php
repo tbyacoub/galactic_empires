@@ -791,7 +791,7 @@ class GameObjectsSeeder extends Seeder
         $fighter->type = 'fighter';
         $fighter->health = 100;
         $fighter->speed = 55;
-        $fighter->attack = 35;
+        $fighter->attack = 3500;
         $fighter->defence = 20;
         $fighter->multipliers = [
             'fighter' => 2.0,
@@ -811,7 +811,7 @@ class GameObjectsSeeder extends Seeder
         $bomber->type = 'bomber';
         $bomber->health = 200;
         $bomber->speed = 35;
-        $bomber->attack = 55;
+        $bomber->attack = 5500;
         $bomber->defence = 70;
         $bomber->multipliers = [
             'fighter' => 0.5,
@@ -831,7 +831,7 @@ class GameObjectsSeeder extends Seeder
         $corvette->type = 'corvette';
         $corvette->health = 80;
         $corvette->speed = 100;
-        $corvette->attack = 40;
+        $corvette->attack = 4000;
         $corvette->defence = 20;
         $corvette->multipliers = [
             'fighter' => 2.0,
@@ -851,7 +851,7 @@ class GameObjectsSeeder extends Seeder
         $frigate->type = 'frigate';
         $frigate->health = 325;
         $frigate->speed = 40;
-        $frigate->attack = 70;
+        $frigate->attack = 7000;
         $frigate->defence = 70;
         $frigate->multipliers = [
             'fighter' => 2.0,
@@ -871,7 +871,7 @@ class GameObjectsSeeder extends Seeder
         $destroyer->type = 'destroyer';
         $destroyer->health = 400;
         $destroyer->speed = 35;
-        $destroyer->attack = 100;
+        $destroyer->attack = 10000;
         $destroyer->defence = 90;
         $destroyer->multipliers = [
             'fighter' => 0.5,
