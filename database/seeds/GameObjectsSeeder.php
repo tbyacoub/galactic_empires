@@ -777,10 +777,10 @@ class GameObjectsSeeder extends Seeder
        // $frigate = $this->frigateDescription();
        // $destroyer = $this->destroyerDescription();
 
-       $this->fighter();
        $this->bomber();
-       $this->corvette();
+       $this->fighter();
        $this->frigate();
+       $this->corvette();
        $this->destroyer();
     }
 
