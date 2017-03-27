@@ -75,11 +75,8 @@ class FleetController extends Controller
         if(($planet->metal()) < (10*$amount)) {
             return 1;
         }
-
         $metal = $planet->metal() - (10*$amount);
-
         $planet->setResources($metal, $planet->crystal(), $planet->energy());
-
         $fleet->count = $fleet->count + $amount;
         $fleet->save();
 

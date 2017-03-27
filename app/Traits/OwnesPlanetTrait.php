@@ -13,7 +13,6 @@ trait OwnesPlanetTrait
         return $this->hasMany('App\Planet');
     }
 
-
     public function planetsCount(){
         return count($this->planets()->get());
     }

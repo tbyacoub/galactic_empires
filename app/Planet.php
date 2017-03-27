@@ -78,6 +78,39 @@ class Planet extends Model
     }
 
     /**
+     * Returns all building in this planet that have name $name.
+     *
+     * @param $name building name
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buildingOfName($name){
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description) use ($name){
+            $description->where('name', $name);
+        });
+    }
+
+    /**
+     * Returns all fleet that belongs to this planet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fleets()
+    {
+        return $this->hasMany('\App\Fleet');
+    }
+
+    /**
+     * Returns fleet that has than name $name that belong to this planet
+     *
+     * @param $name name of fleet
+     */
+    public function fleet($name) {
+        return $this->fleets()->with('description')->whereHas('description', function ($description) use ($name) {
+            $description->where('name', $name);
+        });
+    }
+
+    /**
      * Sets the planet resources.
      *
      * @param $metal integer
@@ -119,11 +152,6 @@ class Planet extends Model
     public function energy()
     {
         return $this->resources['energy'];
-    }
-
-    public function fleets()
-    {
-        return $this->hasMany('\App\Fleet');
     }
 
     public function removeShipsFromPlanetFleet($fleet){
@@ -169,143 +197,18 @@ class Planet extends Model
         return $days . 'Days, ' . $hours . ' Hours, ' .  $minutes % 60 . "Minutes";
     }
 
-    /**
-     * Gets the Metal Storage Building of this planet.
-     * @return \App\Building
-     */
-    public function metalStorageBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'metal_storage');
-        })->first();
-    }
-
-    /**
-     * Gets the Crystal Storage Building of this planet.
-     * @return \App\Building
-     */
-    public function crystalStorageBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'crystal_storage');
-        })->first();
-    }
-
-    /**
-     * Gets the Energy Storage Building of this planet.
-     * @return \App\Building
-     */
-    public function energyStorageBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'energy_storage');
-        })->first();
-    }
-
-    public function frigateShipyardBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'frigate_shipyard');
-        })->first();
-    }
-
-    public function corvetteShipyardBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'corvette_shipyard');
-        })->first();
-    }
-
-    public function destroyerShipyardBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'destroyer_shipyard');
-        })->first();
-    }
-
-    public function fighterShipyardBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'fighter_shipyard');
-        })->first();
-    }
-
-    public function bomberShipyardBuilding(){
-        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
-            $description->where('name', 'bomber_shipyard');
-        })->first();
-    }
-
-    /**
-     * Updates the new storage capacity of this planet, based on the current level this storage building.
-     *
-     * Normally called after a storage building upgrades (Building->setProduct())
-     */
-    public function updateMetalStorage(){
-        $metal_storage = $this->metalStorageBuilding();
-        $level = $metal_storage->current_level;
-        $base = $metal_storage->product->characteristics['storage_base'];
-        $rate = $metal_storage->product->characteristics['storage_base_rate'];
-        $this->metal_storage = ($level * $base * $rate);
-        $this->save();
-    }
-    /**
-     * Updates the new storage capacity of this planet, based on the current level this storage building.
-     *
-     * Normally called after a storage building upgrades (Building->setProduct())
-     */
-    public function updateCrystalStorage(){
-        $crystal_storage = $this->crystalStorageBuilding();
-        $level = $crystal_storage->current_level;
-        $base = $crystal_storage->product->characteristics['storage_base'];
-        $rate = $crystal_storage->product->characteristics['storage_base_rate'];
-        $this->crystal_storage = ($level * $base * $rate);
-        $this->save();
-    }
-    /**
-     * Updates the new storage capacity of this planet, based on the current level this storage building.
-     *
-     * Normally called after a storage building upgrades (Building->setProduct())
-     */
-    public function updateEnergyStorage(){
-        $energy_storage = $this->energyStorageBuilding();
-        $level = $energy_storage->current_level;
-        $base = $energy_storage->product->characteristics['storage_base'];
-        $rate = $energy_storage->product->characteristics['storage_base_rate'];
-        $this->energy_storage = ($level * $base * $rate);
-        $this->save();
-    }
-    public function updateFrigateCapacity(){
-        $frigate_shipyard = $this->frigateShipyardBuilding();
-        $level = $frigate_shipyard->current_level;
-        $base = $frigate_shipyard->product->characteristics['capacity_base'];
-        $rate = $frigate_shipyard->product->characteristics['capacity_rate'];
-        $this->frigate_capacity = ($level * $base * $rate);
-        $this->save();
-    }
-    public function updateCorvetteCapacity(){
-        $corvette_shipyard = $this->frigateShipyardBuilding();
-        $level = $corvette_shipyard->current_level;
-        $base = $corvette_shipyard->product->characteristics['capacity_base'];
-        $rate = $corvette_shipyard->product->characteristics['capacity_rate'];
-        $this->corvette_capacity = ($level * $base * $rate);
-        $this->save();
-    }
-    public function updateDestroyerCapacity(){
-        $destroyer_shipyard = $this->destroyerShipyardBuilding();
-        $level = $destroyer_shipyard->current_level;
-        $base = $destroyer_shipyard->product->characteristics['capacity_base'];
-        $rate = $destroyer_shipyard->product->characteristics['capacity_rate'];
-        $this->destroyer_capacity = ($level * $base * $rate);
-        $this->save();
-    }
-    public function updateFighterCapacity(){
-        $fighter_shipyard = $this->fighterShipyardBuilding();
-        $level = $fighter_shipyard->current_level;
-        $base = $fighter_shipyard->product->characteristics['capacity_base'];
-        $rate = $fighter_shipyard->product->characteristics['capacity_rate'];
-        $this->fighter_capacity = ($level * $base * $rate);
-        $this->save();
-    }
-    public function updateBomberCapacity(){
-        $bomber_shipyard = $this->bomberShipyardBuilding();
-        $level = $bomber_shipyard->current_level;
-        $base = $bomber_shipyard->product->characteristics['capacity_base'];
-        $rate = $bomber_shipyard->product->characteristics['capacity_rate'];
-        $this->bomber_capacity = ($level * $base * $rate);
+    public function setStorage($storage, $capacity){
+        switch ($storage) {
+            case "metal_storage":
+                $this->metal_storage = $capacity;
+                break;
+            case "crystal_storage":
+                $this->crystal_storage = $capacity;
+                break;
+            case "energy_storage":
+                $this->energy_storage = $capacity;
+                break;
+        }
         $this->save();
     }
 

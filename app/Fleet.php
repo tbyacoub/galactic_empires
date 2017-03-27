@@ -44,4 +44,12 @@ class Fleet extends Model
     public function product(){
         return $this->belongsTo('App\Product');
     }
+
+    /**
+     * Updates the hold capacity of the fleet
+     */
+    public function updateCapacity($capacity){
+        $this->capacity = $capacity;
+        $this->save();
+    }
 }

@@ -50,7 +50,7 @@ class UpgradeBuilding implements ShouldQueue
         $notification = new Notification();
         $notification->subject = "Building upgraded";
         $notification->content = $this->building->description()->first()->display_name .
-            " has successfully upgraded to level " . ($this->building->current_level + 1);
+            " has successfully upgraded to level " . ($this->building->current_level);
         $notification->read = false;
         $notification->user()->associate($this->user_id);
         $notification->save();

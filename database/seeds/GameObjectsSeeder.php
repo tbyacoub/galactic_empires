@@ -308,7 +308,7 @@ class GameObjectsSeeder extends Seeder
     {
         $description = new \App\Description();
         $description->name = "stargate_shipyard";
-        $description->display_name = "Stargates Shipyard";
+        $description->display_name = "Stargate Shipyard";
         $description->description = "Increases Stargate's capacity for this Planet";
         $description->type = "shipyard";
         $description->img_path = "/img/building/aeroplane-with-four-engines.svg";
