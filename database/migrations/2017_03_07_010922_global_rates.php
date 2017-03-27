@@ -15,15 +15,15 @@ class GlobalRates extends Migration
     {
         Schema::create('global_rates', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('metal_rate', 2, 1);
-            $table->decimal('crystal_rate', 2, 1);
-            $table->decimal('energy_rate', 2, 1);
-            $table->decimal('ship_build_time_rate', 2, 1);
-            $table->decimal('ship_cost_rate', 2, 1);
-            $table->decimal('building_build_time_rate', 2, 1);
-            $table->decimal('building_cost_rate', 2, 1);
-            $table->decimal('research_rate', 2, 1);
-            $table->decimal('travel_rate', 2, 1);
+            $table->decimal('metal_rate', 3, 1);
+            $table->decimal('crystal_rate', 3, 1);
+            $table->decimal('energy_rate', 3, 1);
+            $table->decimal('ship_build_time_rate', 3, 1);
+            $table->decimal('ship_cost_rate', 3, 1);
+            $table->decimal('building_build_time_rate', 3, 1);
+            $table->decimal('building_cost_rate', 3, 1);
+            $table->decimal('research_rate', 3, 1);
+            $table->decimal('travel_rate', 3, 1);
             $table->timestamps();
         });
     }

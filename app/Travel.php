@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Jobs\AttackPlanet;
 use App\Jobs\TravelCompleted;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -105,8 +106,8 @@ class Travel extends Model
      */
     public function travelIsComplete(){
         if($this->type == 'attacking'){
-            // TODO: Dispatch attack job.
-
+            dispatch(new AttackPlanet($this->fleet, $this->from_planet_id, $this->to_planet_id));
+            $this->delete();
         }else if($this->type == 'returning') {
             // Return fleet to Planet
             $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
@@ -117,6 +118,7 @@ class Travel extends Model
             // Notify that fleet has returned.
             $notification = new Notification();
             $notification->sendFleetHasReturnedNotification($this);
+            $this->delete();
         }
     }
 
@@ -136,7 +138,7 @@ class Travel extends Model
         $dx = ($x2 - $x1) * ($x2 - $x1);
         $dy = ($y2 - $y1) * ($y2 - $y1);
 
-        $minutes = 1440; // 1 days
+        $minutes = 720; //720 -> 12hrs OR 1440 -> 1 days
         $base_distance = 400;
         $rate = $minutes / $base_distance;
 

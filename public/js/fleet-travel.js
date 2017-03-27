@@ -8,10 +8,10 @@ $(document).ready(function () {
     function updateTravelBars(travels) {
        $.each(travels, function (index, value) {
             var travel_rate = $(value).data('rate');
-            var width_ratio = parseFloat($(value).parent().width()) / 100;
+            // var width_ratio = parseFloat($(value).parent().width()) / 100;
             var width = parseFloat($(value).data('width'));
 
-            var update = (width_ratio * travel_rate) + width;
+            var update = (travel_rate) + width;
 
             $(value).data('width', update);
             $(value).css('width', update +"%");

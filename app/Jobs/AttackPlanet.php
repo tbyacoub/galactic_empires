@@ -193,7 +193,7 @@ class AttackPlanet implements ShouldQueue
     {
         echo "starting returnShips\n";
         $travel = new \App\Travel();
-        $travel->type = 'return';
+        $travel->type = 'returning';
         echo "set return\n";
         $travel->from_planet_id = $this->defendingPlanetID;
         echo "set from id\n";
@@ -211,5 +211,11 @@ class AttackPlanet implements ShouldQueue
         echo "set departure\n";
         $travel->arrival = Carbon::now()->addMinutes($fromPlanet->calculateDistanceToOtherPlanet($toPlanet));
         echo "set arrival\n";
+        $travel->save();
+
+        dispatch((new TravelCompleted($travel))->delay(Carbon::now()->addMinutes($fromPlanet->calculateDistanceToOtherPlanet($toPlanet))));
+
+        // TODO: Send notification to both players about the battle.
+
     }
 }

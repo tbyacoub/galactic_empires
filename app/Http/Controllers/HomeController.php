@@ -50,12 +50,19 @@ class HomeController extends Controller
 
     public function attack(Planet $from_planet, Planet $to_planet, Request $request){
 
-        /* UNCOMMENT THIS FOR DEMO OR PRODUCTION
+        /* UNCOMMENT THIS FOR DEMO OR PRODUCTION */
         if($from_planet->user()->first()->id == $to_planet->user()->first()->id){
             return back()->withErrors(["You can't attack your own Planet."]);
         }
-        */
 
+        // Check to make sure at least 1 ship has been selected.
+        $zero_check = $request->all();
+        if($zero_check['fighters'] == 0 && $zero_check['bombers'] == 0 && $zero_check['corvettes'] == 0
+            && $zero_check['frigates'] == 0 && $zero_check['destroyers'] == 0){
+            return back()->withErrors(["Select ships to create an Attack Fleet."]);
+        }
+
+        // Validate for negative numbers & check max based on Planet.
         $validator = Validator::make($request->all(), [
             'fighters' => 'min:0|max:'.$from_planet->numFighters.'|integer',
             'bombers' => 'min:0|max:'.$from_planet->numBombers.'|integer',
@@ -65,6 +72,7 @@ class HomeController extends Controller
         ])->validate();
 
 
+        // Dispatch the travel of type attacking.
         $travel = new Travel();
         $travel->startTravel($from_planet, $to_planet, $request->all(), 'attacking');
 
@@ -72,12 +80,14 @@ class HomeController extends Controller
     }
 
     public function indexPlanetOverview(Planet $planet){
-
         return view('content.planet-overview', compact('planet'));
     }
 
     public function indexLaunchAttack(Planet $from_planet, Planet $to_planet){
 
+        if($from_planet->user()->first()->id != Auth::id()) {
+            return redirect('/home');
+        }
         return view('content.launch-attack', compact('from_planet', 'to_planet'));
     }
 }
