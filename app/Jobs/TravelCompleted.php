@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Notification;
+use App\Travel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -19,7 +20,7 @@ class TravelCompleted implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($travel)
+    public function __construct(Travel $travel)
     {
         $this->travel = $travel;
 
