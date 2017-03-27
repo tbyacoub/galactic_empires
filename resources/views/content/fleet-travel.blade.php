@@ -17,11 +17,9 @@
             @foreach($outgoing as $travel)
                 <tr>
                     <td>
-                        @if($travel->fleet[0] > 0) Fighters: {{ $travel->fleet[0] }} <br> @endif
-                        @if($travel->fleet[1] > 0) Bombers: {{ $travel->fleet[1] }} <br> @endif
-                        @if($travel->fleet[2] > 0) Corvettes: {{ $travel->fleet[2] }} <br> @endif
-                        @if($travel->fleet[3] > 0) Frigates: {{ $travel->fleet[3] }} <br> @endif
-                        @if($travel->fleet[4] > 0) Destroyers: {{ $travel->fleet[4] }} @endif
+                        @if($travel->fleet[0] > 0) Babylon 5: {{ $travel->fleet[0] }} <br> @endif
+                        @if($travel->fleet[1] > 0) Battlestar Galactica: {{ $travel->fleet[1] }} <br> @endif
+                        @if($travel->fleet[2] > 0) Stargate: {{ $travel->fleet[2] }} <br> @endif
                     </td>
                     <td><img src="{{ $travel->fromPlanet()->first()->PlanetType->first()->img_path }}" alt="Planet Image" style="width:75px;height:75px;"></td>
                     <td>{{ $travel->fromPlanet()->first()->name}}</td>

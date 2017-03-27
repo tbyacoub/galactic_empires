@@ -32,7 +32,6 @@
 						<div id='planet_metal'>Metal: {{ $planet->metal() }}</div>
 						<div id='planet_crystal'>Crystal: {{ $planet->crystal() }}</div>
 						<div id='planet_energy'>Energy: {{ $planet->energy() }}</div>
-
 						@if (!($planet->user()->first()->id == Auth::id()))
 							@if ($planet->user_id >= 0)
 								<div class='info_line_breaker'></div>

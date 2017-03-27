@@ -38,9 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/planets/{planet}/fleets', 'PlanetController@fleets');
 
-    Route::get('/solarSystem/{solarSystem}', 'HomeController@solarSystem');
-
     Route::get('/users/{user}/notifications', 'UserController@notifications');
+
+    Route::get('/solarSystem/{solarSystem}', 'GalaxyMapController@solarSystem');
 
     Route::get('/planets/{planet}/buildings/{type}', 'PlanetController@buildings');
 

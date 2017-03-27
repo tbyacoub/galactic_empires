@@ -105,7 +105,7 @@ class Planet extends Model
      * @param $name name of fleet
      */
     public function fleet($name) {
-        return $this->fleets()->with('description')->whereHas('description', function ($description) use ($name) {
+        return $this->fleets()->with('description', 'product')->whereHas('description', function ($description) use ($name) {
             $description->where('name', $name);
         });
     }
@@ -155,21 +155,27 @@ class Planet extends Model
     }
 
     public function removeShipsFromPlanetFleet($fleet){
-        $this->numFighters = $this->numFighters - $fleet[0];
-        $this->numBombers = $this->numBombers - $fleet[1];
-        $this->numCorvettes = $this->numCorvettes - $fleet[2];
-        $this->numFrigates = $this->numFrigates - $fleet[3];
-        $this->numDestroyers = $this->numDestroyers - $fleet[4];
-        $this->save();
+        $babylon = $this->fleet('babylon5')->first();
+        $babylon->count = $babylon->count - $fleet[0];
+        $babylon->save();
+        $battlestar_galactica = $this->fleet('battlestar_galactica')->first();
+        $battlestar_galactica->count = $battlestar_galactica->count - $fleet[1];
+        $battlestar_galactica->save();
+        $stargate = $this->fleet('stargate')->first();
+        $stargate->count = $stargate->count - $fleet[2];
+        $stargate->save();
     }
 
     public function addShipsToPlanetFleet($fleet){
-        $this->numFighters = $this->numFighters + $fleet[0];
-        $this->numBombers = $this->numBombers + $fleet[1];
-        $this->numCorvettes = $this->numCorvettes + $fleet[2];
-        $this->numFrigates = $this->numFrigates + $fleet[3];
-        $this->numDestroyers = $this->numDestroyers + $fleet[4];
-        $this->save();
+        $babylon = $this->fleet('babylon5')->first();
+        $babylon->count = $babylon->count + $fleet[0];
+        $babylon->save();
+        $battlestar_galactica = $this->fleet('battlestar_galactica')->first();
+        $battlestar_galactica->count = $battlestar_galactica->count + $fleet[1];
+        $battlestar_galactica->save();
+        $stargate = $this->fleet('stargate')->first();
+        $stargate->count = $stargate->count + $fleet[2];
+        $stargate->save();
     }
 
     /**

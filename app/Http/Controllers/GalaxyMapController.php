@@ -19,4 +19,9 @@ class GalaxyMapController extends Controller
         return view('content.galaxy_map', compact('solarSystems'));
     }
 
+    public function solarSystem(SolarSystem $solarSystem){
+        $showRightPanel = false;
+        return view('solar_system_view', compact('solarSystem', 'showRightPanel'));
+    }
+
 }

@@ -86,6 +86,6 @@ $(document).ready(function() {
      */
     function ViewSystemWithID(id)
     {
-        window.location.href = ('/galaxy-map/' + id);
+        window.location.href = ('/solarSystem/' + id);
     }
 });

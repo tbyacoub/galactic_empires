@@ -37,37 +37,23 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span> Fighters</label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->fleet('babylon5')->first()->count }}</span> Babylon 5</label>
                         <div class="col-sm-4">
-                            <input type="text" name="fighters" class="form-control">
+                            <input type="text" name="babylon5" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numBombers }}</span> Bombers</label>
+                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->fleet('battlestar_galactica')->first()->count }}</span> Battlestar Galactica</label>
                         <div class="col-sm-4">
-                            <input type="text" name="bombers" class="form-control">
+                            <input type="text" name="battlestar_galactica" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-sm-3 control-label"> <span class="badge bg-inverse">{{ $from_planet->numCorvettes }}</span> Corvettes</label>
+                        <label class="col-sm-3 col-sm-3 control-label"> <span class="badge bg-inverse">{{ $from_planet->fleet('stargate')->first()->count }}</span> Stargate</label>
                         <div class="col-sm-4">
-                            <input type="text" name="corvettes" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numFrigates }}</span> Frigates</label>
-                        <div class="col-sm-4">
-                            <input type="text" name="frigates" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 col-sm-3 control-label"><span class="badge bg-inverse">{{ $from_planet->numDestroyers }}</span> Destroyers</label>
-                        <div class="col-sm-4">
-                            <input type="text" name="destroyers" class="form-control">
+                            <input type="text" name="stargate" class="form-control">
                         </div>
                     </div>
 

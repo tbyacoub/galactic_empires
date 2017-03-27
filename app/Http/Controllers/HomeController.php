@@ -24,16 +24,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $outgoing = Auth::user()->fromTravelsAllPlanets();
+        $outgoing = Auth::user()->fromtravelsallplanets();
         $incoming = Auth::user()->toTravelsAllPlanets();
         return view('layouts.home', compact('outgoing', 'incoming'));
     }
-
-    public function solarSystem(SolarSystem $solarSystem){
-        $showRightPanel = false;
-        return view('solar_system_view', compact('solarSystem', 'showRightPanel'));
-    }
-
 
     public function attack(Planet $from_planet, Planet $to_planet, Request $request){
 
@@ -44,13 +38,10 @@ class HomeController extends Controller
         */
 
         $validator = Validator::make($request->all(), [
-            'fighters' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
-            'bombers' => 'min:0|max:'.$from_planet->numBombers.'|integer',
-            'corvettes' => 'min:0|max:'.$from_planet->numCorvettes.'|integer',
-            'frigates' => 'min:0|max:'.$from_planet->numFrigates.'|integer',
-            'destroyers' => 'min:0|max:'.$from_planet->numDestroyers.'|integer',
+            'babylon5' => 'min:0|max:'.$from_planet->fleet('babylon5')->first()->count.'|integer',
+            'battlestar_galactica' => 'min:0|max:'.$from_planet->fleet('battlestar_galactica')->first()->count.'|integer',
+            'stargate' => 'min:0|max:'.$from_planet->fleet('stargate')->first()->count.'|integer',
         ])->validate();
-
 
         $travel = new Travel();
         $travel->startTravel($from_planet, $to_planet, $request->all(), 'attacking');
@@ -65,6 +56,9 @@ class HomeController extends Controller
 
     public function indexLaunchAttack(Planet $from_planet, Planet $to_planet){
 
+        if($from_planet->user()->first()->id != Auth::id()) {
+            return redirect('/home');
+        }
         return view('content.launch-attack', compact('from_planet', 'to_planet'));
     }
 }

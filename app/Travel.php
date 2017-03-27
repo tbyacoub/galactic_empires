@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Jobs\AttackPlanet;
 use App\Jobs\TravelCompleted;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -70,6 +71,9 @@ class Travel extends Model
     public function getTravelPercent(){
         $current = Carbon::now()->timestamp - $this->departure->timestamp;
         $difference = $this->arrival->timestamp - $this->departure->timestamp;
+        if($difference == 0) {
+            $difference = 1;
+        }
         return 100 * ($current / $difference);
     }
 
@@ -80,6 +84,9 @@ class Travel extends Model
      */
     public function getPercentRatePerSecond(){
         $difference = $this->arrival->timestamp - $this->departure->timestamp;
+        if($difference == 0) {
+            $difference = 1;
+        }
         return 100 / $difference;
     }
 
@@ -98,7 +105,7 @@ class Travel extends Model
         $this->save();
 
         dispatch((new TravelCompleted($this))->delay(Carbon::now()->addMinutes($from_planet->calculateDistanceToOtherPlanet($to_planet))));
-        $from_planet->removeShipsFromPlanetFleet($this->fleet);
+        return $from_planet->removeShipsFromPlanetFleet($this->fleet);
     }
 
     /**
@@ -106,14 +113,23 @@ class Travel extends Model
      */
     public function travelIsComplete(){
         if($this->type == 'attacking'){
-            // TODO: Dispatch attack job.
-
+            $travel = new Travel();
+            $travel->type = "returning";
+            $travel->from_planet_id = $this->to_planet_id;
+            $travel->to_planet_id = $this->from_planet_id;
+            $travel->fleet = $this->fleet;
+            $travel->departure = Carbon::now();
+            $travel->arrival = Carbon::now()->addMinutes($this->fromPlanet($this->to_planet_id)->first()->calculateDistanceToOtherPlanet($this->fromPlanet($this->from_planet_id)->first()));
+            $travel->save();
+            dispatch((new TravelCompleted($travel))->delay(Carbon::now()->addMinutes($this->fromPlanet($this->to_planet_id)->first()->calculateDistanceToOtherPlanet($this->fromPlanet($this->from_planet_id)->first()))));
+            $this->delete();
         }else if($this->type == 'returning') {
             // Return fleet to Planet
             $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
 
             // Add resources won from battle.
-            $this->toPlanet()->first()->setResources($this->metal, $this->crystal, $this->energy);
+//            $this->toPlanet()->first()->setResources($this->metal, $this->crystal, $this->energy);
+            $this->delete();
 
             // Notify that fleet has returned.
             $notification = new Notification();
@@ -137,7 +153,7 @@ class Travel extends Model
         $dx = ($x2 - $x1) * ($x2 - $x1);
         $dy = ($y2 - $y1) * ($y2 - $y1);
 
-        $minutes = 1440; // 1 days
+        $minutes = 720; // 1 days
         $base_distance = 400;
         $rate = $minutes / $base_distance;
 
@@ -156,7 +172,7 @@ class Travel extends Model
      */
     public function modifyTravelFleet($fleet){
         $temp_fleet = [];
-        array_push($temp_fleet, $fleet['fighters'], $fleet['bombers'], $fleet['corvettes'], $fleet['frigates'], $fleet['destroyers']);
+        array_push($temp_fleet, $fleet['babylon5'], $fleet['battlestar_galactica'], $fleet['stargate']);
 
         $this->fleet = $temp_fleet;
         return;
