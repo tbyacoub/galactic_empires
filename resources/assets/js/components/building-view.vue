@@ -5,7 +5,7 @@
                 <div class="content-panel pn">
                     <div id="spotify" :style="{ 'background': 'url(' + building.description.img_path + ') no-repeat center top' }">
                         <div v-bind:title="costs[index]" class="col-xs-4 col-xs-offset-8" v-if="building.current_level < building.upgrade.max_level">
-                            <button v-if="!building.is_upgrading" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.id)"><a>UPGRADE</a></button>
+                            <button v-if="!building.is_upgrading" class="btn btn-sm btn-clear-g" @click="upgradeBuilding(building.id)"><a>UPGRADE <span class="fa fa-level-up"></span></a></button>
                             <button v-else="!building.is_upgrading" class="btn btn-sm btn-clear-g" disabled=""><a>UPGRADING</a></button>
                         </div>
                         <div class="sp-title">
@@ -13,7 +13,7 @@
                                 <h5 style="color: black;" >{{ building.description.description }}</h5>
                         </div>
                     </div>
-                    <p class="followers"><i class="fa fa-user"></i> <span v-show="building.current_level == building.upgrade.max_level"> MAX -</span> LEVEL {{ building.current_level }}</p>
+                    <p class="followers"><i class="fa fa-building-o"></i> <span v-show="building.current_level == building.upgrade.max_level"> MAX -</span> LEVEL {{ building.current_level }}</p>
                 </div>
             </div>
         </div>
