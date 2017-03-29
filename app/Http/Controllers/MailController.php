@@ -85,12 +85,12 @@ class MailController extends Controller
      */
     public function show(Mail $mail)
     {
-        if(Auth::user()->cant('view', $mail)) {
-            return back();
+        if(Auth::user()->can('view', $mail)) {
+            $page = "show";
+            $mail->setRead(true);
+            return view('mail.show', compact('mail', 'page'));
         }
-        $page = "show";
-        $mail->setRead(true);
-        return view('mail.show', compact('mail', 'page'));
+        return back();
     }
 
     /**
@@ -127,7 +127,7 @@ class MailController extends Controller
         if(Auth::user()->can('delete', $mail)) {
             $mail->delete();
         }
-        return redirect('/mails');
+        return redirect('/mail/inbox');
     }
 
     /**

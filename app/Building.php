@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+
 class Building extends Model
 {
     /**
@@ -164,6 +165,7 @@ class Building extends Model
         $rate_energy = $this->upgrade()->first()->rate_energy;
         return $this->getLevel() * $base_energy * $rate_energy / GlobalRate::getGlobalBuildCostRate();
     }
+
     /**
      * Get the Crystal cost of upgrading this building.
      * @return float|int

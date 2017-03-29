@@ -154,6 +154,8 @@ class Planet extends Model
         return $this->resources['energy'];
     }
 
+    // TODO
+    // NOT RELATED
     public function removeShipsFromPlanetFleet($fleet){
         $babylon = $this->fleet('babylon5')->first();
         $babylon->count = $babylon->count - $fleet[0];
@@ -166,6 +168,8 @@ class Planet extends Model
         $stargate->save();
     }
 
+    // TODO
+    // NOT RELATED
     public function addShipsToPlanetFleet($fleet){
         $babylon = $this->fleet('babylon5')->first();
         $babylon->count = $babylon->count + $fleet[0];
@@ -178,6 +182,8 @@ class Planet extends Model
         $stargate->save();
     }
 
+    // TODO
+    // NOT RELATED
     /**
      * Calculates distance from this Planet to other Planet
      *
@@ -188,6 +194,8 @@ class Planet extends Model
         return Travel::calculateTravelTime($this,$other);
     }
 
+    // TODO
+    // NOT RELATED
     public function formattedTimeDistance(Planet $other){
         $minutes = Travel::calculateTravelTime($this,$other);
         if($minutes > 60){

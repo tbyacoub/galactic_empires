@@ -17,6 +17,8 @@ Vue.component('user-control', require('./components/user-control.vue'));
 Vue.component('building-view', require('./components/building-view.vue'));
 Vue.component('fleets-overview', require('./components/fleets-view.vue'));
 Vue.component('planet-overview', require('./components/planet-overview.vue'));
+Vue.component('planet-overview', require('./components/planet-overview.vue'));
+Vue.component('global-rates', require('./components/global-rates.vue'));
 
 const app = new Vue({
     el: '#app',

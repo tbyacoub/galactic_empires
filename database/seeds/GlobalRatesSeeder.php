@@ -20,7 +20,7 @@ class GlobalRatesSeeder extends Seeder
             'building_build_time_rate' => 5.0,
             'building_cost_rate' => 1.0,
             'research_rate' => 1.0,
-            'travel_rate' => 1.0,
+            'travel_rate' => 99.0,
         ]);
         $globalRates->save();
     }

@@ -14,9 +14,24 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use MailTrait;
-    use EntrustUserTrait;
     use OwnesPlanetTrait;
     use NotificationTrait;
+    use EntrustUserTrait {
+        can as entrustCan;
+    }
+
+    /**
+     * overriding function to resolve conflects between entrust and laravel authrization.
+     * Use entrustCan for entrust can function.
+     *
+     * @param string $ability
+     * @param array $arguments
+     * @return bool|mixed
+     */
+    public function can($ability, $arguments = [])
+    {
+        return parent::can($ability, $arguments);
+    }
 
     /**
      * The attributes that are mass assignable.

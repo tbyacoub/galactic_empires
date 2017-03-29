@@ -23,7 +23,7 @@ class GlobalRates extends Migration
             $table->decimal('building_build_time_rate', 2, 1);
             $table->decimal('building_cost_rate', 2, 1);
             $table->decimal('research_rate', 2, 1);
-            $table->decimal('travel_rate', 2, 1);
+            $table->decimal('travel_rate', 4, 1);
             $table->timestamps();
         });
     }
