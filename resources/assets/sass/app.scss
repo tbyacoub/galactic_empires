@@ -9,7 +9,7 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Galaxy-Map
-@import "resources/assets/css/galaxy-map";
+@import "galaxy-map";
 
 @import "font-awesome-4.7.0/scss/font-awesome";
 
@@ -22,7 +22,7 @@
 @import "style-fixes";
 
 // Solar System View
-@import "resources/assets/css/solar-system-view";
+@import "solar-system-view";
 
 // Planet Overview page
-@import "resources/assets/css/planet_overview";
+@import "planet_overview";

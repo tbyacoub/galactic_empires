@@ -20,10 +20,23 @@ $(document).ready(function() {
             class: 'system-icon-container'
         });
 
-        // Generate the inner icon container.
-        var iconInner = $('<div></div>', {
-            class: 'system-icon-inner-container'
-        });
+        var iconInner = null;
+        for(var i = 0; i < mySolarSystems.length; i++) {
+            if(mySolarSystems[i].solar_system.id == systemId){
+                // Generate the inner icon container.
+                iconInner = $('<div></div>', {
+                    class: 'system-icon-inner-container-my'
+                });
+            }
+        }
+
+        if(iconInner == null) {
+            console.log('yes');
+            // Generate the inner icon container.
+            iconInner = $('<div></div>', {
+                class: 'system-icon-inner-container'
+            });
+        }
         // Add a click event to the outer icon container, which will populate the popup with the system's name and id.
         iconContainer.click(function() {OnSystemIconClick(systemId, systemName, $(this).position().left, $(this).position().top);});
 
@@ -86,6 +99,6 @@ $(document).ready(function() {
      */
     function ViewSystemWithID(id)
     {
-        window.location.href = ('/solarSystem/' + id);
+        window.location.href = ('/galaxy-map/' + id);
     }
 });

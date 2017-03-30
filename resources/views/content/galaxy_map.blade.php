@@ -53,6 +53,7 @@
 <script type='text/javascript'>
 	{{-- Pass the names and locations of solar systems to javascript. --}}
 	var solarSystems = {!! json_encode($solarSystems->toArray()) !!};
+	var mySolarSystems = {!! json_encode(Auth::user()->planets()->with('solarSystem')->get()) !!}
 </script>
 <script type='text/javascript' src='js/jquery-3.1.1.min.js'></script>
 <script type='text/javascript' src='js/galaxy-map.js'></script>
