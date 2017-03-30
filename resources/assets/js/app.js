@@ -11,6 +11,7 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 Vue.component('inbox', require('./components/inbox.vue'));
+Vue.component('attack', require('./components/attack.vue'));
 Vue.component('fleets-view', require('./components/fleets-view.vue'));
 Vue.component('global-rates', require('./components/global-rates.vue'));
 Vue.component('notification', require('./components/notification.vue'));

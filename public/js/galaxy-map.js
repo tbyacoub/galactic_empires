@@ -31,7 +31,6 @@ $(document).ready(function() {
         }
 
         if(iconInner == null) {
-            console.log('yes');
             // Generate the inner icon container.
             iconInner = $('<div></div>', {
                 class: 'system-icon-inner-container'
@@ -99,6 +98,6 @@ $(document).ready(function() {
      */
     function ViewSystemWithID(id)
     {
-        window.location.href = ('/galaxy-map/' + id);
+        window.location.href = ('/solar-systems/' + id);
     }
 });
