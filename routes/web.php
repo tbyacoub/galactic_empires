@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/planets/{planet}/buildings/{type}', 'PlanetController@buildings');
 
     /**
-     * POST routes
+     * PUT routes
      */
     Route::put('/global-rates', 'AdminController@updateGlobalRates');
 

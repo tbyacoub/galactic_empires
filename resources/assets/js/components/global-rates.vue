@@ -19,7 +19,7 @@
                                         <button @click="update(0)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[0]" :max="5"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[0]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -27,12 +27,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Crystal Gather Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[1] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(1)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[1]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[1]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -40,12 +40,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Energy Gather Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[2] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(2)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[2]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[2]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -53,12 +53,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Ship Build Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[3] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(3)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[3]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[3]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -66,12 +66,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Ship Build Cost Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[4] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(4)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[4]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[4]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -79,12 +79,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Building Build Time Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[5] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(5)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[5]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[5]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -92,12 +92,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Building Cost Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[6] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(6)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[6]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[6]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -105,12 +105,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Research Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[7] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(7)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[7]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[7]" :min="1" :max="9"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -118,12 +118,12 @@
                             <li>
                                 <div class="task-title">
                                     <span class="task-title-sp">Travel Rate</span>
-                                    <span class="badge bg-success">0</span>
+                                    <span class="badge bg-success">{{ count[8] }}</span>
                                     <div class="pull-right">
                                         <button @click="update(8)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[8]"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[8]" :min="1" :max="100"></vue-slider>
                                     </div>
                                 </div>
                             </li>
@@ -268,6 +268,7 @@
         data() {
             return{
                 name: [
+                    'metal_rate',
                     'energy_rate',
                     'crystal_rate',
                     'ship_build_time_rate',
@@ -294,6 +295,17 @@
             update(index) {
                 this.$http.put('/global-rates', {'param': this.name[index], 'value': this.count[index]});
             }
+        },
+        created() {
+            this.count[0] = this.settings[0][this.name[0]];
+            this.count[1] = this.settings[0][this.name[1]];
+            this.count[2] = this.settings[0][this.name[2]];
+            this.count[3] = this.settings[0][this.name[3]];
+            this.count[4] = this.settings[0][this.name[4]];
+            this.count[5] = this.settings[0][this.name[5]];
+            this.count[6] = this.settings[0][this.name[6]];
+            this.count[7] = this.settings[0][this.name[7]];
+            this.count[8] = this.settings[0][this.name[8]];
         }
     }
 </script>

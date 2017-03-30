@@ -31,30 +31,10 @@ class AdminController extends Controller
      * Update the global rates in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function updateGlobalRates(Request $request){
         $global = GlobalRate::find(1);
         $global->{$request->param} = $request->value;
         $global->save();
-
-        return back();
-
-        $global->metal_rate = $request->metal_rate;
-        $global->energy_rate = $request->energy_rate;
-        $global->crystal_rate = $request->crystal_rate;
-
-        $global->ship_build_time_rate = $request->ship_build_time_rate;
-        $global->ship_cost_rate = $request->ship_cost_rate;
-
-        $global->building_build_time_rate = $request->building_build_time_rate;
-        $global->building_cost_rate = $request->building_cost_rate;
-
-        $global->research_rate = $request->research_rate;
-        $global->travel_rate = $request->travel_rate;
-    }
-
-    public function increaseStorage(Planet $planet, Request $request){
-
     }
 }

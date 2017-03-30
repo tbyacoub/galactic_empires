@@ -170,13 +170,13 @@ class MailController extends Controller
      */
     public function createWParam(Request $request)
     {
-        $mail = Mail::find($request->mailId);
 
         if($request->_CMETHOD == "FORWARD"){
+            $mail = Mail::find($request->mailId);
             $forwardMessage = 'sent by' . $mail->sender()->first()->email . "\n\n\"" . $mail->message . "\"";
             $request->session()->flash('message', $forwardMessage);
         } else {
-            $request->session()->flash('email', $mail->sender()->first()->email);
+            $request->session()->flash('email', $request->email);
         }
         return $this->create();
     }

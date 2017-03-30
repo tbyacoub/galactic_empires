@@ -32,7 +32,7 @@
                     <div class="compose-btn pull-left">
 
                         <form action="{{ url('mails/create') }}" method="post" style="display: inline">
-                            <input type="hidden" name="mailId" value="{{$mail->id}}">
+                            <input type="hidden" name="email" value="{{$mail->sender()->first()->email}}">
                             <input type="hidden" name="_CMETHOD" value="REPLY">
                             {{ csrf_field() }}
                             <button class="btn btn-sm btn-theme"  type="submit"><i class="fa fa-reply"></i>Reply</button>

@@ -1,7 +1,5 @@
 
 <table class="table table-striped table-advance table-hover">
-    <h4><i class="fa fa-angle-right"></i> Planets List</h4>
-    <hr>
     <thead>
         <tr>
             <th>Image</th>

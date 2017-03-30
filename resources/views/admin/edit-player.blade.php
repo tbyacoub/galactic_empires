@@ -23,7 +23,12 @@
                 <h6>{{ $user->cachedRoles()[0]->display_name }}</h6>
                 <p>USER BIO</p>
                 <br>
-                <p><a class="btn btn-theme" type="button" href="/mail/create/{{ $user->email }}"><i class="fa fa-envelope"></i> Send Message</a></p>
+                <form action="{{ url('mails/create') }}" method="post" style="display: inline">
+                    <input type="hidden" name="email" value="{{ $user->email }}">
+                    <input type="hidden" name="_CMETHOD" value="REPLY">
+                    {{ csrf_field() }}
+                    <button class="btn btn-theme"  type="submit"><i class="fa fa-reply"></i>Reply</button>
+                </form>
             </div><! --/col-md-4 -->
 
             <div class="col-md-4 centered">
