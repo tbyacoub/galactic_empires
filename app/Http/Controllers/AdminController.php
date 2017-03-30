@@ -35,7 +35,11 @@ class AdminController extends Controller
      */
     public function updateGlobalRates(Request $request){
         $global = GlobalRate::find(1);
-        
+        $global->{$request->param} = $request->value;
+        $global->save();
+
+        return back();
+
         $global->metal_rate = $request->metal_rate;
         $global->energy_rate = $request->energy_rate;
         $global->crystal_rate = $request->crystal_rate;
@@ -48,10 +52,6 @@ class AdminController extends Controller
 
         $global->research_rate = $request->research_rate;
         $global->travel_rate = $request->travel_rate;
-
-        $global->save();
-        
-        return back();
     }
 
     public function increaseStorage(Planet $planet, Request $request){

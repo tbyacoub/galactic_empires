@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     /**
      * POST routes
      */
-    Route::post('/global-rates', 'AdminController@updateGlobalRates');
+    Route::put('/global-rates', 'AdminController@updateGlobalRates');
 
     /**
      * Resource route replacements/extensions
