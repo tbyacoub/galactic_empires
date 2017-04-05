@@ -30,6 +30,7 @@
         @yield('content')
         {{-- dashboard end--}}
 
+
     </section>
 
 </div>

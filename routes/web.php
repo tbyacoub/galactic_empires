@@ -24,6 +24,8 @@ Route::get('/', function () {
  */
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/complete-tutorial', 'HomeController@completeTutorial');
+
     Route::get('/notifications', 'NotificationController@index');
 
     Route::get('/api/get-notifications', 'NotificationController@getUserNotifications');
@@ -41,7 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/resources', 'BuildingController@indexResources');
 
     Route::get('/planetary-defenses', 'BuildingController@indexDefenses');
-
 
     Route::get('/fleets', 'FleetsController@index');
 

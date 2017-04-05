@@ -36,6 +36,11 @@ class User extends Authenticatable
         'password', 'remember_token', 'api_token'
     ];
 
+    public function completeTutorial(){
+        $this->tutorial_complete = 1;
+        $this->save();
+    }
+
     public function fromTravelsAllPlanets(){
         $from_travels = new Collection();
         $planets = $this->planets()->get();

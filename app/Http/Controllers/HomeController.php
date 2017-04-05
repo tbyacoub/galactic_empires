@@ -90,4 +90,9 @@ class HomeController extends Controller
         }
         return view('content.launch-attack', compact('from_planet', 'to_planet'));
     }
+
+    public function completeTutorial(){
+        Auth::user()->completeTutorial();
+        return back();
+    }
 }
