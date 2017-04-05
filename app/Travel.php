@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class Travel extends Model
 {
 
+    public static $solar_system_base = 300; // 300 secs (5min)
+
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
@@ -70,7 +72,7 @@ class Travel extends Model
     public function getTravelPercent(){
         $current = Carbon::now()->timestamp - $this->departure->timestamp;
         $difference = $this->arrival->timestamp - $this->departure->timestamp;
-        return 100 * ($current / $difference);
+        return 100 * $current;
     }
 
     /**
@@ -145,7 +147,7 @@ class Travel extends Model
 
         $time_distance = ceil((sqrt($dx + $dy) * $rate));
 
-        return intval($time_distance / GlobalRate::getGlobalTravelSpeed());
+        return intval($time_distance / GlobalRate::getGlobalTravelSpeed()) + Travel::solar_system_base;
     }
 
     /**
