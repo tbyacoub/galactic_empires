@@ -2,7 +2,7 @@
 <! -- TUTORIAL -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> {{ ucwords(Request::path()) }} Tutorial </h4>
-    <a href=" {{ url('/complete-tutorial') }}">I got this.. Skip Tutorial</a>
+    <a href=" {{ url('/complete-tutorial') }}">I got this.. Finish Tutorial</a>
     <div class="alert alert-info">
         @if(Request::path() == 'home')
             <a href="{{ url('/planet-overview') }}" class="close" aria-hidden="true">Continue To Planet Overview</a>
