@@ -36,7 +36,7 @@
 							@if ($planet->user_id >= 0)
 								<div class='info_line_breaker'></div>
 								<div id='attack_button_container'>
-									<a id='attack_link' href='/launch-attack/{{ Auth::user()->planets()->first()->id }}+/+{{$planet->id}}'>Attack</a>
+									<a id='attack_link' href="{{ url('/travels/create/'.$planet->id) }}">Attack</a>
 								</div>
 							@else
 								<div class='info_line_breaker'></div>

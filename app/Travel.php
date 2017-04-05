@@ -91,24 +91,6 @@ class Travel extends Model
     }
 
     /**
-     * @param Planet $from_planet
-     * @param Planet $to_planet
-     * @param $fleet
-     */
-    public function startTravel(Planet $from_planet, Planet $to_planet, $fleet, $type){
-        $this->type = $type;
-        $this->from_planet_id = $from_planet->id;
-        $this->to_planet_id = $to_planet->id;
-        $this->modifyTravelFleet($fleet);
-        $this->departure = Carbon::now();
-        $this->arrival = Carbon::now()->addMinutes($from_planet->calculateDistanceToOtherPlanet($to_planet));
-        $this->save();
-
-        dispatch((new TravelCompleted($this))->delay(Carbon::now()->addMinutes($from_planet->calculateDistanceToOtherPlanet($to_planet))));
-        return $from_planet->removeShipsFromPlanetFleet($this->fleet);
-    }
-
-    /**
      * Run on TravelCompleted Job.
      */
     public function travelIsComplete(){
@@ -135,47 +117,6 @@ class Travel extends Model
             $notification = new Notification();
             $notification->sendFleetHasReturnedNotification($this);
         }
-    }
-
-    /**
-     * @param Planet $from_planet
-     * @param Planet $to_planet
-     * @return int
-     */
-    public static function calculateTravelTime(Planet $from_planet, Planet $to_planet){
-        $loc1 = $from_planet->SolarSystem()->first()->location;
-        $loc2 = $to_planet->SolarSystem()->first()->location;
-        $x1 = $loc1[0];
-        $y1 = $loc1[1];
-        $x2 = $loc2[0];
-        $y2 = $loc2[1];
-
-        $dx = ($x2 - $x1) * ($x2 - $x1);
-        $dy = ($y2 - $y1) * ($y2 - $y1);
-
-        $minutes = 720; // 1 days
-        $base_distance = 400;
-        $rate = $minutes / $base_distance;
-
-        $time_distance = ceil((sqrt($dx + $dy) * $rate));
-
-        return intval($time_distance / GlobalRate::getGlobalTravelSpeed());
-    }
-
-    /**
-     * Modify the Fleet of this Travel, if ship type is already in the fleet it will change to the new amount.
-     * Otherwise, it will add the ship type and amount to the current fleet in this Travel.
-     *
-     * Parameter example : 1, 2 -> indicating ship type id 1 and amount of 2 ships.
-     *
-     * @param array $fleet
-     */
-    public function modifyTravelFleet($fleet){
-        $temp_fleet = [];
-        array_push($temp_fleet, $fleet['babylon5'], $fleet['battlestar_galactica'], $fleet['stargate']);
-
-        $this->fleet = $temp_fleet;
-        return;
     }
 
 

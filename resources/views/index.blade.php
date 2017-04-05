@@ -1,3 +1,0 @@
-<h1>COM S 309</h1>
-
-<h2>TEAM AK_5_WEBGAME</h2>

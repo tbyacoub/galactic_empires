@@ -24,7 +24,7 @@ class Product extends Model
      * @param $buildingLevel
      */
     public function calculateBonus($buildingLevel){
-        $this->bonus = (1 + (0.25 * (1 - $buildingLevel)));
+        $this->bonus = (1 + (0.25 * ($buildingLevel - 1)));
     }
 
     /**

@@ -23,8 +23,11 @@ class TravelCompleted implements ShouldQueue
     {
         $this->travel = $travel;
 
-        $notification = new Notification();
-        $notification->sendAttackNotificationToDefender($travel);
+        if($travel->type = "attacking") {
+            $notification = new Notification();
+            $notification->sendAttackNotificationToDefender($travel);
+        }
+
     }
 
     /**

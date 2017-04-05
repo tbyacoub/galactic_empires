@@ -1,6 +1,8 @@
 <?php
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+
 class Planet extends Model
 {
     /**
@@ -30,6 +32,7 @@ class Planet extends Model
     {
         return $this->belongsTo('App\User');
     }
+
     /**
      * Returns the solar system where this planet resides.
      *
@@ -39,6 +42,7 @@ class Planet extends Model
     {
         return $this->belongsTo('App\SolarSystem');
     }
+
     /**
      * Return the type of this planet.
      *
@@ -48,20 +52,24 @@ class Planet extends Model
     {
         return $this->belongsTo('App\PlanetType');
     }
+
     /**
      * Returns all the buildings on this planet.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function buildings(){
+    public function buildings()
+    {
         return $this->hasMany('App\Building');
     }
 
-    public function fromTravels(){
+    public function fromTravels()
+    {
         return $this->hasMany('App\Travel', 'from_planet_id', 'id');
     }
 
-    public function toTravels(){
+    public function toTravels()
+    {
         return $this->hasMany('App\Travel', 'to_planet_id', 'id');
     }
 
@@ -71,8 +79,9 @@ class Planet extends Model
      * @param $type building type
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function buildingsOfType($type){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description) use ($type){
+    public function buildingsOfType($type)
+    {
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function ($description) use ($type) {
             $description->where('type', $type);
         });
     }
@@ -83,8 +92,9 @@ class Planet extends Model
      * @param $name building name
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function buildingOfName($name){
-        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function($description) use ($name){
+    public function buildingOfName($name)
+    {
+        return $this->buildings()->with('description', 'upgrade')->whereHas('description', function ($description) use ($name) {
             $description->where('name', $name);
         });
     }
@@ -104,7 +114,8 @@ class Planet extends Model
      *
      * @param $name name of fleet
      */
-    public function fleet($name) {
+    public function fleet($name)
+    {
         return $this->fleets()->with('description', 'product')->whereHas('description', function ($description) use ($name) {
             $description->where('name', $name);
         });
@@ -117,7 +128,8 @@ class Planet extends Model
      * @param $crystal integer
      * @param $energy integer
      */
-    public function setResources($metal, $crystal, $energy){
+    public function setResources($metal, $crystal, $energy)
+    {
         $this->resources = [
             'metal' => ceil($metal),
             'crystal' => ceil($crystal),
@@ -131,7 +143,8 @@ class Planet extends Model
      *
      * @return integer
      */
-    public function metal(){
+    public function metal()
+    {
         return $this->resources['metal'];
     }
 
@@ -140,7 +153,8 @@ class Planet extends Model
      *
      * @return integer
      */
-    public function crystal(){
+    public function crystal()
+    {
         return $this->resources['crystal'];
     }
 
@@ -154,64 +168,8 @@ class Planet extends Model
         return $this->resources['energy'];
     }
 
-    // TODO
-    // NOT RELATED
-    public function removeShipsFromPlanetFleet($fleet){
-        $babylon = $this->fleet('babylon5')->first();
-        $babylon->count = $babylon->count - $fleet[0];
-        $babylon->save();
-        $battlestar_galactica = $this->fleet('battlestar_galactica')->first();
-        $battlestar_galactica->count = $battlestar_galactica->count - $fleet[1];
-        $battlestar_galactica->save();
-        $stargate = $this->fleet('stargate')->first();
-        $stargate->count = $stargate->count - $fleet[2];
-        $stargate->save();
-    }
-
-    // TODO
-    // NOT RELATED
-    public function addShipsToPlanetFleet($fleet){
-        $babylon = $this->fleet('babylon5')->first();
-        $babylon->count = $babylon->count + $fleet[0];
-        $babylon->save();
-        $battlestar_galactica = $this->fleet('battlestar_galactica')->first();
-        $battlestar_galactica->count = $battlestar_galactica->count + $fleet[1];
-        $battlestar_galactica->save();
-        $stargate = $this->fleet('stargate')->first();
-        $stargate->count = $stargate->count + $fleet[2];
-        $stargate->save();
-    }
-
-    // TODO
-    // NOT RELATED
-    /**
-     * Calculates distance from this Planet to other Planet
-     *
-     * @param Planet $other
-     * @return int distance in MINUTES
-     */
-    public function calculateDistanceToOtherPlanet(Planet $other){
-        return Travel::calculateTravelTime($this,$other);
-    }
-
-    // TODO
-    // NOT RELATED
-    public function formattedTimeDistance(Planet $other){
-        $minutes = Travel::calculateTravelTime($this,$other);
-        if($minutes > 60){
-           $hours = floor($minutes / 60);
-        }else{
-           return $minutes . "Minutes";
-        }
-        if($hours > 24){
-            $days = floor($hours / 24);
-        }else{
-            return $hours . ' Hours, ' . ((int) $minutes % 60) . "Minutes";
-        }
-        return $days . 'Days, ' . $hours . ' Hours, ' .  $minutes % 60 . "Minutes";
-    }
-
-    public function setStorage($storage, $capacity){
+    public function setStorage($storage, $capacity)
+    {
         switch ($storage) {
             case "metal_storage":
                 $this->metal_storage = $capacity;
@@ -231,20 +189,22 @@ class Planet extends Model
      *
      * @param $amount
      */
-    public function modifyMetal($amount){
+    public function modifyMetal($amount)
+    {
         $value = $this->metal() + $amount;
-        $value = ($this->metal() + $amount < 0) ? 0 : min($value, $this->metal_storage) ;
+        $value = ($this->metal() + $amount < 0) ? 0 : min($value, $this->metal_storage);
         $this->setResources($value, $this->crystal(), $this->energy());
     }
 
     /**
      * Modifies the resources on a given planet
-     * 
+     *
      * @param $amount
      */
-    public function modifyCrystal($amount){
+    public function modifyCrystal($amount)
+    {
         $value = $this->crystal() + $amount;
-        $value = ($this->crystal() + $amount < 0) ? 0 : min($value, $this->crystal_storage) ;
+        $value = ($this->crystal() + $amount < 0) ? 0 : min($value, $this->crystal_storage);
         $this->setResources($this->metal(), $value, $this->energy());
     }
 
@@ -253,9 +213,10 @@ class Planet extends Model
      *
      * @param $amount
      */
-    public function modifyEnergy($amount){
+    public function modifyEnergy($amount)
+    {
         $value = $this->energy() + $amount;
-        $value = ($this->energy() + $amount < 0) ? 0 : min($value, $this->energy_storage) ;
+        $value = ($this->energy() + $amount < 0) ? 0 : min($value, $this->energy_storage);
         $this->setResources($this->metal(), $this->crystal(), $value);
     }
 }

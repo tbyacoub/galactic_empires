@@ -72,7 +72,7 @@ class PlanetController extends Controller
      */
     public function show(Planet $planet)
     {
-        return view('planet_view', compact('planet'));
+        return view('content.planet_view', compact('planet'));
     }
 
     /**

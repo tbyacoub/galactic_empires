@@ -5,28 +5,37 @@
             <section class="task-panel tasks-widget">
                 <div class="panel-heading">
                     <div class="pull-left"><h5><i class="fa fa-tasks"></i> Attacking fleets</h5></div>
-                    <div class="pull-right"><h5><i class="fa fa-tasks"></i> Travel Time: x min</h5></div>
+                    <div class="pull-right"><h5><i class="fa fa-tasks"></i> Travel Time: {{time}}</h5></div>
                     <br>
                 </div>
                 <div class="panel-body">
-                    <div class="task-content">
+                        <div class="task-content">
 
-                        <ul class="task-list">
-                            <li v-for="(fleet, index) in fleets">
-                                <div class="task-title">
-                                    <span class="task-title-sp">{{ fleet.description.display_name }}</span>
-                                    <span class="badge bg-success">{{ fleetCount[index].count }}</span>
-                                    <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="fleetCount[index].count" :max="fleet.count" :disabled="fleet.count == 0"></vue-slider>
+                            <ul class="task-list">
+                                <li v-for="(fleet, index) in fleets">
+                                    <div class="task-title">
+                                        <span class="task-title-sp">{{ fleet.description.display_name }}</span>
+                                        <span class="badge bg-success">{{ fleetCount[index] }}</span>
+                                        <div class="slider pull-right">
+                                            <vue-slider ref="slider" :width="200" v-model="fleetCount[index]" :max="fleet.count" :disabled="fleet.count == 0"></vue-slider>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <div class=" add-task-row">
-                        <a class="btn btn-success btn-sm pull-left" href="todo_list.html#">Attack</a>
-                    </div>
+                        <div class=" add-task-row">
+                            <!--<a class="btn btn-success btn-sm pull-left" href="todo_list.html#">Attack</a>-->
+                            <form action="/travels" method="post">
+                                <input hidden name="_token" :value="csrf">
+                                <input hidden name="destination" :value="destination">
+                                <input hidden name="origin" :value="planetId">
+                                <input hidden name="fleet" :value="fleetCount">
+                                <input hidden name="fleets" :value="fleetsJSON">
+                                <button type="submit" class="btn btn-success btn-sm pull left">Attack</button>
+                            </form>
+                        </div>
+
                 </div>
             </section>
         </div><!-- /col-md-12-->
@@ -162,11 +171,19 @@
             return{
                 fleets: [],
                 fleetCount: [
-                    {count: 0},
-                    {count: 0},
-                    {count: 0},
+                    0,
+                    0,
+                    0,
                 ],
                 planetId: 0,
+                time: 0,
+                csrf: "",
+            }
+        },
+        props: {
+            destination: {
+                type: Number,
+                required: true,
             }
         },
         methods: {
@@ -175,12 +192,26 @@
 					this.fleets = response.body;
                 });
             },
+            getTravelTime(){
+                this.$http.get('/travels/planets/'+this.planetId+'/planets/' + this.destination).then(response => {
+					this.time = response.body;
+                });
+            },
+        },
+        computed: {
+            fleetsJSON: function () {
+                return JSON.stringify(this.fleets);
+            }
         },
         created() {
             EventBus.$on('planet-changed', planet => {
                 this.getFleets(planet.planet.id);
                 this.planetId = planet.planet.id;
+                this.getTravelTime();
             });
+        },
+        mounted() {
+            this.csrf = Laravel.csrfToken;
         }
     }
 </script>
