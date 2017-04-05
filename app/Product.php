@@ -24,7 +24,7 @@ class Product extends Model
      * @param $buildingLevel
      */
     public function calculateBonus($buildingLevel){
-        $this->bonus = (1 + (0.25 * (1 - $buildingLevel)));
+        $this->bonus = (1 + (0.25 * ($buildingLevel - 1)));
     }
 
     /**
@@ -33,8 +33,8 @@ class Product extends Model
      * @param $metalRate integer
      * @return float|int
      */
-    public function calculateMetal($metalRate){
-        return (($this->characteristics['metal_base_rate']) * $this->bonus * $metalRate) / 12;
+    public function calculateMetal($global_rate, $research_rate, $alloy_rate){
+        return ($this->characteristics['metal_base_rate'] * $this->bonus * (($global_rate + $research_rate + $alloy_rate) / 3)) / 12;
     }
 
     /**
@@ -43,8 +43,8 @@ class Product extends Model
      * @param $crystalRate integer
      * @return float|int
      */
-    public function calculateCrystal($crystalRate){
-        return (($this->characteristics['crystal_base_rate']) * $this->bonus * $crystalRate) / 12;
+    public function calculateCrystal($global_rate, $research_rate){
+        return ($this->characteristics['crystal_base_rate'] * $this->bonus * (($global_rate + $research_rate) / 2)) / 12;
     }
 
     /**
@@ -53,7 +53,7 @@ class Product extends Model
      * @param $energyRate integer
      * @return float|int
      */
-    public function calculateEnergy($energyRate){
-        return (($this->characteristics['energy_base_rate']) * $this->bonus * $energyRate) / 12;
+    public function calculateEnergy($global_rate, $research_rate){
+        return ($this->characteristics['energy_base_rate'] * $this->bonus * (($global_rate + $research_rate) / 2)) / 12;
     }
 }

@@ -38,13 +38,20 @@ class UpdateResources implements ShouldQueue
            $metal = $planet->metal();
            $crystal = $planet->crystal();
            $energy = $planet->energy();
+
+           $metal_research_rate = $planet->getPlanetResearchMetalRate();
+           $crystal_research_rate = $planet->getPlanetResearchEnergyRate();
+           $energy_research_rate = $planet->getPlanetResearchCrystalRate();
+           $alloy_metal_rate = $planet->getPlanetAlloyLabMetalRate();
+
            foreach($planet->resourcesBuildings() as $building)
            {
                 $production = $building->product()->first();
                 $production->calculateBonus($building->getLevel());
-                $metal += $production->calculateMetal($global->metal_rate);
-                $crystal += $production->calculateCrystal($global->crystal_rate);
-                $energy += $production->calculateEnergy($global->energy_rate);
+
+                $metal += $production->calculateMetal($global->metal_rate, $metal_research_rate, $alloy_metal_rate);
+                $crystal += $production->calculateCrystal($global->crystal_rate, $crystal_research_rate);
+                $energy += $production->calculateEnergy($global->energy_rate, $energy_research_rate);
            }
            $planet->setResources($metal, $crystal, $energy);
        }

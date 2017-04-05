@@ -113,7 +113,8 @@ class Travel extends Model
             $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
 
             // Add resources won from battle.
-            $this->toPlanet()->first()->setResources($this->metal, $this->crystal, $this->energy);
+            $this->toPlanet()->first()->setResources($this->metal+$this->toPlanet()->first()->metal(),
+                $this->crystal + $this->toPlanet()->first()->crystal(), $this->energy+$this->toPlanet()->first()->energy());
 
             // Notify that fleet has returned.
             $notification = new Notification();

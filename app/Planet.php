@@ -110,6 +110,39 @@ class Planet extends Model
             $description->where('type', 'shipyard');
         })->get();
     }
+
+    public function researchBuilding(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'research_station');
+        })->first();
+    }
+
+    public function alloyLab(){
+        return $this->buildings()->with('description', 'upgrade', 'product')->whereHas('description', function($description){
+            $description->where('name', 'alloy_lab');
+        })->first();
+    }
+
+    public function getPlanetResearchMetalRate() {
+        $research_building = $this->researchBuilding();
+        return 1 + ($research_building->current_level * $research_building->product->characteristics['metal_bonus_rate']);
+    }
+
+    public function getPlanetResearchCrystalRate() {
+        $research_building = $this->researchBuilding();
+        return 1 + ($research_building->current_level * $research_building->product->characteristics['crystal_bonus_rate']);
+    }
+
+    public function getPlanetResearchEnergyRate() {
+        $research_building = $this->researchBuilding();
+        return 1 + ($research_building->current_level * $research_building->product->characteristics['energy_bonus_rate']);
+    }
+
+    public function getPlanetAlloyLabMetalRate() {
+        $research_building = $this->researchBuilding();
+        return 1 + ($research_building->current_level * $research_building->product->characteristics['metal_bonus_rate']);
+    }
+
     /**
      * Sets the planet resources.
      *
@@ -162,8 +195,6 @@ class Planet extends Model
         $this->numCorvettes = $this->numCorvettes - $fleet[2];
         $this->numFrigates = $this->numFrigates - $fleet[3];
         $this->numDestroyers = $this->numDestroyers - $fleet[4];
-//        dd($fleet);
-
         $this->save();
     }
 

@@ -27,18 +27,18 @@ class GameSettingsUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'metal_rate' => 'required|max:100|numeric',
-            'energy_rate' => 'required|max:100|numeric',
-            'crystal_rate' => 'required|max:100|numeric',
+            'metal_rate' => 'max:100|numeric',
+            'energy_rate' => 'max:100|numeric',
+            'crystal_rate' => 'max:100|numeric',
 
-            'ship_build_time_rate' => 'required|max:100|numeric',
-            'ship_cost_rate' => 'required|max:100|numeric',
+            'ship_build_time_rate' => 'max:100|numeric',
+            'ship_cost_rate' => 'max:100|numeric',
 
-            'building_build_time_rate' => 'required|max:100|numeric',
-            'building_cost_rate' => 'required|max:100|numeric',
+            'building_build_time_rate' => 'max:100|numeric',
+            'building_cost_rate' => 'max:100|numeric',
 
-            'research_rate' => 'required|max:100|numeric',
-            'travel_rate' => 'required|max:100|numeric',
+            'research_rate' => 'max:100|numeric',
+            'travel_rate' => 'max:100|numeric',
         ];
     }
 }

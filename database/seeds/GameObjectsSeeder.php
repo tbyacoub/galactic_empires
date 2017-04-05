@@ -95,7 +95,7 @@ class GameObjectsSeeder extends Seeder
         $mm = $this->metalMine();
         $cm = $this->crystalMine();
         $er = $this->energyReactor();
-        $am = $this->antiAirMisiles();
+        $am = $this->antiAirMissiles();
         $pt = $this->plasmaTurret();
         $ms = $this->metalStorage();
         $cs = $this->crystalStorage();
@@ -127,7 +127,7 @@ class GameObjectsSeeder extends Seeder
         $mmp = $this->metalMineProduct();
         $cmp = $this->crystalMineProduct();
         $erp = $this->energyReactorProduct();
-        $amp = $this->antiAirMisilesProduct();
+        $amp = $this->antiAirMissilesProduct();
         $ptp = $this->plasmaTurretProduct();
         $msp = $this->metalStorageProduct();
         $csp = $this->crystalStorageProduct();
@@ -209,7 +209,7 @@ class GameObjectsSeeder extends Seeder
         return $description;
     }
 
-    private function antiAirMisiles(){
+    private function antiAirMissiles(){
         $description = new \App\Description();
         $description->name = "anti_air_missile";
         $description->display_name = "Anti-air Missiles";
@@ -601,8 +601,8 @@ class GameObjectsSeeder extends Seeder
         $product = new App\Product();
         $product->characteristics = [
             'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'crystal_base_rate'=> 25.0,
+            'energy_base_rate'=> 10.0,
         ];
         $product->save();
         return $product;
@@ -613,8 +613,8 @@ class GameObjectsSeeder extends Seeder
         $product = new App\Product();
         $product->characteristics = [
             'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'crystal_base_rate'=> 25.0,
+            'energy_base_rate'=> 10.0,
         ];
         $product->save();
         return $product;
@@ -625,20 +625,19 @@ class GameObjectsSeeder extends Seeder
         $product = new App\Product();
         $product->characteristics = [
             'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'crystal_base_rate'=> 25.0,
+            'energy_base_rate'=> 10.0,
         ];
         $product->save();
         return $product;
     }
 
-    private function antiAirMisilesProduct()
+    private function antiAirMissilesProduct()
     {
         $product = new App\Product();
         $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'base_attack' => 3500,
+            'base_attack_rate' => 1.10,
         ];
         $product->save();
         return $product;
@@ -648,9 +647,8 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'base_attack'=> 5000,
+            'base_attack_rate' => 1.05,
         ];
         $product->save();
         return $product;
@@ -693,9 +691,9 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'metal_bonus_rate' => 0.05,
+            'crystal_bonus_rate' => 0.05,
+            'energy_bonus_rate' => 0.05,
         ];
         $product->save();
         return $product;
@@ -705,9 +703,7 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'metal_base_rate'=> 35.0,
-            'crystal_base_rate'=>5.0,
-            'energy_base_rate'=>10.0,
+            'metal_bonus_rate'=> 0.15,
         ];
         $product->save();
         return $product;
