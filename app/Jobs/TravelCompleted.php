@@ -54,6 +54,7 @@ class TravelCompleted implements ShouldQueue
                 $planet->energy() + $this->travel->energy);
         }
 
+//        event()
         $this->travel->delete();
     }
 

@@ -32,7 +32,7 @@
                                 <input hidden name="origin" :value="planetId">
                                 <input hidden name="fleet" :value="fleetCount">
                                 <input hidden name="fleets" :value="fleetsJSON">
-                                <button type="submit" class="btn btn-success btn-sm pull left">Attack</button>
+                                <button :disabled="attackButton" type="submit" class="btn btn-success btn-sm pull left">Attack</button>
                             </form>
                         </div>
 
@@ -201,6 +201,15 @@
         computed: {
             fleetsJSON: function () {
                 return JSON.stringify(this.fleets);
+            },
+            attackButton: function() {
+                for(let i = 0; i < this.fleetCount.length; i++){
+                console.log(this.fleetCount[i])
+                    if(this.fleetCount[i] > 0 ) {
+                        return false;
+                    }
+                }
+                return true;
             }
         },
         created() {
