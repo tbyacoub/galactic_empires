@@ -155,25 +155,6 @@ class Building extends Model
     }
 
     /**
-     * Decrement the resources cost of upgrading this building.
-     */
-    public function decrementBuildingCost()
-    {
-        $planet = $this->planet()->first();
-        $metal_remainder = $planet->metal() - $this->resourceCost('metal');
-        $crystal_remainder = $planet->crystal() - $this->resourceCost('crystal');
-        $energy_remainder = $planet->energy() - $this->resourceCost('energy');
-        $this->planet()->first()->setResources($metal_remainder, $crystal_remainder, $energy_remainder);
-    }
-
-    public function getFormattedBuildingCost()
-    {
-        return 'Metal: ' . $this->resourceCost('metal') . ', ' .
-            'Energy: ' . $this->resourceCost('energy') . ', ' .
-            'Crystal: ' . $this->resourceCost('crystal');
-    }
-
-    /**
      * Get the resource cost of upgrading this building.
      *
      * @param $resource

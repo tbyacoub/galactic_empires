@@ -22,30 +22,9 @@ class TravelController extends Controller
         //
     }
 
-    public function time(Planet $origin, Planet $destination)
-    {
-        $loc1 = $origin->SolarSystem()->first()->location;
-        $loc2 = $destination->SolarSystem()->first()->location;
-        $x1 = $loc1[0];
-        $y1 = $loc1[1];
-        $x2 = $loc2[0];
-        $y2 = $loc2[1];
-
-        $dx = ($x2 - $x1) * ($x2 - $x1);
-        $dy = ($y2 - $y1) * ($y2 - $y1);
-
-        $minutes = 720; // 1 days
-        $base_distance = 400;
-        $rate = $minutes / $base_distance;
-
-        $time_distance = ceil((sqrt($dx + $dy) * $rate));
-
-        return intval($time_distance / GlobalRate::getGlobalTravelSpeed()) + 5;
-    }
-
     public function formattedTime(Planet $origin, Planet $destination)
     {
-        $minutes = $this->time($origin, $destination);
+        $minutes = Travel::time($origin, $destination);
         if ($minutes > 60) {
             $hours = floor($minutes / 60);
         } else {
@@ -80,15 +59,20 @@ class TravelController extends Controller
     {
         $fleet = explode(",", $request->fleet);
         $fleets = json_decode($request->fleets);
-        $time = $this->time(Planet::find($request->origin), Planet::find($request->destination));
-        $travel = new Travel();
-        $travel->type = 'attacking';
-        $travel->from_planet_id = $request->origin;
-        $travel->to_planet_id = $request->destination;
-        $travel->fleet = $request->fleet;
-        $travel->departure = Carbon::now();
-        $travel->arrival = Carbon::now()->addMinutes($time);
+
+        $time = Travel::time(Planet::find($request->origin), Planet::find($request->destination));
+
+        $travel = new Travel([
+            'type' => 'attacking',
+            'from_planet_id' => $request->origin,
+            'to_planet_id' => $request->destination,
+            'fleet' => $fleet,
+            'departure' => Carbon::now(),
+            'arrival' => Carbon::now()->addMinutes($time),
+        ]);
         $travel->save();
+
+        dispatch((new TravelCompleted($travel))->delay(Carbon::now()->addMinutes($time)));
 
         for($i = 0; $i < count($fleets); $i++) {
             $ship = Planet::find($request->origin)->fleet($fleets[$i]->description->name)->first();
@@ -96,10 +80,9 @@ class TravelController extends Controller
             $ship->save();
         }
 
-        dispatch((new TravelCompleted($travel))->delay(Carbon::now()->addMinutes($time)));
-
         return redirect('/home');
     }
+
 
     /**
      * Display the specified resource.

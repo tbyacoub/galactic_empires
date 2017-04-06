@@ -18,7 +18,8 @@ class Travel extends Model
      * @var array
      */
     protected $fillable = [
-        'type', 'from_planet_id', 'to_planet_id', 'fleet', 'destination_timestamp'
+        'type', 'from_planet_id', 'to_planet_id', 'fleet',
+        'metal', 'crystal', 'energy', 'departure', 'arrival',
     ];
 
     /**
@@ -40,6 +41,27 @@ class Travel extends Model
     protected $casts = [
         'fleet' => 'array',
     ];
+
+    public static function time(Planet $origin, Planet $destination)
+    {
+        $loc1 = $origin->SolarSystem()->first()->location;
+        $loc2 = $destination->SolarSystem()->first()->location;
+        $x1 = $loc1[0];
+        $y1 = $loc1[1];
+        $x2 = $loc2[0];
+        $y2 = $loc2[1];
+
+        $dx = ($x2 - $x1) * ($x2 - $x1);
+        $dy = ($y2 - $y1) * ($y2 - $y1);
+
+        $minutes = 720; // 1 days
+        $base_distance = 400;
+        $rate = $minutes / $base_distance;
+
+        $time_distance = ceil((sqrt($dx + $dy) * $rate));
+
+        return intval($time_distance / GlobalRate::getGlobalTravelSpeed());
+    }
 
     /**
      * Get the origin planet of this Travel.
@@ -110,12 +132,19 @@ class Travel extends Model
             $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
 
             // Add resources won from battle.
-//            $this->toPlanet()->first()->setResources($this->metal, $this->crystal, $this->energy);
+            $this->toPlanet()->first()->setResources($this->metal+$this->toPlanet()->first()->metal(),
+                $this->crystal + $this->toPlanet()->first()->crystal(), $this->energy+$this->toPlanet()->first()->energy());
             $this->delete();
 
             // Notify that fleet has returned.
             $notification = new Notification();
-            $notification->sendFleetHasReturnedNotification($this);
+            $notification->subject = "You're fleet has returned to " . $this->toPlanet()->first()->name . '.';
+            $notification->content = "Returned from Planet " . $this->fromPlanet()->first()->name . '. \n'
+                . 'Your attack has gained ' . $this->metal . ' Metal, ' . $this->crystal
+                . ' Crystal and ' . $this->energy . ' Energy.';
+            $notification->read = false;
+            $notification->user()->associate($this->fromPlanet()->first()->user()->first()->id);
+            $notification->save();
         }
     }
 

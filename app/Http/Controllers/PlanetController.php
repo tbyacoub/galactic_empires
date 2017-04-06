@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotificationReceivedEvent;
 use App\Notification;
 use App\Planet;
 use Illuminate\Http\Request;
@@ -101,19 +102,36 @@ class PlanetController extends Controller
     public function updateResource(Planet $planet, Request $request, $resource)
     {
         $amount = $request->amount;
+        $metal = $planet->metal();
+        $crystal = $planet->crystal();
+        $energy = $planet->energy();
         switch ($resource){
             case "metal":
-                $planet->modifyMetal($amount);
+                $metal = $planet->metal() + $amount;
+                $metal = ($planet->metal() + $amount < 0) ? 0 : min($metal, $planet->metal_storage);
                 break;
             case "crystal":
-                $planet->modifyCrystal($amount);
+                $crystal = $planet->crystal() + $amount;
+                $crystal = ($planet->crystal() + $amount < 0) ? 0 : min($crystal, $planet->crystal_storage);
                 break;
             case "energy":
-                $planet->modifyEnergy($amount);
+                $energy = $planet->energy() + $amount;
+                $energy = ($planet->energy() + $amount < 0) ? 0 : min($energy, $planet->energy_storage);
                 break;
         }
+        $planet->setResources($metal, $crystal, $energy);
+
+        //create and send notification
         $notification = new Notification();
-        $notification->sendResourceModifiedNotification(Auth::user()->name, $planet->user()->first()->id, $planet->name, $amount);
+        $notification->subject = "Resources Modified";
+        $notification->content = "Creator has modified Planet: " . $planet->name ."'s".
+            " metal by amount : " . $amount;
+        $notification->read = false;
+        $notification->user()->associate($planet->user()->first()->id);
+        $notification->save();
+
+        event(new NotificationReceivedEvent($planet->user()->first()->id));
+
         return back();
     }
 

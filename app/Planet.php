@@ -3,6 +3,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed energy_storage
+ * @property mixed crystal_storage
+ * @property mixed metal_storage
+ */
 class Planet extends Model
 {
     /**
@@ -73,6 +78,7 @@ class Planet extends Model
         return $this->hasMany('App\Travel', 'to_planet_id', 'id');
     }
 
+
     /**
      * Returns all building in this planet that have type $type.
      *
@@ -119,6 +125,13 @@ class Planet extends Model
         return $this->fleets()->with('description', 'product')->whereHas('description', function ($description) use ($name) {
             $description->where('name', $name);
         });
+    }
+
+    public function getResearchResourceRate($building, $resource)
+    {
+        $research_building = $this->buildingOfName($building);
+        $resourceRate = $resource . '_bonus_rate';
+        return 1 + ($research_building->current_level * $research_building->product->characteristics[$resourceRate]);
     }
 
     /**
@@ -170,53 +183,7 @@ class Planet extends Model
 
     public function setStorage($storage, $capacity)
     {
-        switch ($storage) {
-            case "metal_storage":
-                $this->metal_storage = $capacity;
-                break;
-            case "crystal_storage":
-                $this->crystal_storage = $capacity;
-                break;
-            case "energy_storage":
-                $this->energy_storage = $capacity;
-                break;
-        }
+        $this->{$storage} = $capacity;
         $this->save();
-    }
-
-    /**
-     * Modifies the resources on a given planet
-     *
-     * @param $amount
-     */
-    public function modifyMetal($amount)
-    {
-        $value = $this->metal() + $amount;
-        $value = ($this->metal() + $amount < 0) ? 0 : min($value, $this->metal_storage);
-        $this->setResources($value, $this->crystal(), $this->energy());
-    }
-
-    /**
-     * Modifies the resources on a given planet
-     *
-     * @param $amount
-     */
-    public function modifyCrystal($amount)
-    {
-        $value = $this->crystal() + $amount;
-        $value = ($this->crystal() + $amount < 0) ? 0 : min($value, $this->crystal_storage);
-        $this->setResources($this->metal(), $value, $this->energy());
-    }
-
-    /**
-     * Modifies the resources on a given planet
-     *
-     * @param $amount
-     */
-    public function modifyEnergy($amount)
-    {
-        $value = $this->energy() + $amount;
-        $value = ($this->energy() + $amount < 0) ? 0 : min($value, $this->energy_storage);
-        $this->setResources($this->metal(), $this->crystal(), $value);
     }
 }

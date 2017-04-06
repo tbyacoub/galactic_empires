@@ -86,7 +86,11 @@ class BuildingController extends Controller
     {
         if($building->upgradeable()){
             $building->setUpgrading(true);
-            $building->decrementBuildingCost();
+            $planet = $building->planet()->first();
+            $metal_remainder = $planet->metal() - $building->resourceCost('metal');
+            $crystal_remainder = $planet->crystal() - $building->resourceCost('crystal');
+            $energy_remainder = $planet->energy() - $building->resourceCost('energy');
+            $planet->setResources($metal_remainder, $crystal_remainder, $energy_remainder);
             dispatch((new UpgradeBuilding($building, Auth::user()->id))->delay(Carbon::now()->addMinutes($building->upgradeTime())));
         }
     }
@@ -104,7 +108,9 @@ class BuildingController extends Controller
 
     public function cost(Building $building)
     {
-        return $building->getFormattedBuildingCost();
+        return 'Metal: ' . $building->resourceCost('metal') . ', ' .
+            'Energy: ' . $building->resourceCost('energy') . ', ' .
+            'Crystal: ' . $building->resourceCost('crystal');
     }
 
 }
