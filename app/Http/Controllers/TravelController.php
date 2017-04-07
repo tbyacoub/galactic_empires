@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\GlobalRate;
 use App\Http\Requests\TravelRequest;
 use App\Jobs\TravelCompleted;
 use App\Planet;
 use App\Travel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TravelController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index()
     {
@@ -25,17 +25,7 @@ class TravelController extends Controller
     public function formattedTime(Planet $origin, Planet $destination)
     {
         $minutes = Travel::time($origin, $destination);
-        if ($minutes > 60) {
-            $hours = floor($minutes / 60);
-        } else {
-            return $minutes . " Minutes";
-        }
-        if ($hours > 24) {
-            $days = floor($hours / 24);
-        } else {
-            return $hours . ' Hours, ' . ((int)$minutes % 60) . " Minutes";
-        }
-        return $days . 'Days, ' . $hours . ' Hours, ' . $minutes % 60 . " Minutes";
+        return Carbon::now()->addMinutes($minutes)->diffForHumans();
     }
 
     /**

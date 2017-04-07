@@ -33,6 +33,33 @@ class PlanetController extends Controller
         return $planet->buildingsOfType($type)->get();
     }
 
+    public function travels(Planet $planet)
+    {
+        $travels = [
+            "incoming" => [],
+            "outgoing" => [],
+        ];
+        foreach ($planet->fromTravels()->with('toPlanet')->get() as $outgoing) {
+            $object = [
+                'data' => $outgoing,
+                'getTravelPercent' => $outgoing->getTravelPercent(),
+                'getPercentRatePerSecond' => $outgoing->getPercentRatePerSecond(),
+            ];
+            array_push($travels['outgoing'], $object);
+        };
+
+        foreach ($planet->toTravels()->with('fromPlanet')->get() as $incoming) {
+            $object = [
+                'data' => $incoming,
+                'getTravelPercent' => $incoming->getTravelPercent(),
+                'getPercentRatePerSecond' => $incoming->getPercentRatePerSecond(),
+            ];
+            array_push($travels['incoming'], $object);
+        };
+
+        return $travels;
+    }
+
     /**
      * Returns a collection of fleets, that are associated with $planet.
      *
@@ -57,7 +84,7 @@ class PlanetController extends Controller
     /**
      * Store a newly created planet in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -68,7 +95,7 @@ class PlanetController extends Controller
     /**
      * Display the specified planet.
      *
-     * @param  \App\Planet  $planet
+     * @param  \App\Planet $planet
      * @return \Illuminate\Http\Response
      */
     public function show(Planet $planet)
@@ -79,7 +106,7 @@ class PlanetController extends Controller
     /**
      * Show the form for editing the specified planet.
      *
-     * @param  \App\Planet  $planet
+     * @param  \App\Planet $planet
      * @return \Illuminate\Http\Response
      */
     public function edit(Planet $planet)
@@ -90,8 +117,8 @@ class PlanetController extends Controller
     /**
      * Update the specified planet in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Planet  $planet
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Planet $planet
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Planet $planet)
@@ -105,7 +132,7 @@ class PlanetController extends Controller
         $metal = $planet->metal();
         $crystal = $planet->crystal();
         $energy = $planet->energy();
-        switch ($resource){
+        switch ($resource) {
             case "metal":
                 $metal = $planet->metal() + $amount;
                 $metal = ($planet->metal() + $amount < 0) ? 0 : min($metal, $planet->metal_storage);
@@ -124,7 +151,7 @@ class PlanetController extends Controller
         //create and send notification
         $notification = new Notification();
         $notification->subject = "Resources Modified";
-        $notification->content = "Creator has modified Planet: " . $planet->name ."'s".
+        $notification->content = "Creator has modified Planet: " . $planet->name . "'s" .
             " metal by amount : " . $amount;
         $notification->read = false;
         $notification->user()->associate($planet->user()->first()->id);
@@ -138,7 +165,7 @@ class PlanetController extends Controller
     /**
      * Remove the specified planet from storage.
      *
-     * @param  \App\Planet  $planet
+     * @param  \App\Planet $planet
      * @return \Illuminate\Http\Response
      */
     public function destroy(Planet $planet)

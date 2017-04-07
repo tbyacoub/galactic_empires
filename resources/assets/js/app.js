@@ -12,6 +12,7 @@ require('./bootstrap');
  */
 Vue.component('inbox', require('./components/inbox.vue'));
 Vue.component('attack', require('./components/attack.vue'));
+Vue.component('travels', require('./components/travels.vue'));
 Vue.component('fleets-view', require('./components/fleets-view.vue'));
 Vue.component('global-rates', require('./components/global-rates.vue'));
 Vue.component('notification', require('./components/notification.vue'));

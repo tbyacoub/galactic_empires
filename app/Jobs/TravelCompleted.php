@@ -27,6 +27,8 @@ class TravelCompleted implements ShouldQueue
 
         if ($travel->type = "attacking") {
             $this->underAttackNotification();
+        } else {
+            $this->fleetReturnedNotification();
         }
 
     }
@@ -66,6 +68,20 @@ class TravelCompleted implements ShouldQueue
             . ' on ' . $this->travel->toPlanet()->first()->name . '. Go to home page to view the status.';
         $notification->read = false;
         $notification->user()->associate($this->travel->toPlanet()->first()->user()->first()->id);
+        $notification->save();
+
+        event(new NotificationReceivedEvent($this->travel->toPlanet()->first()->user()->first()->id));
+    }
+
+    private function fleetReturnedNotification()
+    {
+        $notification = new Notification();
+        $notification->subject = "You're fleet has returned to " . $this->travel->toPlanet()->first()->name . '.';
+        $notification->content = "Returned from Planet " . $this->travel->fromPlanet()->first()->name . '. \n'
+            . 'Your attack has gained ' . $this->travel->metal . ' Metal, ' . $this->travel->crystal
+            . ' Crystal and ' . $this->travel->energy . ' Energy.';
+        $notification->read = false;
+        $notification->user()->associate($this->travel->fromPlanet()->first()->user()->first()->id);
         $notification->save();
 
         event(new NotificationReceivedEvent($this->travel->toPlanet()->first()->user()->first()->id));

@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::get('/home', 'HomeController@index');
 
+    Route::get('/fleets', 'FleetController@index');
+
     Route::get('/galaxy-map', 'GalaxyMapController@index');
 
     Route::get('/users/{user}/mails', 'UserController@mails');
@@ -39,6 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/planets/{planet}/fleets', 'PlanetController@fleets');
 
     Route::get('/travels/create/{planet}', 'TravelController@create');
+
+    Route::get('/building/{building}/cost', 'BuildingController@cost');
+
+    Route::get('/planets/{planet}/travels', 'PlanetController@travels');
 
     Route::get('/users/{user}/notifications', 'UserController@notifications');
 
@@ -62,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mail/{box}', 'MailController@index');
 
     Route::put('/mails', 'MailController@collection');
+
+    Route::put('/fleets/{fleet}', 'FleetController@update');
 
     Route::get('/building/{type}', 'buildingController@index');
 
@@ -91,13 +99,3 @@ Route::group(['middleware' => 'auth'], function () {
     ]]);
 
 });
-
-Route::get('/fleets', 'FleetController@index');
-
-Route::put('/fleets/{fleet}', 'FleetController@update');
-
-//Route::get('/launch-attack/{from_planet}/{to_planet}', 'HomeController@indexLaunchAttack');
-
-Route::get('/building/{building}/cost', 'BuildingController@cost');
-
-//Route::post('/launch-attack/{from_planet}/{to_planet}', 'HomeController@attack');

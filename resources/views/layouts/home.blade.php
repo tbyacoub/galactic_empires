@@ -20,7 +20,8 @@
 
     @if( Request::path() ==  'home' )
         <div class="row mt">
-            @include('content.fleet-travel')
+            {{--@include('content.fleet-travel')--}}
+            <travels></travels>
         </div>
     @endif
 

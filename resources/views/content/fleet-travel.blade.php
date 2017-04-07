@@ -26,7 +26,7 @@
                     <td width="40%">
                         <p>Arrives on {{ $travel->arrival }}</p>
                         <div class="progress progress-striped active">
-                            <div data-rate="{{ $travel->getPercentRatePerSecond() }}" data-width=" {{$travel->getTravelPercent()}}" class="progress-bar from-travel-pb"  role="progressbar" style="width: {{$travel->getTravelPercent()}}%"> </div>
+                            <div data-rate="{{ $travel->getPercentRatePerSecond() }}" data-width=" {{$travel->getTravelPercent()}}" class="progress-bar from-travel-pb"  role="progressbar" style="width: {{$travel->getTravelPercent()}}%"></div>
                         </div>
                     </td>
                     <td>{{ $travel->toPlanet()->first()->name}}</td>

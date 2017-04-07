@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Jobs\AttackPlanet;
-use App\Jobs\TravelCompleted;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -110,42 +108,6 @@ class Travel extends Model
             $difference = 1;
         }
         return 100 / $difference;
-    }
-
-    /**
-     * Run on TravelCompleted Job.
-     */
-    public function travelIsComplete(){
-        if($this->type == 'attacking'){
-            $travel = new Travel();
-            $travel->type = "returning";
-            $travel->from_planet_id = $this->to_planet_id;
-            $travel->to_planet_id = $this->from_planet_id;
-            $travel->fleet = $this->fleet;
-            $travel->departure = Carbon::now();
-            $travel->arrival = Carbon::now()->addMinutes($this->fromPlanet($this->to_planet_id)->first()->calculateDistanceToOtherPlanet($this->fromPlanet($this->from_planet_id)->first()));
-            $travel->save();
-            dispatch((new TravelCompleted($travel))->delay(Carbon::now()->addMinutes($this->fromPlanet($this->to_planet_id)->first()->calculateDistanceToOtherPlanet($this->fromPlanet($this->from_planet_id)->first()))));
-            $this->delete();
-        }else if($this->type == 'returning') {
-            // Return fleet to Planet
-            $this->toPlanet()->first()->addShipsToPlanetFleet($this->fleet);
-
-            // Add resources won from battle.
-            $this->toPlanet()->first()->setResources($this->metal+$this->toPlanet()->first()->metal(),
-                $this->crystal + $this->toPlanet()->first()->crystal(), $this->energy+$this->toPlanet()->first()->energy());
-            $this->delete();
-
-            // Notify that fleet has returned.
-            $notification = new Notification();
-            $notification->subject = "You're fleet has returned to " . $this->toPlanet()->first()->name . '.';
-            $notification->content = "Returned from Planet " . $this->fromPlanet()->first()->name . '. \n'
-                . 'Your attack has gained ' . $this->metal . ' Metal, ' . $this->crystal
-                . ' Crystal and ' . $this->energy . ' Energy.';
-            $notification->read = false;
-            $notification->user()->associate($this->fromPlanet()->first()->user()->first()->id);
-            $notification->save();
-        }
     }
 
 
