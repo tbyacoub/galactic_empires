@@ -28,4 +28,12 @@ class HomeController extends Controller
         $incoming = Auth::user()->toTravelsAllPlanets();
         return view('layouts.home', compact('outgoing', 'incoming'));
     }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function completeTutorial(){
+        Auth::user()->completeTutorial();
+        return redirect('/home');
+    }
 }
