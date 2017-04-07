@@ -1,10 +1,45 @@
 <! -- TUTORIAL -->
 <div class="showback">
-    <h4><i class="fa fa-angle-right"></i> {{ ucwords(Request::path()) }} Tutorial </h4>
+        @php
+                $tutorial = "";
+                switch (Request::path()) {
+                    case 'home':
+                        $tutorial = "Home";
+                        break;
+                    case 'planets':
+                        $tutorial = "Planet Overview";
+                        break;
+                    case 'building/resource':
+                        $tutorial = "Resources";
+                        break;
+                    case 'building/facility':
+                        $tutorial = "Facilities";
+                        break;
+                    case 'building/planetary_defenses':
+                        $tutorial = "Planetary Defense";
+                        break;
+                    case 'building/research':
+                        $tutorial = "Research";
+                        break;
+                    case 'building/shipyard':
+                        $tutorial = "Shipyard";
+                        break;
+                    case 'fleets':
+                        $tutorial = "Fleets";
+                        break;
+                    case 'galaxy-map':
+                        $tutorial = "Galaxy Map";
+                        break;
+                        default:
+                        //code to be executed
+                }
+        @endphp
+
+    <h4><i class="fa fa-angle-right"></i> {{ $tutorial }} Tutorial </h4>
     <a href=" {{ url('/complete-tutorial') }}">I got this.. Skip Tutorial</a>
     <div class="alert alert-info">
         @if(Request::path() == 'home')
-            <a href="{{ url('/planet-overview') }}" class="close" aria-hidden="true">Continue To Planet Overview</a>
+            <a href="{{ url('/planets') }}" class="close" aria-hidden="true">Continue To Planet Overview</a>
             <strong>Messaging : </strong> You can message other players via the envelop on the top navigation bar. <br>
             <strong>Notifications : </strong> You will also receive instant notifications on game events such as
             Game Rate changes, Buildings Constructed, Attacks, etc.. <br>
@@ -15,33 +50,33 @@
             <strong>Outgoing Fleets : </strong> This section will contain all your Fleets outgoing to attack an Enemy Planet. <br>
             <strong>Incoming Fleets : </strong> This section will contain either Incoming Attacks, or your Returning Fleets.<br>
 
-        @elseif(Request::path() == 'planet-overview')
-            <a href="{{ url('/resources') }}" class="close" aria-hidden="true">Continue To Resources</a>
+        @elseif(Request::path() == 'planets')
+            <a href="{{ url('/building/resource') }}" class="close" aria-hidden="true">Continue To Resources</a>
             <strong>Planet Overview : </strong> Compared to your User Control, this view will give you a more detailed view of your Planet.
 
-        @elseif(Request::path() == 'resources')
-            <a href="{{ url('/facilities') }}" class="close" aria-hidden="true">Continue To Facilities</a>
+        @elseif(Request::path() == 'building/resource')
+            <a href="{{ url('/building/facility') }}" class="close" aria-hidden="true">Continue To Facilities</a>
             <strong>Resource Gathering : </strong> You will receive a certain amount of resources every 5 minutes. <br>
             <strong>Resource Upgrades : </strong> Upgrade your resource buildings below to increase the amount you get. Increasing levels will cost more and take longer.
 
-        @elseif(Request::path() == 'facilities')
-            <a href="{{ url('/planetary-defenses') }}" class="close" aria-hidden="true">Continue To Planetary Defenses</a>
+        @elseif(Request::path() == 'building/facility')
+            <a href="{{ url('/building/planetary_defenses') }}" class="close" aria-hidden="true">Continue To Planetary Defenses</a>
             <strong>Resource Storage : </strong> As you may ave already noticed, there is capacity to how many resources you can have
             Increase this Storage Cap by <br> upgrading your storage buildings below.
 
 
-        @elseif(Request::path() == 'planetary-defenses')
-            <a href="{{ url('/research') }}" class="close" aria-hidden="true">Continue To Research</a>
+        @elseif(Request::path() == 'building/planetary_defenses')
+            <a href="{{ url('/building/research') }}" class="close" aria-hidden="true">Continue To Research</a>
             <strong>Planetary Defenses : </strong> When you get attacked, which will happen, you will need to defend your planet. Your first line of  <br>
             defense will be your stationed fleet. However, your planetary defenses will provide continuous damage to the enemy fleet. <br>
             <strong>Upgrade Defenses : </strong> Upgrade your defenses to increase the damage they do to the enemy fleet.
 
-        @elseif(Request::path() == 'research')
-            <a href="{{ url('/shipyard') }}" class="close" aria-hidden="true">Continue To Shipyard</a>
+        @elseif(Request::path() == 'building/research')
+            <a href="{{ url('/building/shipyard') }}" class="close" aria-hidden="true">Continue To Shipyard</a>
             <strong>Research Lab : </strong> Your Research Lab provides bonuses to the gather rate of your resources. Each upgrade provides a 5% increase. <br>
             <strong>Alloy Lab : </strong> Your Alloy Lab will only provide a bonus to your metal rate, however it will be of 15% per upgrade.
 
-        @elseif(Request::path() == 'shipyard')
+        @elseif(Request::path() == 'building/shipyard')
             <a href="{{ url('/fleets') }}" class="close" aria-hidden="true">Continue To Fleets</a>
             <strong>Shipyard Capacity : </strong> Similar to resources, there is also a limit on how many ships of each type can be docked at each Planet. <br>
             <strong>Shipyard Upgrades : </strong> Upgrade your Shipyards to increase the max capacity of that type of ship, for the current Planet. <br>
