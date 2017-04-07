@@ -34,11 +34,12 @@
                 </tr>
             @endforeach
             </tbody>
-            @else
-                <h5>There are currently no Outgoing Attacks. Use your fleets to attack another planet and steal their resources!</h5>
-            @endif
         </table>
+    @else
+        <h5>There are currently no Outgoing Attacks. Use your fleets to attack another planet and steal their resources!</h5>
+    @endif
 </div>
+
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Incoming Fleets</h4>
     @if(count($incoming) > 0)

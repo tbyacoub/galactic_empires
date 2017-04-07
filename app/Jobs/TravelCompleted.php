@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\NotificationReceivedEvent;
 use App\Notification;
 use App\Planet;
 use Illuminate\Bus\Queueable;
@@ -54,7 +55,6 @@ class TravelCompleted implements ShouldQueue
                 $planet->energy() + $this->travel->energy);
         }
 
-//        event()
         $this->travel->delete();
     }
 
@@ -67,6 +67,8 @@ class TravelCompleted implements ShouldQueue
         $notification->read = false;
         $notification->user()->associate($this->travel->toPlanet()->first()->user()->first()->id);
         $notification->save();
+
+        event(new NotificationReceivedEvent($this->travel->toPlanet()->first()->user()->first()->id));
     }
 
 }
