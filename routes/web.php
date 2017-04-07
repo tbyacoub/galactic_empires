@@ -48,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/travels/planets/{origin}/planets/{destination}', 'TravelController@formattedTime');
 
+    Route::get('/complete-tutorial', 'HomeController@completeTutorial');
+
+
     /**
      * PUT routes
      */

@@ -1,9 +1,6 @@
-@extends('layouts.dashboard')
+@extends('layouts.home')
 
-@section('sub-content')
-
-	<div class="row mt">
-
+@section('main')
 		{{-- Galaxy Page specific elements start. --}}
 
 		<div id='galaxy-map-content-container'>
@@ -46,9 +43,7 @@
 			</div>
 
 		</div>
-
 		{{-- Galaxy Page specific elements end. --}}
-    </div>
 
 <script type='text/javascript'>
 	{{-- Pass the names and locations of solar systems to javascript. --}}

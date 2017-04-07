@@ -71,4 +71,9 @@ class User extends Authenticatable
         return $to_travels;
     }
 
+    public function completeTutorial(){
+        $this->tutorial_complete = 1;
+        $this->save();
+    }
+
 }
