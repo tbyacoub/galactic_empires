@@ -21,7 +21,7 @@
     @if( Request::path() ==  'home' )
         <div class="row mt">
             {{--@include('content.fleet-travel')--}}
-            <travels></travels>
+            <travels user-id="{{Auth::user()->id}}"></travels>
         </div>
     @endif
 

@@ -68,6 +68,7 @@
                 EventBus.$emit('update-planet', this.planetId);
             },
             upgradeBuilding(id) {
+                //TODO emit planet changed event wont occur if this component was not working, thus planet not updating.
                 this.$http.put('/buildings/' + id + '/upgrade').then(response => {
                     this.getBuildings(this.planetId);
                     this.EmitPlanetUpdateEvent();

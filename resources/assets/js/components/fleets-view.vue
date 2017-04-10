@@ -180,6 +180,7 @@
                 EventBus.$emit('update-planet', this.planetId);
             },
             upgradeFleet(id, index) {
+                //TODO emit planet changed event wont occur if this component was not working, thus planet not updating.
                 this.$http.put('/fleets/' + id, {'amount': this.fleetCount[index].count}).then(response => {
                     if(response.body == 1) {
                         alert('Not enough metal');

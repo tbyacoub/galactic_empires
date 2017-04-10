@@ -21,7 +21,7 @@
                             <td width="40%">
                                 <p>Arrives on {{ travel.data.arrival }}</p>
                                 <div class="progress progress-striped active">
-                                    <div :data-rate="travel.getPercentRatePerSecond" :data-width="travel.getTravelPercent" class="progress-bar from-travel-pb"  role="progressbar" :style="{width: travel.getTravelPercent + '%'}"></div>
+                                    <div :data-rate="travel.getPercentRatePerSecond" :data-width="travel.getTravelPercent" class="progress-bar"  role="progressbar" :style="{width: travel.getTravelPercent + '%'}"></div>
                                 </div>
                             </td>
                             <td>{{ travel.data.to_planet.name }}</td>
@@ -40,15 +40,32 @@
                 <table class="table table-striped table-advance table-hover">
                     <thead>
                     <tr>
-                        <th>Image</th>
                         <th>Status</th>
-                        <th>Our Planet</th>
                         <th>Duration</th>
                         <th>Enemy Planet</th>
-                        <th>Image</th>
                     </tr>
                     </thead>
                     <tbody>
+                        <tr v-for="travel in incoming">
+                            <td>
+                                <div v-if="travel.type == 'attacking'">
+                                    Enemy is Attacking
+                                </div>
+                                <div v-else>
+                                    Returning Fleet Carrying: <br>
+                                    {{ travel.data.metal }} Metal <br>
+                                    {{ travel.data.energy }} Crystal <br>
+                                    {{ travel.data.crystal }} Energy <br>
+                                </div>
+                            </td>
+                            <td width="40%">
+                                <p>Arrives on {{ travel.data.arrival }}</p>
+                                <div class="progress progress-striped active" style="transform: scaleX(-1)">
+                                    <div :data-rate="travel.getPercentRatePerSecond" :data-width="travel.getTravelPercent" class="progress-bar progress-bar-danger"  role="progressbar" :style="{width: travel.getTravelPercent + '%'}"></div>
+                                </div>
+                            </td>
+                            <td>{{ travel.data.from_planet.name}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -71,11 +88,23 @@
                 planetId: 0,
             }
         },
+        props: {
+            userId: {
+                type:String,
+                required: true
+            }
+        },
         methods: {
             getTravels() {
                 this.$http.get('/planets/'+this.planetId+'/travels').then(response => {
                     this.outgoing = response.body.outgoing;
                     this.incoming = response.body.incoming;
+                });
+            },
+            travelStatusListener() {
+                window.Echo.private('travel.status.'+this.userId).listen('TravelStatusChangedEvent', (object) => {
+                    this.getTravels();
+                    EventBus.$emit('update-planet', this.planetId);
                 });
             },
             updateProgress(){
@@ -106,11 +135,12 @@
                 this.planetId = planet.planet.id;
                 this.getTravels();
             });
+            this.travelStatusListener();
         },
         mounted() {
             window.setInterval( () => {
                 this.updateProgress();
-            }, 2000);
+            }, 1000);
         },
     }
 </script>

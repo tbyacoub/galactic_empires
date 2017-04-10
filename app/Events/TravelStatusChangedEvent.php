@@ -9,18 +9,20 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TravelCompletedEvent implements ShouldBroadcast
+class TravelStatusChangedEvent implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
+
+    private $user_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $user_id
      */
-    public function __construct()
+    public function __construct($user_id)
     {
-        //
+        $this->user_id = $user_id;
     }
 
     /**
@@ -30,6 +32,6 @@ class TravelCompletedEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('travel.status.' . $this->user_id);
     }
 }

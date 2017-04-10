@@ -137,6 +137,7 @@
             },
         },
         created() {
+            //TODO emit planet changed event wont occur if this component was not working, thus planet not updating.
             EventBus.$on('update-planet', planetId => {
                 this.getPlanets();
             });

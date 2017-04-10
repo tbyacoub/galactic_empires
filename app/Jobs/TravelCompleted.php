@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\NotificationReceivedEvent;
+use App\Events\TravelStatusChangedEvent;
 use App\Notification;
 use App\Planet;
 use Illuminate\Bus\Queueable;
@@ -25,12 +26,12 @@ class TravelCompleted implements ShouldQueue
     {
         $this->travel = $travel;
 
-        if ($travel->type = "attacking") {
+        if ($travel->type == "attacking") {
+            event(new TravelStatusChangedEvent($this->travel->toPlanet()->first()->user()->first()->id));
             $this->underAttackNotification();
         } else {
-            $this->fleetReturnedNotification();
+            event(new TravelStatusChangedEvent($this->travel->toPlanet()->first()->user()->first()->id));
         }
-
     }
 
     /**
@@ -41,8 +42,11 @@ class TravelCompleted implements ShouldQueue
     public function handle()
     {
         if ($this->travel->type == 'attacking') {
+            event(new TravelStatusChangedEvent($this->travel->fromPlanet()->first()->user()->first()->id));
+            event(new TravelStatusChangedEvent($this->travel->toPlanet()->first()->user()->first()->id));
             dispatch(new AttackPlanet($this->travel->fleet, $this->travel->from_planet_id, $this->travel->to_planet_id));
         } else {
+            event(new TravelStatusChangedEvent($this->travel->toPlanet()->first()->user()->first()->id));
             $planet = Planet::find($this->travel->to_planet_id);
             $fleets = $planet->fleets()->get();
 
@@ -55,6 +59,8 @@ class TravelCompleted implements ShouldQueue
             $planet->setResources($planet->metal() + $this->travel->metal,
                 $planet->crystal() + $this->travel->crystal,
                 $planet->energy() + $this->travel->energy);
+
+            $this->fleetReturnedNotification();
         }
 
         $this->travel->delete();
@@ -70,6 +76,7 @@ class TravelCompleted implements ShouldQueue
         $notification->user()->associate($this->travel->toPlanet()->first()->user()->first()->id);
         $notification->save();
 
+        echo "attacking fleet notification.\n";
         event(new NotificationReceivedEvent($this->travel->toPlanet()->first()->user()->first()->id));
     }
 
@@ -81,9 +88,10 @@ class TravelCompleted implements ShouldQueue
             . 'Your attack has gained ' . $this->travel->metal . ' Metal, ' . $this->travel->crystal
             . ' Crystal and ' . $this->travel->energy . ' Energy.';
         $notification->read = false;
-        $notification->user()->associate($this->travel->fromPlanet()->first()->user()->first()->id);
+        $notification->user()->associate($this->travel->toPlanet()->first()->user()->first()->id);
         $notification->save();
 
+        echo "returning fleet notification.\n";
         event(new NotificationReceivedEvent($this->travel->toPlanet()->first()->user()->first()->id));
     }
 

@@ -20,13 +20,6 @@ Broadcast::channel('App.User.*', function ($user, $userId) {
     return (int) $user->id === (int) $userId;
 });
 
-Broadcast::channel('test.channel', function ($user) {
-    if(true) {
-        return true;
-    }
-    return false;
-});
-
 Broadcast::channel('received.email.*', function ($user, $user_id) {
    if($user->id == $user_id) {
        return true;
@@ -42,6 +35,13 @@ Broadcast::channel('received.notification.*', function ($user, $user_id) {
 });
 
 Broadcast::channel('building.upgraded.*', function ($user, $user_id) {
+    if($user->id == $user_id){
+        return true;
+    }
+    return false;
+});
+
+Broadcast::channel('travel.status.*', function ($user, $user_id) {
     if($user->id == $user_id){
         return true;
     }

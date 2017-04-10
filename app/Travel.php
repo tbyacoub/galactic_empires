@@ -58,7 +58,7 @@ class Travel extends Model
 
         $time_distance = ceil((sqrt($dx + $dy) * $rate));
 
-        return intval($time_distance / GlobalRate::getGlobalTravelSpeed()) + 5;
+        return intval($time_distance / GlobalRate::getGlobalTravelSpeed()) + 1;
     }
 
     /**

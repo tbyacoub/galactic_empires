@@ -15,6 +15,8 @@ class AttackPlanet implements ShouldQueue
 
     private $attackingPlanetID;
     private $defendingPlanetID;
+    private $defendingPlanet;
+    private $attackingPlanet;
     private $attacker = [], $defender = [], $healthAtt = [], $healthDef = [];
 
 
@@ -32,6 +34,8 @@ class AttackPlanet implements ShouldQueue
         $this->attacker = $attackers;
         $this->attackingPlanetID = $attackID;
         $this->defendingPlanetID = $defendID;
+        $this->defendingPlanet = Planet::find($this->defendingPlanetID);
+        $this->attackingPlanet = Planet::find($this->attackingPlanetID);
     }
 
     /**
@@ -42,12 +46,17 @@ class AttackPlanet implements ShouldQueue
     public function handle()
     {
         $this->returnShips(1000,1000,500);
+        $this->defendingPlanet->setResources(
+            $this->defendingPlanet->metal() - 1000,
+            $this->defendingPlanet->crystal() - 1000,
+            $this->defendingPlanet->energy() - 500
+        );
     }
 
 
     private function returnShips($metal, $crystal, $energy)
     {
-        $time = Travel::time(Planet::find($this->defendingPlanetID), Planet::find($this->attackingPlanetID));
+        $time = Travel::time($this->defendingPlanet, $this->attackingPlanet);
         $travel = new Travel([
             'type' => 'returning',
             'from_planet_id' => $this->defendingPlanetID,
