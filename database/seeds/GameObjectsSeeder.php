@@ -91,14 +91,6 @@ class GameObjectsSeeder extends Seeder
 		// Create the planet types.
         factory(\App\PlanetType::class, 5)->create();
 		
-		
-        /*
-		$users = \App\User::all();
-        foreach($users as $user){
-            $user->planets()->saveMany(factory(\App\Planet::class, 2)->make());
-        }
-		*/
-		
 		// Get all the solar systems.
 		$solar_systems = \App\SolarSystem::all();
 		
@@ -140,24 +132,36 @@ class GameObjectsSeeder extends Seeder
 		// use this as an array index.
 		$user_count = \App\User::count() - 1;
 		
+		// The number of planets to assign per user.
+		$planets_per_user = 2;
+		
 		// While there are still users to assign.
 		while($user_count >= 0)
 		{
 			// Get the user's id.
 			$current_user_id = $users[$user_count]->id;
-			// Get a single random planet row.
-			$current_planet = \App\Planet::inRandomOrder()->first();
 			
-			// If the planet does not already have an assigned user...
-			if ($current_planet->user_id == -1)
+			// While there are still planets to assign to the user...
+			$i = 0;
+			while ($i < $planets_per_user)
 			{
-				// Assign the user to the planet and save the planet to the database.
-				$current_planet->user_id = $current_user_id;
-				$current_planet->save();
+				// Get a single random planet.
+				$current_planet = \App\Planet::inRandomOrder()->first();
 				
-				// Go to the next user.
-				$user_count--;
+				// If the planet does not already have an assigned user...
+				if ($current_planet->user_id == -1)
+				{
+					// Assign the user to the planet and save the planet to the database.
+					$current_planet->user_id = $current_user_id;
+					$current_planet->save();
+					
+					// Get the next planet.
+					$i++;
+				}
 			}
+			
+			// Go to the next user.
+			$user_count--;
 		}
     }
 
