@@ -89,7 +89,12 @@ class GameObjectsSeeder extends Seeder
         }
 
 		// Create the planet types.
-        factory(\App\PlanetType::class, 5)->create();
+		for ($type = 0; $type < 5; $type++)
+		{
+			factory(\App\PlanetType::class, 5)->create([
+				'img_path' => "img/planet_images/planet_test_image_" . ($type + 1) . ".png"
+			]);
+		}
 		
 		// Get all the solar systems.
 		$solar_systems = \App\SolarSystem::all();
