@@ -70,23 +70,69 @@ class GameObjectsSeeder extends Seeder
 
     public function planetSeeder()
     {
+		// The number of solar systems in the galaxy.
         $num_systems = 500;
-
+		// The maximum number of planets a solar system can have.
+		$max_planets_allowed = 12;
+		
+		// Generate the coordinates of each solar system.
         $system_coordinates = $this->genGalaxyLocations($num_systems, 4);
 
+		// For every solar system coordinate...
         for ($i = 0; $i < $num_systems; $i++)
         {
+			// Create a solar system with the current location and the max number of planets.
             factory(\App\SolarSystem::class)->create([
-                'location' => $system_coordinates[$i]
+                'location' => $system_coordinates[$i],
+				'max_planets' => $max_planets_allowed
             ]);
         }
 
+		// Create the planet types.
         factory(\App\PlanetType::class, 5)->create();
-        $users = \App\User::all();
+		
+		
+        /*
+		$users = \App\User::all();
         foreach($users as $user){
             $user->planets()->saveMany(factory(\App\Planet::class, 2)->make());
         }
-        factory(\App\Planet::class, 'unassigned', 25)->create();
+		*/
+		
+		// Get all the solar systems.
+		$solar_systems = \App\SolarSystem::all();
+		
+		// The base name for the planets. Currently Faker does not seem to generate enough unique city names,
+		// so for now each planet will be named in the format "test_planet_<planet num>".
+		$planet_name_base = "test_planet_";
+		// The number of planets created.
+		$planets_created = 0;
+		
+		// For each solar system...
+		foreach ($solar_systems as $system)
+		{
+			// Randomly choose how many planets this solar system will have.
+			$rand_num_planets = mt_rand(4, $max_planets_allowed);
+			
+			// Get the solar system's id.
+			$system_id = $system->id;
+			
+			// For each planet we are to create for this solar system...
+			for ($i = 0; $i < $rand_num_planets; $i++)
+			{
+				// Increment the number of planets created.
+				$planets_created++;
+				
+				// Create the planet name by combining the name base and the current planet number.
+				$planet_name = $planet_name_base . $planets_created;
+				
+				// Create the planet and assign it to the current solar system with the generated name.
+				factory(\App\Planet::class)->create([
+					'name' => $planet_name,
+					'solar_system_id' => $system_id
+				]);
+			}
+		}
     }
 
     private function buildingSeeder()
