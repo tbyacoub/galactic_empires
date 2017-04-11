@@ -103,7 +103,7 @@ class GameObjectsSeeder extends Seeder
 		$solar_systems = \App\SolarSystem::all();
 		
 		// The base name for the planets. Currently Faker does not seem to generate enough unique city names,
-		// so for now each planet will be named in the format "test_planet_<planet num>".
+		// so for now each planet will be named in the format "test_planet_<planet number>".
 		$planet_name_base = "test_planet_";
 		// The number of planets created.
 		$planets_created = 0;
@@ -131,6 +131,32 @@ class GameObjectsSeeder extends Seeder
 					'name' => $planet_name,
 					'solar_system_id' => $system_id
 				]);
+			}
+		}
+		
+		// Get all users.
+		$users = \App\User::all();
+		// Get the number of users in the database. Subtract 1 because we will
+		// use this as an array index.
+		$user_count = \App\User::count() - 1;
+		
+		// While there are still users to assign.
+		while($user_count >= 0)
+		{
+			// Get the user's id.
+			$current_user_id = $users[$user_count]->id;
+			// Get a single random planet row.
+			$current_planet = \App\Planet::inRandomOrder()->first();
+			
+			// If the planet does not already have an assigned user...
+			if ($current_planet->user_id == -1)
+			{
+				// Assign the user to the planet and save the planet to the database.
+				$current_planet->user_id = $current_user_id;
+				$current_planet->save();
+				
+				// Go to the next user.
+				$user_count--;
 			}
 		}
     }
