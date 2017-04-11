@@ -27,7 +27,8 @@ $factory->define(App\SolarSystem::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->name,
-        'max_planets' => $faker->randomNumber($nbDigits = 2),
+        //'max_planets' => $faker->randomNumber($nbDigits = 2),
+		'max_planets' => rand(5, 12),
         'location' => createLocationFaker($faker)
     ];
 });
