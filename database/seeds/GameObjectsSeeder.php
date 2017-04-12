@@ -130,7 +130,7 @@ class GameObjectsSeeder extends Seeder
 				]);
 			}
 		}
-		
+
 		// Get all users.
 		$users = \App\User::all();
 		// Get the number of users in the database. Subtract 1 because we will
@@ -215,7 +215,7 @@ class GameObjectsSeeder extends Seeder
         $bsgsyp = $this->battlestarGalacticaShipyardProduct();
         $sgsyp = $this->stargateShipyardProduct();
 
-
+        $count = 1;
         foreach ($planets as $planet) {
             $this->createBuildings($planet, $mm, $mmu, $mmp);
             $this->createBuildings($planet, $cm, $cmu, $cmp);

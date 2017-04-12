@@ -15,8 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EntrustSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(GameObjectsSeeder::class);
-        $this->call(PostsSeeder::class);
-        $this->call(MailSeeder::class);
         $this->call(GlobalRatesSeeder::class);
     }
 

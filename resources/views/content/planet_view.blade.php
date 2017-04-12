@@ -8,7 +8,7 @@
 			{{-- Planet Overview Template specific elements start. --}}
 
 			<div id='planet_overview_container'>
-				<div id='planet_name_container'>{{ $planet->name }} System</div>
+				<div id='planet_name_container'>{{ $planet->name }}</div>
 
 				<div id='planet_inline_container'>
 					<div id='planet_image_container' style="background-image: url({{ URL::asset('img/star_backdrop.png') }})">
