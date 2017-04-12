@@ -70,23 +70,104 @@ class GameObjectsSeeder extends Seeder
 
     public function planetSeeder()
     {
+		// The number of solar systems in the galaxy.
         $num_systems = 500;
-
+		// The maximum number of planets a solar system can have.
+		$max_planets_allowed = 12;
+		
+		// Generate the coordinates of each solar system.
         $system_coordinates = $this->genGalaxyLocations($num_systems, 4);
 
+		// For every solar system coordinate...
         for ($i = 0; $i < $num_systems; $i++)
         {
+			// Create a solar system with the current location and the max number of planets.
             factory(\App\SolarSystem::class)->create([
-                'location' => $system_coordinates[$i]
+                'location' => $system_coordinates[$i],
+				'max_planets' => $max_planets_allowed
             ]);
         }
 
-        factory(\App\PlanetType::class, 5)->create();
-        $users = \App\User::all();
-        foreach($users as $user){
-            $user->planets()->saveMany(factory(\App\Planet::class, 2)->make());
-        }
-        factory(\App\Planet::class, 'unassigned', 25)->create();
+		// Create the planet types.
+		for ($type = 0; $type < 5; $type++)
+		{
+			factory(\App\PlanetType::class, 5)->create([
+				'img_path' => "img/planet_images/planet_test_image_" . ($type + 1) . ".png"
+			]);
+		}
+		
+		// Get all the solar systems.
+		$solar_systems = \App\SolarSystem::all();
+		
+		// The base name for the planets. Currently Faker does not seem to generate enough unique city names,
+		// so for now each planet will be named in the format "test_planet_<planet number>".
+		$planet_name_base = "test_planet_";
+		// The number of planets created.
+		$planets_created = 0;
+		
+		// For each solar system...
+		foreach ($solar_systems as $system)
+		{
+			// Randomly choose how many planets this solar system will have.
+			$rand_num_planets = mt_rand(4, $max_planets_allowed);
+			
+			// Get the solar system's id.
+			$system_id = $system->id;
+			
+			// For each planet we are to create for this solar system...
+			for ($i = 0; $i < $rand_num_planets; $i++)
+			{
+				// Increment the number of planets created.
+				$planets_created++;
+				
+				// Create the planet name by combining the name base and the current planet number.
+				$planet_name = $planet_name_base . $planets_created;
+				
+				// Create the planet and assign it to the current solar system with the generated name.
+				factory(\App\Planet::class)->create([
+					'name' => $planet_name,
+					'solar_system_id' => $system_id
+				]);
+			}
+		}
+
+		// Get all users.
+		$users = \App\User::all();
+		// Get the number of users in the database. Subtract 1 because we will
+		// use this as an array index.
+		$user_count = \App\User::count() - 1;
+		
+		// The number of planets to assign per user.
+		$planets_per_user = 2;
+		
+		// While there are still users to assign.
+		while($user_count >= 0)
+		{
+			// Get the user's id.
+			$current_user_id = $users[$user_count]->id;
+			
+			// While there are still planets to assign to the user...
+			$i = 0;
+			while ($i < $planets_per_user)
+			{
+				// Get a single random planet.
+				$current_planet = \App\Planet::inRandomOrder()->first();
+				
+				// If the planet does not already have an assigned user...
+				if ($current_planet->user_id == -1)
+				{
+					// Assign the user to the planet and save the planet to the database.
+					$current_planet->user_id = $current_user_id;
+					$current_planet->save();
+					
+					// Get the next planet.
+					$i++;
+				}
+			}
+			
+			// Go to the next user.
+			$user_count--;
+		}
     }
 
     private function buildingSeeder()
@@ -134,7 +215,7 @@ class GameObjectsSeeder extends Seeder
         $bsgsyp = $this->battlestarGalacticaShipyardProduct();
         $sgsyp = $this->stargateShipyardProduct();
 
-
+        $count = 1;
         foreach ($planets as $planet) {
             $this->createBuildings($planet, $mm, $mmu, $mmp);
             $this->createBuildings($planet, $cm, $cmu, $cmp);

@@ -20,8 +20,8 @@ class GalaxyMapController extends Controller
     }
 
     public function solarSystem(SolarSystem $solarSystem){
-        $showRightPanel = false;
-        return view('content.solar_system_view', compact('solarSystem', 'showRightPanel'));
+        $solarSystem = $solarSystem->planets()->with('planetType')->get()->chunk(3);
+        return view('content.solar_system_view', compact('solarSystem'));
     }
 
 }

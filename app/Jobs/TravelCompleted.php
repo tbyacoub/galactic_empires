@@ -84,7 +84,7 @@ class TravelCompleted implements ShouldQueue
     {
         $notification = new Notification();
         $notification->subject = "You're fleet has returned to " . $this->travel->toPlanet()->first()->name . '.';
-        $notification->content = "Returned from Planet " . $this->travel->fromPlanet()->first()->name . '. \n'
+        $notification->content = "Returned from Planet " . $this->travel->fromPlanet()->first()->name . ". \n"
             . 'Your attack has gained ' . $this->travel->metal . ' Metal, ' . $this->travel->crystal
             . ' Crystal and ' . $this->travel->energy . ' Energy.';
         $notification->read = false;

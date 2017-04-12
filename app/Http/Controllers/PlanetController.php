@@ -17,8 +17,7 @@ class PlanetController extends Controller
      */
     public function index()
     {
-        $planets = Auth::user()->planets()->get();
-        return view('planet_overview_view', compact('planets'));
+        return view('content.planet-overview');
     }
 
     /**
