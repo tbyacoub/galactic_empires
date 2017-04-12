@@ -52,4 +52,29 @@ class Fleet extends Model
         $this->capacity = $capacity;
         $this->save();
     }
+
+    public function attack()
+    {
+        return $this->product()->first()->characteristics['attack'];
+    }
+
+    public function health()
+    {
+        return $this->product()->first()->characteristics['health'];
+    }
+
+    public function defense()
+    {
+        return $this->product()->first()->characteristics['defense'];
+    }
+
+    public function multipliers()
+    {
+        return $this->product()->first()->characteristics['multipliers'];
+    }
+
+    public function multiplier($shipType)
+    {
+        return $this->product()->first()->characteristics['multipliers'][$shipType];
+    }
 }
