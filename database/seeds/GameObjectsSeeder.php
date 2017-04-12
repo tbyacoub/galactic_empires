@@ -572,7 +572,7 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'base_attack' => 3500,
+            'base_attack' => 35,
             'base_attack_rate' => 1.10,
         ];
         $product->save();
@@ -583,7 +583,7 @@ class GameObjectsSeeder extends Seeder
     {
         $product = new App\Product();
         $product->characteristics = [
-            'base_attack'=> 5000,
+            'base_attack'=> 50,
             'base_attack_rate' => 1.05,
         ];
         $product->save();
@@ -720,13 +720,13 @@ class GameObjectsSeeder extends Seeder
         $product->characteristics = [
             'multipliers'=> [
                 'babylon5' => 0.5,
-                'battlestar_galactica' => 1.0,
-                'stargate' => 0.5,
+                'battlestar_galactica' => 2.0,
+                'stargate' => 1.0,
             ],
             'health'=>200,
             'speed'=>35,
             'attack'=>55,
-            'defense'=>70
+            'defense'=>55
         ];
         $product->save();
         return $product;
@@ -737,13 +737,13 @@ class GameObjectsSeeder extends Seeder
         $product->characteristics = [
             'multipliers'=> [
                 'babylon5' => 2.0,
-                'battlestar_galactica' => 1.0,
+                'battlestar_galactica' => 1.5,
                 'stargate' => 1.0,
             ],
             'health'=>80,
             'speed'=>100,
             'attack'=>40,
-            'defense'=>20
+            'defense'=>15
         ];
         $product->save();
         return $product;
