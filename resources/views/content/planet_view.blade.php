@@ -16,7 +16,9 @@
 					</div>
 
 					<div id='planet_info_container'>
-						@if ($planet->user()->first()->id == Auth::id())
+						@if($planet->user()->count() == 0)
+							<div id='planet_owner_name'>Owner: uninhabited</div>
+						@elseif ($planet->user()->first()->id == Auth::id())
 							<div id='planet_owner_name'>Owner: Planet is owned by you</div>
 						@else
 							<div id='planet_owner_name'>Owner: {{ $planet->user()->first()->name }}</div>
@@ -32,7 +34,7 @@
 						<div id='planet_metal'>Metal: {{ $planet->metal() }}</div>
 						<div id='planet_crystal'>Crystal: {{ $planet->crystal() }}</div>
 						<div id='planet_energy'>Energy: {{ $planet->energy() }}</div>
-						@if (!($planet->user()->first()->id == Auth::id()))
+						@if ($planet->user()->count() > 0 && !($planet->user()->first()->id == Auth::id()))
 							@if ($planet->user_id >= 0)
 								<div class='info_line_breaker'></div>
 								<div id='attack_button_container'>
