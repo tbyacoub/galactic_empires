@@ -18,6 +18,7 @@ class AttackPlanet implements ShouldQueue
     private $defendingPlanet;
     private $attackingPlanet;
     private $attacker = [], $defender = [], $healthAtt = [], $healthDef = [];
+    private $fleets = [];
     private $planetaryDefense = [];
     private $numRounds = 3;
 
@@ -42,12 +43,12 @@ class AttackPlanet implements ShouldQueue
         $this->defendingPlanet = \App\Planet::find($this->defendingPlanetID); //defending planet
         $this->attackingPlanet = \App\Planet::find($this->attackingPlanetID); //attacking planet
         // echo "planets set\n";
-        $fleet = $this->defendingPlanet->fleets()->get();
+        $this->fleets = $this->defendingPlanet->fleets()->get();
         // echo "temp fleet set\n";
-        for($i = 0; $i < sizeof($fleet); $i++)
+        for($i = 0; $i < sizeof($this->fleets); $i++)
         {
-            $this->defender[$i] = $fleet[$i]->count;
-            $this->healthDef[$i] = $fleet[$i]->product()->first()->characteristics['health'];
+            $this->defender[$i] = $this->fleets[$i]->count;
+            $this->healthDef[$i] = $this->fleets[$i]->product()->first()->characteristics['health'];
             $this->healthAtt[$i] = $this->healthDef[$i];
         }
         // echo "fleet and health arrays set\n";
@@ -88,17 +89,20 @@ class AttackPlanet implements ShouldQueue
             echo "_________________________________________________________________________________\n";
             echo "starting round $i\n";
             echo "_________________________________________________________________________________\n";
-            if($this->destroyed($this->defender) || $this->destroyed($this->attacker))
-            {
-                echo "breaking the loop\n";
-                break;
-            }
             for($j = 0; $j < sizeof($this->attacker); $j++) //each fleet attacks
             {
                 for($k = 0; $k < $this->attacker[$j]; $k++) //each ship within the fleet attacks
                 {
-                    if($this->attacker[$j] > 0)
+
+                    if($this->destroyed($this->defender) || $this->destroyed($this->attacker))
                     {
+                        echo "breaking the loop\n";
+                        break;
+                    }
+
+                    if($this->attacker[$j] > 0) //make sure the fleet is actually available
+                    {
+                        echo "_________________________________________________________________________________\n";
                         $ship = $this->attackingPlanet->fleets()->get()[$j];
                         $index = $this->findEnemy($ship); //find enemy returns the id of the fleet which the attacking ship has the largest damage multiplier against
                         echo "index = $index\n";
@@ -110,6 +114,8 @@ class AttackPlanet implements ShouldQueue
                         echo " causing $damage damage\n";
                         //Make sure to balance it so that every ship does damage to every other ship
                         $this->healthDef[$index] -= $damage; //$this->calculateDamage($ship, $defence);
+                        $t3 = $this->healthDef[$index];
+                        echo "$t3 health remaining\n";
                         if($this->healthDef[$index] <= 0) //if the ship is destroyed, decrease the count of the fleet
                         {
                             $this->defender[$index] -= 1;
@@ -117,17 +123,23 @@ class AttackPlanet implements ShouldQueue
 
                             if($this->defender[$index] > 0) //if the fleet still has ships remaining, increase the health
                             {
-                                $this->healthDef[$index] = $fleets[$index]->product()->first()->characteristics['health'];
+                                $this->healthDef[$index] = $this->fleets[$index]->product()->first()->characteristics['health'];
+                                echo "one of defender's $t2's destroyed\n";
+                            }
+                            else
+                            {
                                 echo "all of defender's $t2's destroyed\n";
                             }
                         }                   
-                        echo "-------------------------------------------------\n";
+                        echo "_________________________________________________________________________________\n";
                         if($this->defender[$index] > 0) //the defending fleet attacks back, as long as it still has ships remaining
                         {
                             echo "$t2 is attacking $t1 back\n";
                             $damage = $this->calculateDamage($defence, $ship);
-                            $t3 = $this->healthAtt[$j];
+                            echo "damage = $damage\n";
                             $this->healthAtt[$j] -= $damage;
+                            $t3 = $this->healthAtt[$j];
+                            echo "$t3 health remaining\n";
                             if($this->healthAtt[$j] <= 0) //damage logic is the same as above
                             {
                                 echo "attackers $t1 destroyed<--------------------\n";
@@ -135,8 +147,12 @@ class AttackPlanet implements ShouldQueue
 
                                 if($this->attacker[$j] > 0)
                                 {
+                                    echo "one of attacker's $t1's destroyed\n";
+                                    $this->healthAtt[$j] = $this->fleets[$j]->product()->first()->characteristics['health'];
+                                }
+                                else
+                                {
                                     echo "all of attacker's $t1's destroyed\n";
-                                    $this->healthAtt[$j] = $fleets[$j]->product()->first()->characteristics['health'];
                                 }
                             }
                         }
@@ -152,10 +168,15 @@ class AttackPlanet implements ShouldQueue
         $energy = 0;
         if($this->success()) //defending planet loses 50% of their resources if the attack is successful
         {
+            echo "VICTORY\n";
             $metal = $this->defendingPlanet->metal() * 0.5; 
             $crystal = $this->defendingPlanet->crystal() * 0.5;
             $energy = $this->defendingPlanet->energy() * 0.5;
             $this->defendingPlanet->setResources($metal, $crystal, $energy); //THIS HAS TO CHANGE IF WE DO SOMETHING OTHER THAN 50%
+        }
+        else
+        {
+            echo "DEFEAT\n";
         }
 
         $this->returnShips($metal, $crystal, $energy); //return ships to the attacking planet with any resources gained
@@ -222,7 +243,7 @@ class AttackPlanet implements ShouldQueue
         {
             if($fleets[$i] > 0)
             {
-                echo "destroyed is returning false\n";
+                echo "destroyed is returning false at fleets[$i]\n";
                 return false;
             }
         }
@@ -240,7 +261,7 @@ class AttackPlanet implements ShouldQueue
         foreach($mults as $mult)
         {
             echo "mult = $mult\n";
-            if($mult > $max && $this->defender[$i] > 0)
+            if(($mult > $max) && ($this->defender[$i] > 0))
             {
                 $index = $i;
                 $max = $mult;
