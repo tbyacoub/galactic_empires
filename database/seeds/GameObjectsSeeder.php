@@ -71,7 +71,8 @@ class GameObjectsSeeder extends Seeder
     public function planetSeeder()
     {
 		// The number of solar systems in the galaxy.
-        $num_systems = 500;
+        //$num_systems = 500;
+        $num_systems = 50;
 		// The maximum number of planets a solar system can have.
 		$max_planets_allowed = 12;
 		
@@ -158,6 +159,7 @@ class GameObjectsSeeder extends Seeder
 				{
 					// Assign the user to the planet and save the planet to the database.
 					$current_planet->user_id = $current_user_id;
+					$current_planet->colonized = true;
 					$current_planet->save();
 					
 					// Get the next planet.

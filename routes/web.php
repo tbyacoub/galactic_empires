@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/complete-tutorial', 'HomeController@completeTutorial');
 
+    Route::get('planets/{colonize_planet}/colonize', 'PlanetController@colonize');
+
 
     /**
      * PUT routes
@@ -78,6 +80,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/buildings/{building}/upgrade', 'BuildingController@upgrade');
 
     Route::put('planets/{planet}/edit/resources/{resource}', 'PlanetController@updateResource');
+
+    Route::put('planets/{colonize_planet}/colonize/{from_planet}', 'PlanetController@updateColonize');
 
     /**
      * Resource routes

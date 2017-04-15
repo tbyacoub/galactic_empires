@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NotificationReceivedEvent;
 use App\Notification;
 use App\Planet;
+use App\Traits\Colonizeable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -159,6 +160,24 @@ class PlanetController extends Controller
         event(new NotificationReceivedEvent($planet->user()->first()->id));
 
         return back();
+    }
+
+    public function colonize(Planet $colonize_planet){
+        return view('content.planet-colonize', compact('colonize_planet'));
+    }
+
+    public function updateColonize(Planet $colonize_planet, Planet $from_planet){
+        if($from_planet->canAffordColonization()){
+            $colonize_planet->setResources(
+                $colonize_planet->metal() - Colonizeable::metalCost(),
+                $colonize_planet->crystal() - Colonizeable::crystalCost(),
+                $colonize_planet->energy() - Colonizeable::energyCost());
+                $colonize_planet->user_id = Auth::user()->id;
+                $colonize_planet->save();
+
+        }else{
+            return back()->withErrors([ $from_planet->name . " can't afford to Colonize " . $colonize_planet->name ."."]);
+        }
     }
 
     /**

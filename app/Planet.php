@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\Traits\Colonizeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -185,5 +186,10 @@ class Planet extends Model
     {
         $this->{$storage} = $capacity;
         $this->save();
+    }
+
+    public function canAffordColonization(){
+        return $this->metal() >= Colonizeable::metalCost() && $this->crystal() >= Colonizeable::crystalCost() && $this->energy() >= Colonizeable::energyCost();
+//        return $this->metal() >= 500 && $this->crystal() >= 500 && $this->energy() >= 500;
     }
 }
