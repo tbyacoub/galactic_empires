@@ -54,7 +54,7 @@ class AttackPlanet implements ShouldQueue
         // echo "fleet and health arrays set\n";
         $this->planetaryDefense = $this->defendingPlanet->buildingsOfType('planetary_defense')->get();
         // echo "planetary defenses set\n";
-        $this->handle();
+        // $this->handle();
     }
 
     /**
