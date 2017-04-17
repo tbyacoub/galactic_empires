@@ -39,6 +39,10 @@ class Planet extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function isBeingColonized(){
+        return $this->hasOne('App\Colonization', 'planet_id', 'id')->get()->count() == 1;
+    }
+
     /**
      * Returns the solar system where this planet resides.
      *
@@ -190,6 +194,5 @@ class Planet extends Model
 
     public function canAffordColonization(){
         return $this->metal() >= Colonizeable::metalCost() && $this->crystal() >= Colonizeable::crystalCost() && $this->energy() >= Colonizeable::energyCost();
-//        return $this->metal() >= 500 && $this->crystal() >= 500 && $this->energy() >= 500;
     }
 }

@@ -159,7 +159,6 @@ class GameObjectsSeeder extends Seeder
 				{
 					// Assign the user to the planet and save the planet to the database.
 					$current_planet->user_id = $current_user_id;
-					$current_planet->colonized = true;
 					$current_planet->save();
 					
 					// Get the next planet.

@@ -11,14 +11,14 @@ namespace App\Traits;
 trait Colonizeable
 {
     public static function metalCost(){
-        return 100;
+        return 5000;
     }
 
     public static function crystalCost(){
-        return 100;
+        return 5000;
     }
 
     public static function energyCost(){
-        return 100;
+        return 5000;
     }
 }

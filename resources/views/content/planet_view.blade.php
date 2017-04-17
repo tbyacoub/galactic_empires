@@ -34,29 +34,32 @@
 						<div id='planet_metal'>Metal: {{ $planet->metal() }}</div>
 						<div id='planet_crystal'>Crystal: {{ $planet->crystal() }}</div>
 						<div id='planet_energy'>Energy: {{ $planet->energy() }}</div>
-						@if ($planet->user()->count() > 0 && !($planet->user()->first()->id == Auth::id()))
-							@if ($planet->user_id >= 0 && $planet->colonized == true)
-								<div class='info_line_breaker'></div>
-								<div id='attack_button_container'>
-									<a id='attack_link' href="{{ url('/travels/create/'.$planet->id) }}">Attack</a>
-								</div>
-							@else
-								<hr>
-								<div> Planet is being colonized by {{ $planet->user()->name }}</div>
-							@endif
-                        @elseif ($planet->user()->count() > 0 && $planet->colonized == false && $planet->user()->first()->id == Auth::id())
-                            <hr>
-                            <div> You're currently colonizing this Planet</div>
-						@elseif ($planet->user_id < 0)
-							<hr>
-							<h3>Colonize Planet</h3>
-							<div>Metal Cost to Colonize: {{ \App\Traits\Colonizeable::metalCost() }} </div>
-							<div>Crystal Cost to Colonize: {{ \App\Traits\Colonizeable::crystalCost() }} </div>
-							<div>Energy Cost to Colonize: {{ \App\Traits\Colonizeable::energyCost() }} </div>
 
+						{{--Check if Planet is being colonized--}}
+						@if($planet->isBeingColonized())
+								<hr>
+								<div> Planet is currently being colonized.</div>
+						{{--If not being colonized, and no one owns it check if it CAN be colonzied--}}
+						@elseif(!($planet->isBeingColonized()) && $planet->user_id < 0)
+								<hr>
+								<h3>Colonize Planet</h3>
+								<div>Metal Cost to Colonize: {{ \App\Traits\Colonizeable::metalCost() }} </div>
+								<div>Crystal Cost to Colonize: {{ \App\Traits\Colonizeable::crystalCost() }} </div>
+								<div>Energy Cost to Colonize: {{ \App\Traits\Colonizeable::energyCost() }} </div>
+
+								<div class='info_line_breaker'></div>
+								<div id='colonize_button_container'>
+									<a id='colonize_link' href='{{ url('/planets/'. $planet->id .'/colonize') }}'>Colonize</a>
+								</div>
+						{{--Check if it belongs to current user--}}
+						@elseif($planet->user_id == Auth::id())
 							<div class='info_line_breaker'></div>
-							<div id='colonize_button_container'>
-								<a id='colonize_link' href='{{ url('/planets/'. $planet->id .'/colonize') }}'>Colonize</a>
+							<div>You currently own this planet.</div>
+						{{--Otherwise, this planet belongs to someone else and can be attacked.--}}
+						@else
+							<div class='info_line_breaker'></div>
+							<div id='attack_button_container'>
+								<a id='attack_link' href="{{ url('/travels/create/'.$planet->id) }}">Attack</a>
 							</div>
 						@endif
 					</div>

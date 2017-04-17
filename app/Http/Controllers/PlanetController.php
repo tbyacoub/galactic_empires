@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Colonization;
 use App\Events\NotificationReceivedEvent;
+use App\Jobs\ColonizedPlanet;
 use App\Notification;
 use App\Planet;
 use App\Traits\Colonizeable;
+use App\Travel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -167,17 +171,39 @@ class PlanetController extends Controller
     }
 
     public function updateColonize(Planet $colonize_planet, Planet $from_planet){
-        if($from_planet->canAffordColonization()){
-            $colonize_planet->setResources(
-                $colonize_planet->metal() - Colonizeable::metalCost(),
-                $colonize_planet->crystal() - Colonizeable::crystalCost(),
-                $colonize_planet->energy() - Colonizeable::energyCost());
-                $colonize_planet->user_id = Auth::user()->id;
-                $colonize_planet->save();
+        $errors = [];
+
+        if(($colonize_planet->isBeingColonized())){
+            array_push($errors, "Planet is already being colonized.");
+            return back()->withErrors($errors);
+        }
+        elseif($from_planet->canAffordColonization()){
+            $from_planet->setResources(
+            // Remove costs.
+            $from_planet->metal() - Colonizeable::metalCost(),
+            $from_planet->crystal() - Colonizeable::crystalCost(),
+            $from_planet->energy() - Colonizeable::energyCost());
+            $from_planet->save();
+
+            $col_time = Travel::time($from_planet, $colonize_planet);
+
+            // Create new Colonization
+            $colonization = new Colonization([
+                'planet_id' => $colonize_planet->id,
+                'start' => Carbon::now(),
+                'end' => Carbon::now()->addMinutes($col_time)
+            ]);
+            $colonization->save();
+
+            // dispatch colonization job
+            dispatch((new ColonizedPlanet($colonization, Auth::user(), $col_time))->delay(Carbon::now()->addMinutes($col_time)));
 
         }else{
-            return back()->withErrors([ $from_planet->name . " can't afford to Colonize " . $colonize_planet->name ."."]);
+            array_push($errors, $from_planet->name . " can't afford to Colonize " . $colonize_planet->name .".");
+            return back()->withErrors($errors);
         }
+
+        return redirect('/home');
     }
 
     /**
