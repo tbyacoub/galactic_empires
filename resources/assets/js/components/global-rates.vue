@@ -123,7 +123,7 @@
                                         <button @click="update(8)" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                                     </div>
                                     <div class="slider pull-right">
-                                        <vue-slider ref="slider" :width="200" v-model="count[8]" :min="1" :max="100"></vue-slider>
+                                        <vue-slider ref="slider" :width="200" v-model="count[8]" :min="1" :max="200"></vue-slider>
                                     </div>
                                 </div>
                             </li>

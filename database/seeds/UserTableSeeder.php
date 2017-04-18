@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-//        $this->admin = \App\Role::where('name', 'admin')->get()[0];
+        $this->admin = \App\Role::where('name', 'admin')->get()[0];
 //        $this->activatedPlayer = \App\Role::where('name', 'player')->get()[0];
 //        $this->suspendedPlayer = \App\Role::where('name', 'premium-player')->get()[0];
 //        $this->premiumPlayer = \App\Role::where('name', 'suspended-player')->get()[0];

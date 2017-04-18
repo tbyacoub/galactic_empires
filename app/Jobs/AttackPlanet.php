@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Planet;
-use App\Travel;
+use App\Events\NotificationReceivedEvent;
+use App\Notification;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -21,6 +21,7 @@ class AttackPlanet implements ShouldQueue
     private $fleets = [];
     private $planetaryDefense = [];
     private $numRounds = 3;
+    private $attackerWon = false;
 
 
     use InteractsWithQueue, Queueable, SerializesModels;
@@ -169,6 +170,7 @@ class AttackPlanet implements ShouldQueue
         if($this->success()) //defending planet loses 50% of their resources if the attack is successful
         {
             echo "VICTORY\n";
+            $this->attackerWon = true;
             $metal = $this->defendingPlanet->metal() * 0.5; 
             $crystal = $this->defendingPlanet->crystal() * 0.5;
             $energy = $this->defendingPlanet->energy() * 0.5;
@@ -286,6 +288,13 @@ class AttackPlanet implements ShouldQueue
 
     private function returnShips($metal, $crystal, $energy)
     {
+        if($this->attackerWon) {
+            $this->won($this->attackingPlanet->user()->first()->id);
+            $this->lost($this->defendingPlanet->user()->first()->id);
+        } else {
+            $this->lost($this->attackingPlanet->user()->first()->id);
+            $this->won($this->defendingPlanet->user()->first()->id);
+        }
         echo "starting travel\n";
         $time = \App\Travel::time($this->defendingPlanet, $this->attackingPlanet);
         $travel = new \App\Travel([
@@ -304,5 +313,27 @@ class AttackPlanet implements ShouldQueue
         dispatch((new TravelCompleted($travel))->delay(Carbon::now()->addMinutes($time)));
         echo "travel sent\n";
 
+    }
+
+    private function lost($user_id){
+        $notification = new Notification([
+            "subject" => "Battle Completed.",
+            "content" => "You have lost the battle.",
+            "read" => false,
+        ]);
+        $notification->user()->associate($user_id);
+        $notification->save();
+        event(new NotificationReceivedEvent($user_id));
+    }
+
+    private function won($user_id) {
+        $notification = new Notification([
+            "subject" => "Battle Completed.",
+            "content" => "You have won the battle.",
+            "read" => false,
+        ]);
+        $notification->user()->associate($user_id);
+        $notification->save();
+        event(new NotificationReceivedEvent($user_id));
     }
 }

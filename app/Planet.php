@@ -149,9 +149,9 @@ class Planet extends Model
     public function setResources($metal, $crystal, $energy)
     {
         $this->resources = [
-            'metal' => ceil($metal),
-            'crystal' => ceil($crystal),
-            'energy' => ceil($energy)
+            'metal' => min(ceil($metal), $this->metal_storage),
+            'crystal' => min(ceil($crystal), $this->crystal_storage),
+            'energy' => min(ceil($energy), $this->energy_storage)
         ];
         $this->save();
     }

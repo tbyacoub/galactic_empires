@@ -43,7 +43,7 @@ class PlanetController extends Controller
             "incoming" => [],
             "outgoing" => [],
         ];
-        foreach ($planet->fromTravels()->with('toPlanet')->get() as $outgoing) {
+        foreach ($planet->fromTravels()->with('toPlanet')->where('type', 'attacking')->get() as $outgoing) {
             $object = [
                 'data' => $outgoing,
                 'getTravelPercent' => $outgoing->getTravelPercent(),

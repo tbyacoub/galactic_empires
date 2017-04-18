@@ -48,7 +48,7 @@
                     <tbody>
                         <tr v-for="travel in incoming">
                             <td>
-                                <div v-if="travel.type == 'attacking'">
+                                <div v-if="travel.data.type == 'attacking'">
                                     Enemy is Attacking
                                 </div>
                                 <div v-else>
