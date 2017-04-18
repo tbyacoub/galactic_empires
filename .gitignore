@@ -1,9 +1,6 @@
 /node_modules
 /resources/assets/js/components/my-canvas.vue
-/vendor
 /.idea
-Homestead.json
-Homestead.yaml
 .env
 /java-server
 calvin_mcbride.txt
