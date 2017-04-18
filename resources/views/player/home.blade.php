@@ -31,9 +31,13 @@
 
             <div class="col-md-4 centered">
                 <div class="right-divider hidden-sm hidden-xs">
+                <br>
+                <br>
                 <h4>Total Metal: {{ $user->metal() }}</h4>
                 <br>
+                <br>
                 <h4>Total Crystal: {{ $user->crystal() }}</h4>
+                <br>
                 <br>
                 <h4>Total Energy: {{ $user->energy() }}</h4>
                 </div>
@@ -65,6 +69,7 @@
                     <div id="planets" class="tab-pane active">
                         <div class="row">
                             <h6>Planets</h6>
+                            @include('player.planets')
                         </div>
                     </div>
 

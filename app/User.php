@@ -76,7 +76,7 @@ class User extends Authenticatable
         $this->save();
     }
 
-    public function numbabylon5()
+    public function numBabylon5()
     {
         $planets = $this->planets()->get();
         $ships = 0;
