@@ -90,7 +90,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        
+    }
+
+    public function homePage()
+    {
+        $user = Auth::user();
+        return view('content.player_view', compact('user'));
+
     }
 
     /**
