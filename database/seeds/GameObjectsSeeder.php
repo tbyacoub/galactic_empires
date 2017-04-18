@@ -11,8 +11,11 @@ class GameObjectsSeeder extends Seeder
      */
     public function run()
     {
+        echo "planetSeeder\n";
         $this->planetSeeder();
+        echo "buildingSedder\n";
         $this->buildingSeeder();
+        echo "fleetSeeder\n";
         $this->fleetSeeder();
     }
 
@@ -71,17 +74,18 @@ class GameObjectsSeeder extends Seeder
     public function planetSeeder()
     {
 		// The number of solar systems in the galaxy.
-        $num_systems = 500;
+        $num_systems = 10;
 
 		// The maximum number of planets a solar system can have.
 		$max_planets_allowed = 12;
-		
-		// Generate the coordinates of each solar system.
+
+		// Generate the coordinates of EACH solar system.
         $system_coordinates = $this->genGalaxyLocations($num_systems, 4);
 
 		// For every solar system coordinate...
         for ($i = 0; $i < $num_systems; $i++)
         {
+            echo "creating system ".$i."\n";
 			// Create a solar system with the current location and the max number of planets.
             factory(\App\SolarSystem::class)->create([
                 'location' => $system_coordinates[$i],
@@ -92,38 +96,41 @@ class GameObjectsSeeder extends Seeder
 		// Create the planet types.
 		for ($type = 0; $type < 5; $type++)
 		{
+            echo "creating type ".$i."\n";
 			factory(\App\PlanetType::class, 5)->create([
 				'img_path' => "img/planet_images/planet_test_image_" . ($type + 1) . ".png"
 			]);
 		}
-		
+
 		// Get all the solar systems.
 		$solar_systems = \App\SolarSystem::all();
-		
+
 		// The base name for the planets. Currently Faker does not seem to generate enough unique city names,
 		// so for now each planet will be named in the format "test_planet_<planet number>".
 		$planet_name_base = "test_planet_";
 		// The number of planets created.
 		$planets_created = 0;
-		
+
 		// For each solar system...
 		foreach ($solar_systems as $system)
 		{
+            echo "creating planets in system ".$system->id."\n";
 			// Randomly choose how many planets this solar system will have.
 			$rand_num_planets = mt_rand(4, $max_planets_allowed);
-			
+
 			// Get the solar system's id.
 			$system_id = $system->id;
-			
+
 			// For each planet we are to create for this solar system...
 			for ($i = 0; $i < $rand_num_planets; $i++)
 			{
+                echo "\tPlanet ".$i."\n";
 				// Increment the number of planets created.
 				$planets_created++;
-				
+
 				// Create the planet name by combining the name base and the current planet number.
 				$planet_name = $planet_name_base . $planets_created;
-				
+
 				// Create the planet and assign it to the current solar system with the generated name.
 				factory(\App\Planet::class)->create([
 					'name' => $planet_name,
@@ -137,35 +144,35 @@ class GameObjectsSeeder extends Seeder
 		// Get the number of users in the database. Subtract 1 because we will
 		// use this as an array index.
 		$user_count = \App\User::count() - 1;
-		
+
 		// The number of planets to assign per user.
 		$planets_per_user = 2;
-		
+
 		// While there are still users to assign.
 		while($user_count >= 0)
 		{
 			// Get the user's id.
 			$current_user_id = $users[$user_count]->id;
-			
+
 			// While there are still planets to assign to the user...
 			$i = 0;
 			while ($i < $planets_per_user)
 			{
 				// Get a single random planet.
 				$current_planet = \App\Planet::inRandomOrder()->first();
-				
+
 				// If the planet does not already have an assigned user...
 				if ($current_planet->user_id == -1)
 				{
 					// Assign the user to the planet and save the planet to the database.
 					$current_planet->user_id = $current_user_id;
 					$current_planet->save();
-					
+
 					// Get the next planet.
 					$i++;
 				}
 			}
-			
+
 			// Go to the next user.
 			$user_count--;
 		}
@@ -218,6 +225,7 @@ class GameObjectsSeeder extends Seeder
 
         $count = 1;
         foreach ($planets as $planet) {
+            echo "Planet ".$planet->id."\n";
             $this->createBuildings($planet, $mm, $mmu, $mmp);
             $this->createBuildings($planet, $cm, $cmu, $cmp);
             $this->createBuildings($planet, $er, $eru, $erp);
@@ -774,6 +782,7 @@ class GameObjectsSeeder extends Seeder
 
         foreach($planets as $planet)
         {
+            echo "Planet ".$planet->id."\n";
             $this->createFleets($planet, $b5d, $b5p);
             $this->createFleets($planet, $bsgd, $bsgp);
             $this->createFleets($planet, $spd, $sp);

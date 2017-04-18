@@ -134,7 +134,7 @@ class Planet extends Model
 
     public function getResearchResourceRate($building, $resource)
     {
-        $research_building = $this->buildingOfName($building);
+        $research_building = $this->buildingOfName($building)->first();
         $resourceRate = $resource . '_bonus_rate';
         return 1 + ($research_building->current_level * $research_building->product->characteristics[$resourceRate]);
     }

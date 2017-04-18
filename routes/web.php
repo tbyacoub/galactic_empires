@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::put('/fleets/{fleet}', 'FleetController@update');
 
-    Route::get('/building/{type}', 'buildingController@index');
+    Route::get('/building/{type}', 'BuildingController@index');
 
     Route::post('/mails/create', 'MailController@createWParam');
 

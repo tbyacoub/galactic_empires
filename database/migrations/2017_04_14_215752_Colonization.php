@@ -27,6 +27,6 @@ class Colonization extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colonization');
+        Schema::dropIfExists('colonizations');
     }
 }
