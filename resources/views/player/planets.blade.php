@@ -36,7 +36,7 @@
 				@if($user->id != Auth::user()->id)
 					<td>
 						<form>
-							<a href="/travels/create/1" class="btn btn-danger btn-block" role="button">Attack Planet</a>
+							<a href="/travels/create/{{ $planet->id }}" class="btn btn-danger btn-block" role="button">Attack Planet</a>
 						</form>
 					</td>
 				@endif

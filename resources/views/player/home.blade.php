@@ -27,6 +27,10 @@
             <div class="col-md-4 profile-text">
                 <h3 align='center'>{{ $user->name }}</h3>
                 <hr>
+                @if($user->id != Auth::user()->id)
+                    <br>
+                    <div align="center"><a href="#" class="btn btn-primary" role="button">Message User</a></div>
+                @endif
             </div>
 
             <div class="col-md-4 centered">
@@ -54,12 +58,12 @@
                     <li class="active">
                         <a data-toggle="tab" href="#planets">Planets</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a data-toggle="tab" href="#bonuses" class="contact-map">Buildings</a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#account">Account</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
 
@@ -68,7 +72,6 @@
 
                     <div id="planets" class="tab-pane active">
                         <div class="row">
-                            <h6>Planets</h6>
                             @include('player.planets')
                         </div>
                     </div>
