@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('planets/{colonize_planet}/colonize', 'PlanetController@colonize');
 
-    Route::get('/playerTest', 'UserController@homePage');
+    Route::get('/player/{user}', 'UserController@homePage');
 
 
     /**

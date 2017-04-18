@@ -14,6 +14,9 @@
 		<th>Metal</th>
 		<th>Crystal</th>
 		<th>Energy</th>
+		@if($user->id != Auth::user()->id)
+			<th></th>
+		@endif	
 		<tr>
 	</thread>
 
@@ -30,6 +33,13 @@
 				<td>{{ $planet->metal() }}</td>
 				<td>{{ $planet->crystal() }}</td>
 				<td>{{ $planet->energy() }}</td>
+				@if($user->id != Auth::user()->id)
+					<td>
+						<form>
+							<a href="/travels/create/1" class="btn btn-danger btn-block" role="button">Attack Planet</a>
+						</form>
+					</td>
+				@endif
 
 		@endforeach
 

@@ -5,7 +5,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered"><a href="#"><img src="{{ URL::asset('img/ui-sam.jpg') }}" class="img-circle" width="60"></a></p>
-            <h5 class="centered">{{ Auth::user()->name }}</h5>
+            <h5 class="centered"><a href="/player/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a></h5>
 
             <li class="mt">
                 <a class="{{ Request::path() ==  'home' ? 'active' : ''  }}" href="{{ url('/home') }}">

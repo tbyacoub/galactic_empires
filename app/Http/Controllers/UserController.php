@@ -93,11 +93,9 @@ class UserController extends Controller
         
     }
 
-    public function homePage()
+    public function homePage(User $user)
     {
-        $user = Auth::user();
         return view('player.home', compact('user'));
-
     }
 
     /**
