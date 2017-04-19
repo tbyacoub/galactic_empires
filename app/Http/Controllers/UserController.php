@@ -90,7 +90,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        
+    }
+
+    public function homePage(User $user)
+    {
+        return view('player.home', compact('user'));
     }
 
     /**

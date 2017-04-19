@@ -76,4 +76,40 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function numBabylon5()
+    {
+        $planets = $this->planets()->get();
+        $ships = 0;
+        foreach($planets as $planet)
+        {
+            $ships += $planet->fleets()->get()[0]->count;
+        }
+
+        return $ships;
+    }
+
+    public function numBattlestarGalactica()
+    {
+        $planets = $this->planets()->get();
+        $ships = 0;
+        foreach($planets as $planet)
+        {
+            $ships += $planet->fleets()->get()[1]->count;
+        }
+
+        return $ships;
+    }
+
+    public function numStargate()
+    {
+        $planets = $this->planets()->get();
+        $ships = 0;
+        foreach($planets as $planet)
+        {
+            $ships += $planet->fleets()->get()[2]->count;
+        }
+
+        return $ships;
+    }
+
 }
