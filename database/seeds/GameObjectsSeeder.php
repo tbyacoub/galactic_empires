@@ -74,7 +74,7 @@ class GameObjectsSeeder extends Seeder
     public function planetSeeder()
     {
 		// The number of solar systems in the galaxy.
-        $num_systems = 10;
+        $num_systems = 4;
 
 		// The maximum number of planets a solar system can have.
 		$max_planets_allowed = 12;
