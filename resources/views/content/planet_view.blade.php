@@ -21,7 +21,7 @@
 						@elseif ($planet->user()->first()->id == Auth::id())
 							<div id='planet_owner_name'>Owner: Planet is owned by you</div>
 						@else
-							<div id='planet_owner_name'>Owner: {{ $planet->user()->first()->name }}</div>
+							<div id='planet_owner_name'><a href="/player/{{ $planet->user()->first()->id }}">Owner: {{ $planet->user()->first()->name }}</a></div>
 						@endif
 						<div id='solar_system_name'>Solar System: {{ $planet->SolarSystem()->first()->name }}</div>
 						<div id='solar_system_location'>System Location: {{ $planet->SolarSystem()->first()->location[0] .', '. $planet->SolarSystem()->first()->location[0]}}</div>

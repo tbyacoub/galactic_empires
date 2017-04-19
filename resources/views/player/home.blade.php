@@ -27,10 +27,12 @@
             <div class="col-md-4 profile-text">
                 <h3 align='center'>{{ $user->name }}</h3>
                 <hr>
-                @if($user->id != Auth::user()->id)
+                {{-- @if($user->id != Auth::user()->id)
                     <br>
                     <div align="center"><a href="#" class="btn btn-primary" role="button">Message User</a></div>
-                @endif
+                @endif --}}
+                <br>
+                <h4 align="center">Playing since {{ $user->created_at->toFormattedDateString() }}</h4>
             </div>
 
             <div class="col-md-4 centered">
