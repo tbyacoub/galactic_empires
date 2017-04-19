@@ -212,9 +212,9 @@ class AttackPlanet implements ShouldQueue
     */
     private function planetaryDefense()
     {
-        $index = mt_rand(0, (sizeof($this->attacker) - 1));
         foreach($this->planetaryDefense as $defense)
         {
+            $index = mt_rand(0, (sizeof($this->attacker) - 1));
             if($this->attacker[$index] > 0)
             {
                 echo "index = $index\n";
