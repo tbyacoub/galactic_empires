@@ -24,7 +24,7 @@
 		
 		@foreach($user->planets()->get() as $planet)
 			<tr>
-				<td><img src="{{ $planet->PlanetType()->first()->img_path }}" alt="Planet Image" style="width:75px; height: 75px;"></td>
+				<td><img src="{{ URL::asset($planet->planetType->img_path) }}" alt="Planet Image" style="width:75px; height: 75px;"></td>
 				<td>{{ $planet->name }}</td>
 				<td>{{ $planet->solarSystem()->first()->name }}</td>
 				@foreach($planet->fleets()->get() as $fleet)
