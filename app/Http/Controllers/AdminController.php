@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function globalRates(){
         $globals = GlobalRate::first()->get();
-        return view('admin.game-SETTINGS', compact('globals'));
+        return view('admin.game-settings', compact('globals'));
     }
 
     /**
