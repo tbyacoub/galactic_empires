@@ -186,7 +186,14 @@ class AttackPlanet implements ShouldQueue
         {
             $fleet = $this->defendingPlanet->fleets()->get()[$i];
             $name = $fleet->description()->first()->name;
-            $fleet->count = $this->defender[$i];
+            if($this->defender[$i] >= 0)
+            {
+                $fleet->count = $this->defender[$i];
+            }
+            else
+            {
+                $fleet->count = 0;
+            }
             echo "updating defending $name to $fleet->count\n";
             $fleet->save();
         }
@@ -294,6 +301,14 @@ class AttackPlanet implements ShouldQueue
         } else {
             $this->lost($this->attackingPlanet->user()->first()->id);
             $this->won($this->defendingPlanet->user()->first()->id);
+        }
+
+        foreach($this->attacker as $fleet)
+        {
+            if($fleet < 0)
+            {
+                $fleet = 0;
+            }
         }
         echo "starting travel\n";
         $time = \App\Travel::time($this->defendingPlanet, $this->attackingPlanet);
